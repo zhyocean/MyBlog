@@ -119,7 +119,13 @@ public class BackControl {
 
         Map<String, String> articleMap = articleService.findArticleTitleByArticleIdAndOriginalAuthor(Long.parseLong(articleId), originalAuthor);
         model.addAttribute("articleTitle",articleMap.get("articleTitle"));
-        model.addAttribute("articleTabloid",articleMap.get("articleTabloid").substring(0,110));
+        String articleTabloid = articleMap.get("articleTabloid");
+        if(articleTabloid.length() >= 110){
+            model.addAttribute("articleTabloid",articleTabloid.substring(0,110));
+        } else {
+            model.addAttribute("articleTabloid",articleTabloid);
+        }
+
 
         //将文章id和原作者存入响应头
         response.setHeader("articleId",articleId);

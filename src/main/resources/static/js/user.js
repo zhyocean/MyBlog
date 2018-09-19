@@ -130,6 +130,7 @@
                     }
                     $('#email').attr("value",data['result']['email']);
                     $('#personalBrief').val(data['result']['personalBrief']);
+                    $('#headPortrait').attr("src",data['avatarImgUrl']);
                 }
             },
             error:function () {
