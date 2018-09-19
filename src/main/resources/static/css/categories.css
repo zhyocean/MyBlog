@@ -1,0 +1,54 @@
+@media screen and (min-width: 992px) {
+    .site-inner{
+        margin: 70px 90px 0;
+    }
+    .categories-comment{
+        margin: 30px 0 0 10px;
+        display: inline-block;
+    }
+}
+@media screen and (max-width: 768px) {
+    .site-inner{
+        margin: 70px 5% 0;
+    }
+    .categories{
+        margin-bottom: 30px;
+    }
+    .categories-comment{
+        margin: 80px 0 0 10px;
+        display: inline-block;
+    }
+}
+.categories-title{
+    text-align: left;
+}
+.category{
+    margin-top: 6px;
+    padding: 3px;
+}
+.categories-comment a{
+    padding-bottom: 2px;
+    color: #616161;
+    border-bottom: 1px solid #999;
+}
+.categories-comment a:hover{
+    text-decoration: none;
+    cursor: pointer;
+    color: #38b7ea;
+}
+.categoryNum{
+    color: #b0b0b0;
+}
+/*该页留言板*/
+.comment-top-input{
+    margin: 0;
+}
+.comments{
+    margin: 70px 0 0;
+}
+.commentBtn{
+    margin: 10px 0;
+}
+.article-comment{
+    margin: 70px 0 0;
+}

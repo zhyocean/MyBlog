@@ -1,0 +1,86 @@
+.i_love_you {
+    text-align: center;
+}
+.i_love_you h1 {
+    font-size: 200%;
+    color: #333;
+}
+.i_love_you p {
+    font-size: 14px;
+}
+#registerForm .input_warn{
+    margin-top: 7px;
+}
+#registerForm .input_warn span{
+    padding: 6px;
+    margin: 5px 0;
+    background-color: #d85a37;
+    color: white;
+    font-size: 15px;
+    border-radius: 3px;
+}
+.register_success{
+    text-align: center;
+}
+.register_success_img img{
+    width: 30%;
+}
+.gender_null{
+    margin: 7px 0 0 0;
+}
+#gender_null{
+    background-color: #d85a37;
+    width: 100%;
+    color: white;
+    padding: 6px;
+    font-weight: 400;
+    border-radius: 3px;
+}
+
+@media screen and (min-width: 992px) {
+    .register_success_img img{
+        width: 30%;
+        margin: 40px auto;
+    }
+    .register_success_words img{
+        margin-top: 20px;
+        width: 50px;
+    }
+    .register_success_words p{
+        font-size: 22px;
+        margin: 20px  10px 0;
+        font-family: 楷体;
+        color: orange;
+    }
+    .register_success_words{
+        text-align: center;
+        margin:10px auto;
+        width: 30%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+@media screen and (max-width: 768px) {
+    .register_success_img img{
+        width: 60%;
+    }
+    .register_success_words img{
+        margin-top: 20px;
+        width: 40px;
+    }
+    .register_success_words p{
+        font-size: 15px;
+        margin: 20px  10px 0;
+        font-family: 楷体;
+        color: orange;
+    }
+    .register_success_words{
+        text-align: center;
+        margin:10px auto;
+        width: 60%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}

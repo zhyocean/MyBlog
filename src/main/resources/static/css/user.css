@@ -1,0 +1,326 @@
+@media screen and (min-width: 992px) {
+    /*设置左侧点击样式*/
+    #personalDate{
+        display: block;
+        margin-top: 50px;
+        margin-left: 170px;
+        width: 60%;
+    }
+    #basicSetting,#privateWord{
+        display: none;
+        margin-top: 50px;
+        margin-left: 170px;
+        width: 60%;
+    }
+    #leaveMessage{
+        display: none;
+        margin-top: 50px;
+        margin-left: 100px;
+        width: 80%;
+    }
+    .personalDateForm label{
+        font-size: 17px;
+        color: #969696;
+        width: 150px;
+    }
+    #basicSettingForm label{
+        font-size: 17px;
+        color: #969696;
+        width: 150px;
+    }
+    /*文章管理*/
+    .zhy-articleManagement,.zhy-articleCollection,.zhy-articleCategories{
+        position: fixed;
+        top: 40%;
+        left: 40%;
+    }
+    .successNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:40%;
+        border: 1px solid #62c812;
+        color: #62c812;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+    .dangerNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:40%;
+        border: 1px solid #bb4a3c;
+        color: #ff3023;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+}
+@media screen and (max-width: 768px) {
+    /*设置左侧点击样式*/
+    #personalDate{
+        display: block;
+        margin-top: 50px;
+        margin-left: 20px;
+        width: 90%;
+    }
+    #basicSetting{
+        display: none;
+        margin-top: 50px;
+        margin-left: 20px;
+        width: 90%;
+    }
+    .personalDateForm label{
+        font-size: 17px;
+        color: #969696;
+        width: 100px;
+    }
+    #basicSettingForm label{
+        font-size: 17px;
+        color: #969696;
+        width: 100px;
+    }
+    .zhy-privateWord,.zhy-leaveMessage{
+        padding: 30px 20px;
+    }
+    /*文章管理*/
+    .zhy-articleManagement,.zhy-articleCollection,.zhy-articleCategories{
+        position: fixed;
+        top: 130px;
+        left: 20px;
+    }
+    .successNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:30%;
+        border: 1px solid #62c812;
+        color: #62c812;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+    .dangerNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:30%;
+        border: 1px solid #bb4a3c;
+        color: #ff3023;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+}
+#articleManagement{
+    display: none;
+}
+#articleCollection{
+    display: none;
+}
+#articleCategories{
+    display: none;
+}
+#leaveMessage{
+    display: none;
+    margin-bottom: 150px;
+}
+#privateWord{
+    display: none;
+}
+.clickLi a:hover{
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #F0F0F0;
+}
+.article a:hover{
+    text-decoration: none;
+    background-color: #F0F0F0;
+}
+.userInfo{
+    margin-bottom: 150px;
+}
+/*更改头像按钮*/
+.headPortraitChange a {
+    text-decoration: none;
+    color: #4aaa4a;
+    display: block;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    text-align: center;
+    cursor: pointer;
+}
+.headPortraitChange:hover{
+    background-color: #4aaa4a;
+}
+.headPortraitChange:hover a{
+    color: white;
+}
+.headPortraitChange{
+    display: inline-block;
+    width: 90px;
+    position: relative;
+    background: white;
+    border: 1px solid #4aaa4a;
+    border-radius: 25px;
+    height: 40px;
+    line-height: 40px;
+    transform: translateY(15px);
+}
+.headPortraitChange input{
+    display: block;
+    width: 100%;
+    height: 45px;
+    opacity: 0;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+}
+.headChange{
+    display: inline-block;
+    margin-left: 48px;
+}
+/*个人资料*/
+.headPortrait{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+}
+.headPortrait img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.headPortraitChangeBtn{
+    background-color: white;
+    color: #c85e0b;;
+}
+.personalDateForm{
+    margin-top: 40px;
+}
+.formInput{
+    padding: 5px 10px;
+    font-size: 15px;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+}
+.userInfo hr{
+    margin-top: 23px;
+}
+.phone{
+    display: inline-block;
+    padding: 5px 0;
+    font-size: 15px;
+}
+.phoneCheck{
+    padding: 0 10px;
+    font-size: 12px;
+    color: #969696;
+}
+.personalDateForm textarea{
+    height: 100px;
+    width: 65%;
+}
+.savePersonalDateBtn,.changePasswordBtn{
+    border-radius: 65px;
+    margin-bottom: 70px;
+}
+.notice{
+    text-align: center;
+}
+.alertNotice{
+    display: block;
+}
+.alertNoticeWord{
+    font-size: 25px;
+}
+.zhangSire{
+    margin-top: 50px;
+    font-size: 5px;
+    float: right;
+}
+/*安全设置*/
+#authCode{
+    width: 110px;
+}
+/*悄悄话*/
+.word{
+    display: block;
+    line-height: 25px;
+    font-size: 15px;
+    font-family: 幼圆;
+}
+#userSay{
+    height: 100px;
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 15px;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+}
+.userSayBtn{
+    float: right;
+}
+.yesterday{
+    margin-top: 70px;
+    margin-bottom: 150px;
+}
+.noYesterday{
+    height: 30px;
+    background: #f0f0f0;
+    text-align: center;
+    opacity: .5;
+    line-height: 30px;
+    margin-bottom: 150px;
+}
+.say{
+    background-color: hsla(0,0%,71%,.1);
+    padding: 3px 10px 0;
+    margin-bottom: 5px;
+}
+.youSayTime{
+    text-align: center;
+    font-family: 隶书;
+    font-size: 15px;
+    color: #cc2808;
+    margin-bottom: 10px;
+}
+.you{
+    text-align: left;
+    font-size: 13px;
+    color: #3068b6;
+}
+.me{
+    text-align: right;
+    font-size: 13px;
+    color: #90b610;
+}
+.noReply{
+    color: red;
+}
+/*评论留言*/
+.leaveMessageTitle{
+    padding: 2px 0 0 0;
+}
+.leaveMessageContent{
+    padding: 2px 80px 5px 0;
+    display: inline-block;
+    color: #999;
+
+}
+.reply{
+    display: inline-block;
+    position: absolute;
+    right: 5px;
+    padding: 5px 0;
+}
+.noLeaveMessage,.noComment{
+    height: 30px;
+    background: #f0f0f0;
+    text-align: center;
+    opacity: .5;
+    line-height: 30px;
+}

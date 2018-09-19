@@ -1,0 +1,94 @@
+@media screen and (min-width: 992px) {
+    .site-inner{
+        margin: 0 19%;
+    }
+    .zhy-word p{
+        text-indent: 7em;
+    }
+    .zhy-word{
+        padding: 20px 25px;
+    }
+    .zhy-update{
+        margin: 0 19%;
+    }
+    .update-leave-message{
+        margin: 100px 10%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .site-inner{
+        margin: 0 5%;
+    }
+    .zhy-word p{
+        text-indent: 2em;
+    }
+    .zhy-word{
+        padding: 20px 5px;
+    }
+    .zhy-update{
+        margin: 0 3%;
+    }
+}
+.am-g{
+    margin: 50px 0 0;
+}
+.site-inner-img{
+    text-align: center;
+    margin-top: 50px;
+}
+.site-inner-img img{
+    width: 450px;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.site-inner-mywords{
+    margin: 30px auto;
+}
+.zhy-word{
+    margin-top: 10px;
+    margin-left: 40px;
+    font-size: 21px;
+    line-height: 20px;
+    color: blue;
+    font-family: 华文仿宋;
+}
+.zhy-update-log-title{
+    margin-top: 50px;
+}
+.zhy-update-log-title h1{
+    font-size: 22px;
+    color: #222;
+    text-indent: 1em;
+}
+.zhy-update-log-title p{
+    text-indent: 1.5em;
+}
+.zhy-update-log-content{
+    margin-top: 10px;
+}
+.update-log i{
+    color: #999999;
+    margin-right: 5px;
+}
+.update-log h2{
+    display: inline-block;
+    font-size: 1.3em;
+    color: #333;
+}
+.update-log-content{
+    margin: 15px 26px;
+}
+.update-log-content blockquote{
+    padding: 0 10px 0 20px;
+    border-left: 4px solid #ddd;
+}
+.update-log-content p{
+    font-size: 16px;
+    word-wrap: break-word;
+    font-family: 微软雅黑;
+}
+
+/*评论的头像*/
+.visitorCommentImg {
+    padding-left: 7px;
+}

@@ -1,0 +1,161 @@
+@media screen and (min-width: 992px) {
+    .successNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:40%;
+        border: 1px solid #62c812;
+        color: #62c812;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+    .dangerNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:40%;
+        border: 1px solid #bb4a3c;
+        color: #ff3023;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .successNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:30%;
+        border: 1px solid #62c812;
+        color: #62c812;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+    .dangerNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:30%;
+        border: 1px solid #bb4a3c;
+        color: #ff3023;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+}
+.notice{
+    text-align: center;
+}
+.superFunction{
+    display: none;
+}
+#statistics{
+    display: block;
+}
+.superAdminClick a:hover{
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #F0F0F0;
+}
+.article a:hover{
+    text-decoration: none;
+    background-color: #F0F0F0;
+}
+.site-inner{
+    margin: 50px 0 0 50px;
+}
+/*反馈*/
+.userFeedbackInfo,.privateWord{
+    width: 85%;
+}
+.feedbackInfo{
+    border: 1px solid #eceff2;
+    margin-bottom: 10px;
+}
+.feedbackInfoTitle{
+    padding: 10px 20px 5px;
+}
+.feedbackTime{
+    float: right;
+    margin-right: 30px;
+    color: #898d92;
+}
+.feedbackInfoContent,.feedbackInfoContact{
+    padding: 5px 20px;
+    color: #898d92;
+}
+.feedbackInfoContentWord,.contactInfo{
+    color: #474747;
+}
+.feedbackName{
+    color: #38b7ea;
+}
+/*悄悄话*/
+.userPrivateWord{
+    padding: 1.25rem;
+}
+.userPrivateWord ul{
+    margin-bottom: 0;
+}
+.userPrivateWord ul li a{
+    text-decoration: none;
+    cursor: pointer;
+}
+.userPrivateWordReply{
+    padding: 0.25rem 1.25rem 4.25rem 1.25rem;
+    display: none;
+    margin-bottom: 10px;
+}
+.replyTextarea{
+    padding: 5px 15px;
+    width: 100%;
+    height: 80px;
+    font-size: 13px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+    resize: none;
+    vertical-align: top;
+    outline-style: none;
+}
+.userPrivateWordReplyBtn{
+    float: right;
+    margin: 5px 0 5px 10px;
+}
+.userPrivateWordReplyCloseBtn{
+    float: right;
+    margin: 5px 5px 5px 0;
+    background-color: white;
+}
+.userPrivateWordTime{
+    display: block;
+    float: right;
+    margin: 5px;
+}
+.myNoReply{
+    color: #ad0807;
+    margin-top: 5px;
+}
+.myReply{
+    color: #b5b5b5;
+    margin-top: 5px;
+}
+/*文章管理*/
+.subject h4{
+    margin: 50px 0 0 20px;
+}
+.articles{
+    margin-top: 30px;
+}
+.articleManagementBtn{
+    padding: 6px;
+}
+.articles td,th{
+    border: 1px solid #eceff2;
+}
+.articles table{
+    border-collapse: collapse;
+    border: 1px solid #eceff2;
+}
+.articleManagementBtn{
+    margin-right: 10px;
+}

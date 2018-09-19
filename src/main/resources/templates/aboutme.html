@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>程序猿张先森 | 关于我</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="keywords" content="博客,个人,学习,IT,生活,张海洋,程序猿,springboot,java,后端，关于我">
+    <meta name="description" content="张海洋，正宗97后，爱编程。喜欢旅行、摄影、爱生活。专注于Spring,SpringBoot等后端技术探索，以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习。">
+
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/aboutmetimeline.css">
+    <link rel="stylesheet" href="css/zoomify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/comment.css">
+    <link rel="stylesheet" href="css/aboutme.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/zoomify.min.js"></script>
+    <script src="https://cdn.bootcss.com/underscore.js/1.9.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div class="am-topbar" style="margin-bottom: 0">
+            <h1 class="am-topbar-brand">
+                <a href="/"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
+            </h1>
+            <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" style="background-color: #CCCCCC;border-color: white;border-radius: 6px" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+            <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="fa fa-home"></span>&nbsp;首页</a></li>
+                    <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="fa fa-th"></span>&nbsp;分类</a></li>
+                    <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="fa fa-archive"></span>&nbsp;归档</a></li>
+                    <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="fa fa-tags"></span>&nbsp;标签</a></li>
+                    <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="fa fa-calendar-plus-o"></span>&nbsp;更新</a></li>
+                    <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="fa fa-street-view"></span>&nbsp;友链</a></li>
+                    <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="fa fa-user"></span>&nbsp;关于我</a> </li>
+                </ul>
+
+                <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
+                    <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+                        <button class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></button>
+                        <ul class="am-dropdown-content">
+                            <li><a href="/user" sec:authorize="hasRole('ROLE_USER')">个人主页</a></li>
+                            <li><a href="/superadmin" sec:authorize="hasRole('ROLE_SUPERADMIN')">网站后台管理</a></li>
+
+                            <li><a class="feedbackClick">反馈</a></li>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <li><a th:href="@{/logout}">退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                    <a href="/register" class="am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">注册</a>
+                </div>
+                <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                    <a href="/login" class="loginBtn am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">登录</a>
+                </div>
+                <div class="am-topbar-right writing am-hide-md-down">
+                    <a  href="/editor" target="_blank" style="text-decoration: none">
+                        <img class="am-circle" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/writing.png">
+                        <span class="write-word">写博客</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div class="am-container">
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-lg-12">
+                    <div class="site-inner">
+                        <div class="title">
+                            <div class="title-words">
+                                <h1 class="title-words-h1">关于</h1>
+                            </div>
+
+                            <div class="title-img">
+                                <p>
+                                    <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy_nice.png" class="am-img-thumbnail am-radius">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="zhy-my-words"  data-am-scrollspy="{animation: 'scale-down'}">
+                            <p><i class="fa fa-quote-left fa-lg" style="float: left"></i></p><br>
+                            <div class="zhy-info">
+                                <p class="zhy-info-words">
+                                    张海洋，目前就读于成都的西南石油大学，一名"不顾正业"的程序猿，所属计科院物联网工程专业，翼灵物联工作室后端开发组组长，沉迷于Java后端技术开发，
+                                    单身狗一只，但也是一只有梦想有追求的单身狗，一只追求进步和成长的程序猿。<br>
+                                    <br>
+                                    正宗97后，爱编程。喜欢旅行、摄影、爱生活。非宅男，不掉发，追求不平淡的生活，梦想养一只二哈，当一名铲屎官，渴望一场轰轰烈烈的爱情。
+                                </p>
+                            </div>
+                            <p><i class="fa fa-quote-right fa-lg" style="float: right"></i></p><br><hr>
+                        </div>
+                        <div class="zhy-hobby">
+                            <blockquote style="padding: 10px 18px">
+                                兴趣爱好
+                                <ul>
+                                    <li>擅长编程：沉迷于Java开发，专注于Web后端技术，追求新技术探索；</li>
+                                    <li>喜欢旅游：喜欢风景和文艺之地，也争取未来远离"颈椎"的困扰；</li>
+                                    <li>喜欢音乐：唯一喜欢的音乐，民谣，她不着一爱字，却处处见情深；</li>
+                                    <li>喜欢电影：英雄类大片、煽情类爱情片、校园类青春片，哈哈，都喜欢；</li>
+                                    <li>喜欢看书：喜欢明朝两百多年历史，以及林徽因徐志摩的个人传记；</li>
+                                    <li>一直渴望着养一只雪橇犬二哈，以后工作有机会了也会走上铲屎官之路；</li>
+                                </ul>
+                            </blockquote>
+                            <span style="font-size: 14px;color: #555;">我就是这样的我，不求伟大，却又不甘于平凡，相信爱情，也等待着属于我的爱情。</span>
+                        </div>
+                        <div class="zhy-title-QRCode" style="margin-top: 20px">
+                            <p><i class="fa fa-quote-left fa-lg" style="float: left"></i></p><br>
+                            <div class="zhy-title-QRCode-word">
+                                <strong>欢迎关注我的微信公众号：程序猿张先森</strong><br>
+                                <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin.jpg"><br>
+                                <span>该微信公众号与本博客文章同步<br></span>
+                            </div>
+                            <p><i class="fa fa-quote-right fa-lg" style="float: right"></i></p>
+                        </div>
+                        <br><br><hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+
+                        <div style="text-align: right;margin: 30px auto">
+                            <i class="fa fa-paper-plane fa-spin"></i>
+                            <i class="fa fa-paper-plane-o fa-spin" style="margin-left: 60px"></i><br>
+                        </div>
+                        <div class="zhy-original">
+                            <div class="zhy-original-title">
+                                <h1 class="zhy-original-title-h1">初衷</h1>
+                                <p class="zhy-erha">
+                                    <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/erha.png" class="am-img-thumbnail">
+                                </p><br><br>
+                                <p><i class="fa fa-quote-left fa-lg" style="float: left"></i></p><br>
+                                <div class="zhy-original-words">
+                                    <p>本博客网站由本人一手搭建，也因为本人有些许强迫症的缘故，O(∩_∩)O哈哈~，希望借此来激励自己养成多写博客的习惯。
+                                        希望通过分享技术与各位IT界的前辈们共同进步。</p><br>
+                                    <p>每个人都会有自己的那一段迷茫期，我自己也不例外，所幸的是有许多人在那段时间帮助过我，给了我极大的信心。我并非那种天资过人的天才，可是比常人更加努力不也是天才吗，既然上天没有给我前者的优越，何不自己创造去属于自己的骄傲。</p><br>
+                                    之前在某乎上看过一条段子，看了后感触很深喃【同为程序猿，怎么差距就那么大呢】
+                                    <div class="zhy-quot">
+                                        <blockquote class="zhy-quot-font" style="background-color: #fafafa;">
+                                            <strong>标题：写博客对程序员很重要吗？</strong>
+                                            <p style="margin-top: 7px">之前开了公众号装逼写技术博客，更新了一段时间没人看就不写技术写一些情感、生活、旅游、吃喝玩乐的内容，
+                                                反正只要能写的就都写。</p><br>
+                                            <p>
+                                                后来相亲认识了一妹子，没多久就好上了，主要是那妹纸太主动了，我没守住底线，沦陷了</p><br>
+                                            <p>
+                                                问妹纸为什么主动追我，妹纸说:你的每篇文章我都看了，字里行间感受到了正能量，应该不是那种靠不住的男人，我年纪
+                                                也不小了，机会不容错过，于是就使了点套路。"</p><br>
+                                            <p>我之前一直单身，始终找不好女朋友，对我有意思的我不喜欢，我喜欢的对我没感觉。现在能找到个令我满意的女朋友还没费多少
+                                                事我想应该有写博客一部分功劳吧。所以我觉得写博客对程序员来说挺重要的。</p><br>
+                                        </blockquote>
+                                        <p>对于我个人而言，并不是什么所谓的技术大佬，写博客也是对于自我的一种检验。我想，就算博客没人看，我也会一直坚持下去。</p><br><br>
+                                        <p style="text-align: center"><b><i>学习的不仅是技术，更是梦想！<br>再牛B的技术，也经不住你傻B式的坚持！</i></b></p>
+                                    </div>
+                                </div>
+                                <p><i class="fa fa-quote-right fa-lg" style="float: right"></i></p><br>
+                            </div>
+                        </div>
+                        <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+                        <div class="zhy-opinion">
+                            <div class="zhy-opinion-title">
+                                <h1>意见反馈</h1>
+                            </div>
+                            <div class="zhy-erha">
+                                <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/erha_opinion.gif" class="am-img-thumbnail">
+                            </div>
+                            <div class="zhy-opinion-words">
+                                <p><strong><u><i>若本博客有做的不好的地方(涉及版权及其他问题)，请留言私信我进行整改。</i></u></strong></p>
+                            </div>
+                        </div>
+                        <br><br><hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+                        <div class="zhy-life">
+                            <div style="text-align: right;margin: 30px auto">
+                                <i class="fa fa-arrows fa-spin"></i>
+                                <i class="fa fa-arrows fa-spin" style="margin-left: 60px"></i><br>
+                            </div>
+                            <div class="zhy-life-title">
+                                <span>心情</span>
+                            </div>
+                            <div class="zhy-you">
+                                <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/you.png" class="am-img-thumbnail">
+                            </div>
+                            <p></p>
+                            <div class="content">
+                                <article>
+                                    <!--年份使用淡出动画，内容使用左侧滑入效果-->
+                                    <h3  data-am-scrollspy="{animation: 'scale-up'}">2018</h3>
+                                    <section data-am-scrollspy="{animation: 'slide-left'}">
+                                        <span class="point-time point-red"></span>
+                                        <time datetime="2018-07">
+                                            <span>2018/09/13</span>
+                                        </time>
+                                        <aside>
+                                            <p class="things">曾经意外，他和她相爱</p>
+                                            <p class="brief"><span class="text-blue">
+                                                九月，你编写我的前端，四年，我撑起你的整个后台。相识于九月，奈何看不见未来。你知道吗，我的前端女神。
+                                            </span></p>
+                                        </aside>
+                                    </section>
+                                    <section data-am-scrollspy="{animation: 'slide-left'}">
+                                        <span class="point-time point-yellow"></span>
+                                        <time datetime="2018-07">
+                                            <span>2018/09/05</span>
+                                        </time>
+                                        <aside>
+                                            <p class="things">终究成为了大三的老男人</p>
+                                            <p class="brief"><span class="text-green">
+                                                新学期开始了，注定了又是繁忙的一学期，还有大量的技术等着我去学习啊，啊啊啊。没事，加油吧！还有一件可喜可贺的事就是，考了四次的英语四级，终于天不亡我，让我已441分过了，哈哈哈。12月六级考场继续奋斗一波。
+                                            </span></p>
+                                        </aside>
+                                    </section>
+                                    <section data-am-scrollspy="{animation: 'slide-left'}">
+                                        <span class="point-time point-red"></span>
+                                        <time datetime="2018-07">
+                                            <span>2018/07/25</span>
+                                        </time>
+                                        <aside>
+                                            <p class="things">张先森的个人博客上线</p>
+                                            <p class="brief"><span class="text-red">接近两个月的搭站之旅，独立完成前后端的搭建，其中的心酸真的只有自己知道，每天高负荷的敲代码，觉得自己真的苍老了许多，不过，付出所带来的回报也是巨大的，感谢两个月坚持下来的自己。</span></p>
+                                        </aside>
+                                    </section>
+                                    <section data-am-scrollspy="{animation: 'slide-left'}">
+                                        <span class="point-time point-red"></span>
+                                        <time datetime="2018-07">
+                                            <span>2018/07/05</span>
+                                        </time>
+                                        <aside>
+                                            <p class="things">生日快乐</p>
+                                            <p class="brief"><span class="text-red">今天还是一个人，自己买了一场电影票。第二十一个生日，也就还是这样过吧。</span></p>
+                                        </aside>
+                                    </section>
+                                    <section data-am-scrollspy="{animation: 'slide-left'}">
+                                        <span class="point-time point-yellow"></span>
+                                        <time datetime="2018-06">
+                                            <span>2018/06/07</span>
+                                        </time>
+                                        <aside>
+                                            <p class="things">有一种青春叫高考</p>
+                                            <p class="brief"><span class="text-blue">哇，一转眼离自己高考就过去两年了，仿佛还在昨日一般。也只有当了大学生后
+                                            才会体会到高中的幸福吧，真的很想念高中的那伙人，不知道下次相见会是何日。</span></p>
+                                        </aside>
+                                    </section>
+                                    <section data-am-scrollspy="{animation: 'slide-left'}">
+                                        <span class="point-time point-purple"></span>
+                                        <time datetime="2018-06">
+                                            <span>2018/06/01</span>
+                                        </time>
+                                        <aside>
+                                            <p class="things">祝所有"小朋友"六一快乐</p>
+                                            <p class="brief"><span class="text-green">也祝我自己六一快乐，哈哈哈</span></p>
+                                        </aside>
+                                    </section>
+                                    <section  data-am-scrollspy="{animation: 'slide-left'}">
+                                        <span class="point-time point-red"></span>
+                                        <time datetime="2018-05">
+                                            <span>2018/05/25</span>
+                                        </time>
+                                        <aside>
+                                            <p class="things">精疲力尽</p>
+                                            <p class="brief"><span class="text-blue">搭建网站快要一周了，由于对于页面样式排版以及前端基础的不扎实，
+                                            有时面临一个排版问题可以花费一下午的时间，建站之旅还比较漫长呀。</span></p>
+                                        </aside>
+                                    </section>
+                                    <section data-am-scrollspy="{animation: 'slide-left'}">
+                                        <span class="point-time point-yellow"></span>
+                                        <time datetime="2018-05">
+                                            <span>2018/05/17</span>
+                                        </time>
+                                        <aside>
+                                            <p class="things">开始征程</p>
+                                            <p class="brief"><span class="text-red">今天下了个决定，准备搭建一个开源的个人博客网站。开始着手每一个网页页面设计，但是真的有点为自己的审美捉急呀。</span></p>
+                                        </aside>
+                                    </section>
+                                </article>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="comment">
+                        <div class="comment-top">
+                            <div class="comment-top-input" th:if="${#httpServletRequest.remoteUser}">
+                                <textarea id="comment" placeholder="客官，来说两句吧..."></textarea>
+                            </div>
+                            <div class="comment-top-input" th:unless="${#httpServletRequest.remoteUser}">
+                                <div class="goToLogin">
+                                    &nbsp;&nbsp;&nbsp;<a id="toLogin">登录</a>后才可以发表留言呦...
+                                </div>
+                            </div>
+                            <div class="commentBtn">
+                                <button id="commentBtn" type="button" class="am-btn am-btn-secondary">发表留言</button>
+                            </div>
+                        </div>
+                        <div class="comment-bottom">
+                            <!--<div class="comments">-->
+                                <!--<span class="noComment" style="color: black">还没有评论，快来抢沙发吧！</span>-->
+                            <!--</div>-->
+                            <div class="article-comment">
+                                    <div class="article-comment-top">
+                                        <span class="article-comment-word">留言</span>
+                                         <div class="article-comment-line"></div>
+                                    </div>
+                                    <div class="new-comment">
+                                        <i class="all-comment fa fa-window-minimize fa-rotate-90"></i>全部留言
+                                    </div>
+                                    <div class="all-comments">
+                                        <div class="visitorComment">
+                                            <div class="am-g" style="margin: 0">
+                                                <div class="visitorCommentImg am-u-sm-2 am-u-lg-1">
+                                                    <img src="img/noLogin.jpg">
+                                                </div>
+                                                <div class="am-u-sm-10 am-u-lg-11">
+                                                    <div class="visitorInfo">
+                                                        <span class="visitorFloor">#3楼</span>
+                                                         <span class="visitorName">
+                                                         张海洋
+                                                         </span>
+                                                        <span class="visitorPublishDate">
+                                                        2018年7月25日 19:26
+                                                        </span>
+                                                    </div>
+                                                    <div class="visitorSay">
+                                                    的说法是否看见哈舒服的科技示范户看见爱上对方会看见爱上大黄蜂撒旦法师打发斯蒂芬大事发生地方大师傅
+                                                    </div>
+                                                    <div class="tool-group">
+                                                        <a>
+                                                            <i class="like fa fa-thumbs-o-up"><span>&nbsp;&nbsp;赞</span></i>
+                                                        </a>
+                                                        <a>
+                                                            <i class="reply fa fa-comment-o">&nbsp;&nbsp;回复</i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="sub-comment">
+                                                        <div class="sub-comment-list">
+                                                            <div class="visitorReplies">
+                                                                <div class="visitorReply">
+                                                                     <div class="visitorReplyWords">
+                                                                         <a class="answerer">张哈哈</a>： <a class="respondent">@张海洋 </a>是非得失水电费第三方第三方鼎折覆餗
+                                                                    </div>
+                                                                    <div class="visitorReplyTime">
+                                                                        <span class="visitorReplyTimeTime">2018年7月25日 19:26</span>
+                                                                        <a>
+                                                                            <i class="replyReply fa fa-comment-o">&nbsp;&nbsp;回复</i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+                                                                </div>
+                                                                <div class="visitorReply">
+                                                                    <div class="visitorReplyWords">
+                                                                      <a class="answerer">张大仙</a>： <a class="respondent">@张海洋 </a>是非得失水电费第三方第三方鼎折覆餗
+                                                                    </div>
+                                                                    <div class="visitorReplyTime">
+                                                                        <span class="visitorReplyTimeTime">2018年7月25日 19:26</span>
+                                                                        <a>
+                                                                            <i class="replyReply fa fa-comment-o">&nbsp;&nbsp;回复</i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="more-comment">
+                                                                <a>
+                                                                 <i class="moreComment fa fa-edit"> 添加新评论</i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="reply-sub-comment-list">
+                                                            <div class="replyWord">
+                                                                <div class="replyWordBtn">
+                                                                    <textarea class="replyWordTextarea" placeholder="写下你的评论..."></textarea>
+                                                                    <button type="button" class="sendReplyWordBtn am-btn am-btn-success">发送</button>
+                                                                    <button type="button" class="quitReplyWordBtn am-btn">取消</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer am-u-sm-centered">
+            <div class="am-vertical-align" style="text-align: center">
+                <hr>
+                <div class="am-vertical-align-bottom">
+                    <div style="color: #009688">
+                        &copy; 2018 程序猿张先森 - <i class="fa fa-coffee" style="margin: 0 5px"></i>张海洋 版权所有
+                    </div>
+                    <div id="footer" style="color: #009688">
+                        总访问量 <span id="totalVisitors"><strong></strong></span> 次  访客量 <span id="visitorVolume"><strong></strong></span> 人次
+                    </div>
+                    <div class="webLogo">
+                        <a href="http://www.miitbeian.gov.cn" target="_blank">
+                            蜀ICP备18000229号
+                        </a>
+                    </div>
+                    <div class="webLogo">
+                        <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/webLog.png">
+                        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51011402000164" target="_blank">
+                            川公网安备 51011402000164号
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar_toggle" class="sidebar_toggle" data-am-offcanvas="{target: '#offCanvas'}">
+            <div class="sidebar_toggle_line_wrap">
+                <span class="sidebar-toggle-line sidebar-toggle-line-first" style="width: 100%; top: 0; transform: rotateZ(0deg); opacity: 1; left:0"></span>
+                <span class="sidebar-toggle-line sidebar-toggle-line-middle" style="width: 100%; opacity: 1; left: 0; top: 0; transform: rotateZ(0deg);"></span>
+                <span class="sidebar-toggle-line sidebar-toggle-line-last" style="width: 100%; top: 0; transform: rotateZ(0deg); opacity: 1; left: 0;"></span>
+            </div>
+        </div>
+        <div id="offCanvas" class="am-offcanvas">
+            <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+                <div class="am-offcanvas-content">
+                    <div class="sidebar-inner">
+                        <div class="site-overview">
+                            <div class="img-author" style="text-align: center">
+                                <p style="font-size: large;font-family: 仿宋">微信公众号</p>
+                                <div id="weixin">
+                                    <img class="weixinPublic" src="">
+                                </div>
+                                <div class="author-name">
+                                    张海洋
+                                </div>
+                                <div class="author-words">
+                                    <p>专注于Spring,SpringBoot等后端技术探索</p>
+                                    <p>以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习</p>
+                                </div>
+
+                            </div>
+                            <div class="site-state" style="opacity: 1; display: block; transform: translateX(0px);">
+                                <div class="site-state-item learn-posts">
+                                    <a href="/archives">
+                                        <span class="archivesNum site-state-item-count"></span>
+                                        <span class="site-state-item-name">日志</span>
+                                    </a>
+                                </div>
+                                <div class="site-state-item learn-categories">
+                                    <a id="site-state-item-a" href="/categories">
+                                        <span class="categoriesNum site-state-item-count"></span>
+                                        <span class="site-state-item-name">分类</span>
+                                    </a>
+                                </div>
+                                <div class="site-state-item learn-tags">
+                                    <a href="/tags">
+                                        <span class="tagsNum site-state-item-count"></span>
+                                        <span class="site-state-item-name">标签</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="contact-way">
+                                <span><i class="fa fa-qq">&nbsp;&nbsp;1125694337</i></span>
+                                <span><i class="fa fa-wechat">&nbsp;&nbsp;zhy1125694337</i></span>
+                            </div>
+                            <div class="rss">
+                                <div class="rss-site">
+                                    <a class="rss-site-a" href="/rss">
+                                        <i class="fa fa-rss"> RSS</i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="author-words">
+                                <p>本人目前本科生在读</p>
+                                <p>由于水平有限，希望大家多多支持</p>
+                                <p>有不足之处也希望各位前辈指出</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+            <a id="toTop"  href="#top">
+            <span title="到顶部" style="color: white">
+                <i class="fa fa-arrow-up"></i>
+            </span>
+            </a>
+        </div>
+    </div>
+    <!--成功消息盒-->
+    <div class="notice successNoticeAlert am-animation-slide-top">
+        <span class="successNotice"></span>
+    </div>
+    <!--失败消息盒-->
+    <div class="notice dangerNoticeAlert am-animation-slide-top">
+        <span class="dangerNotice"></span>
+    </div>
+    <div class="feedback am-animation-slide-top">
+        <a class="feedbackClose am-close am-close-alt am-close-spin am-icon-times"></a>
+        <div class="feedbackTitle">
+            反馈
+        </div>
+        <div class="feedbackWord">
+            您对于本博客网站有任何意见或是存在Bug的地方，欢迎进行反馈
+        </div>
+        <div class="feedbackForm">
+            <form class="am-form">
+                <fieldset class="am-form-set">
+                    <textarea id="feedbackFormContent" placeholder="非常感谢您抽出时间填写问题反馈。必填"></textarea>
+                    <input type="text" class="feedbackFormQQ" placeholder="方便留下QQ或是微信联系你吗。选填">
+                </fieldset>
+                <button type="button" class="feedbackFormBtn am-btn am-btn-primary am-btn-block">提交反馈</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/all.js"></script>
+<script src="js/leaveMessage.js"></script>
+<script>
+    $(function () {
+        $('.site-inner img').zoomify();
+    })
+</script>
+</body>
+</html>

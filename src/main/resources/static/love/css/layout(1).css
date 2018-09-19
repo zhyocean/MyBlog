@@ -1,0 +1,72 @@
+.wall{
+	font-size: 9pt;
+	text-decoration: none;
+	line-height: 150%;
+	color:#000;
+	
+	width:220px;
+	position:absolute;
+	cursor:move;
+
+	word-break:break-all;
+}
+.wall div {
+	padding-left:30px;
+	padding-right:30px;
+}
+.wall div span {
+	display:block;
+}
+.wall div img {
+	border:0px;
+	margin-bottom:-5px;
+}
+.wall div a {
+	color:#000;
+	text-decoration: none;
+}
+.top-1 ,.top-2 ,.top-3 ,.top-4 ,.top-5 ,.top-6 ,.top-7 ,.top-8
+{
+	padding-top:25px;
+}
+.mid-1 ,.mid-2 ,.mid-3 ,.mid-4 ,.mid-5 ,.mid-6 ,.mid-7 ,.mid-8
+{
+	height:150px;
+	overflow:hidden;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.bot-1 ,.bot-2 ,.bot-3 ,.bot-4 ,.bot-5 ,.bot-6 ,.bot-7 ,.bot-8
+{
+	height:65px;
+}
+.top-1 {background:url(../../img/love/C0FFE51.gif);}
+.top-2 {background:url(../../img/love/C9FFC71.gif);}
+.top-3 {background:url(../../img/love/CBF3FF1.gif);}
+.top-4 {background:url(../../img/love/EDFEB71.gif);}
+.top-5 {background:url(../../img/love/FFE0FB1.gif);}
+.top-6 {background:url(../../img/love/FFE7E81.gif);}
+.top-7 {background:url(../../img/love/FFEDCC1.gif);}
+.top-8 {background:url(../../img/love/FFFFFF1.gif);}
+
+.mid-1 {background:url(../../img/love/C0FFE52.gif);}
+.mid-2 {background:url(../../img/love/C9FFC72.gif);}
+.mid-3 {background:url(../../img/love/CBF3FF2.gif);}
+.mid-4 {background:url(../../img/love/EDFEB72.gif);}
+.mid-5 {background:url(../../img/love/FFE0FB2.gif);}
+.mid-6 {background:url(../../img/love/FFE7E82.gif);}
+.mid-7 {background:url(../../img/love/FFEDCC2.gif);}
+.mid-8 {background:url(../../img/love/FFFFFF2.gif);}
+
+.bot-1 {background:url(../../img/love/C0FFE53.gif);}
+.bot-2 {background:url(../../img/love/C9FFC73.gif);}
+.bot-3 {background:url(../../img/love/CBF3FF3.gif);}
+.bot-4 {background:url(../../img/love/EDFEB73.gif);}
+.bot-5 {background:url(../../img/love/FFE0FB3.gif);}
+.bot-6 {background:url(../../img/love/FFE7E83.gif);}
+.bot-7 {background:url(../../img/love/FFEDCC3.gif);}
+.bot-8 {background:url(../../img/love/FFFFFF3.gif);}
+
+.wall div span.inline {
+	display:inline;
+}

@@ -1,0 +1,22 @@
+.i_love_you {
+    text-align: center;
+}
+.i_love_you h1 {
+    font-size: 200%;
+    color: #333;
+}
+.i_love_you p {
+    font-size: 14px;
+}
+.login_error{
+    margin-top: 20px;
+ }
+.phoneNotExit{
+    text-align: center;
+}
+.phoneNotExitSpan{
+    padding: 6px 10px;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+}

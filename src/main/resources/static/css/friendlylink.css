@@ -1,0 +1,114 @@
+.am-g{
+    margin: 80px 0 0;
+}
+@media screen and (min-width: 992px) {
+    .site-inner{
+        margin: 0 16%;
+        text-align: left;
+    }
+    .site-middle{
+        margin: 30px 16%;
+        text-align: left;
+    }
+    .zhy-link-word{
+        margin: 30px 16%;
+        text-align: left;
+    }
+    .zhy-official-weixin img{
+        width: 130px;
+        margin: 0 20%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .site-inner{
+        margin: 0 5%;
+        text-align: left;
+    }
+    .site-middle{
+        margin: 20px 5%;
+        text-align: left;
+    }
+    .zhy-link-word{
+        margin: 20px 5%;
+        text-align: left;
+    }
+    .zhy-official-weixin img{
+        width: 73.1667px;
+        margin: 0 20%;
+    }
+}
+.zhy-friendlylink-title i{
+    color: dodgerblue;
+}
+.zhy-friendlylink-title span{
+    color: #999999;
+    font-size: 20px;
+    margin: 5px;
+}
+.zhy-friendlylink-author{
+    margin: 20px 20px;
+}
+.site-inner .zhy-friendlylink-author i{
+    color: red;
+}
+.zhy-friendlylink-author a{
+    margin: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.zhy-friendlylink-author p{
+    margin-top: 20px;
+}
+.site-middle .zhy-friendlylink-author i{
+    color: #61804E;
+}
+.zhy-friendlylink-words{
+    padding: 27px;
+    font-weight: 600;
+}
+.zhy-friendlylink-words blockquote ul li{
+    font-size: 17px;
+    font-family: Georgia,"Times New Roman",Times,Kai,"Kaiti SC",KaiTi,BiauKai,FontAwesome,serif;
+    color: #4d4d4d;
+}
+.zhy-official-weixin{
+    text-align: center;
+}
+.zhy-weixin-row{
+    margin-left:40px;
+    width: 33.3%;
+    /*display: inline-block;*/
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+.zhy-official-weixin p{
+    margin-top: 20px;
+    color: dodgerblue;
+    font-family: 仿宋;
+}
+.zhy-official-weixin span{
+    margin-top: 10px;
+    color: #1b6d85;
+    font-size: 12px;
+    font-family: 仿宋;
+}
+
+.zhy-friendlink-info p{
+    margin: 22px 25px;
+    text-indent: 2em;
+    line-height: 23px;
+    font-size: 15px;
+}
+.set-weixin{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align:center;
+    justify-content: space-between
+}
+/*评论的头像*/
+.visitorCommentImg {
+    padding-left: 7px;
+}

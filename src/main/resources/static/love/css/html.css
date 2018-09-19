@@ -1,0 +1,208 @@
+html {
+  margin-bottom: 1px;
+}
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 400 0.8em georgia, sans-serif;
+  line-height: 180%;
+  background: url(../../img/love/body.jpg) repeat top left fixed;
+  color: #53504D;
+}
+h1, h2, h3, h4, h5, h6, p, dl {
+  margin: 0;
+  padding: 10px 0;
+}
+h1 {   
+  clear: both;
+  font: 400 1.9em georgia, serif;
+  color: #532406;  
+}
+h2 {
+  clear: both;
+  font: 400 1.3em georgia, serif;
+  color: #61804E;
+}
+h3 {
+  font: 700 1.1em georgia, serif;
+  color: #8F512A;
+}
+h4 {
+  font: 400 0.9em georgia, serif;
+  text-transform: uppercase;
+}
+a {
+  text-decoration: none;
+  color: #5E9040;
+}
+a:visited {
+  color:#532406;
+}
+a:hover {
+  color: #3C5D29;
+  text-decoration:underline;
+}
+ol {  
+  margin: 10px 30px;
+  padding: 0 30px;
+  font-size: 1em;
+  background-color: #FFF;
+}
+ol span {
+  font-size: 0.7em;
+  color: #6D6864;
+}
+ul {
+  margin: 10px 20px;
+  padding: 0 20px 0 5px;
+  list-style: none;
+}
+ul li {
+  padding-left: 25px;
+  background: url(../img/bg/bullet.gif) no-repeat;
+  background-position: 0 3px;
+}
+ul li:hover {
+  background: url(../img/bg/bullethover.gif) no-repeat;
+  background-position: 0 3px;
+}
+acronym {
+  cursor: help;
+  border-bottom: 1px solid #DDD;
+}
+blockquote {
+  margin: 10px 0;
+  background-color: #F1FFE3;
+  border-bottom: 1px solid #B8E78B;
+}
+blockquote p {
+  margin: 0.4em 0.8em;
+}
+del {
+  color: #AAA;
+}
+code {
+  margin: 15px 0;
+  padding: 10px;
+  display: block;
+  width:450px;
+  overflow: auto;
+  
+  font: 400 1em courier, monospace;
+  line-height: 120%;
+  white-space: pre;
+  
+  background: #F4F4F4;
+  border-bottom: 1px solid #D3D3D3;
+}
+fieldset {
+	padding:4px;
+	border:1px solid #cccccc;
+}
+
+fieldset legend {
+	color:#6D6864;
+}
+table {
+  width: 100%;
+  margin-bottom: 10px;  
+  
+  font-size: 1em;
+  line-height: 150%;
+  border-collapse: collapse;
+}
+table caption {
+  margin-top: 10px;
+  padding: 0 0 0.5em 3px;
+  font: 400 0.8em georgia, sans-serif;
+  text-align: left;  
+}
+table th, table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 4px 7px !important;
+  padding: 6px 10px;
+}
+thead th {
+  background-color: #F1FFE3;
+  border-bottom: 1px solid #B8E78B;
+}
+tbody tr.dark {
+  background-color: #F5F5F5;
+}
+tbody td {
+  border-bottom: 1px solid #DDD;
+}
+tbody tr:hover {
+  background-color: #FBFEDF;
+}
+label {
+  float: left;
+  width: 7em;
+  padding-right: 1em;
+}
+input[type="text"] ,input[type="password"] {
+	height:19px;
+}
+input,textarea,select {
+  padding: 0px;
+  font: 400 1em georgia, sans-serif;
+  color: #666;
+  background: #FFF;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #888 #DDD #DDD #888;  
+}
+input:hover,textarea:hover,select:hover {
+  padding: 0px;
+  font: 400 1em georgia, sans-serif;
+  color: #666;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #888 #DDD #DDD #888;  
+}
+input:focus,
+textarea:focus,
+select:focus {  
+  padding: 0px;
+  color: #000;
+  border:2px solid #B8E78B;
+}
+input.button {
+  padding: 1px 10px;
+  font: 400 1em georgia, sans-serif;
+  cursor: pointer;
+  color: #fff;
+  background: #508231;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #B8E78B #2D5018 #2D5018 #B8E78B;
+}
+input.button:hover {
+  background:#318182;
+  border-color: #8be7df #18504b #18504b #8be7df;
+}
+.required {
+  cursor: help;
+  border-bottom: 1px solid #CCC;
+}
+img.floatRight {
+  margin: 5px 0px 10px 15px;  
+}
+img.floatLeft {
+  margin: 5px 15px 10px 0px;
+}
+a img {
+  border: 4px solid #D5C9C2;
+}
+a:hover img {
+  border: 4px solid #BAAAA1;
+}
+ul li p {
+  text-indent:25px;
+  color:#666666;
+}
+

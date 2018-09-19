@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>程序猿张先森 | 更新</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="keywords" content="博客,个人,学习,IT,生活,张海洋,程序猿,springboot,java,后端，更新">
+    <meta name="description" content="张海洋，正宗97后，爱编程。喜欢旅行、摄影、爱生活。专注于Spring,SpringBoot等后端技术探索，以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习。">
+
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/comment.css">
+    <link rel="stylesheet" href="css/update.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/underscore.js/1.9.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div class="am-topbar" style="margin-bottom: 0">
+            <h1 class="am-topbar-brand">
+                <a href="/"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
+            </h1>
+            <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" style="background-color: #CCCCCC;border-color: white;border-radius: 6px" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+            <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="fa fa-home"></span>&nbsp;首页</a></li>
+                    <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="fa fa-th"></span>&nbsp;分类</a></li>
+                    <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="fa fa-archive"></span>&nbsp;归档</a></li>
+                    <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="fa fa-tags"></span>&nbsp;标签</a></li>
+                    <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="fa fa-calendar-plus-o"></span>&nbsp;更新</a></li>
+                    <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="fa fa-street-view"></span>&nbsp;友链</a></li>
+                    <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="fa fa-user"></span>&nbsp;关于我</a> </li>
+                </ul>
+
+                <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
+                    <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+                        <button class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></button>
+                        <ul class="am-dropdown-content">
+                            <li><a href="/user" sec:authorize="hasRole('ROLE_USER')">个人主页</a></li>
+                            <li><a href="/superadmin" sec:authorize="hasRole('ROLE_SUPERADMIN')">网站后台管理</a></li>
+
+                            <li><a class="feedbackClick">反馈</a></li>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <li><a th:href="@{/logout}">退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                    <a href="/register" class="am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">注册</a>
+                </div>
+                <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                    <a href="/login" class="loginBtn am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">登录</a>
+                </div>
+                <div class="am-topbar-right writing am-hide-md-down">
+                    <a  href="/editor" target="_blank" style="text-decoration: none">
+                        <img class="am-circle" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/writing.png">
+                        <span class="write-word">写博客</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div class="am-container">
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-lg-11">
+                    <div class="site-inner">
+                        <div class="site-inner-img">
+                            <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/sun.jpg" class="am-img-thumbnail am-animation-slide-top">
+                        </div>
+                        <div class="site-inner-mywords am-animation-slide-top">
+                            <p><i class="fa fa-quote-left fa-lg" style="float: left"></i></p><br>
+                            <div class="zhy-word">
+                                听说最理想的生活是：<br><br>
+                                <p>干净的圈子</p>
+                                <p>规律的生活</p>
+                                <p>中意的人</p>
+                            </div>
+                            <p><i class="fa fa-quote-right fa-lg" style="float: right;"></i></p><br><hr>
+                        </div>
+                    </div>
+                    <div class="zhy-update">
+                        <div class="zhy-update-log">
+                            <div class="zhy-update-log-title"  data-am-scrollspy="{animation: 'slide-bottom'}">
+                                <h1>更新日志</h1>
+                                <p>发布于 2018/6/3</p>
+                            </div>
+                            <div class="zhy-update-log-content">
+                                <div class="update-log" data-am-scrollspy="{animation: 'slide-bottom'}">
+                                    <div class="update-log-date">
+                                        <i class="fa fa-hashtag"></i>
+                                        <h2>2018年9月6日</h2>
+                                    </div>
+                                    <div class="update-log-content">
+                                        <blockquote><p>新增主页最新留言功能</p>
+                                            <p>修复部分页面显示问题</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="update-log" data-am-scrollspy="{animation: 'slide-bottom'}">
+                                    <div class="update-log-date">
+                                        <i class="fa fa-hashtag"></i>
+                                        <h2>2018年9月5日</h2>
+                                    </div>
+                                    <div class="update-log-content">
+                                        <blockquote><p>新增markdown编辑器本地上传图片功能</p>
+                                            <p>增加大量的emoji表情，可用于文章编辑使用</p>
+                                            <p>修复自动生成文章摘要算法Bug</p>
+                                            <p>修复行内代码显示错位问题</p>
+                                            <p>改进文章代码块，实现代码块高亮显示</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="update-log" data-am-scrollspy="{animation: 'slide-bottom'}">
+                                    <div class="update-log-date">
+                                        <i class="fa fa-hashtag"></i>
+                                        <h2>2018年7月25日</h2>
+                                    </div>
+                                    <div class="update-log-content">
+                                        <blockquote><p>正式上线个人博客网站，并进行长期维护</p>
+                                            <p>增加用户评论、留言功能，以及用户个人主页</p>
+                                            <p>新增反馈功能</p>
+                                            <p>调试所有页面手机端适配问题，提高手机端浏览舒适度</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="update-log" data-am-scrollspy="{animation: 'slide-bottom'}">
+                                    <div class="update-log-date">
+                                        <i class="fa fa-hashtag"></i>
+                                        <h2>2018年6月24日</h2>
+                                    </div>
+                                    <div class="update-log-content">
+                                        <blockquote><p>新增在线写博客功能，优化博客显示页面</p>
+                                            <p>优化博客静态资源，浏览速度更快</p>
+                                            <p>修复部分Bug</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="update-log" data-am-scrollspy="{animation: 'slide-bottom'}">
+                                    <div class="update-log-date">
+                                        <i class="fa fa-hashtag"></i>
+                                        <h2>2018年6月3日</h2>
+                                    </div>
+                                    <div class="update-log-content">
+                                        <blockquote><p>修改手机端页面显示以及更新日志动画效果，浏览起来更舒心</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="update-log" data-am-scrollspy="{animation: 'slide-bottom'}">
+                                    <div class="update-log-date">
+                                        <i class="fa fa-hashtag"></i>
+                                        <h2>2018年6月1日</h2>
+                                    </div>
+                                    <div class="update-log-content">
+                                        <blockquote><p>博客页面优化，新增关于我、友链以及右侧栏显示</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="update-log" data-am-scrollspy="{animation: 'slide-bottom'}">
+                                    <div class="update-log-date">
+                                        <i class="fa fa-hashtag"></i>
+                                        <h2>2018年5月25日</h2>
+                                    </div>
+                                    <div class="update-log-content">
+                                        <blockquote><p>博客网站发布</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="update-leave-message">
+                        <div class="comment" style="margin: 0 auto 50px">
+                            <div class="comment-top">
+                                <div class="comment-top-input" th:if="${#httpServletRequest.remoteUser}">
+                                    <textarea id="comment" placeholder="客官，来说两句吧..."></textarea>
+                                </div>
+                                <div class="comment-top-input" th:unless="${#httpServletRequest.remoteUser}">
+                                    <div class="goToLogin">
+                                        &nbsp;&nbsp;&nbsp;<a id="toLogin">登录</a>后才可以发表留言呦...
+                                    </div>
+                                </div>
+                                <div class="commentBtn">
+                                    <button id="commentBtn" type="button" class="am-btn am-btn-secondary">发表留言</button>
+                                </div>
+                            </div>
+                            <div class="comment-bottom">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer am-u-sm-centered">
+            <div class="am-vertical-align" style="text-align: center">
+                <hr>
+                <div class="am-vertical-align-bottom">
+                    <div style="color: #009688">
+                        &copy; 2018 程序猿张先森 - <i class="fa fa-coffee" style="margin: 0 5px"></i>张海洋 版权所有
+                    </div>
+                    <div id="footer" style="color: #009688">
+                        总访问量 <span id="totalVisitors"><strong></strong></span> 次  访客量 <span id="visitorVolume"><strong></strong></span> 人次
+                    </div>
+                    <div class="webLogo">
+                        <a href="http://www.miitbeian.gov.cn" target="_blank">
+                            蜀ICP备18000229号
+                        </a>
+                    </div>
+                    <div class="webLogo">
+                        <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/webLog.png">
+                        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51011402000164" target="_blank">
+                            川公网安备 51011402000164号
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar_toggle" class="sidebar_toggle" data-am-offcanvas="{target: '#offCanvas'}">
+            <div class="sidebar_toggle_line_wrap">
+                <span class="sidebar-toggle-line sidebar-toggle-line-first" style="width: 100%; top: 0; transform: rotateZ(0deg); opacity: 1; left:0"></span>
+                <span class="sidebar-toggle-line sidebar-toggle-line-middle" style="width: 100%; opacity: 1; left: 0; top: 0; transform: rotateZ(0deg);"></span>
+                <span class="sidebar-toggle-line sidebar-toggle-line-last" style="width: 100%; top: 0; transform: rotateZ(0deg); opacity: 1; left: 0;"></span>
+            </div>
+        </div>
+        <div id="offCanvas" class="am-offcanvas">
+            <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+                <div class="am-offcanvas-content">
+                    <div class="sidebar-inner">
+                        <div class="site-overview">
+                            <div class="img-author" style="text-align: center">
+                                <p style="font-size: large;font-family: 仿宋">微信公众号</p>
+                                <div id="weixin">
+                                    <img class="weixinPublic" src="">
+                                </div>
+                                <div class="author-name">
+                                    张海洋
+                                </div>
+                                <div class="author-words">
+                                    <p>专注于Spring,SpringBoot等后端技术探索</p>
+                                    <p>以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习</p>
+                                </div>
+
+                            </div>
+                            <div class="site-state" style="opacity: 1; display: block; transform: translateX(0px);">
+                                <div class="site-state-item learn-posts">
+                                    <a href="/archives">
+                                        <span class="archivesNum site-state-item-count"></span>
+                                        <span class="site-state-item-name">日志</span>
+                                    </a>
+                                </div>
+                                <div class="site-state-item learn-categories">
+                                    <a id="site-state-item-a" href="/categories">
+                                        <span class="categoriesNum site-state-item-count"></span>
+                                        <span class="site-state-item-name">分类</span>
+                                    </a>
+                                </div>
+                                <div class="site-state-item learn-tags">
+                                    <a href="/tags">
+                                        <span class="tagsNum site-state-item-count"></span>
+                                        <span class="site-state-item-name">标签</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="contact-way">
+                                <span><i class="fa fa-qq">&nbsp;&nbsp;1125694337</i></span>
+                                <span><i class="fa fa-wechat">&nbsp;&nbsp;zhy1125694337</i></span>
+                            </div>
+                            <div class="rss">
+                                <div class="rss-site">
+                                    <a class="rss-site-a" href="/rss">
+                                        <i class="fa fa-rss"> RSS</i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="author-words">
+                                <p>本人目前本科生在读</p>
+                                <p>由于水平有限，希望大家多多支持</p>
+                                <p>有不足之处也希望各位前辈指出</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+            <a id="toTop"  href="#top">
+            <span title="到顶部" style="color: white">
+                <i class="fa fa-arrow-up"></i>
+            </span>
+            </a>
+        </div>
+    </div>
+    <!--成功消息盒-->
+    <div class="notice successNoticeAlert am-animation-slide-top">
+        <span class="successNotice"></span>
+    </div>
+    <!--失败消息盒-->
+    <div class="notice dangerNoticeAlert am-animation-slide-top">
+        <span class="dangerNotice"></span>
+    </div>
+    <div class="feedback am-animation-slide-top">
+        <a class="feedbackClose am-close am-close-alt am-close-spin am-icon-times"></a>
+        <div class="feedbackTitle">
+            反馈
+        </div>
+        <div class="feedbackWord">
+            您对于本博客网站有任何意见或是存在Bug的地方，欢迎进行反馈
+        </div>
+        <div class="feedbackForm">
+            <form class="am-form">
+                <fieldset class="am-form-set">
+                    <textarea id="feedbackFormContent" placeholder="非常感谢您抽出时间填写问题反馈。必填"></textarea>
+                    <input type="text" class="feedbackFormQQ" placeholder="方便留下QQ或是微信联系你吗。选填">
+                </fieldset>
+                <button type="button" class="feedbackFormBtn am-btn am-btn-primary am-btn-block">提交反馈</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/all.js"></script>
+<script src="js/update.js"></script>
+<script src="js/leaveMessage.js"></script>
+
+</body>
+</html>

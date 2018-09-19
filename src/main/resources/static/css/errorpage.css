@@ -1,0 +1,20 @@
+.error404Page{
+    text-align: center;
+}
+.error404Page img{
+    width: 80%;
+    margin: 30px auto;
+}
+.errorWords{
+    text-align: center;
+}
+.errorWords_display{
+    font-size: 18px;
+    font-family: 华文仿宋;
+}
+.error403Page{
+    text-align: center;
+}
+.error403Page img{
+    width: 50%;
+}

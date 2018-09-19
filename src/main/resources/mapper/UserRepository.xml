@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhy.repository.mybatis.UserRepository">
+    <resultMap id="userMap" type="com.zhy.model.User">
+        <id property="id" column="id"/>
+        <result property="phone" column="phone"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="gender" column="gender"/>
+        <result property="trueName" column="trueName"/>
+        <result property="birthday" column="birthday"/>
+        <result property="age" column="age"/>
+        <result property="mail" column="mail"/>
+        <result property="recentlyLanded" column="recentlyLanded"/>
+        <collection property="roles" ofType="com.zhy.model.Role">
+            <result  property="name" column="name"/>
+        </collection>
+    </resultMap>
+
+    <select id="findByPhone" parameterType="String" resultMap="userMap">
+        select u.*,r.name
+        from user u
+        LEFT JOIN user_role sru on u.id= sru.User_id
+        LEFT JOIN role r on sru.Role_id=r.id
+        where phone= #{phone}
+    </select>
+</mapper>

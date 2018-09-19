@@ -1,0 +1,234 @@
+.editor-title{
+    margin: 2px 0 0;
+    display: inline-block;
+}
+.editor-welcome{
+    margin-right: 10px;
+    letter-spacing: 4px;
+    font-size: 17px;
+}
+.editor-title-name{
+    font-family: 方正舒体;
+    font-size: 30px;
+    letter-spacing: 8px;
+}
+.editor-title-words{
+    font-size: 17px;
+    letter-spacing: 10px;
+}
+.editor-title span{
+    margin-left: 5px;
+    font-size: 38px;
+    word-spacing:8px;
+    letter-spacing: 5px;
+    font-weight: 500;
+    font-family: 华文行楷;
+}
+.zhy-editor-input{
+    /*padding: 0 140px 0 30px;*/
+    margin: 10px 30px 13px 30px;
+}
+#zhy-editor-title{
+    width: 90%;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 16px;
+    border: none;
+    background-color: #f4f4f4;
+    font-size: 16px;
+    color: #4f4f4f;
+    display: inline-block;
+}
+/*发布博客按钮*/
+.publishBtn{
+    display: inline-block;
+    margin-left: 15px;
+    border-radius: 7px;
+}
+.surePublishBtn{
+    margin-left: 15px;
+    border-radius: 7px;
+}
+.zhy-editor-writing{
+    margin-top: 10px;
+}
+.notice-box{
+    display: none;
+    position: fixed;
+    bottom: 56px;
+    left: 50%;
+    transform: translateX(-55%);
+    padding: 16px 40px;
+    border-radius: 4px;
+    background: rgba(63,63,63,0.9);
+    box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.33);
+    line-height: 24px;
+    font-size: 16px;
+    color: #fff;
+    z-index: 9999;
+
+}
+.notice-box-write{
+    display: block;
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-55%);
+    padding: 16px 40px;
+    border-radius: 4px;
+    line-height: 24px;
+    font-size: 16px;
+    color: #fff;
+    z-index: 9999;
+    white-space: nowrap;
+}
+#myModal{
+    top: 100px;
+}
+/*发布博客模态框设置*/
+.article-tag,.article-type,.articleUrlHide{
+    padding: 10px 20px 10px;
+}
+.publish-tag{
+    display: inline-block;
+    font-weight: 400;
+}
+.tags,.type,.tag,.tag-inline,.categories,.grade,.Url,.tabloid{
+    display: inline-block;
+}
+.tag-name{
+    margin-top: 8px;
+    margin-left: 5px;
+    padding: 3px 8px;
+    font-size: 12px;
+    max-width: 480px;
+    background: #e9e9e9;
+    border-radius: 2px;
+    line-height: 15px;
+    height: 18px;
+    color: #4f4f4f;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-bottom: 0;
+    transform: translateY(5px);
+}
+.removeTag{
+    margin-top: 10px;
+    margin-left: 1px;
+    font-size: 16px;
+    height: 12px;
+    color: #ddd;
+    transition: color .3s ease-in;
+    vertical-align: -1px;
+    cursor: pointer;
+}
+.addTagsBtn{
+    margin-left: 5px;
+    display: inline-block;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    color: #349edf;
+    font-size: 14px;
+    line-height: 32px;
+}
+#select-type,#select-categories,#select-grade{
+    margin-left: 8px;
+    width: 138px;
+    height: 32px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.required{
+    margin-left: 2px;
+    font-size: 12px;
+    color: #ca0c16;
+}
+#originalAuthor{
+    margin-left: 8px;
+    width: 138px;
+    height: 32px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+#articleUrl{
+    margin-left: 8px;
+    width: 404px;
+    height: 32px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+ }
+/*发布博客成功*/
+#all{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+.success{
+    text-align: center;
+}
+.success-box{
+    padding: 40px;
+    width: 600px;
+    height: auto;
+    border: none;
+    display: block;
+    position: fixed;
+    top:20%;
+    margin: 0 27%;
+    background-color: #fff;
+}
+.successArticleTitle{
+    font-size: 20px;
+    margin: 20px auto;
+}
+.success-word p{
+    padding-bottom: 10px;
+    font-size: 40px;
+    color: #4f4f4f;
+    letter-spacing: 0;
+    line-height: 24px;
+    font-family: 仿宋;
+    font-weight: 700;
+}
+.success-time-user{
+    margin-bottom: 20px;
+}
+.success-time p{
+    font-size: 15px;
+    right: 20px;
+}
+.successBtn a{
+    color: white;
+}
+.reWriteBtn{
+    margin-right: 25px;
+}
+.lookArticleBtn{
+    margin-left: 25px;
+}
+/*代码不换行*/
+.editormd-preview-theme-dark .editormd-preview-container code{
+    line-height: inherit;
+    overflow-wrap: break-word;
+    padding: 4px 1px 0 !important;
+    border-radius: 4px !important;
+    margin: 0 0 !important;
+    color: rgb(233, 105, 0);
+    background: rgb(248, 248, 248) none repeat scroll 0% 0%;
+    border: 0 !important;
+}
+.markdown-body pre code{
+    white-space: pre;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+
+

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>程序猿张先森 | 友链</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="keywords" content="博客,个人,学习,IT,生活,张海洋,程序猿,springboot,java,后端，友链">
+    <meta name="description" content="张海洋，正宗97后，爱编程。喜欢旅行、摄影、爱生活。专注于Spring,SpringBoot等后端技术探索，以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习。">
+
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/comment.css">
+    <link rel="stylesheet" href="css/friendlylink.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/underscore.js/1.9.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <div class="am-topbar" style="margin-bottom: 0">
+            <h1 class="am-topbar-brand">
+                <a href="/"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
+            </h1>
+            <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" style="background-color: #CCCCCC;border-color: white;border-radius: 6px" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+            <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="fa fa-home"></span>&nbsp;首页</a></li>
+                    <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="fa fa-th"></span>&nbsp;分类</a></li>
+                    <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="fa fa-archive"></span>&nbsp;归档</a></li>
+                    <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="fa fa-tags"></span>&nbsp;标签</a></li>
+                    <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="fa fa-calendar-plus-o"></span>&nbsp;更新</a></li>
+                    <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="fa fa-street-view"></span>&nbsp;友链</a></li>
+                    <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="fa fa-user"></span>&nbsp;关于我</a> </li>
+                </ul>
+
+                <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
+                    <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+                        <button class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></button>
+                        <ul class="am-dropdown-content">
+                            <li><a href="/user" sec:authorize="hasRole('ROLE_USER')">个人主页</a></li>
+                            <li><a href="/superadmin" sec:authorize="hasRole('ROLE_SUPERADMIN')">网站后台管理</a></li>
+
+                            <li><a class="feedbackClick">反馈</a></li>
+                            <hr style="margin: 10px 0 5px 0;">
+                            <li><a th:href="@{/logout}">退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                    <a href="/register" class="am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">注册</a>
+                </div>
+                <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                    <a href="/login" class="loginBtn am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">登录</a>
+                </div>
+                <div class="am-topbar-right writing am-hide-md-down">
+                    <a  href="/editor" target="_blank" style="text-decoration: none">
+                        <img class="am-circle" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/writing.png">
+                        <span class="write-word">写博客</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div class="am-container">
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-lg-12">
+                    <div class="site-inner">
+                        <div class="zhy-friendlylink-title am-animation-slide-top">
+                            <i class="fa fa-hashtag fa-lg"></i><span>大佬博客</span>
+                        </div>
+                        <div class="zhy-friendlylink-author am-animation-slide-top">
+                            <div class="am-u-sm-4 am-u-lg-4">
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://blog.didispace.com/" target="_blank">程序猿DD</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="https://www.liaoxuefeng.com/" target="_blank">廖雪峰的官方网站</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://cxytiandi.com/" target="_blank">猿天地</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="https://www.bysocket.com/" target="_blank">泥瓦匠BYSocket</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="https://since1986.github.io/blog/" target="_blank">Since1986</a>
+                                </p>
+                            </div>
+                            <div class="am-u-sm-4 am-u-lg-4">
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://www.tianshouzhi.com/" target="_blank">田守枝Java技术博客</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://blog.itmyhome.com/" target="_blank">麦田技术博客</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://blog.720ui.com/" target="_blank">梁桂钊</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://www.icnws.com/" target="_blank">城南往事</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://techblog.pub/" target="_blank">原创博客技术联盟</a>
+                                </p>
+                            </div>
+                            <div class="am-u-sm-4 am-u-lg-4">
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://www.ityouknow.com/" target="_blank">纯洁的微笑</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="https://blog.52itstyle.com/" target="_blank">小柒博客 </a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://www.spring4all.com/" target="_blank">spring4all </a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <a href="http://cmsblogs.com/" target="_blank">chenssy </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 am-u-lg-12">
+                    <div class="site-middle am-animation-slide-top">
+                        <div class="zhy-friendlylink-title">
+                            <i class="fa fa-hashtag fa-lg"></i><span>友情链接</span>
+                        </div>
+                        <div class="zhy-friendlylink-author">
+                            <div class="am-u-sm-4 am-u-lg-4">
+                                <p>
+                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <a href="http://junxuelian.cn/" target="_blank">一名行进中的码农</a>
+                                </p>
+                                <p>
+                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <a href="https://sailengsi.com/" target="_blank">赛冷思个人博客</a>
+                                </p>
+                            </div>
+                            <div class="am-u-sm-4 am-u-lg-4">
+                                <p>
+                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <a href="https://crossoverjie.top/" target="_blank">crossoverJie</a>
+                                </p>
+                            </div>
+                            <div class="am-u-sm-4 am-u-lg-4">
+                                <p>
+                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <a href="https://sanii.cn/" target="_blank">SAn Blog</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="am-u-sm-12 am-u-lg-12">-->
+                    <!--<div class="site-middle">-->
+                        <!--<div class="zhy-friendlylink-title">-->
+                            <!--<i class="fa fa-hashtag fa-lg"></i><span>半个IT技术圈</span>-->
+                        <!--</div>-->
+                        <!--<div class="zhy-official">-->
+
+                            <!--<div class="am-g" style="margin-top: 10px">-->
+                                <!--<div class="zhy-official-weixin">-->
+                                    <!--<div class="set-weixin">-->
+
+                                        <!--<div class="zhy-weixin-row">-->
+                                            <!--<p>SpringForAll社区</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/SpringForAll社区.png" alt=""/>-->
+                                            <!--<span>关于Spring一切的问题，有问必答!Spring For All玩最纯粹的技术!做最专业的Spring民间组织。</span>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
+                                            <!--<p>BYSocket泥瓦匠</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/BYSocket泥瓦匠.png" alt=""/>-->
+                                            <!--<span>专注SpringBoot、SpringCloud和MSA微服务架构相关。路漫漫其修远兮，吾将上下而求索。</span>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
+                                            <!--<p>纯洁的微笑</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/纯洁的微笑.png" alt=""/>-->
+                                            <!--<span>分享微服务实践与Java技术干货、偶尔讲讲故事。在人工智能时代，一起学习微服务架构演进和大数据治理。</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="set-weixin">-->
+
+                                        <!--<div class="zhy-weixin-row">-->
+                                            <!--<p>Java后端技术</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/java后端技术.png" alt=""/>-->
+                                            <!--<span>专注Java相关技术:SSM、Spring全家桶、微服务、MySQL、MyCat、集群、分布式、中间件、Linux、网络、多线程、偶尔讲点运维Jenkins、Nexus、Docker、ELK，偶尔分享些技术干货，致力于Java全栈开发!</span>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
+                                            <!--<p>程序猿DD</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/程序猿DD.png" alt=""/>-->
+                                            <!--<span>作者翟永超,《SpringCloud微服务实战》作者,SpringCloud中文社区创始人(springcloud.com.cn),Spring4All社区联合发起人(spring4All.com),专注于微服务架构与敏捷管理。</span>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
+                                            <!--<p>Java葵花宝典</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/Java葵花宝典.png" alt=""/>-->
+                                            <!--<span>Java葵花宝典，Java知识和技术查漏补缺，空余时间学习碎片化知识，分享开发、运维、架构等综合性知识，助力职场最后一公里与职业进阶，每天看宝典，就选它。</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="am-u-sm-12 am-u-lg-12">
+                    <div class="zhy-link-word am-animation-slide-top">
+                        <div class="zhy-friendlylink-title">
+                            <i class="fa fa-hashtag fa-lg"></i><span>链接公告</span>
+                        </div>
+                        <div class="zhy-friendlink-info">
+                            <p>任何一个行业，如果靠自己不断去探索和挖掘的话，对于自己的成长固然重要，但是有时站在巨人的肩膀上望向前方，你会发现
+                                成功和梦想其实就在前方。</p>
+                            <p>很感谢在我对于未来迷茫时帮助过我的人，也十分感谢那些素未谋面的大佬们在工作之余为我们分享技术前沿的风景。在此衷心的感谢他们，也希望更多的人在他们的帮助下共同进步。</p>
+                            <p><u><i>如果以上链接有涉及个人隐私问题，请及时联系我进行整改。</i></u></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 am-u-lg-12">
+                    <div class="zhy-link-word am-animation-slide-top">
+                        <div class="zhy-friendlylink-title">
+                            <i class="fa fa-hashtag fa-lg"></i><span>友链须知</span>
+                        </div>
+                        <div class="zhy-friendlylink-words">
+                            <blockquote>
+                                <ul>
+                                    <li>请确认贵站可正常访问</li>
+                                    <li>原创博客、技术博客、游记博客优先</li>
+                                    <li>二十篇以上个人原创文章，两个月内有新文章更新</li>
+                                </ul>
+                            </blockquote>
+                            <p style="font-size: 14px">
+                                本人会长期清理无法访问的链接，请保证自己的链接长期有效<br><br>
+                                有需要互换友链的朋友也可在下方给我留言。经核实后将上挂本站点 ^_^
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12 am-u-lg-12">
+                    <div class="zhy-link-word">
+                        <div class="comment" style="margin: 0 auto 50px">
+                            <div class="comment-top">
+                                <div class="comment-top-input" th:if="${#httpServletRequest.remoteUser}">
+                                    <textarea id="comment" placeholder="客官，来说两句吧..."></textarea>
+                                </div>
+                                <div class="comment-top-input" th:unless="${#httpServletRequest.remoteUser}">
+                                    <div class="goToLogin">
+                                        &nbsp;&nbsp;&nbsp;<a id="toLogin">登录</a>后才可以发表留言呦...
+                                    </div>
+                                </div>
+                                <div class="commentBtn">
+                                    <button id="commentBtn" type="button" class="am-btn am-btn-secondary">发表留言</button>
+                                </div>
+                            </div>
+                            <div class="comment-bottom">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer am-u-sm-centered">
+            <div class="am-vertical-align" style="text-align: center">
+                <hr>
+                <div class="am-vertical-align-bottom">
+                    <div style="color: #009688">
+                        &copy; 2018 程序猿张先森 - <i class="fa fa-coffee" style="margin: 0 5px"></i>张海洋 版权所有
+                    </div>
+                    <div id="footer" style="color: #009688">
+                        总访问量 <span id="totalVisitors"><strong></strong></span> 次  访客量 <span id="visitorVolume"><strong></strong></span> 人次
+                    </div>
+                    <div class="webLogo">
+                        <a href="http://www.miitbeian.gov.cn" target="_blank">
+                            蜀ICP备18000229号
+                        </a>
+                    </div>
+                    <div class="webLogo">
+                        <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/webLog.png">
+                        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51011402000164" target="_blank">
+                            川公网安备 51011402000164号
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar_toggle" class="sidebar_toggle" data-am-offcanvas="{target: '#offCanvas'}">
+            <div class="sidebar_toggle_line_wrap">
+                <span class="sidebar-toggle-line sidebar-toggle-line-first" style="width: 100%; top: 0; transform: rotateZ(0deg); opacity: 1; left:0"></span>
+                <span class="sidebar-toggle-line sidebar-toggle-line-middle" style="width: 100%; opacity: 1; left: 0; top: 0; transform: rotateZ(0deg);"></span>
+                <span class="sidebar-toggle-line sidebar-toggle-line-last" style="width: 100%; top: 0; transform: rotateZ(0deg); opacity: 1; left: 0;"></span>
+            </div>
+        </div>
+        <div id="offCanvas" class="am-offcanvas">
+            <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+                <div class="am-offcanvas-content">
+                    <div class="sidebar-inner">
+                        <div class="site-overview">
+                            <div class="img-author" style="text-align: center">
+                                <p style="font-size: large;font-family: 仿宋">微信公众号</p>
+                                <div id="weixin">
+                                    <img class="weixinPublic" src="">
+                                </div>
+                                <div class="author-name">
+                                    张海洋
+                                </div>
+                                <div class="author-words">
+                                    <p>专注于Spring,SpringBoot等后端技术探索</p>
+                                    <p>以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习</p>
+                                </div>
+
+                            </div>
+                            <div class="site-state" style="opacity: 1; display: block; transform: translateX(0px);">
+                                <div class="site-state-item learn-posts">
+                                    <a href="/archives">
+                                        <span class="archivesNum site-state-item-count"></span>
+                                        <span class="site-state-item-name">日志</span>
+                                    </a>
+                                </div>
+                                <div class="site-state-item learn-categories">
+                                    <a id="site-state-item-a" href="/categories">
+                                        <span class="categoriesNum site-state-item-count"></span>
+                                        <span class="site-state-item-name">分类</span>
+                                    </a>
+                                </div>
+                                <div class="site-state-item learn-tags">
+                                    <a href="/tags">
+                                        <span class="tagsNum site-state-item-count"></span>
+                                        <span class="site-state-item-name">标签</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="contact-way">
+                                <span><i class="fa fa-qq">&nbsp;&nbsp;1125694337</i></span>
+                                <span><i class="fa fa-wechat">&nbsp;&nbsp;zhy1125694337</i></span>
+                            </div>
+                            <div class="rss">
+                                <div class="rss-site">
+                                    <a class="rss-site-a" href="/rss">
+                                        <i class="fa fa-rss"> RSS</i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="author-words">
+                                <p>本人目前本科生在读</p>
+                                <p>由于水平有限，希望大家多多支持</p>
+                                <p>有不足之处也希望各位前辈指出</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+            <a id="toTop"  href="#top">
+            <span title="到顶部" style="color: white">
+                <i class="fa fa-arrow-up"></i>
+            </span>
+            </a>
+        </div>
+    </div>
+    <!--成功消息盒-->
+    <div class="notice successNoticeAlert am-animation-slide-top">
+        <span class="successNotice"></span>
+    </div>
+    <!--失败消息盒-->
+    <div class="notice dangerNoticeAlert am-animation-slide-top">
+        <span class="dangerNotice"></span>
+    </div>
+    <div class="feedback am-animation-slide-top">
+        <a class="feedbackClose am-close am-close-alt am-close-spin am-icon-times"></a>
+        <div class="feedbackTitle">
+            反馈
+        </div>
+        <div class="feedbackWord">
+            您对于本博客网站有任何意见或是存在Bug的地方，欢迎进行反馈
+        </div>
+        <div class="feedbackForm">
+            <form class="am-form">
+                <fieldset class="am-form-set">
+                    <textarea id="feedbackFormContent" placeholder="非常感谢您抽出时间填写问题反馈。必填"></textarea>
+                    <input type="text" class="feedbackFormQQ" placeholder="方便留下QQ或是微信联系你吗。选填">
+                </fieldset>
+                <button type="button" class="feedbackFormBtn am-btn am-btn-primary am-btn-block">提交反馈</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/all.js"></script>
+<script src="js/leaveMessage.js"></script>
+</body>
+</html>

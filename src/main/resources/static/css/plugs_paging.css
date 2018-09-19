@@ -1,0 +1,14 @@
+.page li a:hover{
+    cursor: pointer;
+}
+.page li a{
+    cursor: pointer;
+    color: #999;
+}
+.currentPage{
+    color: #010001;
+}
+.am-pagination > li > a, .am-pagination > li > span{
+    border: 0;
+    margin: 0;
+}

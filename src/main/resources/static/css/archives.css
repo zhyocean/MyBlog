@@ -1,0 +1,18 @@
+.timeline-row .title{
+    font-size: 15px;
+    color: #555;
+}
+.archivesNum{
+    font-size: 22px;
+    color: #555;
+    padding: 0 2px 0;
+}
+.nodeYear{
+    margin-left: 30px;
+    font-size: 19px;
+    font-weight: 300;
+    color: #555;
+}
+.title{
+    display: inline;
+}

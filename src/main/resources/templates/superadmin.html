@@ -1,0 +1,217 @@
+<!doctype html>
+<html class="no-js fixed-layout" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>程序猿张先森 | 后台管理</title>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+
+    <link rel="stylesheet" href="css/amazeui.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/superadmin.css">
+    <link rel="stylesheet" href="css/plugs_paging.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="https://cdn.bootcss.com/underscore.js/1.9.0/underscore-min.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <div class="am-topbar" style="margin-bottom: 0">
+        <h1 class="am-topbar-brand">
+            <a href="/"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
+        </h1>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" style="background-color: #CCCCCC;border-color: white;border-radius: 6px" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="fa fa-home"></span>&nbsp;首页</a></li>
+                <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="fa fa-th"></span>&nbsp;分类</a></li>
+                <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="fa fa-archive"></span>&nbsp;归档</a></li>
+                <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="fa fa-tags"></span>&nbsp;标签</a></li>
+                <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="fa fa-calendar-plus-o"></span>&nbsp;更新</a></li>
+                <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="fa fa-street-view"></span>&nbsp;友链</a></li>
+                <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="fa fa-user"></span>&nbsp;关于我</a> </li>
+            </ul>
+
+            <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
+                <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+                    <button class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></button>
+                    <ul class="am-dropdown-content">
+                        <li><a href="/user" sec:authorize="hasRole('ROLE_USER')">个人主页</a></li>
+                        <li><a href="/superadmin" sec:authorize="hasRole('ROLE_SUPERADMIN')">网站后台管理</a></li>
+
+                        <li><a class="feedbackClick">反馈</a></li>
+                        <hr style="margin: 10px 0 5px 0;">
+                        <li><a th:href="@{/logout}">退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                <a href="/register" class="am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">注册</a>
+            </div>
+            <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                <a href="/login" class="loginBtn am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">登录</a>
+            </div>
+            <div class="am-topbar-right writing am-hide-md-down">
+                <a  href="/editor" target="_blank" style="text-decoration: none">
+                    <img class="am-circle" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/writing.png">
+                    <span class="write-word">写博客</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="am-cf admin-main" style="padding-top: 0">
+
+    <!--左侧-->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+        <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <ul class="superAdminList am-list admin-sidebar-list">
+                <li class="superAdminClick statistics"><a><span class="am-icon-home"></span> 仪表盘</a></li>
+                <li class="article admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 文章管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+                        <li class="superAdminClick articleManagement"><a class="am-cf"><span class="am-icon-check"></span> 文章管理<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                        <li class="superAdminClick articleComment"><a><span class="am-icon-puzzle-piece"></span> 评论管理<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+                        <li class="superAdminClick articleCategories"><a><span class="am-icon-th"></span> 分类管理</a></li>
+                    </ul>
+                </li>
+                <li class="superAdminClick friendLink"><a><span class="am-icon-users"></span> 友链管理</a></li>
+                <li class="superAdminClick userFeedback"><a><span class="am-icon-table"></span> 反馈</a></li>
+                <li class="superAdminClick privateWord" style="width: 100%"><a><span class="am-icon-pencil-square-o"></span> 悄悄话</a></li>
+            </ul>
+
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-bookmark"></span> 公告</p>
+                    <p>时光静好，与君语；细水流年，与君同。—— 张先森</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--右侧-->
+    <div class="admin-content">
+        <div class="superAdminInfo">
+            <div class="superFunction" id="statistics">
+                <div class="site-inner">
+                    <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+                        <li><a href="#" class="am-text-success"><span class="am-icon-btn am-icon-meh-o"></span><br/>总访问量<br/><span class="allVisitor">1230</span></a></li>
+                        <li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-recycle"></span><br/>昨日访问<br/><span class="yesterdayVisitor">465</span></a></li>
+                        <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-user-md"></span><br/>总用户量<br/><span class="allUser">132</span></a></li>
+                        <li><a href="#" class="am-text-secondary"><span class="am-icon-btn am-icon-file-text"></span><br/>文章量<br/><span class="articleNum">132</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="superFunction" id="articleManagement">
+                <div class="subject">
+                    <h4>文章管理</h4>
+                    <div class="articles">
+                        <div class="am-g">
+                            <div class="am-u-sm-12">
+                                <table class="am-table am-table-bd am-table-striped admin-content-table">
+                                    <thead>
+                                    <tr>
+                                        <th>文章标题</th><th>发布时间</th><th>文章分类</th><th>浏览量</th><th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="articleManagementTable">
+                                    <tr><td><a href="#">关于此博客，我有话哔哔</a></td><td>2018-07-30</td><td><a href="#">我的故事</a></td> <td><span class="am-badge am-badge-success">20</span></td>
+                                        <td>
+                                            <div class="am-dropdown" data-am-dropdown>
+                                                <button class="articleManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>
+                                                 <button class="articleManagementBtn articleDelete am-btn am-btn-danger">删除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr><td>关于此博客，我有话哔哔关于此博客，我有话哔哔</td><td>2018-07-30</td><td><a href="#">我的故事</a></td> <td><span class="am-badge am-badge-success">20</span></td>
+                                        <td>
+                                            <div class="am-dropdown" data-am-dropdown>
+                                                <button class="articleManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>
+                                                <button class="articleManagementBtn articleDelete am-btn am-btn-danger">删除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr><td>关于此博客，我有话哔哔</td><td>2018-07-30</td><td><a href="#">我的故事</a></td> <td><span class="am-badge am-badge-success">20</span></td>
+                                        <td>
+                                            <div class="am-dropdown" data-am-dropdown>
+                                                <button class="articleManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>
+                                                <button class="articleManagementBtn articleDelete am-btn am-btn-danger">删除</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="superFunction" id="articleComment">
+                3
+            </div>
+            <div class="superFunction" id="articleCategories">
+                <div class="site-inner">
+                    4
+                </div>
+            </div>
+            <div class="superFunction" id="friendLink">
+                <div class="site-inner">
+                    5
+                </div>
+            </div>
+            <div class="superFunction" id="userFeedback">
+                <div class="site-inner">
+                    <div class="userFeedbackInfo">
+                        <div class="feedbackInfos">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="superFunction" id="privateWord">
+                <div class="site-inner">
+                    <div class="privateWord">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <footer class="admin-content-footer">
+            <hr>
+            <p class="am-padding-left">© 2018.程序猿张先森. Licensed under MIT license.</p>
+        </footer>
+    </div>
+
+    <!--成功消息盒-->
+    <div class="notice successNoticeAlert am-animation-slide-top">
+        <span class="successNotice"></span>
+    </div>
+    <!--失败消息盒-->
+    <div class="notice dangerNoticeAlert am-animation-slide-top">
+        <span class="dangerNotice"></span>
+    </div>
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<script src="js/all.js"></script>
+<script src="js/superadmin.js"></script>
+<script src="js/plugs_paging.js"></script>
+</body>
+</html>

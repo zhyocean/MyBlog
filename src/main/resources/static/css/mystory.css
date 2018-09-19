@@ -1,0 +1,151 @@
+@media screen and (min-width: 992px) {
+    /*设置左侧点击样式*/
+
+    .zhy-myPhoto{
+        position: absolute;
+        top: 20%;
+        left: 40%;
+    }
+    .myStoryContent,.myStoryLeaveMessage{
+        margin: 30px 0 100px 150px;
+        width: 50%;
+    }
+    /*我的故事*/
+    .myStoryPicWord{
+        color: white;
+        font-size: 40px;
+        position: relative;
+        top: 20%;
+        left: 20%;
+        display: block;
+    }
+    .storyWords{
+        margin-top: 15px;
+        color: #000000;
+        font-size: 25px;
+        position: relative;
+        top: 20%;
+        left: 25%;
+        display: block;
+    }
+    .successNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:50%;
+        border: 1px solid #62c812;
+        color: #62c812;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+    .dangerNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:50%;
+        border: 1px solid #bb4a3c;
+        color: #ff3023;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+}
+@media screen and (max-width: 768px) {
+    /*设置左侧点击样式*/
+
+    .zhy-myPhoto{
+        position: absolute;
+        top: 130px;
+        left: 70px;
+    }
+    .myStoryContent,.myStoryLeaveMessage{
+        margin: 30px 0 100px 25px;
+        width: 87%;
+    }
+    /*我的故事*/
+    .myStoryPicWord{
+        color: white;
+        font-size: 34px;
+        position: relative;
+        top: 20%;
+        left: 5%;
+        display: block;
+    }
+    .storyWords{
+        margin-top: 15px;
+        color: #000000;
+        font-size: 20px;
+        position: relative;
+        top: 20%;
+        left: 15%;
+        display: block;
+    }
+    .successNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:30%;
+        border: 1px solid #62c812;
+        color: #62c812;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+    .dangerNoticeAlert{
+        display: none;
+        position: absolute;
+        top:0%;
+        left:30%;
+        border: 1px solid #bb4a3c;
+        color: #ff3023;
+        padding:10px 25px;
+        border-radius: 5px;
+    }
+}
+/*点击左栏样式*/
+.clickLi a:hover{
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #F0F0F0;
+}
+/*隐藏右栏*/
+#myPhoto{
+    display: none;
+}
+/*没写功能提示，哈哈哈*/
+.alertNotice{
+    display: block;
+}
+.alertNoticeWord{
+    font-size: 25px;
+}
+.zhangSire{
+    margin-top: 50px;
+    font-size: 5px;
+    float: right;
+}
+.notice{
+    text-align: center;
+}
+/*我的故事*/
+.myStoryPic{
+    height: 200px;
+    background: #5588aa;
+    background-image: linear-gradient(45deg,rgba(0,0,0,0.25) 25%,transparent 0,transparent 75%,rgba(0,0,0,0.25) 0),linear-gradient(45deg,rgba(0,0,0,0.25) 25%,transparent 0,transparent 75%,rgba(0,0,0,0.25) 0);
+    background-size: 30px 30px;
+    background-position: 0 0 ,15px 15px;
+}
+/*留言板*/
+.comment-top-input{
+    margin: 0;
+}
+.comments{
+    margin: 70px 0 0;
+}
+.commentBtn{
+    margin: 10px 0;
+}
+.article-comment{
+    margin: 70px 0 0;
+}
+.notice{
+    text-align: center;
+}

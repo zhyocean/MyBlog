@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>3D相册</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				background-color: #000000;
+				margin: 0;
+				font-family: Helvetica, sans-serif;;
+				overflow: hidden;
+			}
+
+			a {
+				color: #ffffff;
+			}
+
+			#info {
+				position: absolute;
+				width: 100%;
+				color: #ffffff;
+				padding: 5px;
+				font-family: Monospace;
+				font-size: 13px;
+				font-weight: bold;
+				text-align: center;
+				z-index: 1;
+			}
+
+			#menu {
+				position: absolute;
+				bottom: 20px;
+				width: 100%;
+				text-align: center;
+			}
+
+			.element {
+				width: 100px;/* 120 160 */
+				height: 100px;
+				box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
+				border: 1px solid rgba(127,255,255,0.25);
+				text-align: center;
+				cursor: default;
+			}
+
+			.element:hover {
+				box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
+				border: 1px solid rgba(127,255,255,0.75);
+			}
+				.element img{
+					width:100px;
+					height:100px;
+				}
+
+				.element .number {
+					position: absolute;
+					top: 20px;
+					right: 20px;
+					font-size: 12px;
+					color: rgba(127,255,255,0.75);
+				}
+
+				.element .symbol {
+					position: absolute;
+					top: 40px;
+					left: 0px;
+					right: 0px;
+					font-size: 60px;
+					font-weight: bold;
+					color: rgba(255,255,255,0.75);
+					text-shadow: 0 0 10px rgba(0,255,255,0.95);
+				}
+
+				.element .details {
+					position: absolute;
+					bottom: 15px;
+					left: 0px;
+					right: 0px;
+					font-size: 12px;
+					color: rgba(127,255,255,0.75);
+				}
+
+			button {
+				color: rgba(127,255,255,0.75);
+				background: transparent;
+				outline: 1px solid rgba(127,255,255,0.75);
+				border: 0px;
+				padding: 5px 10px;
+				cursor: pointer;
+			}
+			button:hover {
+				background-color: rgba(0,255,255,0.5);
+			}
+			button:active {
+				color: #000000;
+				background-color: rgba(0,255,255,0.75);
+			}
+			.show_info{position:fixed;background-color:rgba(0,0,0,.6);padding:10px;width:300px;margin:0 auto;left: 0;right:0;border-radius: 5px;box-shadow: 0 0 10px 0 #fff;top:30%;}
+			.show_info img{display:block;margin:auto;border-radius: 5px;box-shadow: 0 0 10px 0 #888;}
+			.show_info .intro{color:#fff;text-indent:20px;margin-top:10px;height:65px;overflow:hidden;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;}
+			.show_info .info_my{text-align: center;}
+			.show_info .info_my > *{display:inline-block !important;vertical-align: middle;}
+			.show_info .info_my .info_mem{color:#fff;max-width:120px;}
+			.show_info .info_my .info_mem > div{text-align: left;}
+			.show_info .info_my .info_mem > div.nickname{max-width: 120px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+		</style>
+		<link rel="stylesheet" href="css/animate.min.css">
+	</head>
+	<body>
+		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+		<script src="js/three.js"></script>
+		<script src="js/tween.min.js"></script>
+		<script src="js/TrackballControls.js"></script>
+		<script src="js/CSS3DRenderer.js"></script>
+		<div id="container"></div>
+		<div id="menu" >
+			<button id="table">表格</button>
+			<button id="sphere">球球</button>
+			<button id="helix">螺旋</button>
+			<button id="grid">格子</button>
+		</div>
+		<script>
+			var personArray = new Array;
+    		var CurPersonNum = 0;
+    		// animate
+    		var _in = ['bounceIn','bounceInDown','bounceInLeft','bounceInRight','bounceInUp','fadeIn','fadeInDown','fadeInDownBig','fadeInLeft','fadeInLeftBig','fadeInRight','fadeInRightBig','fadeInUp','fadeInUpBig','rotateIn','rotateInDownLeft','rotateInDownRight','rotateInUpLeft','rotateInUpRight','slideInDown','slideInLeft','slideInRight'];
+    		var _out = ['bounceOut','bounceOutDown','bounceOutLeft','bounceOutRight','bounceOutUp','fadeOut','fadeOutDown','fadeOutDownBig','fadeOutLeft','fadeOutLeftBig','fadeOutRight','fadeOutRightBig','fadeOutUp','fadeOutUpBig','rotateOut','rotateOutDownLeft','rotateOutDownRight','rotateOutUpLeft','rotateOutUpRight','slideOutDown','slideOutLeft','slideOutRight'];
+    		
+    		// 模拟推送数据
+			var s = setInterval(function(){
+				// get animate
+				var rand_in = parseInt(Math.random() * _in.length,10);
+    			var rand_out = parseInt(Math.random() * _out.length,10);
+				if(CurPersonNum >= personArray.length){
+					CurPersonNum = 0;
+				}
+				$('.show_info').show();
+				$('.show_info').addClass(_in[rand_in]);
+				setTimeout(function(){
+					$('.show_info').removeClass(_in[rand_in]);
+					// 更改展示的图片
+					var img = document.getElementsByClassName('element')[CurPersonNum].getElementsByTagName('img')[0];
+					img.setAttribute('src','img/b.jpg');
+					++CurPersonNum;
+					setTimeout(function(){
+						$('.show_info').addClass(_out[rand_out]);
+						setTimeout(function(){
+							$('.show_info').removeClass(_out[rand_out]);
+							$('.show_info').hide();
+						},1000);
+					},1500);
+				},1000);
+			},4500);
+
+			// 生成虚拟数据
+	        for(var i=0;i<200;i++){
+				personArray.push({   
+		            image: "img/c.jpg"
+		        });
+	        }	         
+	        var table = new Array;
+		    for (var i = 0; i < personArray.length; i++) {
+		        table[i] = new Object();
+		        if (i < personArray.length) {
+		            table[i] = personArray[i];
+		            table[i].src = personArray[i].thumb_image;
+		        } 
+		        table[i].p_x = i % 20 + 1;
+		        table[i].p_y = Math.floor(i / 20) + 1;
+		    }		
+			var camera, scene, renderer;
+			var controls;
+			var objects = [];
+			var targets = { table: [], sphere: [], helix: [], grid: [] };
+			init();
+			animate();
+			function init() {
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.z = 3000;
+				scene = new THREE.Scene();
+				// table
+				for ( var i = 0; i < table.length; i ++ ) {
+					var element = document.createElement( 'div' );
+					element.className = 'element';
+					element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
+					var img = document.createElement('img');
+					img.src = table[ i ].image;
+					element.appendChild( img );
+				var object = new THREE.CSS3DObject( element );
+					object.position.x = Math.random() * 4000 - 2000;
+					object.position.y = Math.random() * 4000 - 2000;
+					object.position.z = Math.random() * 4000 - 2000;
+					scene.add( object );
+					objects.push( object );
+					// 表格需要坐标进行排序的
+					var object = new THREE.Object3D();
+					// object.position.x = ( table[ i + 3 ] * 140 ) - 1330;
+					// object.position.y = - ( table[ i + 4 ] * 180 ) + 990;
+					object.position.x = ( table[ i ].p_x * 140 ) - 1330;
+					object.position.y = - ( table[ i ].p_y * 180 ) + 990;
+					targets.table.push( object );
+				}
+				// sphere
+				var vector = new THREE.Vector3();
+				var spherical = new THREE.Spherical();
+				for ( var i = 0, l = objects.length; i < l; i ++ ) {
+					var phi = Math.acos( -1 + ( 2 * i ) / l );
+					var theta = Math.sqrt( l * Math.PI ) * phi;
+					var object = new THREE.Object3D();
+					spherical.set( 800, phi, theta );
+					object.position.setFromSpherical( spherical );
+					vector.copy( object.position ).multiplyScalar( 2 );
+					object.lookAt( vector );
+					targets.sphere.push( object );
+				}
+				// helix
+				var vector = new THREE.Vector3();
+				var cylindrical = new THREE.Cylindrical();
+				for ( var i = 0, l = objects.length; i < l; i ++ ) {
+					var theta = i * 0.175 + Math.PI;
+					var y = - ( i * 5 ) + 450;
+					var object = new THREE.Object3D();
+					// 参数一 圈的大小 参数二 左右间距 参数三 上下间距
+					cylindrical.set( 900, theta, y );
+					object.position.setFromCylindrical( cylindrical );
+					vector.x = object.position.x * 2;
+					vector.y = object.position.y;
+					vector.z = object.position.z * 2;
+					object.lookAt( vector );
+			targets.helix.push( object );
+				}
+				// grid
+				for ( var i = 0; i < objects.length; i ++ ) {
+					var object = new THREE.Object3D();
+					object.position.x = ( ( i % 5 ) * 400 ) - 800; // 400 图片的左右间距  800 x轴中心店
+					object.position.y = ( - ( Math.floor( i / 5 ) % 5 ) * 300 ) + 500;  // 500 y轴中心店
+					object.position.z = ( Math.floor( i / 25 ) ) * 200 - 800;// 300调整 片间距 800z轴中心
+					targets.grid.push( object );
+
+				}
+				//渲染
+				renderer = new THREE.CSS3DRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.domElement.style.position = 'absolute';
+				document.getElementById( 'container' ).appendChild( renderer.domElement );
+
+				// 鼠标控制
+				controls = new THREE.TrackballControls( camera, renderer.domElement );
+				controls.rotateSpeed = 0.5;
+				controls.minDistance = 500;
+				controls.maxDistance = 6000;
+				controls.addEventListener( 'change', render );
+
+				// 自动更换
+				var ini = 0;
+				setInterval(function(){
+					ini = ini >= 3 ? 0 : ini;
+					++ini;
+					switch(ini){
+						case 1:
+							transform( targets.sphere, 1000 );
+						break;
+						case 2:
+							transform( targets.helix, 1000 );
+						break;
+						case 3:
+							transform( targets.grid, 1000 );
+						break;
+					}	
+				},8000);
+
+				var button = document.getElementById( 'table' );
+				button.addEventListener( 'click', function ( event ) {
+					transform( targets.table, 1000 );
+				}, false );
+
+				var button = document.getElementById( 'sphere' );
+				button.addEventListener( 'click', function ( event ) {
+					transform( targets.sphere, 2000 );
+				}, false );
+
+				var button = document.getElementById( 'helix' );
+				button.addEventListener( 'click', function ( event ) {
+					transform( targets.helix, 2000 );
+				}, false );
+
+				var button = document.getElementById( 'grid' );
+				button.addEventListener( 'click', function ( event ) {
+					transform( targets.grid, 2000 );
+				}, false );
+
+				transform( targets.table, 2000 );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function transform( targets, duration ) {
+
+				TWEEN.removeAll();
+
+				for ( var i = 0; i < objects.length; i ++ ) {
+
+					var object = objects[ i ];
+					var target = targets[ i ];
+
+					new TWEEN.Tween( object.position )
+						.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+					new TWEEN.Tween( object.rotation )
+						.to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+				}
+
+				new TWEEN.Tween( this )
+					.to( {}, duration * 2 )
+					.onUpdate( render )
+					.start();
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+
+			}
+
+			function animate() {
+
+				// 让场景通过x轴或者y轴旋转  & z
+				// scene.rotation.x += 0.011;
+				scene.rotation.y += 0.008;
+
+				requestAnimationFrame( animate );
+
+				TWEEN.update();
+
+				controls.update();
+
+				// 渲染循环
+				render();
+
+			}
+
+			function render() {
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+		
+		
+	</body>
+</html>

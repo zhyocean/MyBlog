@@ -1,0 +1,111 @@
+@media screen and (min-width: 992px) {
+    .site-inner{
+        margin: 70px 16% 0;
+    }
+}
+@media screen and (max-width: 768px) {
+    .site-inner{
+        margin: 70px 7% 0;
+    }
+}
+
+.allTagsTitle{
+    text-align: left;
+}
+.allTagsNum{
+    text-align: center;
+    margin-top: 60px;
+}
+.allTagsCloud{
+    text-align: center;
+    margin-top: 15px;
+}
+.allTagsCloud a{
+    margin: 10px 5px;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 1px solid #999;
+    color: #616161;
+}
+.allTagsCloud a:hover{
+    color: #38b7ea;
+}
+/*评论的头像*/
+.visitorCommentImg {
+    padding-left: 7px;
+}
+/*显示单个标签的文章*/
+.timeline-wrap{
+    border-left: 3px solid #eceff2;
+    margin-bottom: 50px;
+}
+.timeline-row{
+    margin: 20px 0;
+}
+.timeline-row .node{
+    color: #fff;
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+    margin: 0 0 0 -17px;
+    padding: 6px 8px 10px;
+    display: inline-block;
+    background-color: #38b7ea;
+    border-radius: 50%;
+}
+.title{
+    font-size: 18px;
+    margin-left: 10px;
+    line-height: 30px;
+    display: inline-block;
+    margin-top: 0;
+}
+.timeline-row-major{
+    margin: 20px 0;
+}
+.timeline-row-major .node{
+    width: 12px;
+    color: #fff;
+    height: 12px;
+    border-radius: 50%;
+    margin: 11px 0 0 -8px;
+    display: inline-block;
+    background-color: #38b7ea;
+    float: left;
+}
+.contentTitle{
+    color: #565a5f;
+    font-size: 17px;
+}
+.contentTitle a:hover{
+    color: #38b7ea;
+}
+.timeline-row-major .content{
+    margin-left: 30px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+.am-comment-bd{
+    color: #898d92;
+    display: inline-block;
+    background-color: rgba(244,246,247,0.2);
+    width: 100%;
+    padding: 10px 5px 5px 15px;
+}
+.am-comment-bd i{
+    margin-right: 8px;
+    line-height: 2em;
+    font-size: 13px;
+}
+.am-comment-bd a{
+    margin-left: 2px;
+    color: #898d92;
+}
+.am-comment-bd a:hover{
+    color: #38b7ea;
+}
+.am-comment-bd-tags a{
+    display: inline-block;
+}
+.am-comment-bd-tags{
+    display: inline-block;
+}

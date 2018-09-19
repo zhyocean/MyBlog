@@ -1,0 +1,114 @@
+.am-g{
+    margin: 80px 0 0;
+}
+@media screen and (min-width: 992px) {
+    .site-inner{
+        margin: 0 19%;
+    }
+    .things{
+        font-size: 20px;
+    }
+    .comment{
+        margin: 0 14%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .site-inner{
+        margin: 0 5%;
+    }
+    .things{
+        font-size: 17px;
+    }
+}
+.title-words-h1{
+    font-size: 30px;
+    font-weight: 400;
+}
+.am-g p{
+    margin: 0 auto;
+}
+.title-img{
+    text-align: center;
+    margin-top: 5px;
+    padding: 20px;
+}
+.title-img img{
+    width: 300px;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.zhy-info-words{
+    text-indent: 2em;
+    font-size: 15px;
+    font-family: '微软雅黑', '宋体', sans-serif;
+    font-weight: 200;
+}
+blockquote ul li{
+    font-size: 15px;
+    line-height: 25px;
+}
+.zhy-title-QRCode-word{
+    text-align: center;
+    padding: 20px 0;
+}
+.zhy-life-title{
+    /*text-align: center;*/
+    font-size: 32px;
+    font-weight: 500;
+}
+/*初衷*/
+.zhy-original-title-h1{
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+.zhy-original-title img{
+    width: 300px;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.zhy-erha{
+    text-align: center;
+    margin: 50px auto;
+}
+.zhy-original-words{
+    text-indent: 2em;
+    font-size: 15px;
+    font-family: '微软雅黑', '宋体', sans-serif;
+    font-weight: 200;
+}
+.zhy-quot{
+    margin: 10px auto;
+}
+.zhy-quot-font{
+    font-family: '微软雅黑', '宋体', sans-serif;
+    font-size: 15px;
+}
+.zhy-you{
+    text-align: center;
+    margin: 50px auto;
+}
+.zhy-you img{
+    width: 300px;
+    margin: 0 auto;
+    max-width: 100%;
+}
+/*意见反馈*/
+.zhy-opinion-title{
+    font-size: 30px;
+    font-weight: 400;
+}
+.zhy-opinion img{
+    width: 300px;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.zhy-opinion-words{
+    font-size: 16px;
+    font-family: 微软雅黑;
+    font-weight: 500;
+}
+/*评论的头像*/
+.visitorCommentImg {
+    padding-left: 7px;
+}

@@ -1,0 +1,237 @@
+@media screen and (min-width: 992px) {
+    .comment-top-input{
+        border: 1px solid #4398ed;
+        padding: 15px 15px 5px;
+        margin: 0 50px;
+        border-radius: 7px;
+    }
+    .article-comment{
+        margin: 70px 50px 0;
+    }
+    .commentBtn{
+        float: right;
+        margin: 10px 50px;
+    }
+    #comment{
+        width: 100%;
+        height: 50px;
+        background: 0 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border: 0;
+        font-size: 14px;
+        resize: none;
+        line-height: normal;
+        text-align: left;
+    }
+    .comments{
+        margin: 70px 50px 0;
+        height: 30px;
+        background: #f0f0f0;
+        text-align: center;
+        opacity: .5;
+    }
+    .article-comment-line{
+        left: 65px;
+        width: 88%;
+        border-bottom: 1px solid #4398ed;
+        margin-top: 3px;
+        position: relative;
+    }
+}
+@media screen and (max-width: 768px) {
+    .comment-top-input{
+        border: 1px solid #4398ed;
+        padding: 15px 15px 5px;
+        border-radius: 7px;
+    }
+    .article-comment{
+        margin: 70px 0 0;
+    }
+    .commentBtn{
+        float: right;
+        margin: 10px 0;
+    }
+    #comment{
+        width: 100%;
+        height: 50px;
+        background: 0 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border: 0;
+        font-size: 14px;
+        resize: none;
+        line-height: normal;
+        text-align: left;
+    }
+    .comments{
+        margin: 70px 0 0;
+        height: 30px;
+        background: #f0f0f0;
+        text-align: center;
+        opacity: .5;
+    }
+    .article-comment-line{
+        left: 65px;
+        width: 77%;
+        border-bottom: 1px solid #4398ed;
+        margin-top: 3px;
+        position: relative;
+    }
+}
+.comment{
+    margin: 60px auto 50px;
+}
+
+#commentBtn{
+    padding: 5px 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.goToLogin{
+    width: 100%;
+    height: 70px;
+}
+.comment-bottom{
+    margin: 20px 0 50px;
+}
+.noComment{
+    line-height: 30px;
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+}
+.visitorReplyWords a{
+    text-decoration: none;
+}
+/*评论喜欢*/
+.tool-group{
+    margin: 0 10px 7px 0;
+    display: inline-block;
+}
+.tool-group a{
+    color: #969696;
+}
+.tool-group a:hover{
+    cursor: pointer;
+    color: #63676d;
+    text-decoration: none;
+}
+.like{
+    margin-right: 13px;
+}
+/*评论的评论*/
+.sub-comment-list{
+    padding: 5px 0 5px 20px;
+    border-left: 2px solid #d9d9d9;
+}
+.reply-sub-comment-list{
+    padding: 5px 0 5px 20px;
+    border-left: 2px solid #d9d9d9;
+    display: none;
+}
+.more-comment a{
+    color: #63676d;
+}
+.more-comment a:hover{
+    cursor: pointer;
+    color: black;
+}
+.replyWordTextarea{
+    padding: 10px 15px;
+    width: 100%;
+    height: 80px;
+    font-size: 13px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+    resize: none;
+    display: inline-block;
+    vertical-align: top;
+    outline-style: none;
+}
+
+.sendReplyWordBtn{
+    border-radius: 50px;
+    float: right;
+    margin-top: 7px;
+}
+.quitReplyWordBtn{
+    margin-right: 10px;
+    float: right;
+    background-color: white;
+    color: #9ca3ac;
+    margin-top: 7px;
+}
+#toLogin{
+    cursor: pointer;
+}
+.visitorReplyTime{
+    color: #969696;
+    margin: 3px auto;
+}
+.visitorReplyTime a{
+    color: #969696;
+}
+.visitorReplyTime a:hover{
+    color: #63676d;
+}
+.visitorReplyTimeTime{
+    margin: 0 10px 0 0;
+}
+.visitorReplyTime a:hover{
+    cursor: pointer;
+}
+.article-comment-word{
+    font-size: 17px;
+    padding: 6px 15px 6px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top: 1px solid #4398ed;
+    border-left: 1px solid #4398ed;
+    border-right: 1px solid #4398ed;
+    color: #4398ed;
+}
+.new-comment{
+    margin: 10px 0;
+    color: #4398ed;
+}
+.all-comment{
+    margin: 10px 7px;
+    font-size: 17px;
+}
+.visitorCommentImg img{
+    width: 50px;
+    padding: 0;
+    border-radius: 50%;
+}
+.visitorComment{
+    margin-top: 15px;
+}
+.visitorInfo{
+    display: block;
+}
+.visitorName{
+    float: left;
+    color: #4398ed;
+}
+.visitorPublishDate{
+    float: right;
+    padding: 5px 0 0;
+    font-family: Arial;
+    color: #a0a0a0;
+}
+.visitorSay{
+    margin-top: 5px;
+    display: block;
+    padding: 8px 0;
+}
+
+.visitorFloor{
+    margin-left: 15px;
+}
+
+
+
