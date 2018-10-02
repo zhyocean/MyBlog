@@ -229,6 +229,10 @@
     display: inline-block;
     margin-right: 20px;
 }
+.editormd-preview-theme-dark .editormd-preview-container blockquote{
+    background: #fff;
+    border-color: #ddd;
+}
 
 
 
