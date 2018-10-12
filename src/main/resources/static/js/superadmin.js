@@ -30,7 +30,7 @@
         $.each(data['result'], function (index,obj) {
             var amPanel = $('<div class="am-panel am-panel-default"></div>');
             amPanel.append('<div class="am-panel-hd">' +
-                '<h4 class="am-panel-title" data-am-collapse="{parent: \'#accordion\', target: \'#do-not-say-' + index + '\'}">' +
+                '<h4 style="font-weight: 500" class="am-panel-title" data-am-collapse="{parent: \'#accordion\', target: \'#do-not-say-' + index + '\'}">' +
                 obj['publisher'] +
                 '</h4>' +
                 '</div>');

@@ -89,6 +89,9 @@
 .article-tag,.article-type,.articleUrlHide{
     padding: 10px 20px 10px;
 }
+.row{
+    text-align: left;
+}
 .publish-tag{
     display: inline-block;
     font-weight: 400;
@@ -157,7 +160,7 @@
 }
 #articleUrl{
     margin-left: 8px;
-    width: 404px;
+    width: 380px;
     height: 32px;
     background: #fafafa;
     border: 1px solid #ddd;
@@ -233,6 +236,5 @@
     background: #fff;
     border-color: #ddd;
 }
-
 
 

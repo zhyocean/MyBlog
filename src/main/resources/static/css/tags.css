@@ -59,6 +59,7 @@
     line-height: 30px;
     display: inline-block;
     margin-top: 0;
+    font-weight: 500;
 }
 .timeline-row-major{
     margin: 20px 0;

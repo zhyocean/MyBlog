@@ -125,7 +125,7 @@
             var categories = $('.categories');
             categories.empty();
             categories.append($('<div class="categories-title">' +
-                '<h3>Archives</h3>' +
+                '<h3 style="font-size: 20px">Archives</h3>' +
                 '</div>'));
             var categoriesComment = $('<div class="categories-comment am-animation-slide-top"></div>');
             $.each(data['result'], function (index, obj) {

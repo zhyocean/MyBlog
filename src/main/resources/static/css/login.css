@@ -20,3 +20,17 @@
     color: white;
     border-radius: 5px;
 }
+
+.loginInput{
+    margin-bottom: 20px;
+}
+.rememberMe{
+    display: block;
+}
+/*修改密码模态框*/
+#change_password_btn{
+    margin: 10px 20px 10px auto;
+}
+#change_password_cancel_btn{
+    margin: 10px auto 10px auto;
+}

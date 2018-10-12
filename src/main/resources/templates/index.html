@@ -11,15 +11,14 @@
     <meta name="description" content="张海洋，正宗97后，爱编程。喜欢旅行、摄影、爱生活。专注于Spring,SpringBoot等后端技术探索，以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习。">
 
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/plugs_paging.css">
 
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/underscore.js/1.9.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
     <script src="js/lastUrl.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
 
@@ -29,7 +28,7 @@
     <div class="header">
         <div class="am-topbar" style="margin-bottom: 0">
             <h1 class="am-topbar-brand">
-                <a href="/"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
+                <a href="/" class="blogTitleName"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
             </h1>
             <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" style="background-color: #CCCCCC;border-color: white;border-radius: 6px" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
 
@@ -231,7 +230,7 @@
                     <div class="new-comment">
                         <div data-am-widget="list_news" class="am-list-news am-list-news-default" >
                             <div class="am-list-news-hd am-cf">
-                                <a class="">
+                                <a class="newComments">
                                     <h2>最新评论</h2>
                                 </a>
                             </div>
@@ -261,7 +260,7 @@
                     <div class="new-leaveWord">
                         <div data-am-widget="list_news" class="am-list-news am-list-news-default" >
                             <div class="am-list-news-hd am-cf">
-                                <a class="">
+                                <a class="newLeaveWord">
                                     <h2>最新留言</h2>
                                 </a>
                             </div>
@@ -290,6 +289,7 @@
                 </div>
             </div>
             <div class="showArticle am-u-sm-12 am-u-lg-6">
+                <i class="fa fa-volume-down am-show-md-down" style="margin-left: 10px;color: red;margin-bottom: 10px"><marquee style="width: 92%;font-family: 仿宋 ">可能我只是你生命里的一个过客，但你不会遇见第二个我。</marquee></i>
                 <div class="articles">
                     <div class="center">
                         <div class="empty">
@@ -482,6 +482,7 @@
             </div>
             <div class="am-u-sm-12 am-u-lg-3">
                 <div id="right">
+                    <i class="fa fa-volume-down am-hide-md-down" style="margin-left: 10px;color: red"><marquee style="width: 92%;font-family: 仿宋 ">可能我只是你生命里的一个过客，但你不会遇见第二个我。</marquee></i>
                     <h3 class="widget-title">公告</h3>
                     <div class="widget">
                         <div class="bg-danger">
@@ -498,7 +499,7 @@
                                 <i class="fa fa-quote-right" style="float: right"></i>
                                 <div class="zhy-info-opinion">
                                     <p><strong>Welcome to my blog！！！</strong></p>
-                                    <p>平淡对待一切<br>努力做最好的自己</p>
+                                    <p style="line-height: 25px">平淡对待一切<br>努力做最好的自己</p>
                                 </div>
                             </div>
                         </div>

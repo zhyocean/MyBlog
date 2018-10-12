@@ -262,9 +262,8 @@
         var modal_icons = $(".modal_icons");
         modal_value.val("");
         modal_icons.hide();
-        // modal_value.each(function () {
-        //     $(this).val("");
-        // })
     });
+
+
 
 

@@ -14,21 +14,19 @@
 
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/login.css">
 
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="app">
     <div class="header">
         <div class="am-topbar" style="margin-bottom: 0">
             <h1 class="am-topbar-brand">
-                <a href="/"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
+                <a href="/" class="blogTitleName"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
             </h1>
             <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" style="background-color: #CCCCCC;border-color: white;border-radius: 6px" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
 
@@ -87,93 +85,90 @@
                 <hr>
                 <div>
                     <form th:action="@{/login}" method="post" class="am-form" >
-                        <label for="phone">手机号:</label>
-                        <div  class="input-group am-u-lg-10 col-md-offset-3 am-form-icon am-form-feedback" style="margin-left: 0">
-                            <div class="input-group-addon"><span class="fa fa-phone fa-lg"></span></div>
-                            <input type="text" name="username" id="phone" placeholder="客官，这里输入手机号哦">
+                        <div  class="loginInput am-input-group am-u-lg-10 col-md-offset-2 am-form-icon am-form-feedback" style="margin-left: 0">
+                            <div class="am-input-group-label"><i class="fa fa-phone fa-lg"></i></div>
+                            <input type="text" name="username" class="am-form-field" id="phone" placeholder="客官，这里输入手机号哦">
                             <span id="phone_null" class="icons am-icon-warning" style="color: orange"></span>
                             <span id="phone_error" class="icons am-icon-times" style="color: red"></span>
                         </div>
                         <br>
-                        <label for="password">密码:</label>
-                        <div class="input-group am-u-lg-10 col-md-offset-3 am-form-icon am-form-feedback" style="margin-left: 0">
-                            <div class="input-group-addon"><span class="fa fa-lock fa-lg"></span></div>
+                        <div class="loginInput am-input-group am-u-lg-10 col-md-offset-2 am-form-icon am-form-feedback" style="margin-left: 0">
+                            <div class="am-input-group-label"><i class="fa fa-lock fa-lg"></i></div>
                             <input type="password" name="password" id="password" placeholder="嘘，在这里悄悄输入密码">
                             <span id="password_null" class="icons am-icon-warning" style="color: orange"></span>
                         </div>
-                        <br>
-                        <label for="remember-me">
-                            <input id="remember-me" type="checkbox">
-                            记住十万年
-                        </label>
                         <br/>
-                        <div class="input-group am-u-lg-10 col-md-offset-3" style="margin-left: 0">
+                        <div class="am-u-lg-10 col-md-offset-2">
+                            <label class="rememberMe" for="remember-me">
+                                <input id="remember-me" type="checkbox">
+                                记住十万年
+                            </label>
+                        </div>
+                        <br>
+                        <div class="am-input-group am-u-lg-10 col-md-offset-2" style="margin-left: 0">
                             <input type="submit" id="loginFormSubmit" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl" style="border-radius: 5px">
                             <!-- 按钮触发模态框 -->
-                            <button type="button" class="am-btn am-btn-default am-btn-sm am-fr " data-toggle="modal" data-target="#myModal" style="border-radius: 5px">
+                            <button type="button" class="am-btn am-btn-default am-btn-sm am-fr " data-am-modal="{target: '#my-alert'}" style="border-radius: 5px">
                                 忘记密码 ^_^?
                             </button>
                         </div>
                         <div class="login_error" th:if="${param.error}">
                             <span class="am-alert am-alert-secondary" data-am-alert style="margin-left: 15%;background-color: #d85a37;color: white;border-radius: 5px">用户名不存在或密码错误!</span>
                         </div>
-
                     </form>
+
                     <!-- 模态框（Modal） -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">客官，在这里修改密码呦</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="modal_form" class="am-form am-form-horizontal">
-                                        <div class="am-form-group">
-                                            <label for="modal_phone" class="am-u-sm-2 am-form-label">手机号</label>
-                                            <div class="am-u-sm-10 am-form-icon am-form-feedback">
-                                                <input class="modal_value" type="text" id="modal_phone" placeholder="输入要修改的手机号哦">
-                                                <span id="modal_phone_null" class="modal_icons am-icon-warning" style="color: orange"></span>
-                                                <span id="modal_phone_error" class="modal_icons am-icon-times" style="color: red"></span>
-                                            </div>
+                    <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+                        <div class="am-modal-dialog" style="border-radius: 5px;">
+                            <div class="am-modal-hd" style="text-align: left;margin:auto auto 5px 20px">客官，在这里修改密码呦
+                                <a href="javascript: void(0)" class="am-close am-close-alt am-close-spin" data-am-modal-close style="margin: 7px 10px auto auto">&times;</a>
+                            </div>
+                            <div class="am-modal-bd">
+                                <form id="modal_form" class="am-form am-form-horizontal">
+                                    <div class="am-form-group">
+                                        <label for="modal_phone" class="am-u-sm-4 am-form-label">手机号</label>
+                                        <div class="am-u-sm-8 am-form-icon am-form-feedback">
+                                            <input class="modal_value" type="text" id="modal_phone" placeholder="输入要修改的手机号哦">
+                                            <span id="modal_phone_null" class="modal_icons am-icon-warning" style="color: orange"></span>
+                                            <span id="modal_phone_error" class="modal_icons am-icon-times" style="color: red"></span>
                                         </div>
-                                        <div class="am-form-group">
-                                            <label for="auth_code" class="am-u-sm-2 am-form-label">验证码</label>
-                                            <div class="am-u-sm-7 am-form-icon am-form-feedback">
-                                                <input class="modal_value" type="text" id="auth_code" placeholder="点我右边那家伙获取验证码">
-                                                <span id="auth_code_null" class="modal_icons am-icon-warning" style="color: orange"></span>
-                                                <span id="auth_code_error" class="modal_icons am-icon-times" style="color: red"></span>
-                                            </div>
-                                            <div class="am-u-sm-3" style="padding-left:0">
-                                                <button type="button" id="msg_btn" class="am-btn am-btn-secondary am-round">获取验证码</button>
-                                            </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="auth_code" class="am-u-sm-4 am-form-label">验证码</label>
+                                        <div class="am-u-sm-4 am-form-icon am-form-feedback">
+                                            <input class="modal_value" type="text" id="auth_code" placeholder="点我右边那家伙获取验证码">
+                                            <span id="auth_code_null" class="modal_icons am-icon-warning" style="color: orange"></span>
+                                            <span id="auth_code_error" class="modal_icons am-icon-times" style="color: red"></span>
                                         </div>
+                                        <div class="am-u-sm-4" style="padding-left:0">
+                                            <button type="button" id="msg_btn" class="am-btn am-btn-secondary am-round">获取验证码</button>
+                                        </div>
+                                    </div>
 
-                                        <div class="am-form-group">
-                                            <label for="new_password" class="am-u-sm-2 am-form-label">新密码</label>
-                                            <div class="am-u-sm-10 am-form-icon am-form-feedback">
-                                                <input class="modal_value" value="" type="password" id="new_password" placeholder="快来设置一个新密码吧">
-                                                <span id="new_password_null" class="modal_icons am-icon-warning" style="color: orange"></span>
-                                            </div>
+                                    <div class="am-form-group">
+                                        <label for="new_password" class="am-u-sm-4 am-form-label">新密码</label>
+                                        <div class="am-u-sm-8 am-form-icon am-form-feedback">
+                                            <input class="modal_value" value="" type="password" id="new_password" placeholder="快来设置一个新密码吧">
+                                            <span id="new_password_null" class="modal_icons am-icon-warning" style="color: orange"></span>
                                         </div>
+                                    </div>
 
-                                        <div class="am-form-group">
-                                            <label for="check_password" class="am-u-sm-2 am-form-label">确认密码</label>
-                                            <div class="am-u-sm-10 am-form-icon am-form-feedback">
-                                                <input class="modal_value" value="" type="password" id="check_password" placeholder=再次确认一下新密码哦">
-                                                <span id="modal_check_password_error" class="icons am-icon-times" style="color: red"></span>
-                                                <span id="check_password_null" class="modal_icons am-icon-warning" style="color: orange"></span>
-                                            </div>
+                                    <div class="am-form-group">
+                                        <label for="check_password" class="am-u-sm-4 am-form-label">确认密码</label>
+                                        <div class="am-u-sm-8 am-form-icon am-form-feedback">
+                                            <input class="modal_value" value="" type="password" id="check_password" placeholder=再次确认一下新密码哦">
+                                            <span id="modal_check_password_error" class="icons am-icon-times" style="color: red"></span>
+                                            <span id="check_password_null" class="modal_icons am-icon-warning" style="color: orange"></span>
                                         </div>
-                                        <div class="phoneNotExit">
-                                            <span class="modal_icons phoneNotExitSpan">手机号不存在,修改密码失败！</span>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" id="change_password_cancel_btn" class="btn btn-default" data-dismiss="modal">取消</button>
-                                    <button type="button" id="change_password_btn" class="btn btn-primary">确认修改</button>
-                                </div>
+                                    </div>
+                                    <div class="phoneNotExit">
+                                        <span class="modal_icons phoneNotExitSpan">手机号不存在,修改密码失败！</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="am-modal-footer" style="text-align: right">
+                                <button type="button" id="change_password_cancel_btn" class="am-btn am-btn-default am-round" data-am-modal-close>取消</button>
+                                <button type="button" id="change_password_btn" class="am-btn am-btn-warning am-round">确认修改</button>
                             </div>
                         </div>
                     </div>

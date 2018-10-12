@@ -34,7 +34,7 @@
         display: inline-block;
     }
     .categories{
-        margin: 5px 0 0 20px;
+        margin: 5px 0 0 0;
     }
     /*最新评论*/
     .new-comment,.new-leaveWord{
@@ -82,6 +82,7 @@
 }
 .img-words{
     margin-top: 20px;
+    line-height: 20px;
 }
 #name{
     font-size: 20px;
@@ -233,7 +234,6 @@ a.tag:hover{
     color: #38b7ea;
 }
 .articleType{
-    margin-left: 20px;
     border-radius: 5px;
 }
 .article-meta i{
@@ -277,11 +277,23 @@ a.tag:hover{
     overflow: hidden;
     color: #999;
 }
+.article-title{
+    font-weight: 500;
+}
+.newComments h2,.newLeaveWord h2{
+    font-weight: 500;
+}
+.newCommentTitle,.newLeaveWordTitle{
+    font-size: 14px;
+}
 .page{
     margin: 0 auto 1rem;
 }
 .fiveNewComments{
     margin-bottom: 1rem;
+}
+.new-comment-content{
+    font-size: 14px;
 }
 /*个人名片*/
 .myCard{

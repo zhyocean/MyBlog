@@ -8,20 +8,18 @@
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css">
     <link rel="stylesheet" href="css/editormd/editormd.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/editormd/editor.css">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         /*隐藏markdown全窗口预览不会关闭的bug，会导致其他fa选择器同时隐藏*/
         .fa{
             display: none;
         }
     </style>
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/editormd/editormd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="app">
@@ -30,7 +28,7 @@
         <div class="header">
             <div class="am-topbar" style="margin-bottom: 0">
                 <h1 class="am-topbar-brand">
-                    <a href="/"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
+                    <a href="/" class="blogTitleName"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
                 </h1>
 
                 <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse" style="text-align: center">
@@ -38,17 +36,17 @@
                     <div class="editor-title"><i class="editor-welcome">Welcome to</i><i class="editor-title-name">张先森</i><i class="editor-title-words">的创作中心</i></div>
 
                     <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
-                        <!--<div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">-->
-                            <span class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> </span>
-                            <!--<ul class="am-dropdown-content">-->
-                                <!--<li><a href="/user">个人主页</a></li>-->
-                                <!--<li><a href="#">账户管理</a></li>-->
-                                <!---->
-                                <!--<li><a class="feedbackClick">反馈</a></li>-->
-                                <!--<hr style="margin: 0">-->
-                                <!--<li><a th:href="@{/logout}">退出登录</a></li>-->
-                            <!--</ul>-->
-                        <!--</div>-->
+                        <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+                            <span class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></span>
+                            <ul class="am-dropdown-content">
+                                <li><a href="/user">个人主页</a></li>
+                                <li><a href="#">账户管理</a></li>
+
+                                <li><a class="feedbackClick">反馈</a></li>
+                                <hr style="margin: 0">
+                                <li><a th:href="@{/logout}">退出登录</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
                         <a href="/register" class="am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">注册</a>
@@ -70,7 +68,7 @@
             <div class="zhy-editor">
                 <div class="zhy-editor-input">
                     <input id="zhy-editor-title" type="text" placeholder="输入文章标题">
-                    <button type="button" class="publishBtn am-btn am-btn-danger" data-toggle="modal">发布博客</button>
+                    <button type="button" class="publishBtn am-btn am-btn-danger" data-am-modal="{target: '#my-alert'}"">发布博客</button>
                 </div>
             </div>
             <div class="zhy-editor-writing">
@@ -95,95 +93,85 @@
     </div>
 
     <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close am-close am-close-alt am-close-spin" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        发布博客
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="article-setting">
-                        <div class="article-tag row">
+    <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+        <div class="am-modal-dialog" style="border-radius: 5px;">
+            <div class="am-modal-hd" style="text-align: left;margin:auto auto 5px 20px">发布博客
+                <a href="javascript: void(0)" class="am-close am-close-alt am-close-spin" data-am-modal-close style="margin: 7px 10px auto auto">&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <div class="article-setting">
+                    <div class="article-tag row">
+                        <div class="tags">
+                            <div class="tag-inline">
+                                <label class="publish-tag">文章标签<strong>:</strong></label>
+                                <div class="tag">
 
-                            <div class="tags">
-                                <div class="tag-inline">
-                                    <label class="publish-tag">文章标签<strong>:</strong></label>
-                                    <div class="tag">
-
-                                    </div>
-                                    <button class="addTagsBtn">
-
-                                        <i class="am-icon-plus-circle"></i>
-                                        添加标签
-                                    </button>
                                 </div>
-                                <span style="display: block;margin-left:67px;">最多添加5个标签</span>
+                                <button class="addTagsBtn">
+                                    <i class="am-icon-plus-circle"></i>
+                                    添加标签
+                                </button>
                             </div>
+                            <span style="display: block;margin-left:67px;">最多添加5个标签</span>
                         </div>
-                        <div class="article-type row">
-                            <label class="publish-tag">文章类型<strong>:</strong></label>
-                            <div class="type">
-                                <select id="select-type">
-                                    <option value="choose" selected>请选择</option>
-                                    <option value="原创">原创</option>
-                                    <option value="转载">转载</option>
-                                </select>
-                                <span class="required">*</span>
-                            </div>
+                    </div>
+                    <div class="article-type row">
+                        <label class="publish-tag">文章类型<strong>:</strong></label>
+                        <div class="type">
+                            <select id="select-type">
+                                <option value="choose" selected>请选择</option>
+                                <option value="原创">原创</option>
+                                <option value="转载">转载</option>
+                            </select>
+                            <span class="required">*</span>
+                        </div>
 
-                            <label class="publish-tag" style="margin-left: 40px">博客分类<strong>:</strong></label>
-                            <div class="categories">
-                                <select id="select-categories">
-                                    <option value="choose">请选择</option>
-                                </select>
-                                <span class="required">*</span>
-                            </div>
+                        <label class="publish-tag" style="margin-left: 10px">博客分类<strong>:</strong></label>
+                        <div class="categories">
+                            <select id="select-categories">
+                                <option value="choose">请选择</option>
+                            </select>
+                            <span class="required">*</span>
                         </div>
-                        <div class="article-tag row">
-                            <label class="publish-tag">文章等级<strong>:</strong></label>
-                            <div class="grade">
-                                <select id="select-grade">
-                                    <option value="choose" selected>请选择</option>
-                                    <option value="12">☆</option>
-                                    <option value="15">☆☆</option>
-                                    <option value="17">☆☆☆</option>
-                                    <option value="18">☆☆☆☆</option>
-                                    <option value="20">☆☆☆☆☆</option>
-                                </select>
-                                <span class="required">*</span>
-                            </div>
+                    </div>
+                    <div class="article-tag row">
+                        <label class="publish-tag">文章等级<strong>:</strong></label>
+                        <div class="grade">
+                            <select id="select-grade">
+                                <option value="choose" selected>请选择</option>
+                                <option value="12">☆</option>
+                                <option value="15">☆☆</option>
+                                <option value="17">☆☆☆</option>
+                                <option value="18">☆☆☆☆</option>
+                                <option value="20">☆☆☆☆☆</option>
+                            </select>
+                            <span class="required">*</span>
+                        </div>
 
-                            <div id="originalAuthorHide" style="display: inline-block">
-                                <label class="publish-tag" style="margin-left: 40px;display: inline-block">文章作者<strong>:</strong></label>
-                                <div class="originalAuthor" style="display: inline-block">
-                                    <input type="text" id="originalAuthor" placeholder="请输入文章原作者">
-                                    <span class="required">*</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="articleUrlHide row">
-                            <label class="publish-tag" style="display: inline-block">原文链接<strong>:</strong></label>
-                            <div class="url" style="display: inline-block">
-                                <input type="text" id="articleUrl" placeholder=" 请输入原文链接">
+                        <div id="originalAuthorHide" style="display: inline-block">
+                            <label class="publish-tag" style="margin-left: 10px;display: inline-block">文章作者<strong>:</strong></label>
+                            <div class="originalAuthor" style="display: inline-block">
+                                <input type="text" id="originalAuthor" placeholder="请输入文章原作者">
                                 <span class="required">*</span>
                             </div>
                         </div>
                     </div>
+                    <div class="articleUrlHide row">
+                        <label class="publish-tag" style="display: inline-block">原文链接<strong>:</strong></label>
+                        <div class="url" style="display: inline-block">
+                            <input type="text" id="articleUrl" placeholder=" 请输入原文链接">
+                            <span class="required">*</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default closeBtn" data-dismiss="modal">取消
-                    </button>
-                    <button type="button" class="surePublishBtn am-btn am-btn-danger">
-                        发表博客
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
+            </div>
+            <div class="am-modal-footer" style="text-align: right;height: 45px">
+                <button type="button" class="am-btn am-btn-default am-round" data-am-modal-close style="margin-right: 10px">取消</button>
+                <button type="button" class="surePublishBtn am-btn am-btn-danger am-round" style="margin: 10px 15px 10px auto">
+                    发表博客
+                </button>
+            </div>
+        </div>
         <div class="notice-box notice-box-tags">
             <i class="am-icon-exclamation-circle"></i>
             <span> 文章标签不能为空</span>

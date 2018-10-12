@@ -53,7 +53,7 @@
         newComment.empty();
         var listNews = $('<div data-am-widget="list_news" class="am-list-news am-list-news-default" ></div>');
         var newCommentTitle = $('<div class="am-list-news-hd am-cf">' +
-            '<a>' +
+            '<a class="newComments">' +
             '<h2 style="color: #110101">最新评论</h2>' +
             '</a>' +
             '</div>');
@@ -62,7 +62,7 @@
         var ul = $('<ul class="fiveNewComments am-list"></ul>');
         $.each(data['result'],function (index,obj) {
             var li = $('<li class="am-g am-list-item-dated">' +
-                '<a target="_blank" href="/findArticle?articleId=' + obj['articleId'] + '&originalAuthor=' + obj['originalAuthor'] + '" class="am-list-item-hd" style="padding-bottom: 5px">'+ obj['articleTitle'] + '</a>' +
+                '<a class="newCommentTitle" target="_blank" href="/findArticle?articleId=' + obj['articleId'] + '&originalAuthor=' + obj['originalAuthor'] + '" class="am-list-item-hd" style="padding-bottom: 5px" title="' + obj['articleTitle'] + '">'+ obj['articleTitle'] +'</a>' +
                 '<span class="am-list-date">' + obj['commentDate'] + '</span>' +
                 '<div class="new-comment-content" style="margin-bottom: 5px;">' + obj['answerer'] + '：' + obj['commentContent'] + '</div>' +
                 '</li>');
@@ -83,7 +83,7 @@
         newLeaveWord.empty();
         var listNews = $('<div data-am-widget="list_news" class="am-list-news am-list-news-default" ></div>');
         var newCommentTitle = $('<div class="am-list-news-hd am-cf">' +
-            '<a>' +
+            '<a class="newLeaveWord">' +
             '<h2 style="color: #110101">最新留言</h2>' +
             '</a>' +
             '</div>');
@@ -92,7 +92,7 @@
         var ul = $('<ul class="fiveNewComments am-list"></ul>');
         $.each(data['result'], function (index, obj) {
             ul.append($('<li class="am-g am-list-item-dated">' +
-                '<a href="/' + obj['pagePath'] + '">' + obj['answerer'] + '：' + obj['leaveWordContent'] + '</a>\n' +
+                '<a class="newLeaveWordTitle" href="/' + obj['pagePath'] + '" title="' + obj['leaveWordContent'] + '">' + obj['answerer'] + '：' + obj['leaveWordContent'] + '</a>\n' +
                 '<span class="am-list-date">' + obj['leaveWordDate'] + '</span>' +
                 '</li>'));
         });

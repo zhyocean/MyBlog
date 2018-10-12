@@ -14,22 +14,20 @@
 
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/register.css">
 
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/underscore.js/1.9.0/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="app">
     <div class="header">
         <div class="am-topbar" style="margin-bottom: 0">
             <h1 class="am-topbar-brand">
-                <a href="/"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
+                <a href="/" class="blogTitleName"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
             </h1>
             <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" style="background-color: #CCCCCC;border-color: white;border-radius: 6px" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
 
@@ -81,58 +79,51 @@
             </div>
             <hr />
         </div>
-        <div id="register_big" class="am-g" style="height: 595px">
+        <div id="register_big" class="am-g" style="height: 595px;">
             <div id="register_clear" class="am-u-lg-6 am-u-sm-9 am-u-sm-centered">
                 <h3>注册</h3>
                 <hr>
                 <form id="registerForm" class="am-form">
-                    <label for="phone" style="margin-top: 10px">手机号:</label>
-                    <div  class="input-group am-u-lg-10 col-md-offset-3 am-form-icon am-form-feedback" style="margin-left: 0">
-                        <div class="input-group-addon"><span class="fa fa-phone fa-lg"></span></div>
-                        <input type="text" name="phone" id="phone" placeholder="快来注册个手机号吧">
-                        <span id="phone_null" class="icons am-icon-warning" style="color: orange"></span>
-                        <span id="phone_error" class="icons am-icon-times" style="color: red"></span>
+                    <label for="phone" style="margin-top: 6px">手机号:</label>
+                    <div  class="am-form-group am-form-icon am-form-feedback" style="margin-left: 0">
+                        <input style="width: 80%" type="text" name="phone" id="phone" placeholder="快来注册个手机号吧">
+                        <span id="phone_null" class="iconsNull icons am-icon-warning"></span>
+                        <span id="phone_error" class="iconsError icons am-icon-times"></span>
                     </div>
                     <div id="phone_warn" class="input_warn">
                         <span>该手机号已存在！</span>
                     </div>
-                    <label for="auth_code" style="margin-top: 15px">验证码:</label>
-                    <div class="input-group am-u-lg-10 col-md-offset-3" style="margin-left: 0">
-                        <div>
-                            <div class="am-input-group am-u-sm-8 am-form-icon am-form-feedback" style="padding: 0">
-                                <div class="input-group-addon"><span class="fa fa-meh-o fa-lg"></span></div>
-                                <input type="text" name="auth_code" id="auth_code" placeholder="点右边获得短信验证码呦">
-                                <span id="auth_code_null" class="icons am-icon-warning" style="color: orange"></span>
-                                <span id="auth_code_error" class="icons am-icon-times" style="color: red"></span>
-                            </div>
-                            <div class="am-u-sm-3" style="padding-left:0">
-                                <button type="button" id="msg_btn" class="am-btn am-btn-secondary am-round">获取验证码</button>
-                            </div>
+                    <label for="auth_code" style="margin-top: 6px">验证码:</label>
+                    <div  class="am-form-group am-form-icon am-form-feedback" style="margin-left: 0;">
+                        <input style="width: 45%" type="text" name="phone" id="auth_code" placeholder="点右边获得短信验证码呦">
+                        <span id="auth_code_null" class="iconsAuthCodeNull icons am-icon-warning"></span>
+                        <span id="auth_code_error" class="iconsAuthCodeError icons am-icon-times"></span>
+                        <div class="getAuthCodeBtn">
+                            <button type="button" id="msg_btn" class="am-btn am-btn-secondary am-round">获取验证码</button>
                         </div>
                     </div>
                     <div id="auth_code_warn" class="input_warn">
                         <span>验证码错误！</span>
                     </div>
-                    <label for="username" style="margin-top: 15px">用户名:</label>
-                    <div  class="input-group am-u-lg-10 col-md-offset-3 am-form-icon am-form-feedback" style="margin-left: 0">
-                        <div class="input-group-addon"><span class="fa fa-user fa-lg"></span></div>
+                    <label for="username" style="margin-top: 6px;">用户名:</label>
+                    <div  class="am-form-group am-form-icon am-form-feedback" style="margin-left: 0">
                         <input type="text" name="username" id="username" placeholder="emmmmmm，用户名">
-                        <span id="username_null" class="icons am-icon-warning" style="color: orange"></span>
+                        <span id="username_null" class="iconsNull icons am-icon-warning"></span>
                     </div>
                     <div id="username_warn" class="input_warn">
                         <span>该用户名已存在</span>
                     </div>
-                    <label for="password" style="margin-top: 15px">密码:</label>
-                    <div class="input-group am-u-lg-10 col-md-offset-3 am-form-icon am-form-feedback" style="margin-left: 0">
-                        <div class="input-group-addon"><span class="fa fa-lock fa-lg"></span></div>
+                    <label for="password" style="margin: 6px 30px auto auto;">密码:</label>
+                    <div  class="am-form-group am-form-icon am-form-feedback" style="margin-left: 0">
                         <input type="password" name="password" id="password" placeholder="悄悄的输入你的密码哦">
-                        <span id="password_null" class="icons am-icon-warning" style="color: orange"></span>
+                        <span id="password_null" class="iconsNull icons am-icon-warning"></span>
                     </div>
                     <div class="input_warn">
                         <span>密码错误</span>
                     </div>
-                    <label style="margin-top: 15px">性别:</label>
-                    <div class="radio_input input-group am-u-lg-10 col-md-offset-3" style="margin-left: 0">
+
+                    <label style="margin: 6px 30px auto auto;">性别:</label>
+                    <div class="radio_input am-form-group" style="margin: 0 0 10px auto">
                         <label class="am-radio-inline">
                             <input type="radio" name="gender" value="male" data-am-ucheck>
                             <span class="fa fa-male fa-lg"></span>
@@ -145,9 +136,8 @@
                             <span id="gender_null" class="icons">就不能告诉我你是GG还是MM么 o(╥﹏╥)o</span>
                         </div>
                     </div>
-                    <br>
                 </form>
-                <div class="am-u-lg-10 am-u-sm-12" style="padding: 0">
+                <div class="am-u-lg-10 am-u-sm-12" style="margin-top: 30px">
                     <input type="submit" id="registerFormBtn" value="注 册" class="am-btn am-btn-primary am-btn-sm am-fl" style="border-radius: 5px">
                     <a href="/login" type="button" class="am-btn am-btn-default am-btn-sm am-fr" style="border-radius: 5px">
                         去登录看看 (#^.^#)

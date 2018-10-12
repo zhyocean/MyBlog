@@ -36,7 +36,6 @@
     font-weight: 400;
     border-radius: 3px;
 }
-
 @media screen and (min-width: 992px) {
     .register_success_img img{
         width: 30%;
@@ -59,6 +58,26 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+    }
+    .getAuthCodeBtn{
+        padding-left: 0;
+        float: right;
+        margin-right: 180px;
+        transform: translateY(-35px);
+    }
+    .iconsNull{
+        color: orange;
+        margin-right: 130px;
+    }
+    .iconsError{
+        color: red;
+        margin-right: 130px;
+    }
+    .iconsAuthCodeNull{
+        color: orange;margin-right: 340px;
+    }
+    .iconsAuthCodeError{
+        color: red;margin-right: 340px;
     }
 }
 @media screen and (max-width: 768px) {
@@ -83,4 +102,29 @@
         flex-direction: row;
         align-items: center;
     }
+    .getAuthCodeBtn{
+        padding-left: 0;
+        float: right;
+        transform: translateY(-35px);
+    }
+    .iconsNull{
+        color: orange;
+        margin-right: 60px;
+    }
+    .iconsError{
+        color: red;
+        margin-right: 60px;
+    }
+    .iconsAuthCodeNull{
+        color: orange;margin-right: 150px;
+    }
+    .iconsAuthCodeError{
+        color: red;margin-right: 150px;
+    }
+}
+#registerForm input{
+    width: 80%;
+}
+#registerForm label{
+    margin-right: 15px;
 }
