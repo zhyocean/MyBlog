@@ -260,7 +260,8 @@
                 dataType:"json",
                 success:function (data) {
                     if(data['status'] == 200){
-                        $('#myModal').modal('hide');
+                        //amazeUI 这样关不了模态框，很日怪
+                        // $('#my-alert').modal('hide');
                         window.removeEventListener('beforeunload',fnClose);
                         publishSuccessPutIn(data);
                     } else if (data['status'] == 403){

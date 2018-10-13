@@ -120,10 +120,10 @@ public class BackControl {
         Map<String, String> articleMap = articleService.findArticleTitleByArticleIdAndOriginalAuthor(Long.parseLong(articleId), originalAuthor);
         model.addAttribute("articleTitle",articleMap.get("articleTitle"));
         String articleTabloid = articleMap.get("articleTabloid");
-        if(articleTabloid.length() >= 110){
-            model.addAttribute("articleTabloid",articleTabloid.substring(0,110));
-        } else {
+        if(articleTabloid.length() <= 110){
             model.addAttribute("articleTabloid",articleTabloid);
+        } else {
+            model.addAttribute("articleTabloid",articleTabloid.substring(0,110));
         }
 
 
