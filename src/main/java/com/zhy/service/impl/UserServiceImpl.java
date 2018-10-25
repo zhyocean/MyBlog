@@ -6,6 +6,7 @@ import com.zhy.model.User;
 import com.zhy.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -141,6 +142,8 @@ public class UserServiceImpl implements UserService {
                 return returnJson;
             }
             returnJson.put("status",200);
+            //注销当前登录用户
+            SecurityContextHolder.getContext().setAuthentication(null);
         }
         //没改昵称
         else {
