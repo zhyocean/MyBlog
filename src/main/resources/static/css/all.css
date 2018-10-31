@@ -200,8 +200,11 @@ a.top_bar:hover{
 }
 .author-words{
     margin: 20px 0 0;
-    line-height: 10px;
+    line-height: 20px;
     text-align: center;
+}
+.author-words p{
+    margin: 0;
 }
 .site-state{
     line-height: 1.4;

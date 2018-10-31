@@ -159,7 +159,10 @@
                     tag.append($('<div style="display: inline-block;"><p class="tag-name" contenteditable="true">' + tags[i] + '</p>' +
                         '<i class="am-icon-times removeTag" style="color: #CCCCCC"></i></div>'));
                 }
-                $('.surePublishBtn ').attr("id",data['result']['id']);
+                var articleId = data['result']['id'];
+                if(articleId != 0){
+                    $('.surePublishBtn ').attr("id",articleId);
+                }
             }
         },
         error:function () {
