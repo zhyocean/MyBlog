@@ -303,13 +303,12 @@
 }
 /*评论留言*/
 .leaveMessageTitle{
-    padding: 2px 0 0 0;
+    padding: 10px 110px 10px 0!important;
 }
 .leaveMessageContent{
     padding: 2px 80px 5px 0;
     display: inline-block;
     color: #999;
-
 }
 .reply{
     display: inline-block;
