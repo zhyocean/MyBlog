@@ -69,4 +69,8 @@ public interface CommentService {
      */
     JSONObject getUserComment(int rows, int pageNum, String username);
 
+    /**
+     * 获得评论总数
+     */
+    int commentNum();
 }

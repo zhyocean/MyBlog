@@ -341,6 +341,34 @@ a.tag:hover{
     top:0;
     padding-left: 5px;
 }
+/*#站点信息*/
+.site-info{
+    margin-top: 20px;
+    border: 1px solid silver;
+    box-shadow: 0 2px 5px 0 rgba(33, 22, 22, 0.2), 0 2px 10px 0 rgba(0,0,0,0.12);
+    margin-left: 15px;
+}
+.site-icon{
+    border-right: 1px solid #ddd;
+    width: 15px;
+}
+.site-title{
+    margin: 5px 15px 5px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+.site-default{
+    display: block;
+    list-style: none;
+    font-size: 14px;
+    line-height: 25px;
+}
+.site-default-word{
+    letter-spacing: 1px;
+}
+.site-default-icon{
+    margin-right: 10px;
+}
 /*我的故事、我的女孩*/
 .bg-myStory-a{
     text-decoration: none;
@@ -358,13 +386,13 @@ a.tag:hover{
     text-decoration: none;
     color: #0a0a0a;
 }
-
 .bg-myStory{
     background:repeating-linear-gradient(45deg, #74ccff, #74ccff 15px, #bba985 0, #bba985 30px);
 }
 .bg-myGirl{
     background:repeating-linear-gradient(45deg, #ffbb33, #fb3 15px, #58a 0,#58a 30px);
 }
+
 /*background:#eee;*/
 /*background-image: linear-gradient(45deg,#bbb 25%,transparent 0),linear-gradient(45deg,transparent 75%,#bbb 0),linear-gradient(45deg,#bbb 25%,transparent 0),linear-gradient(45deg,transparent 75%,#bbb 0);*/
 /*background-size: 30px 30px;*/

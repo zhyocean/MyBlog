@@ -42,4 +42,7 @@ public interface CommentMapper {
 
     @Select("select count(*) from comment_record where id>#{id} and pId=#{pId} and respondentId=#{respondentId}")
     int countReplyNumByIdAndRespondentId(@Param("pId") long pId, @Param("respondentId") int respondentId, @Param("id") long id);
+
+    @Select("select count(*) from comment_record")
+    int commentNum();
 }

@@ -198,4 +198,9 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
         returnJson.put("pageInfo",pageJson);
         return returnJson;
     }
+
+    @Override
+    public int countLeaveMessageNum() {
+        return leaveMessageMapper.countLeaveMessageNum();
+    }
 }

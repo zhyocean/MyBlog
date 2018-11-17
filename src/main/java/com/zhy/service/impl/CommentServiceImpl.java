@@ -225,4 +225,8 @@ public class CommentServiceImpl implements CommentService {
         return returnJson;
     }
 
+    @Override
+    public int commentNum() {
+        return commentMapper.commentNum();
+    }
 }

@@ -42,4 +42,7 @@ public interface LeaveMessageMapper {
 
     @Select("select pageName,pId,answererId,respondentId,leaveMessageDate,leaveMessageContent from leave_message_record order by id desc")
     List<LeaveMessage> findFiveNewLeaveWord();
+
+    @Select("select count(*) from leave_message_record")
+    int countLeaveMessageNum();
 }

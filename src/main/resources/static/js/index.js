@@ -185,7 +185,6 @@ function putInNewLeaveWord(data) {
 
 //添加标签云
 function putInTagsCloud(data){
-    var right = $("#right");
     var tagCloud = $('.tag-cloud');
     tagCloud.empty();
     tagCloud.append($('<h3 class="widget-title">标签云</h3>'));
@@ -194,7 +193,6 @@ function putInTagsCloud(data){
         widgetTagCloud.append($('<a href="tags?tag=' + obj['tagName'] + '" style="font-size:' + obj['tagSize'] + 'px">' + obj['tagName'] + '</a>'));
     });
     tagCloud.append(widgetTagCloud);
-    right.append(tagCloud);
 }
 
 //首页文章分页请求
@@ -328,3 +326,79 @@ $.ajax({
         alert("获得标签云失败！");
     }
 });
+
+//网站信息
+$.ajax({
+    type: 'GET',
+    url: '/getSiteInfo',
+    dataType: 'json',
+    data: {
+    },
+    success: function (data) {
+        var siteInfo = $('.site-info');
+        siteInfo.empty();
+        siteInfo.append('<h5 class="site-title">' +
+            '<i class="fa fa-info site-icon"></i>' +
+            '<strong style="margin-left: 15px">网站信息</strong>' +
+            '</h5>');
+        var siteDefault = $('<ul class="site-default"></ul>');
+        siteDefault.append('<li>' +
+            '<i class="fa fa-file site-default-icon"></i><span class="site-default-word">文章总数</span>：' + data['articleNum'] + ' 篇' +
+            '</li>');
+        siteDefault.append('<li>' +
+            '<i class="fa fa-tags site-default-icon"></i><span class="site-default-word">标签总数</span>：' + data['tagsNum'] + ' 个' +
+            '</li>');
+        siteDefault.append('<li>' +
+            '<i class="fa fa-comments-o site-default-icon"></i><span class="site-default-word">留言总数</span>：' + data['leaveWordNum'] + ' 条' +
+            '</li>');
+        siteDefault.append('<li>' +
+            '<i class="fa fa-commenting-o site-default-icon"></i><span class="site-default-word">评论总数</span>：' + data['commentNum'] + ' 条' +
+            '</li>');
+        siteDefault.append('<li>' +
+            '<i class="fa fa-calendar site-default-icon"></i><span class="site-default-word">网站运行天数</span>：<br><span class="siteRunningTime"> </span>' +
+            '</li>');
+        siteInfo.append(siteDefault);
+
+    },
+    error: function () {
+    }
+});
+
+//网站运行时间
+//beginTime为建站时间的时间戳
+function siteRunningTime(time) {
+    var theTime;
+    var strTime = "";
+    if (time >= 86400){
+        theTime = parseInt(time/86400);
+        strTime += theTime + "天";
+        time -= theTime*86400;
+    }
+    if (time >= 3600){
+        theTime = parseInt(time/3600);
+        strTime += theTime + "时";
+        time -= theTime*3600;
+    }
+    if (time >= 60){
+        theTime = parseInt(time/60);
+        strTime += theTime + "分";
+        time -= theTime*60;
+    }
+    strTime += time + "秒";
+
+    return strTime;
+}
+
+var nowDate = new Date().getTime();
+//网站开始运行日期
+var oldDate = new Date('2018-07-25 20:00:00');
+var time = oldDate.getTime();
+var theTime = parseInt((nowDate-time)/1000);
+var timeCount = function() {
+    window.setTimeout(function() {
+        $('.siteRunningTime').html(siteRunningTime(theTime));
+        theTime++;
+        timeCount();
+    }, 1000);
+};
+timeCount();

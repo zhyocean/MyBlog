@@ -20,7 +20,7 @@ import java.security.Principal;
 /**
  * @author: zhangocean
  * @Date: 2018/6/16 16:01
- * Describe: 首页Controller
+ * Describe:
  */
 @Controller
 public class IndexControl {
@@ -48,7 +48,7 @@ public class IndexControl {
      */
     @GetMapping("/getVisitorNumByPageName")
     public @ResponseBody JSONObject getVisitorNumByPageName(HttpServletRequest request,
-                                                  @RequestParam("pageName") String pageName) throws UnsupportedEncodingException {
+                                                            @RequestParam("pageName") String pageName) throws UnsupportedEncodingException {
 
         int index = pageName.indexOf("?");
         if(index == -1){
@@ -75,7 +75,7 @@ public class IndexControl {
      */
     @PostMapping("/myArticles")
     public @ResponseBody JSONArray myArticles(@RequestParam("rows") String rows,
-                                @RequestParam("pageNum") String pageNum){
+                                              @RequestParam("pageNum") String pageNum){
 
         return articleService.findAllArticles(rows, pageNum);
 
@@ -87,7 +87,7 @@ public class IndexControl {
     @GetMapping("/newComment")
     @ResponseBody
     public JSONObject newComment(@RequestParam("rows") String rows,
-                                @RequestParam("pageNum") String pageNum){
+                                 @RequestParam("pageNum") String pageNum){
 
         return commentService.findFiveNewComment(Integer.parseInt(rows),Integer.parseInt(pageNum));
     }
@@ -121,6 +121,17 @@ public class IndexControl {
         jsonObject.put("tagsNum", tagService.countTagsNum());
         jsonObject.put("categoriesNum", categoryService.countCategoriesNum());
         jsonObject.put("archivesNum", articleService.countArticle());
+        return jsonObject;
+    }
+
+    @GetMapping("/getSiteInfo")
+    @ResponseBody
+    public JSONObject getSiteInfo(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("articleNum", articleService.countArticle());
+        jsonObject.put("tagsNum", tagService.countTagsNum());
+        jsonObject.put("leaveWordNum", leaveMessageService.countLeaveMessageNum());
+        jsonObject.put("commentNum", commentService.commentNum());
         return jsonObject;
     }
 
