@@ -89,7 +89,6 @@
                                 $('#headPortrait').attr("src",data['avatarImgUrl']);
                                 successNotice("更改头像成功");
                             } else {
-                                $('#headPortrait').attr("src",data['avatarImgUrl']);
                                 dangerNotice("更改头像失败")
                             }
                         }

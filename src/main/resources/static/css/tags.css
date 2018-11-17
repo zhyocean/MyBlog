@@ -1,4 +1,4 @@
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
     .site-inner{
         margin: 70px 16% 0;
     }
@@ -80,6 +80,7 @@
 }
 .contentTitle a:hover{
     color: #38b7ea;
+    text-decoration: underline;
 }
 .timeline-row-major .content{
     margin-left: 30px;

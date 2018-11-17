@@ -37,7 +37,11 @@ public class UserServiceImpl implements UserService {
         if(userIsExit(user.getPhone())){
             return "1";
         }
-        user.setAvatarImgUrl("https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin.jpg");
+        if("male".equals(user.getGender())){
+            user.setAvatarImgUrl("https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin_male.jpg");
+        } else {
+            user.setAvatarImgUrl("https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin_female.jpg");
+        }
         userMapper.insert(user);
         int userId = userMapper.findUserIdByPhone(user.getPhone());
         insertRole(userId, RoleConstant.ROLE_USER);
@@ -106,9 +110,6 @@ public class UserServiceImpl implements UserService {
         if(!"".equals(avatarImgUrl) && avatarImgUrl != null){
             jsonObject.put("status",200);
             jsonObject.put("avatarImgUrl",avatarImgUrl);
-        }else {
-            jsonObject.put("status",404);
-            jsonObject.put("avatarImgUrl","https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin.jpg");
         }
         return jsonObject;
     }

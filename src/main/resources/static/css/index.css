@@ -205,6 +205,7 @@ a.linkColor:hover{
 }
 a.article-title:hover{
     color: #38b7ea;
+    text-decoration: underline;
 }
 a.linkColor{
     color: #63676d;
@@ -357,6 +358,7 @@ a.tag:hover{
     text-decoration: none;
     color: #0a0a0a;
 }
+
 .bg-myStory{
     background:repeating-linear-gradient(45deg, #74ccff, #74ccff 15px, #bba985 0, #bba985 30px);
 }
