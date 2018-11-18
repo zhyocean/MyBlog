@@ -1,4 +1,4 @@
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
     .am-nav{
         padding-left: 100px;
     }
@@ -219,7 +219,7 @@ a.top_bar:hover{
 
 }
 .site-state-item +.site-state-item{
-border-left:1px solid #999;
+    border-left:1px solid #999;
 }
 .site-state-item a{
     color: #999;
@@ -244,6 +244,7 @@ border-left:1px solid #999;
 }
 .webLogo a:hover{
     color: #4398ed;
+    text-decoration: underline;
 }
 .webLogo a{
     color: #009688;
@@ -293,8 +294,8 @@ border-left:1px solid #999;
 }
 /*设置写文章按钮样式*/
 .write-word:hover{
-     color: #c62d08;
- }
+    color: #c62d08;
+}
 .write-word{
     color: #999999;
 }

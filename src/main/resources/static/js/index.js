@@ -1,4 +1,7 @@
 
+var siteLastUpdateTime = '2018年11月17日20点';
+var siteBeginRunningTime = '2018-07-25 20:00:00';
+
 // 广告上下滚动
 function getStyle(obj,name){
     if(obj.currentStyle)
@@ -355,7 +358,10 @@ $.ajax({
             '<i class="fa fa-commenting-o site-default-icon"></i><span class="site-default-word">评论总数</span>：' + data['commentNum'] + ' 条' +
             '</li>');
         siteDefault.append('<li>' +
-            '<i class="fa fa-calendar site-default-icon"></i><span class="site-default-word">网站运行天数</span>：<br><span class="siteRunningTime"> </span>' +
+            '<i class="fa fa-pencil-square site-default-icon"></i><span class="site-default-word">网站最后更新</span>：<span class="siteUpdateTime">' + siteLastUpdateTime + '</span>' +
+            '</li>');
+        siteDefault.append('<li>' +
+            '<i class="fa fa-calendar site-default-icon"></i><span class="site-default-word">网站运行天数</span>：<span class="siteRunningTime"> </span>' +
             '</li>');
         siteInfo.append(siteDefault);
 
@@ -386,19 +392,15 @@ function siteRunningTime(time) {
     }
     strTime += time + "秒";
 
-    return strTime;
+    $('.siteRunningTime').html(strTime);
 }
 
 var nowDate = new Date().getTime();
 //网站开始运行日期
-var oldDate = new Date('2018-07-25 20:00:00');
+var oldDate = new Date(siteBeginRunningTime.replace(/-/g,'/'));
 var time = oldDate.getTime();
 var theTime = parseInt((nowDate-time)/1000);
-var timeCount = function() {
-    window.setTimeout(function() {
-        $('.siteRunningTime').html(siteRunningTime(theTime));
-        theTime++;
-        timeCount();
-    }, 1000);
-};
-timeCount();
+setInterval(function () {
+    siteRunningTime(theTime);
+    theTime++;
+},1000);
