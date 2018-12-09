@@ -1,4 +1,4 @@
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
     .comment-top-input{
         border: 1px solid #4398ed;
         padding: 15px 15px 5px;
@@ -206,6 +206,7 @@
     width: 50px;
     padding: 0;
     border-radius: 50%;
+    height: 50px;
 }
 .visitorComment{
     margin-top: 15px;

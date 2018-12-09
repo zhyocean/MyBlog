@@ -112,6 +112,18 @@
             '<a href="#" class="social-share-icon icon-wechat"></a>' +
             '<a href="#" class="social-share-icon icon-weibo" data-am-popover="{content: \'分享至微博\', trigger: \'hover focus\'}"></a>' +
             '</div>'))
+
+        //选中所有需放大的图片加上data-src属性
+        $("#wordsView img").each(function(index){
+            if(!$(this).hasClass("emoji")){
+                var a=$(this).attr('src');
+                $(this).attr("data-src",a);
+
+                $(this).addClass("enlargePicture");
+            }
+        });
+        //放大图片框架
+        lightGallery(document.getElementById('wordsView'));
     }
 
     //填充文章评论和回复
@@ -602,19 +614,4 @@
                 alert("点赞失败！")
             }
         });
-    });
-
-    // 放大图片
-    $('.article-content img').click(function () {
-        var cover = $('<div></div>');
-        $('body').append(cover);
-        cover.addClass("enlarge");
-        cover.width($(window).width());
-        cover.height($(window).height());
-        var img = $('<img src="'+ $(this).attr('src') +'" />');
-        img.addClass('enlargeImage');
-        cover.append(img);
-        cover.click(function () {
-            $(this).remove();
-        })
     });

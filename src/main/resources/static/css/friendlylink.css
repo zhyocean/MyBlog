@@ -1,7 +1,7 @@
 .am-g{
     margin: 80px 0 0;
 }
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
     .site-inner{
         margin: 0 16%;
         text-align: left;

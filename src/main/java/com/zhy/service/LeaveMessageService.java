@@ -64,4 +64,5 @@ public interface LeaveMessageService {
      * 获得留言总数
      */
     int countLeaveMessageNum();
+
 }

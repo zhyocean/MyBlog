@@ -1,6 +1,6 @@
 package com.zhy.config;
 
-import com.zhy.service.security.CustomUserService;
+import com.zhy.service.security.CustomUserServiceImpl;
 import com.zhy.utils.MD5Util;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Bean
     UserDetailsService customUserService(){
-        return new CustomUserService();
+        return new CustomUserServiceImpl();
     }
 
     @Override

@@ -58,7 +58,6 @@ public class CommentControl {
             logger.info("This user is not login");
         }
         JSONArray jsonArray = commentService.findCommentByArticleIdAndOriginalAuthor(Long.parseLong(articleId), TransCodingUtil.unicodeToString(originalAuthor),username);
-        System.out.println("This article comments is " + jsonArray);
         return jsonArray;
 
     }

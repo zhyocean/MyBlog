@@ -1,8 +1,8 @@
 .am-g{
     margin: 80px 0 0;
 }
-@media screen and (min-width: 992px) {
-    .site-inner{
+@media screen and (min-width: 768px) {
+    #wordsView{
         margin: 0 19%;
     }
     .things{
@@ -13,7 +13,7 @@
     }
 }
 @media screen and (max-width: 768px) {
-    .site-inner{
+    #wordsView{
         margin: 0 5%;
     }
     .things{

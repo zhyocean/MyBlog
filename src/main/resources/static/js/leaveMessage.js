@@ -351,7 +351,7 @@
         var url = window.location.pathname;
         if(leaveMessageContent == ""){
             alert("客官，你还没说两句呢！");
-        } else {
+        }else{
             $.ajax({
                 type: 'POST',
                 url: '/publishLeaveMessage',

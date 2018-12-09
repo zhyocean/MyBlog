@@ -37,6 +37,7 @@ public class BackControl {
             request.getSession().removeAttribute("lastUrl");
             return "index";
         }
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("lastUrl", (String) request.getSession().getAttribute("lastUrl"));
         return "index";
     }
@@ -125,7 +126,6 @@ public class BackControl {
         } else {
             model.addAttribute("articleTabloid",articleTabloid.substring(0,110));
         }
-
 
         //将文章id和原作者存入响应头
         response.setHeader("articleId",articleId);

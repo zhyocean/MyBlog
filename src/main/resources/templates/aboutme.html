@@ -12,7 +12,7 @@
 
     <link rel="icon" type="image/x-icon" href="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="css/aboutmetimeline.css">
-    <link rel="stylesheet" href="css/zoomify.min.css">
+    <link href="https://cdn.bootcss.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/comment.css">
@@ -20,9 +20,9 @@
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="js/zoomify.min.js"></script>
     <script src="https://cdn.bootcss.com/underscore.js/1.9.1/underscore-min.js"></script>
     <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+
 </head>
 <body>
 <div id="app">
@@ -76,7 +76,7 @@
         <div class="am-container">
             <div class="am-g">
                 <div class="am-u-sm-12 am-u-lg-12">
-                    <div class="site-inner">
+                    <div id="wordsView">
                         <div class="title">
                             <div class="title-words">
                                 <h1 class="title-words-h1">关于</h1>
@@ -84,7 +84,7 @@
 
                             <div class="title-img">
                                 <p>
-                                    <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy_nice.png" class="am-img-thumbnail am-radius">
+                                    <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy_nice.png" class="enlargePicture am-img-thumbnail am-radius">
                                 </p>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                             <p><i class="fa fa-quote-left fa-lg" style="float: left"></i></p><br>
                             <div class="zhy-title-QRCode-word">
                                 <strong>欢迎关注我的微信公众号：程序猿张先森</strong><br>
-                                <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin.jpg"><br>
+                                <img class="enlargePicture" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin.jpg"><br>
                                 <span>该微信公众号与本博客文章同步<br></span>
                             </div>
                             <p><i class="fa fa-quote-right fa-lg" style="float: right"></i></p>
@@ -133,7 +133,7 @@
                             <div class="zhy-original-title">
                                 <h1 class="zhy-original-title-h1">初衷</h1>
                                 <p class="zhy-erha">
-                                    <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/erha.png" class="am-img-thumbnail">
+                                    <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/erha.png" class="enlargePicture am-img-thumbnail">
                                 </p><br><br>
                                 <p><i class="fa fa-quote-left fa-lg" style="float: left"></i></p><br>
                                 <div class="zhy-original-words">
@@ -167,7 +167,7 @@
                                 <h1 style="font-size: 30px;font-weight: 400">意见反馈</h1>
                             </div>
                             <div class="zhy-erha">
-                                <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/erha_opinion.gif" class="am-img-thumbnail">
+                                <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/erha_opinion.gif" class="enlargePicture am-img-thumbnail">
                             </div>
                             <div class="zhy-opinion-words">
                                 <p><strong><u><i>若本博客有做的不好的地方(涉及版权及其他问题)，请留言私信我进行整改。</i></u></strong></p>
@@ -183,7 +183,7 @@
                                 <span>心情</span>
                             </div>
                             <div class="zhy-you">
-                                <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/you.png" class="am-img-thumbnail">
+                                <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/you.png" class="enlargePicture am-img-thumbnail">
                             </div>
                             <p></p>
                             <div class="content">
@@ -334,97 +334,97 @@
                         </div>
                         <div class="comment-bottom">
                             <!--<div class="comments">-->
-                            <!--<span class="noComment" style="color: black">还没有评论，快来抢沙发吧！</span>-->
+                                <!--<span class="noComment" style="color: black">还没有评论，快来抢沙发吧！</span>-->
                             <!--</div>-->
                             <div class="article-comment">
-                                <div class="article-comment-top">
-                                    <span class="article-comment-word">留言</span>
-                                    <div class="article-comment-line"></div>
-                                </div>
-                                <div class="new-comment">
-                                    <i class="all-comment fa fa-window-minimize fa-rotate-90"></i>全部留言
-                                </div>
-                                <div class="all-comments">
-                                    <div class="visitorComment">
-                                        <div class="am-g" style="margin: 0">
-                                            <div class="visitorCommentImg am-u-sm-2 am-u-lg-1">
-                                                <img src="img/noLogin.jpg">
-                                            </div>
-                                            <div class="am-u-sm-10 am-u-lg-11">
-                                                <div class="visitorInfo">
-                                                    <span class="visitorFloor">#3楼</span>
-                                                    <span class="visitorName">
+                                    <div class="article-comment-top">
+                                        <span class="article-comment-word">留言</span>
+                                         <div class="article-comment-line"></div>
+                                    </div>
+                                    <div class="new-comment">
+                                        <i class="all-comment fa fa-window-minimize fa-rotate-90"></i>全部留言
+                                    </div>
+                                    <div class="all-comments">
+                                        <div class="visitorComment">
+                                            <div class="am-g" style="margin: 0">
+                                                <div class="visitorCommentImg am-u-sm-2 am-u-lg-1">
+                                                    <img src="img/noLogin.jpg">
+                                                </div>
+                                                <div class="am-u-sm-10 am-u-lg-11">
+                                                    <div class="visitorInfo">
+                                                        <span class="visitorFloor">#3楼</span>
+                                                         <span class="visitorName">
                                                          张海洋
                                                          </span>
-                                                    <span class="visitorPublishDate">
+                                                        <span class="visitorPublishDate">
                                                         2018年7月25日 19:26
                                                         </span>
-                                                </div>
-                                                <div class="visitorSay">
+                                                    </div>
+                                                    <div class="visitorSay">
                                                     的说法是否看见哈舒服的科技示范户看见爱上对方会看见爱上大黄蜂撒旦法师打发斯蒂芬大事发生地方大师傅
-                                                </div>
-                                                <div class="tool-group">
-                                                    <a>
-                                                        <i class="like fa fa-thumbs-o-up"><span>&nbsp;&nbsp;赞</span></i>
-                                                    </a>
-                                                    <a>
-                                                        <i class="reply fa fa-comment-o">&nbsp;&nbsp;回复</i>
-                                                    </a>
-                                                </div>
-                                                <div class="sub-comment">
-                                                    <div class="sub-comment-list">
-                                                        <div class="visitorReplies">
-                                                            <div class="visitorReply">
-                                                                <div class="visitorReplyWords">
-                                                                    <a class="answerer">张哈哈</a>： <a class="respondent">@张海洋 </a>是非得失水电费第三方第三方鼎折覆餗
+                                                    </div>
+                                                    <div class="tool-group">
+                                                        <a>
+                                                            <i class="like fa fa-thumbs-o-up"><span>&nbsp;&nbsp;赞</span></i>
+                                                        </a>
+                                                        <a>
+                                                            <i class="reply fa fa-comment-o">&nbsp;&nbsp;回复</i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="sub-comment">
+                                                        <div class="sub-comment-list">
+                                                            <div class="visitorReplies">
+                                                                <div class="visitorReply">
+                                                                     <div class="visitorReplyWords">
+                                                                         <a class="answerer">张哈哈</a>： <a class="respondent">@张海洋 </a>是非得失水电费第三方第三方鼎折覆餗
+                                                                    </div>
+                                                                    <div class="visitorReplyTime">
+                                                                        <span class="visitorReplyTimeTime">2018年7月25日 19:26</span>
+                                                                        <a>
+                                                                            <i class="replyReply fa fa-comment-o">&nbsp;&nbsp;回复</i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
                                                                 </div>
-                                                                <div class="visitorReplyTime">
-                                                                    <span class="visitorReplyTimeTime">2018年7月25日 19:26</span>
-                                                                    <a>
-                                                                        <i class="replyReply fa fa-comment-o">&nbsp;&nbsp;回复</i>
-                                                                    </a>
+                                                                <div class="visitorReply">
+                                                                    <div class="visitorReplyWords">
+                                                                      <a class="answerer">张大仙</a>： <a class="respondent">@张海洋 </a>是非得失水电费第三方第三方鼎折覆餗
+                                                                    </div>
+                                                                    <div class="visitorReplyTime">
+                                                                        <span class="visitorReplyTimeTime">2018年7月25日 19:26</span>
+                                                                        <a>
+                                                                            <i class="replyReply fa fa-comment-o">&nbsp;&nbsp;回复</i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
                                                                 </div>
-                                                                <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
-                                                            </div>
-                                                            <div class="visitorReply">
-                                                                <div class="visitorReplyWords">
-                                                                    <a class="answerer">张大仙</a>： <a class="respondent">@张海洋 </a>是非得失水电费第三方第三方鼎折覆餗
-                                                                </div>
-                                                                <div class="visitorReplyTime">
-                                                                    <span class="visitorReplyTimeTime">2018年7月25日 19:26</span>
-                                                                    <a>
-                                                                        <i class="replyReply fa fa-comment-o">&nbsp;&nbsp;回复</i>
-                                                                    </a>
-                                                                </div>
-                                                                <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed" />
-                                                            </div>
 
+                                                            </div>
+                                                            <div class="more-comment">
+                                                                <a>
+                                                                 <i class="moreComment fa fa-edit"> 添加新评论</i>
+                                                                </a>
+                                                            </div>
                                                         </div>
-                                                        <div class="more-comment">
-                                                            <a>
-                                                                <i class="moreComment fa fa-edit"> 添加新评论</i>
-                                                            </a>
+
+                                                        <div class="reply-sub-comment-list">
+                                                            <div class="replyWord">
+                                                                <div class="replyWordBtn">
+                                                                    <textarea class="replyWordTextarea" placeholder="写下你的评论..."></textarea>
+                                                                    <button type="button" class="sendReplyWordBtn am-btn am-btn-success">发送</button>
+                                                                    <button type="button" class="quitReplyWordBtn am-btn">取消</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
+
                                                     </div>
 
-                                                    <div class="reply-sub-comment-list">
-                                                        <div class="replyWord">
-                                                            <div class="replyWordBtn">
-                                                                <textarea class="replyWordTextarea" placeholder="写下你的评论..."></textarea>
-                                                                <button type="button" class="sendReplyWordBtn am-btn am-btn-success">发送</button>
-                                                                <button type="button" class="quitReplyWordBtn am-btn">取消</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
                                                 </div>
-
-
                                             </div>
+                                            <hr>
                                         </div>
-                                        <hr>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -563,10 +563,15 @@
 
 <script src="js/all.js"></script>
 <script src="js/leaveMessage.js"></script>
+<!--放大图片插件-->
+<script src="js/lightgallery/lightgallery.js"></script>
+<script src="js/lightgallery/picturefill.min.js"></script>
+<script src="js/lightgallery/lg-pager.js"></script>
+<script src="js/lightgallery/lg-autoplay.js"></script>
+<script src="js/lightgallery/lg-fullscreen.js"></script>
+<script src="js/lightgallery/lg-zoom.js"></script>
 <script>
-    $(function () {
-        $('.site-inner img').zoomify();
-    })
+    lightGallery(document.getElementById('wordsView'));
 </script>
 </body>
 </html>

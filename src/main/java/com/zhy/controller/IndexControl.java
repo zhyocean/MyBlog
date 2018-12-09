@@ -48,7 +48,7 @@ public class IndexControl {
      */
     @GetMapping("/getVisitorNumByPageName")
     public @ResponseBody JSONObject getVisitorNumByPageName(HttpServletRequest request,
-                                                            @RequestParam("pageName") String pageName) throws UnsupportedEncodingException {
+                                                  @RequestParam("pageName") String pageName) throws UnsupportedEncodingException {
 
         int index = pageName.indexOf("?");
         if(index == -1){
@@ -75,7 +75,7 @@ public class IndexControl {
      */
     @PostMapping("/myArticles")
     public @ResponseBody JSONArray myArticles(@RequestParam("rows") String rows,
-                                              @RequestParam("pageNum") String pageNum){
+                                @RequestParam("pageNum") String pageNum){
 
         return articleService.findAllArticles(rows, pageNum);
 
@@ -87,7 +87,7 @@ public class IndexControl {
     @GetMapping("/newComment")
     @ResponseBody
     public JSONObject newComment(@RequestParam("rows") String rows,
-                                 @RequestParam("pageNum") String pageNum){
+                                @RequestParam("pageNum") String pageNum){
 
         return commentService.findFiveNewComment(Integer.parseInt(rows),Integer.parseInt(pageNum));
     }
@@ -155,5 +155,6 @@ public class IndexControl {
         }
         feedBack.setPersonId(userService.findIdByUsername(username));
         return feedBackService.submitFeedback(feedBack);
+
     }
 }

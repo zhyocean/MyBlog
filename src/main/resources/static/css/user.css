@@ -1,4 +1,4 @@
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
     /*设置左侧点击样式*/
     #personalDate{
         display: block;
@@ -309,6 +309,7 @@
     padding: 2px 80px 5px 0;
     display: inline-block;
     color: #999;
+
 }
 .reply{
     display: inline-block;

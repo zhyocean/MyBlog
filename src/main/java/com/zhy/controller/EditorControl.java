@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * @author: zhangocean
  * @Date: 2018/6/20 14:25
- * Describe: 文章编辑Controller
+ * Describe:
  */
 @Controller
 public class EditorControl {
@@ -117,7 +117,6 @@ public class EditorControl {
         article.setUpdateDate(nowDate);
 
         returnJson = articleService.insertArticle(article);
-        System.out.println("publishArticle result is " +returnJson);
         return returnJson;
     }
 

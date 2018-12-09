@@ -1,4 +1,4 @@
-package com.zhy.controller.login;
+package com.zhy.controller;
 
 import com.zhy.model.User;
 import com.zhy.service.UserService;

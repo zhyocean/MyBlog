@@ -1,4 +1,4 @@
-package com.zhy.controller.errorpage;
+package com.zhy.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

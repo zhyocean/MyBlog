@@ -40,7 +40,9 @@ public class FileUtil {
 
     /**
      * base64字符转换成file
+     *  @param destPath 保存的文件路径
      * @param base64 图片字符串
+     * @param fileName 保存的文件名
      * @return file
      */
     public File base64ToFile(String destPath,String base64, String fileName) {

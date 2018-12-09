@@ -1,6 +1,5 @@
-package com.zhy.controller.register;
+package com.zhy.controller;
 
-import com.zhy.model.Password;
 import com.zhy.model.User;
 import com.zhy.service.UserService;
 import com.zhy.utils.MD5Util;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author: zhangocean
  * @Date: 2018/6/4 11:48
- * Describe: 注册Controller
+ * Describe:
  */
 @Controller
 public class RegisterControl {
@@ -38,9 +37,6 @@ public class RegisterControl {
         if(userService.usernameIsExit(user.getUsername())){
             return "3";
         }
-        Password password = new Password();
-        password.setPassword(user.getPassword());
-        password.setUsername(user.getUsername());
         //注册时对密码进行MD5加密
         MD5Util md5Util = new MD5Util();
         user.setPassword(md5Util.encode(user.getPassword()));

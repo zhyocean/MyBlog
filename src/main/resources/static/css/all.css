@@ -132,6 +132,21 @@ a.top_bar:hover{
     color: #1b6d85;
     border-radius: 7px;
 }
+.personalSpace:hover{
+    background-color: white!important;
+    color: #444;
+    border-color: white;
+}
+.personalSpace:active{
+    background-color: white!important;
+    color: #444!important;
+    border-color: white!important;
+}
+.personalSpace:focus{
+    background-color: white!important;
+    color: #444!important;
+    border-color: white!important;
+}
 /*到顶部*/
 #toTop{
     right: 12px;
@@ -219,7 +234,7 @@ a.top_bar:hover{
 
 }
 .site-state-item +.site-state-item{
-    border-left:1px solid #999;
+border-left:1px solid #999;
 }
 .site-state-item a{
     color: #999;
@@ -294,8 +309,8 @@ a.top_bar:hover{
 }
 /*设置写文章按钮样式*/
 .write-word:hover{
-    color: #c62d08;
-}
+     color: #c62d08;
+ }
 .write-word{
     color: #999999;
 }

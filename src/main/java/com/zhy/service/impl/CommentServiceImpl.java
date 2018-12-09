@@ -229,4 +229,5 @@ public class CommentServiceImpl implements CommentService {
     public int commentNum() {
         return commentMapper.commentNum();
     }
+
 }

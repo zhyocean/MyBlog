@@ -15,7 +15,7 @@ import java.security.Principal;
 /**
  * @author: zhangocean
  * @Date: 2018/7/25 16:14
- * Describe: 网站后台管理Controller
+ * Describe:
  */
 @RestController
 public class SuperAdminControl {

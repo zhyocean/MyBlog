@@ -73,4 +73,5 @@ public interface CommentService {
      * 获得评论总数
      */
     int commentNum();
+
 }

@@ -1,4 +1,4 @@
-package com.zhy.controller.register;
+package com.zhy.controller;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -31,7 +31,6 @@ public class GetPhoneCodeControl {
         String trueMsgCode = PhoneRandomBuilder.randomBuilder();
 
         request.getSession().setAttribute("trueMsgCode", trueMsgCode);
-        System.out.println("msgCode is " + trueMsgCode);
 
         String msgCode = "SMS_136394413";
         //注册

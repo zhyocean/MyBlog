@@ -36,7 +36,7 @@
     font-weight: 400;
     border-radius: 3px;
 }
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
     .register_success_img img{
         width: 30%;
         margin: 40px auto;

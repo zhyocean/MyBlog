@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author: zhangocean
  * @Date: 2018/6/5 19:37
- * Describe:xml配置User表操作
+ * Describe:
  */
 @Repository
 public interface UserRepository {
