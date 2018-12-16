@@ -5,10 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.zhy.component.StringAndArray;
 import com.zhy.mapper.ArticleMapper;
 import com.zhy.model.Article;
-import com.zhy.service.ArchiveService;
-import com.zhy.service.ArticleLikesRecordService;
-import com.zhy.service.ArticleService;
-import com.zhy.service.VisitorService;
+import com.zhy.service.*;
 import com.zhy.utils.TimeUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -42,6 +39,10 @@ public class ArticleServiceImpl implements ArticleService {
     private VisitorService visitorService;
     @Autowired
     private ArchiveService archiveService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private CommentLikesRecordService commentLikesRecordService;
 
     @Override
     public JSONObject insertArticle(Article article) {
@@ -179,7 +180,6 @@ public class ArticleServiceImpl implements ArticleService {
         PageHelper.startPage(pageNum,pageSize);
         List<Article> articles = articleMapper.findAllArticles();
         PageInfo<Article> pageInfo = new PageInfo<>(articles);
-        System.out.println("appsPageInfo is " + pageInfo);
         List<Map<String, Object>> newArticles = new ArrayList<>();
         Map<String, Object> map;
 
@@ -411,6 +411,25 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int countArticle() {
         return articleMapper.countArticle();
+    }
+
+    @Override
+    public int deleteArticle(long id) {
+        try {
+            Article deleteArticle = articleMapper.findAllArticleId(id);
+            articleMapper.updateLastOrNextId("lastArticleId", deleteArticle.getLastArticleId(), deleteArticle.getNextArticleId());
+            articleMapper.updateLastOrNextId("nextArticleId", deleteArticle.getNextArticleId(), deleteArticle.getLastArticleId());
+            //删除本篇文章
+            articleMapper.deleteByArticleId(deleteArticle.getArticleId());
+            //删除与该文章有关的所有文章点赞记录、文章评论、文章评论记录
+            commentService.deleteCommentByArticleId(deleteArticle.getArticleId());
+            commentLikesRecordService.deleteCommentLikesRecordByArticleId(deleteArticle.getArticleId());
+            articleLikesRecordService.deleteArticleLikesRecordByArticleId(deleteArticle.getArticleId());
+        }catch (Exception e){
+            logger.error("删除文章失败，文章id=" + id);
+            return 0;
+        }
+        return 1;
     }
 
     /**

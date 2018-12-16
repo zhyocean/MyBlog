@@ -132,4 +132,12 @@ public interface ArticleService {
      */
     int countArticle();
 
+    /**
+     * 通过id删除文章
+     * @param id 文章id
+     * @return 1--删除成功  0--删除失败
+     */
+    @Transactional
+    int deleteArticle(long id);
+
 }

@@ -26,4 +26,9 @@ public interface ArticleLikesRecordService {
      */
     void insertArticleLikesRecord(ArticleLikesRecord articleLikesRecord);
 
+    /**
+     * 通过文章id删除文章点赞记录
+     * @param articleId 文章id
+     */
+    void deleteArticleLikesRecordByArticleId(long articleId);
 }

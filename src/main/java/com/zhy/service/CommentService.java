@@ -74,4 +74,10 @@ public interface CommentService {
      */
     int commentNum();
 
+    /**
+     * 通过文章id删除该文章的所有评论
+     * @param articleId 文章id'
+     */
+    void deleteCommentByArticleId(long articleId);
+
 }

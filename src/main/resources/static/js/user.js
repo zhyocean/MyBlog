@@ -1,7 +1,7 @@
 
     $('.userList .clickLi').click(function () {
         var flag = $(this).attr('class').substring(8);
-        $('#personalDate,#basicSetting,#articleManagement,#articleCollection,#articleCategories,#leaveMessage,#privateWord').css("display","none");
+        $('#personalDate,#basicSetting,#leaveMessage,#privateWord').css("display","none");
         $("#" + flag).css("display","block");
     });
 

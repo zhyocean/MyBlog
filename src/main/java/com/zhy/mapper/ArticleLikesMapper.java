@@ -1,10 +1,7 @@
 package com.zhy.mapper;
 
 import com.zhy.model.ArticleLikesRecord;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -22,5 +19,7 @@ public interface ArticleLikesMapper {
     @Select("select likeDate from article_likes_record where articleId=#{articleId} and originalAuthor=#{originalAuthor} and likerId=#{likerId}")
     ArticleLikesRecord isLiked(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor, @Param("likerId") int likerId);
 
+    @Delete("delete from article_likes_record where articleId=#{articleId}")
+    void deleteArticleLikesRecordByArticleId(long articleId);
 
 }

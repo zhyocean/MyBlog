@@ -15,7 +15,7 @@ import java.security.Principal;
 /**
  * @author: zhangocean
  * @Date: 2018/7/25 16:14
- * Describe:
+ * Describe: 超级管理页面
  */
 @RestController
 public class SuperAdminControl {
@@ -105,5 +105,19 @@ public class SuperAdminControl {
             return  returnJson;
         }
         return articleService.getArticleManagement(Integer.parseInt(rows), Integer.parseInt(pageNum));
+    }
+
+    /**
+     * 删除文章
+     * @param id 文章id
+     * @return 1--删除成功   0--删除失败
+     */
+    @GetMapping("/deleteArticle")
+    @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
+    public int deleteArticle(@RequestParam("id") String id){
+        if("".equals(id) || id == null){
+            return 0;
+        }
+        return articleService.deleteArticle(Long.parseLong(id));
     }
 }

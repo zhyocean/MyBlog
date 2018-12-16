@@ -1,4 +1,6 @@
 
+    var deleteArticleId="";
+
     $('.superAdminList .superAdminClick').click(function () {
         var flag = $(this).attr('class').substring(16);
         $('#statistics,#articleManagement,#articleComment,#articleCategories,#friendLink,#userFeedback,#privateWord').css("display","none");
@@ -171,7 +173,7 @@
                 '<td>' +
                 '<div class="am-dropdown" data-am-dropdown>' +
                 '<button class="articleManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>' +
-                '<button class="articleManagementBtn articleDelete am-btn am-btn-danger">删除</button>' +
+                '<button class="articleDeleteBtn articleDelete am-btn am-btn-danger">删除</button>' +
                 '</div>' +
                 '</td>' +
                 '</tr>'));
@@ -188,8 +190,35 @@
            var id = $this.parent().parent().parent().attr("id").substring(1);
            window.location.replace("/editor?id=" + id);
         });
+        $('.articleDeleteBtn').click(function () {
+            var $this = $(this);
+            deleteArticleId = $this.parent().parent().parent().attr("id").substring(1);
+            $('#deleteAlter').modal('open');
+        })
     }
-    
+
+    $('.sureArticleDeleteBtn').click(function () {
+        $.ajax({
+            type:'get',
+            url:'/deleteArticle',
+            dataType:'json',
+            data:{
+                id:deleteArticleId
+            },
+            success:function (data) {
+                if(data == 0){
+                    dangerNotice("删除文章失败")
+                } else {
+                    successNotice("删除文章成功");
+                    getArticleManagement(1);
+                }
+            },
+            error:function () {
+                alert("删除失败");
+            }
+        });
+    })
+
     //获得反馈信息
     function getAllFeedback(currentPage) {
         $.ajax({
@@ -265,7 +294,7 @@
                 });
             },
             error:function () {
-                alert("获取反馈信息失败");
+                alert("获取文章信息失败");
             }
         });
     }

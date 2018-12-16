@@ -28,12 +28,6 @@
         color: #969696;
         width: 150px;
     }
-    /*文章管理*/
-    .zhy-articleManagement,.zhy-articleCollection,.zhy-articleCategories{
-        position: fixed;
-        top: 40%;
-        left: 40%;
-    }
     .successNoticeAlert{
         display: none;
         position: absolute;
@@ -82,12 +76,6 @@
     .zhy-privateWord,.zhy-leaveMessage{
         padding: 30px 20px;
     }
-    /*文章管理*/
-    .zhy-articleManagement,.zhy-articleCollection,.zhy-articleCategories{
-        position: fixed;
-        top: 130px;
-        left: 20px;
-    }
     .successNoticeAlert{
         display: none;
         position: absolute;
@@ -109,15 +97,6 @@
         border-radius: 5px;
     }
 }
-#articleManagement{
-    display: none;
-}
-#articleCollection{
-    display: none;
-}
-#articleCategories{
-    display: none;
-}
 #leaveMessage{
     display: none;
     margin-bottom: 150px;
@@ -128,10 +107,6 @@
 .clickLi a:hover{
     text-decoration: none;
     cursor: pointer;
-    background-color: #F0F0F0;
-}
-.article a:hover{
-    text-decoration: none;
     background-color: #F0F0F0;
 }
 .userInfo{
@@ -229,17 +204,6 @@
 }
 .notice{
     text-align: center;
-}
-.alertNotice{
-    display: block;
-}
-.alertNoticeWord{
-    font-size: 25px;
-}
-.zhangSire{
-    margin-top: 50px;
-    font-size: 5px;
-    float: right;
 }
 /*安全设置*/
 #authCode{

@@ -78,4 +78,13 @@ public interface ArticleMapper {
 
     @Select("select count(*) from article")
     int countArticle();
+
+    @Select("select articleId, lastArticleId, nextArticleId from article where id=#{id}")
+    Article findAllArticleId(long id);
+
+    @Update("update article set ${lastOrNextStr}=#{updateId} where articleId=#{articleId}")
+    void updateLastOrNextId(@Param("lastOrNextStr") String lastOrNextStr, @Param("updateId") long updateId, @Param("articleId") long articleId);
+
+    @Delete("delete from article where articleId=#{articleId}")
+    void deleteByArticleId(long articleId);
 }

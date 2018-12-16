@@ -22,4 +22,10 @@ public interface CommentLikesRecordService {
      * @param commentLikesRecord
      */
     void insertCommentLikesRecord(CommentLikesRecord commentLikesRecord);
+
+    /**
+     * 通过文章id删除该文章的所有点赞记录
+     * @param articleId 文章id
+     */
+    void deleteCommentLikesRecordByArticleId(long articleId);
 }

@@ -32,4 +32,9 @@ public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService 
         articleLikesMapper.insertArticleLikesRecord(articleLikesRecord);
     }
 
+    @Override
+    public void deleteArticleLikesRecordByArticleId(long articleId) {
+        articleLikesMapper.deleteArticleLikesRecordByArticleId(articleId);
+    }
+
 }

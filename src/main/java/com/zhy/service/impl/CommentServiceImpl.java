@@ -230,4 +230,9 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.commentNum();
     }
 
+    @Override
+    public void deleteCommentByArticleId(long articleId) {
+        commentMapper.deleteCommentByArticleId(articleId);
+    }
+
 }

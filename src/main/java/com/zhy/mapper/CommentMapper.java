@@ -45,4 +45,7 @@ public interface CommentMapper {
 
     @Select("select count(*) from comment_record")
     int commentNum();
+
+    @Delete("delete from comment_record where articleId=#{articleId}")
+    void deleteCommentByArticleId(long articleId);
 }

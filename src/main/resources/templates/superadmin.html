@@ -126,30 +126,6 @@
                                     </tr>
                                     </thead>
                                     <tbody class="articleManagementTable">
-                                    <tr><td><a href="#">关于此博客，我有话哔哔</a></td><td>2018-07-30</td><td><a href="#">我的故事</a></td> <td><span class="am-badge am-badge-success">20</span></td>
-                                        <td>
-                                            <div class="am-dropdown" data-am-dropdown>
-                                                <button class="articleManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>
-                                                 <button class="articleManagementBtn articleDelete am-btn am-btn-danger">删除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr><td>关于此博客，我有话哔哔关于此博客，我有话哔哔</td><td>2018-07-30</td><td><a href="#">我的故事</a></td> <td><span class="am-badge am-badge-success">20</span></td>
-                                        <td>
-                                            <div class="am-dropdown" data-am-dropdown>
-                                                <button class="articleManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>
-                                                <button class="articleManagementBtn articleDelete am-btn am-btn-danger">删除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr><td>关于此博客，我有话哔哔</td><td>2018-07-30</td><td><a href="#">我的故事</a></td> <td><span class="am-badge am-badge-success">20</span></td>
-                                        <td>
-                                            <div class="am-dropdown" data-am-dropdown>
-                                                <button class="articleManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>
-                                                <button class="articleManagementBtn articleDelete am-btn am-btn-danger">删除</button>
-                                            </div>
-                                        </td>
-                                    </tr>
 
                                     </tbody>
                                 </table>
@@ -203,6 +179,19 @@
     <!--失败消息盒-->
     <div class="notice dangerNoticeAlert am-animation-slide-top">
         <span class="dangerNotice"></span>
+    </div>
+    <!--删除文章模态框-->
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="deleteAlter">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">删除文章</div>
+            <div class="am-modal-bd">
+                你确定要删除吗？删除了就无法恢复了呦!
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="sureArticleDeleteBtn am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
     </div>
 
 </div>
