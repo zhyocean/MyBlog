@@ -1,5 +1,6 @@
 package com.zhy.controller;
 
+import com.zhy.component.JavaScriptCheck;
 import com.zhy.model.LeaveMessage;
 import com.zhy.model.LeaveMessageLikesRecord;
 import com.zhy.service.LeaveMessageLikesRecordService;
@@ -10,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -101,6 +103,7 @@ public class LeaveMessageControl {
         }
         leaveMessage.setAnswererId(userService.findIdByUsername(username));
         leaveMessage.setPId(Integer.parseInt(parentId.substring(1)));
+        leaveMessage.setLeaveMessageContent(JavaScriptCheck.javaScriptCheck(leaveMessage.getLeaveMessageContent()));
         leaveMessage = leaveMessageService.publishLeaveMessageReply(leaveMessage, respondent);
 
         return leaveMessageService.leaveMessageNewReply(leaveMessage, username, respondent);
@@ -130,7 +133,6 @@ public class LeaveMessageControl {
             return -2;
         }
         int likes = leaveMessageService.updateLikeByPageNameAndId(pageName, leaveMessageLikesRecord.getPId());
-        System.out.println("This leaveMessage likes is " + likes);
         leaveMessageLikesRecordService.insertLeaveMessageLikesRecord(leaveMessageLikesRecord);
         return likes;
     }

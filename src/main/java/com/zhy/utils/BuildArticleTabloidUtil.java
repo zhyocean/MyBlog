@@ -18,12 +18,10 @@ public class BuildArticleTabloidUtil {
         int endIndex = articleTabloid.indexOf(">");
         String myArticleTabloid = "";
         String nowStr = "";
-        System.out.println("htmlArticleComment： "+ htmlArticleComment);
         while (beginIndex != -1){
             nowStr = articleTabloid.substring(0, beginIndex);
             myArticleTabloid += nowStr;
 
-            System.out.println("articleTabloid: " + articleTabloid);
             articleTabloid = articleTabloid.substring(endIndex + 1);
             beginIndex = articleTabloid.indexOf("<");
             if(myArticleTabloid.length() < 197){

@@ -13,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -186,7 +188,7 @@ public class ArticleServiceImpl implements ArticleService {
         for(Article article : articles){
             map = new HashMap<>();
             map.put("thisArticleUrl", "/findArticle?articleId=" + article.getArticleId() + "&originalAuthor=" + article.getOriginalAuthor());
-            map.put("articleTags", StringAndArray.stringToArray(article.getArticleTags()));
+            map.put("articleTags",StringAndArray.stringToArray(article.getArticleTags()));
             map.put("articleTitle", article.getArticleTitle());
             map.put("articleType", article.getArticleType());
             map.put("publishDate", article.getPublishDate());
@@ -297,7 +299,6 @@ public class ArticleServiceImpl implements ArticleService {
         jsonObject.put("result",articleJsonArray);
         jsonObject.put("category",category);
         jsonObject.put("pageInfo",pageJson);
-        System.out.println("This category's articleInfo are " + jsonObject);
 
         return jsonObject;
     }

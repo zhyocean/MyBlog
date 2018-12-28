@@ -37,7 +37,6 @@ public class CategoryServiceImpl implements CategoryService {
         }
         returnJson.put("status",200);
         returnJson.put("result",categoryJsonArray);
-        System.out.println("findCategories info is " + returnJson);
         return returnJson;
     }
 

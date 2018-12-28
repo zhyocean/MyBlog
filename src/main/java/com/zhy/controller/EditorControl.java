@@ -11,18 +11,23 @@ import com.zhy.utils.FileUtil;
 import com.zhy.utils.TimeUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.Time;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -133,7 +138,7 @@ public class EditorControl {
         try {
             username = principal.getName();
         } catch (NullPointerException e){
-            System.out.println("This user is not login");
+            logger.info("This user is not login");
         }
         String phone = userService.findPhoneByUsername(username);
         if(userService.isSuperAdmin(phone)){
@@ -193,7 +198,7 @@ public class EditorControl {
     @RequestMapping("/uploadImage")
     public @ResponseBody
     Map<String,Object> uploadImage(HttpServletRequest request, HttpServletResponse response,
-                             @RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
+                                   @RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         try {
             request.setCharacterEncoding( "utf-8" );
@@ -210,7 +215,6 @@ public class EditorControl {
             String subCatalog = "blogArticles/" + new TimeUtil().getFormatDateForThree();
             String fileUrl = fileUtil.uploadFile(fileUtil.multipartFileToFile(file, filePath, fileName), subCatalog);
 
-            System.out.println("fileUrl is " + fileUrl);
             resultMap.put("success", 1);
             resultMap.put("message", "上传成功");
             resultMap.put("url", fileUrl);

@@ -2,6 +2,7 @@ package com.zhy.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zhy.component.JavaScriptCheck;
 import com.zhy.constant.SiteOwner;
 import com.zhy.mapper.LeaveMessageMapper;
 import com.zhy.model.LeaveMessage;
@@ -36,6 +37,7 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
 
         TimeUtil timeUtil = new TimeUtil();
         String nowStr = timeUtil.getFormatDateForFive();
+        leaveMessageContent = JavaScriptCheck.javaScriptCheck(leaveMessageContent);
         LeaveMessage leaveMessage = new LeaveMessage(pageName, userService.findIdByUsername(answerer), userService.findIdByUsername(SiteOwner.SITE_OWNER), nowStr, leaveMessageContent);
 
         leaveMessageMapper.publishLeaveMessage(leaveMessage);
@@ -169,7 +171,6 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
         JSONObject returnJson = new JSONObject();
         PageHelper.startPage(pageNum, rows);
         List<LeaveMessage> fiveLeaveWords = leaveMessageMapper.findFiveNewLeaveWord();
-        System.out.println(fiveLeaveWords);
         PageInfo<LeaveMessage> pageInfo = new PageInfo<>(fiveLeaveWords);
 
         JSONArray jsonArray = new JSONArray();

@@ -2,6 +2,7 @@ package com.zhy.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zhy.component.JavaScriptCheck;
 import com.zhy.mapper.CommentMapper;
 import com.zhy.model.Comment;
 import com.zhy.service.ArticleService;

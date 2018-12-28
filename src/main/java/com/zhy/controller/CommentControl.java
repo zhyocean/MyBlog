@@ -1,5 +1,6 @@
 package com.zhy.controller;
 
+import com.zhy.component.JavaScriptCheck;
 import com.zhy.constant.SiteOwner;
 import com.zhy.model.Comment;
 import com.zhy.model.CommentLikesRecord;
@@ -89,11 +90,11 @@ public class CommentControl {
         comment.setAnswererId(userId);
         comment.setOriginalAuthor(respondent);
         comment.setRespondentId(userService.findIdByUsername(SiteOwner.SITE_OWNER));
+        comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
 
         commentService.insertComment(comment, respondent);
 
         JSONArray jsonArray = commentService.findCommentByArticleIdAndOriginalAuthor(comment.getArticleId(), comment.getOriginalAuthor(),publisher);
-        System.out.println("All comment is " + jsonArray);
         return jsonArray;
     }
 
@@ -113,7 +114,6 @@ public class CommentControl {
         try {
             username = principal.getName();
         } catch (NullPointerException e){
-            logger.info("This user not login");
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("status",403);
@@ -127,6 +127,7 @@ public class CommentControl {
         comment.setOriginalAuthor(TransCodingUtil.unicodeToString(comment.getOriginalAuthor()));
         TimeUtil timeUtil = new TimeUtil();
         comment.setCommentDate(timeUtil.getFormatDateForFive());
+        comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
         comment = commentService.insertComment(comment, respondent);
 
         JSONArray jsonArray = commentService.replyReplyReturn(comment, username, respondent);
@@ -175,14 +176,13 @@ public class CommentControl {
         }
 
         TimeUtil timeUtil = new TimeUtil();
-        CommentLikesRecord commentLikesRecord = new CommentLikesRecord(Long.parseLong(articleId), TransCodingUtil.unicodeToString(originalAuthor),
+        CommentLikesRecord commentLikesRecord = new CommentLikesRecord(Long.parseLong(articleId),TransCodingUtil.unicodeToString(originalAuthor),
                 Integer.parseInt(respondentId.substring(1)),userService.findIdByUsername(username),timeUtil.getFormatDateForFive());
         if(commentLikesRecordService.isLiked(commentLikesRecord.getArticleId(), commentLikesRecord.getOriginalAuthor(), commentLikesRecord.getPId(), username)){
             logger.info("This user had clicked good for this article");
             return -2;
         }
         int likes = commentService.updateLikeByArticleIdAndOriginalAuthorAndId(commentLikesRecord.getArticleId(),commentLikesRecord.getOriginalAuthor(),commentLikesRecord.getPId());
-        System.out.println("This comment's likes is " + likes);
         commentLikesRecordService.insertCommentLikesRecord(commentLikesRecord);
         return likes;
     }

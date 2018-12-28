@@ -50,7 +50,7 @@ public class ShowArticleControl {
         try {
             username = principal.getName();
         } catch (NullPointerException e){
-            logger.info("This user not login");
+            logger.info("This user is not login");
         }
         JSONObject jsonObject = articleService.getArticleByArticleIdAndOriginalAuthor(Long.parseLong(articleId), TransCodingUtil.unicodeToString(originalAuthor),username);
         return jsonObject;
@@ -66,8 +66,8 @@ public class ShowArticleControl {
      */
     @GetMapping("/addArticleLike")
     public @ResponseBody int addArticleLike(@RequestParam("articleId") String articleId,
-                                     @RequestParam("originalAuthor") String originalAuthor,
-                                     @AuthenticationPrincipal Principal principal){
+                                            @RequestParam("originalAuthor") String originalAuthor,
+                                            @AuthenticationPrincipal Principal principal){
 
         String username="";
         try {
