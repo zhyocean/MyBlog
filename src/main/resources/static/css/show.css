@@ -327,31 +327,16 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
     font-size: 0.38rem;
     line-height: 1rem;
 }
-/*.share{*/
-    /*list-style: none;*/
-    /*text-align: center;*/
-    /*display: inline-block;*/
-    /*float: right;*/
-    /*margin-right: 50px;*/
-    /*margin-top: 10px;*/
-/*}*/
-
-/*.share li{*/
-    /*float: left;*/
-    /*margin-left: 15px;*/
-/*}*/
-
-/*.share div:hover{*/
-    /*background-color: gainsboro;*/
-/*}*/
-
-/*.share div{*/
-
-    /*border-radius: 50%;*/
-    /*width: 45px;*/
-    /*height: 45px;*/
-    /*text-align: center;*/
-    /*vertical-align: middle;*/
-    /*position: relative;*/
-/*}*/
-
+.article-content a{
+    color: #009a61;
+    border-bottom: 1px solid rgba(0,154,97,0.25);
+    padding-bottom: 1px;
+    text-decoration: none !important;
+}
+.article-content a:hover{
+    color: #005636;
+    border-bottom: 1px solid;
+    border-color: #005636;
+    padding-bottom: 1px;
+    text-decoration: none !important;
+}
