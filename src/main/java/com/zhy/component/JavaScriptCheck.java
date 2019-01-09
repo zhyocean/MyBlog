@@ -12,6 +12,9 @@ public class JavaScriptCheck {
         String newStr = "";
         begin = comment.indexOf("<script");
         end = comment.indexOf("</script>");
+        if (begin == -1){
+            return comment;
+        }
         while (begin != -1){
             theEnd = comment.indexOf(">");
             newStr += comment.substring(0, begin);
