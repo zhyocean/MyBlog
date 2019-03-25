@@ -421,6 +421,7 @@ a.tag:hover{
     text-decoration: none;
     color: #0a0a0a;
 }
+
 .bg-myStory{
     background:repeating-linear-gradient(45deg, #74ccff, #74ccff 15px, #bba985 0, #bba985 30px);
 }

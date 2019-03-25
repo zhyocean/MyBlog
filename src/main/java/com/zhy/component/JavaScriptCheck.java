@@ -27,5 +27,4 @@ public class JavaScriptCheck {
         }
         return newStr;
     }
-
 }

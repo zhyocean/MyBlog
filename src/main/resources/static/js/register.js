@@ -13,8 +13,10 @@
     var registerFormBtn = $("#registerFormBtn");
 
     var phone_warn = $("#phone_warn");
+    var phone_warn1 = $("#phone_warn1");
     var auth_code_warn = $("#auth_code_warn");
     var username_warn = $('#username_warn');
+    var username_warn1 = $('#username_warn1');
 
     registerFormBtn.addClass("no_submit");
     phone.addClass("phone_error");
@@ -45,10 +47,12 @@
         phone_error.css("display","none");
         phone_null.css("display","none");
         phone_warn.css("display","none");
+        phone_warn1.css("display","none");
     });
 
     $('#username').focus(function () {
        username_warn.css("display","none");
+        username_warn1.css("display","none");
     });
 
     // 定义发送时间间隔(s)
@@ -227,6 +231,11 @@
                         username_warn.css("display","block");
                     } else if(data == "2"){
                         putIn();
+                    } else if(data == "4"){
+                        username_warn1.css("display","block");
+                    } else if(data == "5"){
+                        phone_warn1.css("display","block");
+                        phone_error.css("display","block");
                     }
                 },
                 error: function () {

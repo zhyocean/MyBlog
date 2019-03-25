@@ -1,0 +1,223 @@
+@media screen and (min-width: 768px) {
+    .vintage4{
+        font-size: 50px;
+        color: rgba(253, 175, 11, 0.99);
+        letter-spacing: 0;
+        text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135
+    }
+
+    .yearHeart{
+        margin-left: 25px;
+        color: red
+    }
+    .timeline-wrap{
+        border-left: 3px solid #ad7b3a;
+        margin-left: 40px;
+    }
+    .say{
+        margin-left: 40px;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+        padding: 10px 0 15px 10px;
+    }
+    .todayPic img{
+        height: 85px;
+        margin: 10px 0 0 10px;
+        width: 85px;
+    }
+    .todayTime{
+        font-size: 20px;
+        padding: 5px;
+    }
+    #toTop{
+        right: 50px;
+        bottom: 20px;
+    }
+    .dayDayTitle{
+        font-size: 1.5em;
+    }
+}
+@media screen and (max-width: 768px) {
+    .vintage4{
+        font-size: 35px;
+        color: rgba(253, 175, 11, 0.99);
+        letter-spacing: 0;
+        text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135
+    }
+    .yearHeart{
+        color: red
+    }
+    .timeline-wrap{
+        border-left: 3px solid #ad7b3a;
+        margin-left: 15px;
+    }
+    .say{
+        /*background-color: white;*/
+        margin-left: 25px;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+        padding: 10px 0 15px 10px;
+    }
+    .todayPic img{
+        height: 75px;
+        margin: 10px 0 0 10px;
+        width: 75px;
+    }
+    .todayTime{
+        font-size: 17px;
+        padding: 5px;
+    }
+    #toTop{
+        right: 20px;
+        bottom: 20px;
+    }
+    .dayDayTitle{
+        font-size: 18px;
+    }
+}
+.head{
+    text-align: center;
+    margin: 30px auto 30px;
+}
+.h1Word{
+    line-height: 20px;
+    padding-top: 30px;
+}
+.content{
+    margin: 0 8%;
+}
+.moods{
+     margin-left: 20px;
+ }
+.moods i:hover{
+    color: red;
+    cursor: pointer;
+}
+.moods i{
+    color: #8c8c8c;
+    margin-right: 10px;
+}
+.sendBtn{
+    float: right;
+    display: inline-block;
+}
+#picture{
+     display: inline-block;
+     height: 32px;
+     width: 68px;
+     opacity: 0;
+    z-index: 30;
+    position: relative;
+    cursor: pointer;
+}
+.me a{
+    color: red;
+    position: absolute;
+    left: 17px;
+    margin-top: 3px;
+    z-index: 2;
+
+    text-decoration: none;
+}
+.sayTitle{
+    color: #dd514c !important;
+    background-color: rgba(221, 81, 76, 0.33) !important;
+    border-color: #f5cecd!important;
+    text-align: center;
+}
+#iSay{
+    height: 150px;
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 15px;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    background-color: hsla(0,0%,71%,.1);
+}
+.says .time h1{
+    font-size: 40px;
+}
+.sayContent{
+    margin-top: 100px;
+}
+
+.timeline-row-major{
+    padding: 20px 0;
+}
+.timeline-row-major .node{
+    width: 12px;
+    color: #fff;
+    height: 12px;
+    border-radius: 50%;
+    margin: 11px 0 0 -8px;
+    display: inline-block;
+    background-color: #ad7b3a;
+    float: left;
+}
+.todayTimeNow{
+    color: #63676d;
+}
+.missYou{
+    padding: 5px;
+}
+.todayMood{
+    margin-left: 30px;
+    font-size: 20px;
+    /*background-color: red;*/
+    /*border-radius: 50%;*/
+}
+.todayMoodWord{
+    font-size: 17px;
+}
+
+.footerIcon{
+    font-size: 18px;
+    color: #666;
+    margin: 50px auto 20px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #6663;
+}
+.footerIcon a{
+    color: #666;
+    border-bottom: 1px solid #666;
+}
+.footerIcon a:hover{
+    color: #010101;
+}
+.month{
+    font-size: 25px;
+    font-weight: 500;
+    margin-left: 30px;
+}
+.lookMore:hover{
+    color: #fff;
+    background-color: #0057b4;
+    border-color: #0062cc;
+    border-radius: 4px;
+}
+/*底线*/
+.buttonLine{
+    text-align: center;
+}
+.buttonLine hr{
+    margin-top: 50px;
+    margin-bottom: 0;
+}
+.buttonLine span{
+    color: #ff2d00;
+}
+/*查看更多日常*/
+.saysButton{
+    text-align: center;
+}
+.lookMore{
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    margin-top: 30px;
+    border-radius: 4px;
+}
+.todayPic p{
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+}

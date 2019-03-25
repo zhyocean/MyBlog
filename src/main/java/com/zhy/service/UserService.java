@@ -28,7 +28,7 @@ public interface UserService {
     /**
      * 注册用户
      * @param user 用户
-     * @return "1"--用户存在，插入失败             "2"--用户不存在，插入成功
+     * @return "1"--用户存在，插入失败             "2"--用户不存在，插入成功       "4"--用户名太长，插入失败
      */
     @Transactional
     String insert(User user);

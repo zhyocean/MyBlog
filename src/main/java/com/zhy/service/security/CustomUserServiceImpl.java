@@ -4,6 +4,7 @@ import com.zhy.model.Role;
 import com.zhy.model.User;
 import com.zhy.repository.mybatis.UserRepository;
 import com.zhy.service.UserService;
+import com.zhy.service.impl.UserServiceImpl;
 import com.zhy.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

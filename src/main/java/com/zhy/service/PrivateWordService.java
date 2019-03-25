@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @Date: 2018/7/22 20:21
  * Describe:悄悄话业务操作
  */
-@Service
 public interface PrivateWordService {
 
     /**

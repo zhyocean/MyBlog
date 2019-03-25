@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @Date: 2018/7/23 17:21
  * Describe:反馈业务操作
  */
-@Service
 public interface FeedBackService {
 
     /**

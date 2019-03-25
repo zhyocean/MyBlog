@@ -66,8 +66,8 @@ public class ShowArticleControl {
      */
     @GetMapping("/addArticleLike")
     public @ResponseBody int addArticleLike(@RequestParam("articleId") String articleId,
-                                            @RequestParam("originalAuthor") String originalAuthor,
-                                            @AuthenticationPrincipal Principal principal){
+                                     @RequestParam("originalAuthor") String originalAuthor,
+                                     @AuthenticationPrincipal Principal principal){
 
         String username="";
         try {

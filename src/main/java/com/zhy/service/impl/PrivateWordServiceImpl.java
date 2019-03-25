@@ -7,13 +7,15 @@ import com.zhy.model.PrivateWord;
 import com.zhy.service.PrivateWordService;
 import com.zhy.service.UserService;
 import com.zhy.utils.TimeUtil;
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * @author: zhangocean
@@ -127,7 +129,6 @@ public class PrivateWordServiceImpl implements PrivateWordService {
             }
         }
         returnJson.put("result",allJsonArray);
-        System.out.println("getAllPrivateWord result is " + returnJson);
         return returnJson;
     }
 

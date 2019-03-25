@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
  * @Date: 2018/7/18 12:07
  * Describe: 归档业务操作
  */
-@Service
 public interface ArchiveService {
 
     /**

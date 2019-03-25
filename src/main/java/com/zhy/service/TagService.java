@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
  * @Date: 2018/7/16 19:50
  * Describe:标签业务操作
  */
-@Service
 public interface TagService {
 
     /**

@@ -34,6 +34,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String insert(User user) {
+
+        user.setUsername(user.getUsername().trim().replaceAll(" ", ""));
+        String username = user.getUsername();
+
+        if(username.length() > 35 || "".equals(username)){
+            return "4";
+        }
         if(userIsExit(user.getPhone())){
             return "1";
         }
@@ -136,9 +143,19 @@ public class UserServiceImpl implements UserService {
     public JSONObject savePersonalDate(User user, String username) {
         JSONObject returnJson = new JSONObject();
 
+        user.setUsername(user.getUsername().trim().replaceAll(" ",""));
+        String newName = user.getUsername();
+        if(newName.length() > 35){
+            returnJson.put("status",501);
+            return returnJson;
+        } else if ("".equals(newName)){
+            returnJson.put("status",502);
+            return returnJson;
+        }
+
         //改了昵称
-        if(!user.getUsername().equals(username)){
-            if(usernameIsExit(user.getUsername())){
+        if(!newName.equals(username)){
+            if(usernameIsExit(newName)){
                 returnJson.put("status",500);
                 return returnJson;
             }

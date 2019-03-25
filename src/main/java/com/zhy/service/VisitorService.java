@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
  * @Date: 2018/6/16 16:19
  * Describe:访客业务操作
  */
-@Service
 public interface VisitorService {
 
     /**

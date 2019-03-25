@@ -40,7 +40,7 @@ public interface UserMapper {
     int findUserIdByPhone(@Param("phone") String phone);
 
     @Update("update user set password=#{password} where phone=#{phone}")
-    void updatePassword(@Param("phone") String phone, @Param("password") String password);
+    void updatePassword(@Param("phone") String phone,@Param("password") String password);
 
     @Select("select phone from user where username=#{username}")
     String findPhoneByUsername(@Param("username") String username);

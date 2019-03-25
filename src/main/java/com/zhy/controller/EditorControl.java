@@ -198,7 +198,7 @@ public class EditorControl {
     @RequestMapping("/uploadImage")
     public @ResponseBody
     Map<String,Object> uploadImage(HttpServletRequest request, HttpServletResponse response,
-                                   @RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
+                             @RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         try {
             request.setCharacterEncoding( "utf-8" );

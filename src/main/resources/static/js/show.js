@@ -40,12 +40,12 @@
             '<i class="am-icon-btn am-success am-icon-lg">完</i>' +
             '</div>' +
             '<div class="show-weixin">' +
-            '<p><i class="weiXinQuoteLeft fa fa-quote-left fa-lg"></i></p><br>' +
+            '<p><i class="weiXinQuoteLeft am-icon-quote-left "></i></p><br>' +
             '<p class="show-weixin-pic">' +
             '<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin.jpg">' +
             '</p>' +
             '<p class="show-weixin-pic">欢迎关注我的微信公众号：zhyocean1314</p>' +
-            '<p><i class="weiXinQuoteRight fa fa-quote-right fa-lg"></i></p>' +
+            '<p><i class="weiXinQuoteRight am-icon-quote-right "></i></p>' +
             '</div>' +
             '<div>' +
             '<ul class="post-copyright">' +
@@ -145,7 +145,7 @@
                 '<div class="article-comment-line"></div>' +
                 '</div>');
             var newComment = $('<div class="new-comment">' +
-                '<i class="all-comment fa fa-window-minimize fa-rotate-90"></i>全部评论' +
+                '<i class="all-comment am-icon-ellipsis-v"></i>全部评论' +
                 '</div>');
             articleComment.append(articleCommentTop);
             articleComment.append(newComment);
@@ -161,7 +161,7 @@
                         var visitorReplyTime = $('<div class="visitorReplyTime">' +
                             '<span class="visitorReplyTimeTime">' + obj1['commentDate'] + '</span>' +
                             '<a>' +
-                            '<i class="replyReply fa fa-comment-o">&nbsp;&nbsp;回复</i>' +
+                            '<i class="replyReply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
                             '</a>' +
                             '</div>');
                         visitorReply.append(visitorReplyWords);
@@ -172,7 +172,7 @@
                     var subCommentList = $('<div class="sub-comment-list"></div>');
                     var moreComment = $('<div class="more-comment">' +
                         '<a>' +
-                        '<i class="moreComment fa fa-edit"> 添加新评论</i>' +
+                        '<i class="moreComment am-icon-edit"> 添加新评论</i>' +
                         '</a>' +
                         '</div>');
                     subCommentList.append(visitorReplies);
@@ -210,18 +210,18 @@
                         '</div>');
                     var toolGroup1 = $('<div class="tool-group">' +
                         '<a>' +
-                        '<i class="like fa fa-thumbs-o-up">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
+                        '<i class="like am-icon-thumbs-o-up">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
                         '</a>' +
                         '<a>' +
-                        '<i class="reply fa fa-comment-o">&nbsp;&nbsp;回复</i>' +
+                        '<i class="reply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
                         '</a>' +
                         '</div>');
                     var toolGroup2 = $('<div class="tool-group">' +
                         '<a>' +
-                        '<i class="like fa fa-thumbs-up text-success">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
+                        '<i class="like am-icon-thumbs-up text-success">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
                         '</a>' +
                         '<a>' +
-                        '<i class="reply fa fa-comment-o">&nbsp;&nbsp;回复</i>' +
+                        '<i class="reply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
                         '</a>' +
                         '</div>');
                     amUSm10.append(visitorInfo);
@@ -382,7 +382,7 @@
                             var visitorReplyTime = $('<div class="visitorReplyTime">' +
                                 '<span class="visitorReplyTimeTime">' + data[0]['commentDate'] + '</span>' +
                                 '<a>' +
-                                '<i class="replyReply fa fa-comment-o">&nbsp;&nbsp;回复</i>' +
+                                '<i class="replyReply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
                                 '</a>' +
                                 '</div>');
                             visitorReply.append(visitorReplyWords);
@@ -398,7 +398,7 @@
                                 sub_comment_list.append(visitorReplies);
                                 sub_comment_list.append($('<div class="more-comment">' +
                                     ' <a>' +
-                                    '<i class="moreComment fa fa-edit"> 添加新评论</i>' +
+                                    '<i class="moreComment am-icon-edit"> 添加新评论</i>' +
                                     '</a>' +
                                     '</div>'));
                                 sub_comment.prepend(sub_comment_list);

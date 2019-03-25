@@ -54,11 +54,11 @@ public class FileUtil {
             dir.mkdirs();
         }
         BufferedOutputStream bos = null;
-        FileOutputStream fos = null;
+        java.io.FileOutputStream fos = null;
         try {
             byte[] bytes = Base64.getDecoder().decode(base64);
             file=new File(filePath+"/"+fileName);
-            fos = new FileOutputStream(file);
+            fos = new java.io.FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
             bos.write(bytes);
         } catch (Exception e) {

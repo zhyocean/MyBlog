@@ -9,7 +9,7 @@
         var timeLine = $('<div class="timeline timeline-wrap"></div>');
         timeLine.append($('<div class="timeline-row">' +
             '<span class="node" style="-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;">' +
-            '<i class="fa fa-folder"></i>' +
+            '<i class="am-icon-folder"></i>' +
             '</span>' +
             '<h1 class="title  am-animation-slide-top"># '+ data['category'] + '</h1>' +
             '</div>'));
@@ -24,9 +24,9 @@
                 '</div>' +
                 '</header>'));
             var amCommentBd = $('<div class="am-comment-bd"></div>');
-            amCommentBd.append($('<i class="fa fa-calendar"> <a href="/archives?archive='+ obj['publishDate'] + '">' + obj['publishDate'] + '</a></i>' +
-                '<i class="fa fa-folder"> <a href="/categories?category=' + obj['articleCategories'] + '">' + obj['articleCategories'] + '</a></i>'));
-            var amCommentBdTags = $('<i class="am-comment-bd-tags fa fa-tag"></i>');
+            amCommentBd.append($('<i class="am-icon-calendar"> <a href="/archives?archive='+ obj['publishDate'] + '">' + obj['publishDate'] + '</a></i>' +
+                '<i class="am-icon-folder"> <a href="/categories?category=' + obj['articleCategories'] + '">' + obj['articleCategories'] + '</a></i>'));
+            var amCommentBdTags = $('<i class="am-comment-bd-tags am-icon-tag"></i>');
             for(var i=0;i<obj['articleTags'].length;i++){
                 var tag = $('<a href="/tags?tag=' + obj['articleTags'][i] + '">' + obj['articleTags'][i] + '</a>');
                 amCommentBdTags.append(tag);

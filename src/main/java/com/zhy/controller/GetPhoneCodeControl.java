@@ -31,13 +31,14 @@ public class GetPhoneCodeControl {
         String trueMsgCode = PhoneRandomBuilder.randomBuilder();
 
         request.getSession().setAttribute("trueMsgCode", trueMsgCode);
+        request.getSession().setAttribute("msgCodePhone", phone);
 
         String msgCode = "SMS_136394413";
-        //注册
+        //注册模板
         if("register".equals(sign)){
             msgCode = "SMS_136394413";
         }
-        //改密码
+        //改密码模板
         else {
             msgCode = "SMS_139982667";
         }
@@ -59,7 +60,7 @@ public class GetPhoneCodeControl {
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
         //"***"分别填写自己的AccessKey ID和Secret
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", "这里填阿里云的accessKeyid", "这里填阿里云的accessKeySecret");
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", "这里填AccessKey ID", "这里填AccessKey Secret");
         DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Dysmsapi", "dysmsapi.aliyuncs.com");
         IAcsClient acsClient = new DefaultAcsClient(profile);
         SendSmsRequest request = new SendSmsRequest();

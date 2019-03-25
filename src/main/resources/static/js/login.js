@@ -246,6 +246,8 @@
                     }else if(data == "1"){
                         alert("密码修改成功，快去登录吧！");
                         window.location.reload();
+                    }else if(data == "3"){
+                        alert("手机号不正确，请重新输入");
                     }
                 },
                 error:function () {

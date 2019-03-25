@@ -13,14 +13,14 @@
     <meta name="description" content="张海洋，正宗97后，爱编程。喜欢旅行、摄影、爱生活。专注于Spring,SpringBoot等后端技术探索，以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习。">
 
     <link rel="icon" type="image/x-icon" href="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/favicon.ico">
-    <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/font-awesome/5.8.0/css/fontawesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/register.css">
 
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/underscore.js/1.9.1/underscore-min.js"></script>
-    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://lib.baomitu.com/amazeui/2.7.2/js/amazeui.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -33,13 +33,13 @@
 
             <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
                 <ul class="am-nav am-nav-pills am-topbar-nav">
-                    <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="fa fa-home"></span>&nbsp;首页</a></li>
-                    <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="fa fa-th"></span>&nbsp;分类</a></li>
-                    <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="fa fa-archive"></span>&nbsp;归档</a></li>
-                    <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="fa fa-tags"></span>&nbsp;标签</a></li>
-                    <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="fa fa-calendar-plus-o"></span>&nbsp;更新</a></li>
-                    <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="fa fa-street-view"></span>&nbsp;友链</a></li>
-                    <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="fa fa-user"></span>&nbsp;关于我</a> </li>
+                    <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="am-icon-home"></span>&nbsp;首页</a></li>
+                    <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="am-icon-th"></span>&nbsp;分类</a></li>
+                    <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="am-icon-archive"></span>&nbsp;归档</a></li>
+                    <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="am-icon-tags"></span>&nbsp;标签</a></li>
+                    <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="am-icon-calendar-plus-o"></span>&nbsp;更新</a></li>
+                    <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="am-icon-street-view"></span>&nbsp;友链</a></li>
+                    <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="am-icon-user"></span>&nbsp;关于我</a> </li>
                 </ul>
 
                 <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
@@ -93,6 +93,9 @@
                     <div id="phone_warn" class="input_warn">
                         <span>该手机号已存在！</span>
                     </div>
+                    <div id="phone_warn1" class="input_warn">
+                        <span>手机号不正确！</span>
+                    </div>
                     <label for="auth_code" style="margin-top: 6px">验证码:</label>
                     <div  class="am-form-group am-form-icon am-form-feedback" style="margin-left: 0;">
                         <input style="width: 45%" type="text" name="phone" id="auth_code" placeholder="点右边获得短信验证码呦">
@@ -113,6 +116,9 @@
                     <div id="username_warn" class="input_warn">
                         <span>该用户名已存在</span>
                     </div>
+                    <div id="username_warn1" class="input_warn">
+                        <span>用户名长度过长或格式不正确</span>
+                    </div>
                     <label for="password" style="margin: 6px 30px auto auto;">密码:</label>
                     <div  class="am-form-group am-form-icon am-form-feedback" style="margin-left: 0">
                         <input type="password" name="password" id="password" placeholder="悄悄的输入你的密码哦">
@@ -126,11 +132,11 @@
                     <div class="radio_input am-form-group" style="margin: 0 0 10px auto">
                         <label class="am-radio-inline">
                             <input type="radio" name="gender" value="male" data-am-ucheck>
-                            <span class="fa fa-male fa-lg"></span>
+                            <span class="am-icon-male am-icon-sm"></span>
                         </label>
                         <label class="am-radio-inline" style="margin-left: 40px">
                             <input type="radio" name="gender" value="female" data-am-ucheck>
-                            <span class="fa fa-female fa-lg"></span>
+                            <span class="am-icon-female am-icon-sm"></span>
                         </label>
                         <div class="gender_null">
                             <span id="gender_null" class="icons">就不能告诉我你是GG还是MM么 o(╥﹏╥)o</span>
@@ -152,7 +158,7 @@
                 <hr>
                 <div class="am-vertical-align-bottom">
                     <div style="color: #009688">
-                        &copy; 2018 程序猿张先森 - <i class="fa fa-coffee" style="margin: 0 5px"></i>张海洋 版权所有
+                        &copy; 2018-2019 程序猿张先森 - <i class="am-icon-coffee" style="margin: 0 5px"></i>张海洋 版权所有
                     </div>
                     <div id="footer" style="color: #009688">
                         总访问量 <span id="totalVisitors"><strong></strong></span> 次  访客量 <span id="visitorVolume"><strong></strong></span> 人次
@@ -218,13 +224,13 @@
                                 </div>
                             </div>
                             <div class="contact-way">
-                                <span><i class="fa fa-qq">&nbsp;&nbsp;1125694337</i></span>
-                                <span><i class="fa fa-wechat">&nbsp;&nbsp;zhy1125694337</i></span>
+                                <span><i class="am-icon-qq">&nbsp;&nbsp;1125694337</i></span>
+                                <span><i class="am-icon-wechat">&nbsp;&nbsp;zhy1125694337</i></span>
                             </div>
                             <div class="rss">
                                 <div class="rss-site">
                                     <a class="rss-site-a" href="/rss">
-                                        <i class="fa fa-rss"> RSS</i>
+                                        <i class="am-icon-rss"> RSS</i>
                                     </a>
                                 </div>
                             </div>
@@ -241,7 +247,7 @@
         <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
             <a id="toTop"  href="#top">
             <span title="到顶部" style="color: white">
-                <i class="fa fa-arrow-up"></i>
+                <i class="am-icon-arrow-up"></i>
             </span>
             </a>
         </div>

@@ -29,11 +29,16 @@ public class RegisterControl {
         String authCode = request.getParameter("authCode");
 
         String trueMsgCode = (String) request.getSession().getAttribute("trueMsgCode");
+        String msgCodePhone = (String) request.getSession().getAttribute("msgCodePhone");
 
-        //检测手机验证码
+        //判断验证码是否正确
         if(!authCode.equals(trueMsgCode)){
             return "0";
         }
+        if(!msgCodePhone.equals(user.getPhone())){
+            return "5";
+        }
+        //判断用户名是否存在
         if(userService.usernameIsExit(user.getUsername())){
             return "3";
         }

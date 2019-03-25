@@ -30,9 +30,15 @@ public class LoginControl {
                                  HttpServletRequest request){
 
         String trueMsgCode = (String) request.getSession().getAttribute("trueMsgCode");
+        String msgCodePhone = (String) request.getSession().getAttribute("msgCodePhone");
 
+        //判断验证码是否正确
         if(!authCode.equals(trueMsgCode)){
             return "0";
+        }
+        //判断获得的手机号是否是发送验证码的手机号
+        if(!phone.equals(msgCodePhone)){
+            return "3";
         }
         User user = userService.findUserByPhone(phone);
         if(user == null){

@@ -1,6 +1,6 @@
 
     //网站最后更新时间（版本更新需更改）
-    var siteLastUpdateTime = '2019年01月09日14点';
+    var siteLastUpdateTime = '2019年03月22日19点';
 
     //网站开始时间
     var siteBeginRunningTime = '2018-07-25 20:00:00';
@@ -344,27 +344,27 @@
            var siteInfo = $('.site-info');
             siteInfo.empty();
             siteInfo.append('<h5 class="site-title">' +
-                '<i class="fa fa-info site-icon"></i>' +
+                '<i class="am-icon-info site-icon"></i>' +
                 '<strong style="margin-left: 15px">网站信息</strong>' +
                 '</h5>');
             var siteDefault = $('<ul class="site-default"></ul>');
             siteDefault.append('<li>' +
-                '<i class="fa fa-file site-default-icon"></i><span class="site-default-word">文章总数</span>：' + data['articleNum'] + ' 篇' +
+                '<i class="am-icon-file site-default-icon"></i><span class="site-default-word">文章总数</span>：' + data['articleNum'] + ' 篇' +
                 '</li>');
             siteDefault.append('<li>' +
-                '<i class="fa fa-tags site-default-icon"></i><span class="site-default-word">标签总数</span>：' + data['tagsNum'] + ' 个' +
+                '<i class="am-icon-tags site-default-icon"></i><span class="site-default-word">标签总数</span>：' + data['tagsNum'] + ' 个' +
                 '</li>');
             siteDefault.append('<li>' +
-                '<i class="fa fa-comments-o site-default-icon"></i><span class="site-default-word">留言总数</span>：' + data['leaveWordNum'] + ' 条' +
+                '<i class="am-icon-comments-o site-default-icon"></i><span class="site-default-word">留言总数</span>：' + data['leaveWordNum'] + ' 条' +
                 '</li>');
             siteDefault.append('<li>' +
-                '<i class="fa fa-commenting-o site-default-icon"></i><span class="site-default-word">评论总数</span>：' + data['commentNum'] + ' 条' +
+                '<i class="am-icon-commenting-o site-default-icon"></i><span class="site-default-word">评论总数</span>：' + data['commentNum'] + ' 条' +
                 '</li>');
             siteDefault.append('<li>' +
-                '<i class="fa fa-pencil-square site-default-icon"></i><span class="site-default-word">网站最后更新</span>：<span class="siteUpdateTime">' + siteLastUpdateTime + '</span>' +
+                '<i class="am-icon-pencil-square site-default-icon"></i><span class="site-default-word">网站最后更新</span>：<span class="siteUpdateTime">' + siteLastUpdateTime + '</span>' +
                 '</li>');
             siteDefault.append('<li>' +
-                '<i class="fa fa-calendar site-default-icon"></i><span class="site-default-word">网站运行天数</span>：<span class="siteRunningTime"> </span>' +
+                '<i class="am-icon-calendar site-default-icon"></i><span class="site-default-word">网站运行天数</span>：<span class="siteRunningTime"> </span>' +
                 '</li>');
             siteInfo.append(siteDefault);
 

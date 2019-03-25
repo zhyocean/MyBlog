@@ -8,8 +8,8 @@
 
  开源屏蔽(以下内容需自行填写)：
 
-    1.druid监控账户密码
-    2.数据库密码、redis密码
-    3.https证书密码
-    4.阿里云手机号密钥
-    5.阿里云OSS密钥
+    1.druid监控账户密码（java\com\zhy\config\DruidDataSourceConfig.java）
+    2.数据库密码、redis密码（resources\application.properties）
+    3.https证书密码（resources\application.properties）
+    4.阿里云短信服务密钥（java\com\zhy\controller\GetPhoneCodeControl.java）
+    5.阿里云OSS密钥（java\com\zhy\constant\OSSClientConstants.java）

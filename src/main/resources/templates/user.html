@@ -9,16 +9,16 @@
     <title>程序猿张先森 | 个人中心</title>
     <link rel="icon" type="image/x-icon" href="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/favicon.ico">
 
-    <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/user.css">
     <link rel="stylesheet" href="css/plugs_paging.css">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/font-awesome/5.8.0/css/fontawesome.min.css" rel="stylesheet">
 
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/underscore.js/1.9.1/underscore-min.js"></script>
-    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://lib.baomitu.com/amazeui/2.7.2/js/amazeui.min.js"></script>
 </head>
 <body>
 
@@ -31,13 +31,13 @@
 
         <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
             <ul class="am-nav am-nav-pills am-topbar-nav">
-                <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="fa fa-home"></span>&nbsp;首页</a></li>
-                <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="fa fa-th"></span>&nbsp;分类</a></li>
-                <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="fa fa-archive"></span>&nbsp;归档</a></li>
-                <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="fa fa-tags"></span>&nbsp;标签</a></li>
-                <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="fa fa-calendar-plus-o"></span>&nbsp;更新</a></li>
-                <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="fa fa-street-view"></span>&nbsp;友链</a></li>
-                <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="fa fa-user"></span>&nbsp;关于我</a> </li>
+                <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="am-icon-home"></span>&nbsp;首页</a></li>
+                <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="am-icon-th"></span>&nbsp;分类</a></li>
+                <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="am-icon-archive"></span>&nbsp;归档</a></li>
+                <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="am-icon-tags"></span>&nbsp;标签</a></li>
+                <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="am-icon-calendar-plus-o"></span>&nbsp;更新</a></li>
+                <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="am-icon-street-view"></span>&nbsp;友链</a></li>
+                <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="am-icon-user"></span>&nbsp;关于我</a> </li>
             </ul>
 
             <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
@@ -76,11 +76,10 @@
     <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class="am-offcanvas-bar admin-offcanvas-bar">
             <ul class="userList am-list admin-sidebar-list">
-                <li class="clickLi personalDate" ><a><i class="fa fa-vcard fa-lg"></i> 个人资料</a></li>
-                <li class="clickLi basicSetting"><a><i class="fa fa-cog fa-lg"></i> 安全设置</a></li>
-
-                <li class="clickLi leaveMessage"><a><i class="fa fa-commenting-o fa-lg"></i> 评论留言</a></li>
-                <li class="clickLi privateWord"><a><i class="fa fa-pencil-square-o fa-lg"></i> 悄悄话</a></li>
+                <li class="clickLi personalDate" ><a><i class="am-icon-credit-card-alt am-icon-fw"></i> 个人资料</a></li>
+                <li class="clickLi basicSetting"><a><i class="am-icon-cog am-icon-fw"></i> 安全设置</a></li>
+                <li class="clickLi leaveMessage"><a><i class="am-icon-comment am-icon-fw"></i> 评论留言</a></li>
+                <li class="clickLi privateWord"><a><i class="am-icon-pencil-square-o am-icon-fw"></i> 悄悄话</a></li>
             </ul>
             <div class="am-panel am-panel-default admin-sidebar-panel">
                 <div class="am-panel-bd">
@@ -117,7 +116,7 @@
                             <div class="phoneTable">
                                 <label>手机</label>
                                 <div class="phone" id="personalPhone"></div>
-                                <i class="phoneCheck fa fa-check">已验证</i>
+                                <i class="phoneCheck am-icon-check">已验证</i>
                                 <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
                             </div>
                             <div class="trueNameTable">
@@ -134,11 +133,11 @@
                                 <label>性别</label>
                                 <label class="am-radio-inline" style="width: 60px">
                                     <input class="formInput" type="radio" id="male" name="gender" value="male" data-am-ucheck>
-                                    <span class="fa fa-male fa-lg"></span>
+                                    <span class="am-icon-male "></span>
                                 </label>
                                 <label class="am-radio-inline" style="width: 60px">
                                     <input class="formInput" type="radio" id="female" name="gender" value="female" data-am-ucheck>
-                                    <span class="fa fa-female fa-lg"></span>
+                                    <span class="am-icon-female "></span>
                                 </label>
                                 <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
                             </div>

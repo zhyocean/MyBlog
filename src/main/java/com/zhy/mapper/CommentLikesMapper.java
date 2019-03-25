@@ -17,7 +17,7 @@ public interface CommentLikesMapper {
     void insertCommentLikesRecord(CommentLikesRecord commentLikesRecord);
 
     @Select("select likeDate from comment_likes_record where articleId=#{articleId} and originalAuthor=#{originalAuthor} and pId=#{pId} and likerId=#{likerId}")
-    CommentLikesRecord isLiked(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor, @Param("pId") long pId, @Param("likerId") int likerId);
+    CommentLikesRecord isLiked(@Param("articleId") long articleId,@Param("originalAuthor") String originalAuthor,@Param("pId") long pId,@Param("likerId") int likerId);
 
     @Delete("delete from comment_likes_record where articleId=#{articleId}")
     void deleteCommentLikesRecordByArticleId(long articleId);

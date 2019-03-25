@@ -23,6 +23,7 @@
         resize: none;
         line-height: normal;
         text-align: left;
+        outline: none;
     }
     .comments{
         margin: 70px 50px 0;
@@ -63,6 +64,7 @@
         resize: none;
         line-height: normal;
         text-align: left;
+        outline: none;
     }
     .comments{
         margin: 70px 0 0;

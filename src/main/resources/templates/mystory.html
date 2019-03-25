@@ -11,18 +11,18 @@
     <meta name="keywords" content="博客,个人,学习,IT,生活,张海洋,程序猿,springboot,java,后端我的故事">
     <meta name="description" content="张海洋，正宗97后，爱编程。喜欢旅行、摄影、爱生活。专注于Spring,SpringBoot等后端技术探索，以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习。">
 
-    <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/comment.css">
     <link rel="stylesheet" href="css/tags.css">
     <link rel="stylesheet" href="css/plugs_paging.css">
     <link rel="stylesheet" href="css/mystory.css">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/font-awesome/5.8.0/css/fontawesome.min.css" rel="stylesheet">
 
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/underscore.js/1.9.1/underscore-min.js"></script>
-    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://lib.baomitu.com/amazeui/2.7.2/js/amazeui.min.js"></script>
 </head>
 <body>
 
@@ -35,13 +35,13 @@
 
         <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
             <ul class="am-nav am-nav-pills am-topbar-nav">
-                <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="fa fa-home"></span>&nbsp;首页</a></li>
-                <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="fa fa-th"></span>&nbsp;分类</a></li>
-                <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="fa fa-archive"></span>&nbsp;归档</a></li>
-                <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="fa fa-tags"></span>&nbsp;标签</a></li>
-                <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="fa fa-calendar-plus-o"></span>&nbsp;更新</a></li>
-                <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="fa fa-street-view"></span>&nbsp;友链</a></li>
-                <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="fa fa-user"></span>&nbsp;关于我</a> </li>
+                <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="am-icon-home"></span>&nbsp;首页</a></li>
+                <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="am-icon-th"></span>&nbsp;分类</a></li>
+                <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="am-icon-archive"></span>&nbsp;归档</a></li>
+                <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="am-icon-tags"></span>&nbsp;标签</a></li>
+                <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="am-icon-calendar-plus-o"></span>&nbsp;更新</a></li>
+                <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="am-icon-street-view"></span>&nbsp;友链</a></li>
+                <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="am-icon-user"></span>&nbsp;关于我</a> </li>
             </ul>
 
             <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
@@ -80,8 +80,8 @@
     <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
         <div class="am-offcanvas-bar admin-offcanvas-bar">
             <ul class="userList am-list admin-sidebar-list">
-                <li class="clickLi myStory" ><a><i class="fa fa-coffee fa-lg"></i> 我的故事</a></li>
-                <li class="clickLi myPhoto"><a><i class="fa fa-image fa-lg"></i> 个人相册</a></li>
+                <li class="clickLi myStory" ><a><i class="am-icon-coffee "></i> 我的故事</a></li>
+                <li class="clickLi myPhoto"><a><i class="am-icon-image "></i> 个人相册</a></li>
             </ul>
             <div class="am-panel am-panel-default admin-sidebar-panel">
                 <div class="am-panel-bd">
@@ -98,13 +98,13 @@
                 <div class="zhy-myStory">
                     <div class="myStoryPic">
                         <span class="myStoryPicWord">生活不止眼前的苟且</span>
-                        <span class="storyWords"><i class="fa fa-coffee"></i> 有时间一起聊聊我们的故事吧</span>
+                        <span class="storyWords"><i class="am-icon-coffee"></i> 有时间一起聊聊我们的故事吧</span>
                     </div>
                     <div class="myStoryContent">
                         <div class="timeline timeline-wrap">
                             <div class="timeline-row">
                                 <span class="node" style="-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;">
-                                    <i class="fa fa-coffee"></i>
+                                    <i class="am-icon-coffee"></i>
                                 </span>
                                 <h1 class="title"></h1>
                             </div>
@@ -118,9 +118,9 @@
                                         </div>
                                     </header>
                                     <div class="am-comment-bd">
-                                        <i class="fa fa-calendar"><a href="#">sdf</a></i>
-                                        <i class="fa fa-folder"> <a href="#">dfgdfga</a></i>
-                                        <i class="am-comment-bd-tags fa fa-tag">所发生的</i>
+                                        <i class="am-icon-calendar"><a href="#">sdf</a></i>
+                                        <i class="am-icon-folder"> <a href="#">dfgdfga</a></i>
+                                        <i class="am-comment-bd-tags am-icon-tag">所发生的</i>
                                     </div>
                                 </div>
                             </div>
@@ -134,9 +134,9 @@
                                         </div>
                                     </header>
                                     <div class="am-comment-bd">
-                                        <i class="fa fa-calendar"><a href="#">sdf</a></i>
-                                        <i class="fa fa-folder"> <a href="#">dfgdfga</a></i>
-                                        <i class="am-comment-bd-tags fa fa-tag">所发生的</i>
+                                        <i class="am-icon-calendar"><a href="#">sdf</a></i>
+                                        <i class="am-icon-folder"> <a href="#">dfgdfga</a></i>
+                                        <i class="am-comment-bd-tags am-icon-tag">所发生的</i>
                                     </div>
                                 </div>
                             </div>
@@ -150,9 +150,9 @@
                                         </div>
                                     </header>
                                     <div class="am-comment-bd">
-                                        <i class="fa fa-calendar"><a href="#">sdf</a></i>
-                                        <i class="fa fa-folder"> <a href="#">dfgdfga</a></i>
-                                        <i class="am-comment-bd-tags fa fa-tag">所发生的</i>
+                                        <i class="am-icon-calendar"><a href="#">sdf</a></i>
+                                        <i class="am-icon-folder"> <a href="#">dfgdfga</a></i>
+                                        <i class="am-comment-bd-tags am-icon-tag">所发生的</i>
                                     </div>
                                 </div>
                             </div>
@@ -166,9 +166,9 @@
                                         </div>
                                     </header>
                                     <div class="am-comment-bd">
-                                        <i class="fa fa-calendar"><a href="#">sdf</a></i>
-                                        <i class="fa fa-folder"> <a href="#">dfgdfga</a></i>
-                                        <i class="am-comment-bd-tags fa fa-tag">所发生的</i>
+                                        <i class="am-icon-calendar"><a href="#">sdf</a></i>
+                                        <i class="am-icon-folder"> <a href="#">dfgdfga</a></i>
+                                        <i class="am-comment-bd-tags am-icon-tag">所发生的</i>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
             <div id="myPhoto">
                 <div class="zhy-myPhoto">
                     <div class="notice">
-                        <span class="alertNotice fa fa-exclamation-circle fa-4x"></span>
+                        <span class="alertNotice am-icon-exclamation-circle fa-4x"></span>
                     </div>
                     <div class="alertNoticeWord">
                         相册相册你在哪

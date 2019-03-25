@@ -26,13 +26,13 @@ import java.util.Map;
  * Describe: Druid 数据库连接池配置
  */
 @Configuration
-@ConditionalOnClass(DruidDataSource.class)
+@ConditionalOnClass(com.alibaba.druid.pool.DruidDataSource.class)
 @ConditionalOnProperty(name = "spring.dataSource.type", havingValue = "com.alibaba.druid.pool.DruidDataSource", matchIfMissing = true)
 public class DruidDataSourceConfig {
 
     private Logger logger = LoggerFactory.getLogger(DruidDataSourceConfig.class);
 
-    @Bean
+    @Bean(name = "druidDataSource")
     @Primary
     public DataSource dataSource(@Autowired Environment environment){
         DruidDataSource dataSource = new DruidDataSource();
@@ -74,11 +74,12 @@ public class DruidDataSourceConfig {
       servletRegistrationBean.setServlet(new StatViewServlet());
       servletRegistrationBean.addUrlMappings("/druid/*");
       Map<String, String> initParameters = new HashMap<String, String>();
-      initParameters.put("loginUsername", "设置druid登录账号");
-      initParameters.put("loginPassword", "设置druid登录密码");
+      initParameters.put("loginUsername", "druid登录用户名");
+      initParameters.put("loginPassword", "druid登录密码");
       initParameters.put("resetEnable", "true");
-//      initParameters.put("allow", "119.23.202.55,127.0.0.1,10.24.38.152");
-//      initParameters.put("deny", "119.23.202.55");
+      //下面是黑白名单，多个ip地址之间用逗号隔开
+//      initParameters.put("allow", "IP地址,IP地址,IP地址");
+//      initParameters.put("deny", "IP地址");
       servletRegistrationBean.setInitParameters(initParameters);
 
       return servletRegistrationBean;

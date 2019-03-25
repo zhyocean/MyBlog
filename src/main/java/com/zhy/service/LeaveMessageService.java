@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @Date: 2018/7/15 14:01
  * Describe:留言业务操作
  */
-@Service
 public interface LeaveMessageService {
 
     /**

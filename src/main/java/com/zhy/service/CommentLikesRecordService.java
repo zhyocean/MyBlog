@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
  * @Date: 2018/7/12 13:47
  * Describe:评论点赞记录业务操作
  */
-@Service
 public interface CommentLikesRecordService {
 
     /**

@@ -13,7 +13,7 @@ import java.util.Map;
  * @Date: 2018/6/20 21:41
  * Describe: 文章业务操作
  */
-@Service
+//@Service
 public interface ArticleService {
 
     /**

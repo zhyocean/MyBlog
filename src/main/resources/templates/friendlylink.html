@@ -11,15 +11,15 @@
     <meta name="description" content="张海洋，正宗97后，爱编程。喜欢旅行、摄影、爱生活。专注于Spring,SpringBoot等后端技术探索，以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习。">
 
     <link rel="icon" type="image/x-icon" href="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/favicon.ico">
-    <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/comment.css">
     <link rel="stylesheet" href="css/friendlylink.css">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/font-awesome/5.8.0/css/fontawesome.min.css" rel="stylesheet">
 
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/underscore.js/1.9.1/underscore-min.js"></script>
-    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://lib.baomitu.com/amazeui/2.7.2/js/amazeui.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -32,13 +32,13 @@
 
             <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
                 <ul class="am-nav am-nav-pills am-topbar-nav">
-                    <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="fa fa-home"></span>&nbsp;首页</a></li>
-                    <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="fa fa-th"></span>&nbsp;分类</a></li>
-                    <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="fa fa-archive"></span>&nbsp;归档</a></li>
-                    <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="fa fa-tags"></span>&nbsp;标签</a></li>
-                    <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="fa fa-calendar-plus-o"></span>&nbsp;更新</a></li>
-                    <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="fa fa-street-view"></span>&nbsp;友链</a></li>
-                    <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="fa fa-user"></span>&nbsp;关于我</a> </li>
+                    <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="am-icon-home"></span>&nbsp;首页</a></li>
+                    <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="am-icon-th"></span>&nbsp;分类</a></li>
+                    <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="am-icon-archive"></span>&nbsp;归档</a></li>
+                    <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="am-icon-tags"></span>&nbsp;标签</a></li>
+                    <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="am-icon-calendar-plus-o"></span>&nbsp;更新</a></li>
+                    <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="am-icon-street-view"></span>&nbsp;友链</a></li>
+                    <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="am-icon-user"></span>&nbsp;关于我</a> </li>
                 </ul>
 
                 <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
@@ -76,72 +76,72 @@
                 <div class="am-u-sm-12 am-u-lg-12">
                     <div class="site-inner">
                         <div class="zhy-friendlylink-title am-animation-slide-top">
-                            <i class="fa fa-hashtag fa-lg"></i><span>大佬博客</span>
+                            <i class="am-icon-hashtag "></i><span>大佬博客</span>
                         </div>
                         <div class="zhy-friendlylink-author am-animation-slide-top">
                             <div class="am-u-sm-4 am-u-lg-4" style="padding: 10px">
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://blog.didispace.com/" target="_blank">程序猿DD</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="https://www.liaoxuefeng.com/" target="_blank">廖雪峰的官方网站</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://cxytiandi.com/" target="_blank">猿天地</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="https://www.bysocket.com/" target="_blank">泥瓦匠BYSocket</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="https://since1986.github.io/blog/" target="_blank">Since1986</a>
                                 </p>
                             </div>
                             <div class="am-u-sm-4 am-u-lg-4" style="padding: 10px">
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://www.tianshouzhi.com/" target="_blank">田守枝Java技术博客</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://blog.itmyhome.com/" target="_blank">麦田技术博客</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://blog.720ui.com/" target="_blank">梁桂钊</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://www.icnws.com/" target="_blank">城南往事</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://techblog.pub/" target="_blank">原创博客技术联盟</a>
                                 </p>
                             </div>
                             <div class="am-u-sm-4 am-u-lg-4" style="padding: 10px">
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://www.ityouknow.com/" target="_blank">纯洁的微笑</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="https://blog.52itstyle.com/" target="_blank">小柒博客</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://www.spring4all.com/" target="_blank">spring4all</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="http://cmsblogs.com/" target="_blank">chenssy </a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-unlock-alt fa-lg"></i>
+                                    <i class="am-icon-unlock-alt "></i>
                                     <a href="https://crossoverjie.top/" target="_blank">crossoverJie</a>
                                 </p>
                             </div>
@@ -151,40 +151,40 @@
                 <div class="am-u-sm-12 am-u-lg-12">
                     <div class="site-middle am-animation-slide-top">
                         <div class="zhy-friendlylink-title">
-                            <i class="fa fa-hashtag fa-lg"></i><span>友情链接</span>
+                            <i class="am-icon-hashtag "></i><span>友情链接</span>
                         </div>
                         <div class="zhy-friendlylink-author">
                             <div class="am-u-sm-4 am-u-lg-4">
                                 <p>
-                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <i class="am-icon-street-view "></i>
                                     <a href="http://junxuelian.cn/" target="_blank">一名行进中的码农</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <i class="am-icon-street-view "></i>
                                     <a href="https://sailengsi.com/" target="_blank">赛冷思个人博客</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <i class="am-icon-street-view "></i>
                                     <a href="http://www.csxll.top/" target="_blank">陈晓雷个人博客</a>
                                 </p>
                             </div>
                             <div class="am-u-sm-4 am-u-lg-4">
                                 <p>
-                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <i class="am-icon-street-view "></i>
                                     <a href="http://www.lipan.xyz/" target="_blank">Li Pan's 博客</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <i class="am-icon-street-view "></i>
                                     <a href="https://naget.github.io/" target="_blank">naget的小屋</a>
                                 </p>
                             </div>
                             <div class="am-u-sm-4 am-u-lg-4">
                                 <p>
-                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <i class="am-icon-street-view "></i>
                                     <a href="https://sanii.cn/" target="_blank">SAn Blog</a>
                                 </p>
                                 <p>
-                                    <i class="fa fa-street-view fa-lg"></i>
+                                    <i class="am-icon-street-view "></i>
                                     <a href="http://www.liuzhaopo.top/" target="_blank">会打篮球的程序猿</a>
                                 </p>
                             </div>
@@ -192,64 +192,64 @@
                     </div>
                 </div>
                 <!--<div class="am-u-sm-12 am-u-lg-12">-->
-                <!--<div class="site-middle">-->
-                <!--<div class="zhy-friendlylink-title">-->
-                <!--<i class="fa fa-hashtag fa-lg"></i><span>半个IT技术圈</span>-->
-                <!--</div>-->
-                <!--<div class="zhy-official">-->
+                    <!--<div class="site-middle">-->
+                        <!--<div class="zhy-friendlylink-title">-->
+                            <!--<i class="am-icon-hashtag "></i><span>半个IT技术圈</span>-->
+                        <!--</div>-->
+                        <!--<div class="zhy-official">-->
 
-                <!--<div class="am-g" style="margin-top: 10px">-->
-                <!--<div class="zhy-official-weixin">-->
-                <!--<div class="set-weixin">-->
+                            <!--<div class="am-g" style="margin-top: 10px">-->
+                                <!--<div class="zhy-official-weixin">-->
+                                    <!--<div class="set-weixin">-->
 
-                <!--<div class="zhy-weixin-row">-->
-                <!--<p>SpringForAll社区</p>-->
-                <!--<img class="am-thumbnail" src="img/publicofficial/SpringForAll社区.png" alt=""/>-->
-                <!--<span>关于Spring一切的问题，有问必答!Spring For All玩最纯粹的技术!做最专业的Spring民间组织。</span>-->
-                <!--</div>-->
+                                        <!--<div class="zhy-weixin-row">-->
+                                            <!--<p>SpringForAll社区</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/SpringForAll社区.png" alt=""/>-->
+                                            <!--<span>关于Spring一切的问题，有问必答!Spring For All玩最纯粹的技术!做最专业的Spring民间组织。</span>-->
+                                        <!--</div>-->
 
-                <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
-                <!--<p>BYSocket泥瓦匠</p>-->
-                <!--<img class="am-thumbnail" src="img/publicofficial/BYSocket泥瓦匠.png" alt=""/>-->
-                <!--<span>专注SpringBoot、SpringCloud和MSA微服务架构相关。路漫漫其修远兮，吾将上下而求索。</span>-->
-                <!--</div>-->
+                                        <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
+                                            <!--<p>BYSocket泥瓦匠</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/BYSocket泥瓦匠.png" alt=""/>-->
+                                            <!--<span>专注SpringBoot、SpringCloud和MSA微服务架构相关。路漫漫其修远兮，吾将上下而求索。</span>-->
+                                        <!--</div>-->
 
-                <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
-                <!--<p>纯洁的微笑</p>-->
-                <!--<img class="am-thumbnail" src="img/publicofficial/纯洁的微笑.png" alt=""/>-->
-                <!--<span>分享微服务实践与Java技术干货、偶尔讲讲故事。在人工智能时代，一起学习微服务架构演进和大数据治理。</span>-->
-                <!--</div>-->
-                <!--</div>-->
+                                        <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
+                                            <!--<p>纯洁的微笑</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/纯洁的微笑.png" alt=""/>-->
+                                            <!--<span>分享微服务实践与Java技术干货、偶尔讲讲故事。在人工智能时代，一起学习微服务架构演进和大数据治理。</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
 
-                <!--<div class="set-weixin">-->
+                                    <!--<div class="set-weixin">-->
 
-                <!--<div class="zhy-weixin-row">-->
-                <!--<p>Java后端技术</p>-->
-                <!--<img class="am-thumbnail" src="img/publicofficial/java后端技术.png" alt=""/>-->
-                <!--<span>专注Java相关技术:SSM、Spring全家桶、微服务、MySQL、MyCat、集群、分布式、中间件、Linux、网络、多线程、偶尔讲点运维Jenkins、Nexus、Docker、ELK，偶尔分享些技术干货，致力于Java全栈开发!</span>-->
-                <!--</div>-->
+                                        <!--<div class="zhy-weixin-row">-->
+                                            <!--<p>Java后端技术</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/java后端技术.png" alt=""/>-->
+                                            <!--<span>专注Java相关技术:SSM、Spring全家桶、微服务、MySQL、MyCat、集群、分布式、中间件、Linux、网络、多线程、偶尔讲点运维Jenkins、Nexus、Docker、ELK，偶尔分享些技术干货，致力于Java全栈开发!</span>-->
+                                        <!--</div>-->
 
-                <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
-                <!--<p>程序猿DD</p>-->
-                <!--<img class="am-thumbnail" src="img/publicofficial/程序猿DD.png" alt=""/>-->
-                <!--<span>作者翟永超,《SpringCloud微服务实战》作者,SpringCloud中文社区创始人(springcloud.com.cn),Spring4All社区联合发起人(spring4All.com),专注于微服务架构与敏捷管理。</span>-->
-                <!--</div>-->
+                                        <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
+                                            <!--<p>程序猿DD</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/程序猿DD.png" alt=""/>-->
+                                            <!--<span>作者翟永超,《SpringCloud微服务实战》作者,SpringCloud中文社区创始人(springcloud.com.cn),Spring4All社区联合发起人(spring4All.com),专注于微服务架构与敏捷管理。</span>-->
+                                        <!--</div>-->
 
-                <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
-                <!--<p>Java葵花宝典</p>-->
-                <!--<img class="am-thumbnail" src="img/publicofficial/Java葵花宝典.png" alt=""/>-->
-                <!--<span>Java葵花宝典，Java知识和技术查漏补缺，空余时间学习碎片化知识，分享开发、运维、架构等综合性知识，助力职场最后一公里与职业进阶，每天看宝典，就选它。</span>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
+                                        <!--<div class="zhy-weixin-row" style="margin-left: 40px">-->
+                                            <!--<p>Java葵花宝典</p>-->
+                                            <!--<img class="am-thumbnail" src="img/publicofficial/Java葵花宝典.png" alt=""/>-->
+                                            <!--<span>Java葵花宝典，Java知识和技术查漏补缺，空余时间学习碎片化知识，分享开发、运维、架构等综合性知识，助力职场最后一公里与职业进阶，每天看宝典，就选它。</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 <!--</div>-->
                 <div class="am-u-sm-12 am-u-lg-12">
                     <div class="zhy-link-word am-animation-slide-top">
                         <div class="zhy-friendlylink-title">
-                            <i class="fa fa-hashtag fa-lg"></i><span>链接公告</span>
+                            <i class="am-icon-hashtag "></i><span>链接公告</span>
                         </div>
                         <div class="zhy-friendlink-info">
                             <p>任何一个行业，如果靠自己不断去探索和挖掘的话，对于自己的成长固然重要，但是有时站在巨人的肩膀上望向前方，你会发现
@@ -262,7 +262,7 @@
                 <div class="am-u-sm-12 am-u-lg-12">
                     <div class="zhy-link-word am-animation-slide-top">
                         <div class="zhy-friendlylink-title">
-                            <i class="fa fa-hashtag fa-lg"></i><span>友链须知</span>
+                            <i class="am-icon-hashtag "></i><span>友链须知</span>
                         </div>
                         <div class="zhy-friendlylink-words">
                             <blockquote>
@@ -311,7 +311,7 @@
                 <hr>
                 <div class="am-vertical-align-bottom">
                     <div style="color: #009688">
-                        &copy; 2018 程序猿张先森 - <i class="fa fa-coffee" style="margin: 0 5px"></i>张海洋 版权所有
+                        &copy; 2018-2019 程序猿张先森 - <i class="am-icon-coffee" style="margin: 0 5px"></i>张海洋 版权所有
                     </div>
                     <div id="footer" style="color: #009688">
                         总访问量 <span id="totalVisitors"><strong></strong></span> 次  访客量 <span id="visitorVolume"><strong></strong></span> 人次
@@ -377,13 +377,13 @@
                                 </div>
                             </div>
                             <div class="contact-way">
-                                <span><i class="fa fa-qq">&nbsp;&nbsp;1125694337</i></span>
-                                <span><i class="fa fa-wechat">&nbsp;&nbsp;zhy1125694337</i></span>
+                                <span><i class="am-icon-qq">&nbsp;&nbsp;1125694337</i></span>
+                                <span><i class="am-icon-wechat">&nbsp;&nbsp;zhy1125694337</i></span>
                             </div>
                             <div class="rss">
                                 <div class="rss-site">
                                     <a class="rss-site-a" href="/rss">
-                                        <i class="fa fa-rss"> RSS</i>
+                                        <i class="am-icon-rss"> RSS</i>
                                     </a>
                                 </div>
                             </div>
@@ -400,7 +400,7 @@
         <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
             <a id="toTop"  href="#top">
             <span title="到顶部" style="color: white">
-                <i class="fa fa-arrow-up"></i>
+                <i class="am-icon-arrow-up"></i>
             </span>
             </a>
         </div>

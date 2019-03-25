@@ -1,6 +1,7 @@
 package com.zhy.model;
 
 import lombok.Data;
+import lombok.Value;
 
 /**
  * @author: zhangocean
