@@ -1,10 +1,9 @@
 package com.zhy.service.security;
 
+import com.zhy.mapper.UserMapper;
 import com.zhy.model.Role;
 import com.zhy.model.User;
-import com.zhy.repository.mybatis.UserRepository;
 import com.zhy.service.UserService;
-import com.zhy.service.impl.UserServiceImpl;
 import com.zhy.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,14 +24,14 @@ import java.util.List;
 public class CustomUserServiceImpl implements UserDetailsService{
 
     @Autowired
-    UserRepository userRepository;
+    UserMapper userMapper;
     @Autowired
     UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
 
-        User user = userRepository.findByPhone(phone);
+        User user = userMapper.getUsernameAndRolesByPhone(phone);
 
         if(user == null){
             throw  new UsernameNotFoundException("用户不存在");

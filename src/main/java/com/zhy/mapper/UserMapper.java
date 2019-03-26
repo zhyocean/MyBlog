@@ -1,5 +1,6 @@
 package com.zhy.mapper;
 
+import com.zhy.model.Role;
 import com.zhy.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,17 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper {
+
+    @Select("select * from user where phone=#{phone}")
+    @Results({
+            @Result(column = "username", property = "username"),
+            @Result(column = "password", property = "password"),
+            @Result(column = "phone", property = "roles", javaType = List.class, many = @Many(select = "com.zhy.mapper.UserMapper.getRoleNameByPhone")),
+    })
+    User getUsernameAndRolesByPhone(@Param("phone") String phone);
+
+    @Select("select r.name from user u LEFT JOIN user_role sru on u.id= sru.User_id LEFT JOIN role r on sru.Role_id=r.id where phone=#{phone}")
+    Role getRoleNameByPhone(String phone);
 
     @Select("select * from user where phone=#{phone}")
     User findUserByPhone(@Param("phone") String phone);
