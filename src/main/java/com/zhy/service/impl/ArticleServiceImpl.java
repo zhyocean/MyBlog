@@ -169,8 +169,10 @@ public class ArticleServiceImpl implements ArticleService {
     public Map<String,String> findArticleTitleByArticleIdAndOriginalAuthor(long articleId, String originalAuthor) {
         Article articleInfo = articleMapper.findArticleTitleByArticleIdAndOriginalAuthor(articleId, originalAuthor);
         Map<String, String> articleMap = new HashMap<>();
-        articleMap.put("articleTitle", articleInfo.getArticleTitle());
-        articleMap.put("articleTabloid", articleInfo.getArticleTabloid());
+        if(articleInfo != null){
+            articleMap.put("articleTitle", articleInfo.getArticleTitle());
+            articleMap.put("articleTabloid", articleInfo.getArticleTabloid());
+        }
         return articleMap;
     }
 

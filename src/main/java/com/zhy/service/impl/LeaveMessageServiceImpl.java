@@ -49,10 +49,6 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
         TimeUtil timeUtil = new TimeUtil();
         String nowStr = timeUtil.getFormatDateForFive();
         leaveMessage.setLeaveMessageDate(nowStr);
-        String commentContent = leaveMessage.getLeaveMessageContent();
-        if('@' == commentContent.charAt(0)){
-            leaveMessage.setLeaveMessageContent(commentContent.substring(respondent.length() + 1));
-        }
         leaveMessage.setRespondentId(userService.findIdByUsername(respondent));
         leaveMessageMapper.publishLeaveMessage(leaveMessage);
         return leaveMessage;

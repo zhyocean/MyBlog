@@ -39,11 +39,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment insertComment(Comment comment, String respondent) {
-
-        String commentContent = comment.getCommentContent();
-        if('@' == commentContent.charAt(0)){
-            comment.setCommentContent(commentContent.substring(respondent.length() + 1));
-        }
         commentMapper.insertComment(comment);
         return comment;
     }

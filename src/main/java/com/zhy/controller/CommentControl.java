@@ -111,10 +111,10 @@ public class CommentControl {
                                   @AuthenticationPrincipal Principal principal){
 
         String username = null;
+        JSONArray jsonArray = new JSONArray();
         try {
             username = principal.getName();
         } catch (NullPointerException e){
-            JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("status",403);
             jsonArray.add(jsonObject);
@@ -127,10 +127,25 @@ public class CommentControl {
         comment.setOriginalAuthor(TransCodingUtil.unicodeToString(comment.getOriginalAuthor()));
         TimeUtil timeUtil = new TimeUtil();
         comment.setCommentDate(timeUtil.getFormatDateForFive());
-        comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
-        comment = commentService.insertComment(comment, respondent);
-
-        JSONArray jsonArray = commentService.replyReplyReturn(comment, username, respondent);
+        String commentContent = comment.getCommentContent();
+        //去掉评论中的@who
+        if('@' == commentContent.charAt(0)){
+            comment.setCommentContent(commentContent.substring(respondent.length() + 1).trim());
+        } else {
+            comment.setCommentContent(commentContent.trim());
+        }
+        //判断用户输入内容是否为空字符串
+        if("".equals(comment.getCommentContent())){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status",400);
+            jsonArray.add(jsonObject);
+            return jsonArray;
+        } else {
+            //防止xss攻击
+            comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
+            comment = commentService.insertComment(comment, respondent);
+        }
+        jsonArray = commentService.replyReplyReturn(comment, username, respondent);
         return jsonArray;
     }
 

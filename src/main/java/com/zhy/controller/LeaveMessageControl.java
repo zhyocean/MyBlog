@@ -97,13 +97,23 @@ public class LeaveMessageControl {
             username = principal.getName();
         } catch (NullPointerException e){
             jsonObject = new JSONObject();
-            logger.info("This user is not login");
             jsonObject.put("status",403);
             jsonObject.put("result","You are not sign in");
         }
         leaveMessage.setAnswererId(userService.findIdByUsername(username));
         leaveMessage.setPId(Integer.parseInt(parentId.substring(1)));
         leaveMessage.setLeaveMessageContent(JavaScriptCheck.javaScriptCheck(leaveMessage.getLeaveMessageContent()));
+        String commentContent = leaveMessage.getLeaveMessageContent();
+        if('@' == commentContent.charAt(0)){
+            leaveMessage.setLeaveMessageContent(commentContent.substring(respondent.length() + 1).trim());
+        } else {
+            leaveMessage.setLeaveMessageContent(commentContent.trim());
+        }
+        if("".equals(leaveMessage.getLeaveMessageContent())){
+            jsonObject = new JSONObject();
+            jsonObject.put("status",400);
+            return jsonObject;
+        }
         leaveMessage = leaveMessageService.publishLeaveMessageReply(leaveMessage, respondent);
 
         return leaveMessageService.leaveMessageNewReply(leaveMessage, username, respondent);
