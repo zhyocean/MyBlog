@@ -18,11 +18,6 @@ public class Comment {
     private long articleId;
 
     /**
-     * 留言的文章的原作者
-     */
-    private String originalAuthor;
-
-    /**
      * 回复的父id 若是评论则为 0，则是评论中的回复则为对应评论的id
      */
     private long pId=0;

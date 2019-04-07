@@ -7,15 +7,13 @@ import com.zhy.model.PrivateWord;
 import com.zhy.service.PrivateWordService;
 import com.zhy.service.UserService;
 import com.zhy.utils.TimeUtil;
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: zhangocean

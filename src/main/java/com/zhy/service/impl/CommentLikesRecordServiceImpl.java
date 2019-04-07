@@ -21,8 +21,8 @@ public class CommentLikesRecordServiceImpl implements CommentLikesRecordService 
     UserService userService;
 
     @Override
-    public boolean isLiked(long articleId, String originalAuthor, long pId, String username) {
-        return commentLikesMapper.isLiked(articleId, originalAuthor, pId, userService.findIdByUsername(username)) != null;
+    public boolean isLiked(long articleId, long pId, String username) {
+        return commentLikesMapper.isLiked(articleId, pId, userService.findIdByUsername(username)) != null;
     }
 
     @Override

@@ -169,7 +169,7 @@
         var articleManagementTable = $('.articleManagementTable');
         articleManagementTable.empty();
         $.each(data['result'], function (index, obj) {
-            articleManagementTable.append($('<tr id="a' + obj['id'] + '"><td><a href="findArticle?articleId=' + obj['articleId'] + '&originalAuthor=' + obj['originalAuthor'] + '">' + obj['articleTitle'] + '</a></td><td>' + obj['publishDate'] + '</td><td>' + obj['articleCategories'] + '</td> <td><span class="am-badge am-badge-success">' + obj['visitorNum'] + '</span></td>' +
+            articleManagementTable.append($('<tr id="a' + obj['id'] + '"><td><a href="article/' + obj['articleId'] + '">' + obj['articleTitle'] + '</a></td><td>' + obj['publishDate'] + '</td><td>' + obj['articleCategories'] + '</td> <td><span class="am-badge am-badge-success">' + obj['visitorNum'] + '</span></td>' +
                 '<td>' +
                 '<div class="am-dropdown" data-am-dropdown>' +
                 '<button class="articleManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>' +

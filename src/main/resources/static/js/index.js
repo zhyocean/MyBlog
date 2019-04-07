@@ -1,6 +1,6 @@
 
     //网站最后更新时间（版本更新需更改）
-    var siteLastUpdateTime = '2019年03月22日19点';
+    var siteLastUpdateTime = '2019年04月07日21点';
 
     //网站开始时间
     var siteBeginRunningTime = '2018-07-25 20:00:00';
@@ -146,7 +146,7 @@
         var ul = $('<ul class="fiveNewComments am-list"></ul>');
         $.each(data['result'],function (index,obj) {
             var li = $('<li class="am-g am-list-item-dated">' +
-                '<a class="newCommentTitle" target="_blank" href="/findArticle?articleId=' + obj['articleId'] + '&originalAuthor=' + obj['originalAuthor'] + '" class="am-list-item-hd" style="padding-bottom: 5px" title="' + obj['articleTitle'] + '">'+ obj['articleTitle'] +'</a>' +
+                '<a class="newCommentTitle" target="_blank" href="/article/' + obj['articleId']  + '" class="am-list-item-hd" style="padding-bottom: 5px" title="' + obj['articleTitle'] + '">'+ obj['articleTitle'] +'</a>' +
                 '<span class="am-list-date">' + obj['commentDate'] + '</span>' +
                 '<div class="new-comment-content" style="margin-bottom: 5px;">' + obj['answerer'] + '：' + obj['commentContent'] + '</div>' +
                 '</li>');

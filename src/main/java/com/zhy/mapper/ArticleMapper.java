@@ -22,16 +22,16 @@ public interface ArticleMapper {
     @Update("update article set originalAuthor=#{originalAuthor},articleTitle=#{articleTitle},updateDate=#{updateDate},articleContent=#{articleContent},articleTags=#{articleTags},articleType=#{articleType},articleCategories=#{articleCategories},articleUrl=#{articleUrl},articleTabloid=#{articleTabloid} where id=#{id}")
     void updateArticleById(Article article);
 
-    @Select("select articleId,originalAuthor from article where id=#{id}")
+    @Select("select articleId from article where id=#{id}")
     Article getArticleUrlById(int id);
 
-    @Select("select * from article where articleId=#{articleId} and originalAuthor=#{originalAuthor}")
-    Article getArticleByArticleIdAndOriginalAuthor(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor);
+    @Select("select * from article where articleId=#{articleId}")
+    Article getArticleByArticleId(@Param("articleId") long articleId);
 
-    @Select("select articleTitle,articleTabloid from article where articleId=#{articleId} and originalAuthor=#{originalAuthor}")
-    Article findArticleTitleByArticleIdAndOriginalAuthor(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor);
+    @Select("select articleTitle,articleTabloid from article where articleId=#{articleId}")
+    Article findArticleTitleByArticleId(@Param("articleId") long articleId);
 
-    @Select("select articleId,originalAuthor,articleTitle from article where articleId=#{articleId}")
+    @Select("select articleId,articleTitle from article where articleId=#{articleId}")
     Article findArticleByArticleId(@Param("articleId") long articleId);
 
     @Select("select articleId,originalAuthor,articleTags,articleTitle,articleType,publishDate,originalAuthor,articleCategories,articleTabloid,likes from article order by id desc")
@@ -46,11 +46,11 @@ public interface ArticleMapper {
     @Select("update article set nextArticleId=#{nextArticleId} where articleId=#{articleId}")
     void updateArticleNextId(@Param("nextArticleId") long nextArticleId, @Param("articleId") long articleId);
 
-    @Update("update article set likes=likes+1 where articleId=#{articleId} and originalAuthor=#{originalAuthor}")
-    void updateLikeByArticleIdAndOriginalAuthor(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor);
+    @Update("update article set likes=likes+1 where articleId=#{articleId}")
+    void updateLikeByArticleId(@Param("articleId") long articleId);
 
-    @Select("select IFNULL(max(likes),0) from article where articleId=#{articleId} and originalAuthor=#{originalAuthor}")
-    int findLikesByArticleIdAndOriginalAuthor(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor);
+    @Select("select IFNULL(max(likes),0) from article where articleId=#{articleId}")
+    int findLikesByArticleId(@Param("articleId") long articleId);
 
     @Select("select articleId,originalAuthor,articleTitle,articleTags,articleType,articleCategories,publishDate from article where articleTags like '%${tag}%' order by id desc")
     List<Article> findArticleByTag(@Param("tag") String tag);

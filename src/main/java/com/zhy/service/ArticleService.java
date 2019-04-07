@@ -3,7 +3,6 @@ package com.zhy.service;
 import com.zhy.model.Article;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
@@ -34,18 +33,16 @@ public interface ArticleService {
     /**
      * 获得文章
      * @param articleId 文章id
-     * @param originalAuthor 原作者
      * @return
      */
-    JSONObject getArticleByArticleIdAndOriginalAuthor(long articleId, String originalAuthor, String username);
+    JSONObject getArticleByArticleId(long articleId, String username);
 
     /**
      * 通过文章id和原作者获得文章名
-     * @param articleId 文章id
-     * @param originalAuthor 文章原作者
+     * @param id 文章id
      * @return 文章名
      */
-    Map<String, String> findArticleTitleByArticleIdAndOriginalAuthor(long articleId, String originalAuthor);
+    Map<String, String> findArticleTitleByArticleId(long id);
 
     /**
      * 分页获得所有文章
@@ -66,10 +63,9 @@ public interface ArticleService {
     /**
      * 文章点赞
      * @param articleId 文章id
-     * @param originalAuthor 文章原作者
      * @return 目前点赞数
      */
-    int updateLikeByArticleIdAndOriginalAuthor(long articleId, String originalAuthor);
+    int updateLikeByArticleId(long articleId);
 
     /**
      * 通过标签分页获得文章部分信息

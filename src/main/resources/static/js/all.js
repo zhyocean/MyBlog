@@ -1,12 +1,12 @@
 
     // 失败消息盒
     function dangerNotice(notice) {
-        $('.dangerNotice').html(notice);
-        $('.dangerNoticeAlert').css("display","block");
-        var closeNoticeBox = setTimeout(function () {
-            $('.dangerNoticeAlert').css("display","none");
-        },3000);
-    }
+            $('.dangerNotice').html(notice);
+            $('.dangerNoticeAlert').css("display","block");
+            var closeNoticeBox = setTimeout(function () {
+                $('.dangerNoticeAlert').css("display","none");
+            },3000);
+        }
     // 成功消息盒
     function successNotice(notice) {
         $('.successNotice').html(notice);
@@ -15,31 +15,30 @@
             $('.successNoticeAlert').css("display","none");
         },3000);
     }
-
-    //设置右侧栏箭头动画显示
-    var sidebar_toggle = $("#sidebar_toggle");
-    var sidebar_toggle_line_first = $(".sidebar-toggle-line-first");
-    var sidebar_toggle_line_middle = $(".sidebar-toggle-line-middle");
-    var sidebar_toggle_line_last = $(".sidebar-toggle-line-last");
-    sidebar_toggle.mouseenter(function () {
-        sidebar_toggle_line_first.animate({
-            width:'50%',
-            top:'2px',
-            left:'0px'
-        },function () {
-            sidebar_toggle_line_first.css({
-                'transform':'rotate(-45deg)',
-                'transition':'transform 0.5',
-                'width':'50%',
-                'top':'2px',
-                'left':'0px'
-            })
-        });
-        sidebar_toggle_line_middle.animate({
-            width:'90%',
-            top:'0px',
-            left:'0px'
-        },function () {
+            //设置右侧栏箭头动画显示
+            var sidebar_toggle = $("#sidebar_toggle");
+            var sidebar_toggle_line_first = $(".sidebar-toggle-line-first");
+            var sidebar_toggle_line_middle = $(".sidebar-toggle-line-middle");
+            var sidebar_toggle_line_last = $(".sidebar-toggle-line-last");
+            sidebar_toggle.mouseenter(function () {
+                sidebar_toggle_line_first.animate({
+                    width:'50%',
+                    top:'2px',
+                    left:'0px'
+                },function () {
+                    sidebar_toggle_line_first.css({
+                        'transform':'rotate(-45deg)',
+                        'transition':'transform 0.5',
+                        'width':'50%',
+                        'top':'2px',
+                        'left':'0px'
+                    })
+                });
+                sidebar_toggle_line_middle.animate({
+                    width:'90%',
+                    top:'0px',
+                    left:'0px'
+                },function () {
             sidebar_toggle_line_middle.css({
                 'transform':'rotate(0deg)',
                 'transition':'transform 0.5',

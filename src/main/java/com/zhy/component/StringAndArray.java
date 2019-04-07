@@ -2,8 +2,6 @@ package com.zhy.component;
 
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-
 /**
  * @author: zhangocean
  * @Date: 2018/6/24 14:59
@@ -19,6 +17,9 @@ public class StringAndArray {
      */
     public static String[] stringToArray(String str){
         String[] array = str.split(",");
+        for(int i=0;i<array.length;i++){
+            array[i] = array[i].trim();
+        }
         return array;
     }
 
@@ -28,15 +29,15 @@ public class StringAndArray {
      * @return 拼接后的字符串
      */
     public static String arrayToString(String[] articleTags){
-        String buffered = "";
+        StringBuilder sb = new StringBuilder();
         for(String s : articleTags){
-            if("".equals(buffered)){
-                buffered +=  s;
+            if(sb.length() == 0){
+                sb.append(s.trim());
             } else {
-                buffered += "," + s;
+                sb.append(",").append(s.trim());
             }
         }
-        return buffered;
+        return sb.toString();
     }
 
 }

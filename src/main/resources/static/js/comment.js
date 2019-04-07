@@ -17,7 +17,6 @@
                 dataType: 'json',
                 data: {
                     commentContent:commentContent,
-                    originalAuthor:originalAuthor,
                     articleId:articleId
                 },
                 success: function (data) {

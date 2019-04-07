@@ -11,23 +11,18 @@ import com.zhy.utils.FileUtil;
 import com.zhy.utils.TimeUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.sql.Time;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,7 +89,7 @@ public class EditorControl {
         String[] tags = new String[articleTags.length+1];
         for(int i=0;i<articleTags.length;i++){
             //去掉可能出现的换行符
-            articleTags[i] = articleTags[i].replaceAll("<br>","");
+            articleTags[i] = articleTags[i].replaceAll("<br>","").replaceAll("&nbsp;","").replaceAll("\\s+","").trim();
             tags[i] = articleTags[i];
         }
         tags[articleTags.length] = article.getArticleType();

@@ -18,11 +18,6 @@ public class CommentLikesRecord {
     private long articleId;
 
     /**
-     * 原作者
-     */
-    private String originalAuthor;
-
-    /**
      * 评论的id
      */
     private long pId;
@@ -40,9 +35,8 @@ public class CommentLikesRecord {
     public CommentLikesRecord() {
     }
 
-    public CommentLikesRecord(long articleId, String originalAuthor, int pId, int likerId, String likeDate) {
+    public CommentLikesRecord(long articleId, int pId, int likerId, String likeDate) {
         this.articleId = articleId;
-        this.originalAuthor = originalAuthor;
         this.pId = pId;
         this.likerId = likerId;
         this.likeDate = likeDate;

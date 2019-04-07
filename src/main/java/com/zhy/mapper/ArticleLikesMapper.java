@@ -13,11 +13,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ArticleLikesMapper {
 
-    @Insert("insert into article_likes_record(articleId,originalAuthor,likerId,likeDate) values(#{articleId},#{originalAuthor},#{likerId},#{likeDate})")
+    @Insert("insert into article_likes_record(articleId,likerId,likeDate) values(#{articleId},#{likerId},#{likeDate})")
     void insertArticleLikesRecord(ArticleLikesRecord articleLikesRecord);
 
-    @Select("select likeDate from article_likes_record where articleId=#{articleId} and originalAuthor=#{originalAuthor} and likerId=#{likerId}")
-    ArticleLikesRecord isLiked(@Param("articleId") long articleId, @Param("originalAuthor") String originalAuthor, @Param("likerId") int likerId);
+    @Select("select likeDate from article_likes_record where articleId=#{articleId} and likerId=#{likerId}")
+    ArticleLikesRecord isLiked(@Param("articleId") long articleId, @Param("likerId") int likerId);
 
     @Delete("delete from article_likes_record where articleId=#{articleId}")
     void deleteArticleLikesRecordByArticleId(long articleId);

@@ -1,7 +1,6 @@
 package com.zhy.service.impl;
 
 import com.zhy.mapper.VisitorMapper;
-import com.zhy.model.Visitor;
 import com.zhy.service.VisitorService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

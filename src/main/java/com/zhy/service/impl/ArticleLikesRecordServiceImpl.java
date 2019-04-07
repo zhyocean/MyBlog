@@ -21,8 +21,8 @@ public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService 
     UserService userService;
 
     @Override
-    public boolean isLiked(long articleId, String originalAuthor, String username) {
-        ArticleLikesRecord articleLikesRecord = articleLikesMapper.isLiked(articleId, originalAuthor, userService.findIdByUsername(username));
+    public boolean isLiked(long articleId, String username) {
+        ArticleLikesRecord articleLikesRecord = articleLikesMapper.isLiked(articleId, userService.findIdByUsername(username));
 
         return articleLikesRecord != null;
     }

@@ -3,7 +3,6 @@ package com.zhy.service;
 import com.zhy.model.Comment;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -18,24 +17,22 @@ public interface CommentService {
      * @param comment 留言
      */
     @Transactional
-    Comment insertComment(Comment comment, String respondent);
+    Comment insertComment(Comment comment);
 
     /**
-     * 通过文章id和原作者获得文章所有评论和回复
+     * 通过文章id获得文章所有评论和回复
      * @param articleId 文章id
-     * @param originalAuthor 原作者
      * @return
      */
-    JSONArray findCommentByArticleIdAndOriginalAuthor(long articleId, String originalAuthor, String username);
+    JSONArray findCommentByArticleId(long articleId, String username);
 
     /**
-     * 通过文章id、原作者和pId获得评论下的所有回复
+     * 通过文章id和pId获得评论下的所有回复
      * @param articleId
-     * @param originalAuthor
      * @param pId 评论的id
      * @return
      */
-    JSONArray findReplyByArticleIdAndOriginalAuthorAndPid(long articleId, String originalAuthor, long pId);
+    JSONArray findReplyByArticleIdAndPid(long articleId, long pId);
 
     /**
      * 返回评论中的回复
@@ -47,11 +44,10 @@ public interface CommentService {
     /**
      * 更新评论点赞数
      * @param articleId 文章id
-     * @param originalAuthor 原作者
      * @param pId 该评论的id
      * @return 点赞数
      */
-    int updateLikeByArticleIdAndOriginalAuthorAndId(long articleId, String originalAuthor, long pId);
+    int updateLikeByArticleIdAndId(long articleId, long pId);
 
     /**
      * 获得最新的5条评论

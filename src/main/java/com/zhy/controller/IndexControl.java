@@ -2,7 +2,6 @@ package com.zhy.controller;
 
 import com.zhy.model.FeedBack;
 import com.zhy.service.*;
-import com.zhy.utils.TransCodingUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,18 +49,13 @@ public class IndexControl {
     public @ResponseBody JSONObject getVisitorNumByPageName(HttpServletRequest request,
                                                   @RequestParam("pageName") String pageName) throws UnsupportedEncodingException {
 
-        int index = pageName.indexOf("?");
+        int index = pageName.indexOf("/");
         if(index == -1){
             pageName = "visitorVolume";
         } else {
             String subPageName = pageName.substring(0, index);
             if("archives".equals(subPageName) || "categories".equals(subPageName) || "tags".equals(subPageName) || "login".equals(subPageName) || "register".equals(subPageName)){
                 pageName = "visitorVolume";
-            } else {
-                //接收到文章的url将url中utf8的16进制数转换成汉字
-                int originalAuthorIndex = pageName.indexOf("originalAuthor");
-                String originalAuthorUtf18 = pageName.substring(originalAuthorIndex + 15);
-                pageName = pageName.substring(0, originalAuthorIndex + 15) + TransCodingUtil.utf16ToUtf8(originalAuthorUtf18);
             }
         }
         visitorService.addVisitorNumByPageName(pageName, request);

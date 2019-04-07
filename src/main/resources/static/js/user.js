@@ -345,7 +345,7 @@
             var amList = $('<ul class="am-list"></ul>');
             $.each(date['result'], function (index, obj) {
                 amList.append($('<li class="am-g am-list-item-dated">' +
-                    '<a target="_blank" href="/findArticle?articleId=' + obj['articleId'] + '&originalAuthor=' + obj['originalAuthor'] + '" style="padding: 5px 0 2px 0" class="leaveMessageTitle am-list-item-hd">' + obj['articleTitle'] + '</a>' +
+                    '<a target="_blank" href="/article/' + obj['articleId'] + '" style="padding: 5px 0 2px 0" class="leaveMessageTitle am-list-item-hd">' + obj['articleTitle'] + '</a>' +
                     '<span class="am-list-date" style="color: #a7baaa">' + obj['commentDate'] + '</span>' +
                     '<div class="leaveMessageContent">' +
                     obj['answerer'] + '：' +obj['commentContent'] +

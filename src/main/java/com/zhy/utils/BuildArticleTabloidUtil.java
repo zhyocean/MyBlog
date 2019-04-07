@@ -20,7 +20,12 @@ public class BuildArticleTabloidUtil {
         String nowStr = "";
         while (beginIndex != -1){
             nowStr = articleTabloid.substring(0, beginIndex);
-            myArticleTabloid += nowStr;
+            if(nowStr.length() > 197){
+                nowStr = nowStr.substring(0,197);
+                myArticleTabloid += nowStr;
+            } else {
+                myArticleTabloid += nowStr;
+            }
 
             articleTabloid = articleTabloid.substring(endIndex + 1);
             beginIndex = articleTabloid.indexOf("<");
@@ -40,6 +45,10 @@ public class BuildArticleTabloidUtil {
                 break;
             }
 
+        }
+
+        if(myArticleTabloid.length() > 197){
+            myArticleTabloid = myArticleTabloid.substring(0, 197);
         }
 
         return myArticleTabloid;

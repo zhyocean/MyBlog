@@ -26,10 +26,10 @@ public interface LeaveMessageMapper {
     List<LeaveMessage> findLeaveMessageReplyByPageNameAndPid(@Param("pageName") String pageName, @Param("pId") int pId);
 
     @Update("update leave_message_record set likes=likes+1 where pageName=#{pageName} and id=#{id}")
-    void updateLikeByPageNameAndId(@Param("pageName") String pageName,@Param("id") int id);
+    void updateLikeByPageNameAndId(@Param("pageName") String pageName, @Param("id") int id);
 
     @Select("select IFNULL(max(likes),0) from leave_message_record where pageName=#{pageName} and id=#{id}")
-    int findLikesByPageNameAndId(@Param("pageName") String pageName,@Param("id") int id);
+    int findLikesByPageNameAndId(@Param("pageName") String pageName, @Param("id") int id);
 
     @Select("select pId,pageName,answererId,respondentId,leaveMessageDate,leaveMessageContent from leave_message_record where answererId=#{answererId} order by id desc")
     List<LeaveMessage> getUserLeaveMessage(@Param("answererId") int answererId);

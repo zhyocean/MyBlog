@@ -20,7 +20,7 @@
             var content = $('<div class="content am-comment-main am-animation-slide-top am-animation-delay-1"></div>');
             content.append($('<header class="am-comment-hd" style="background: #fff">' +
                 '<div class="contentTitle am-comment-meta">' +
-                '<a href="/findArticle?articleId=' + obj['articleId'] + '&originalAuthor=' + obj['originalAuthor'] + '">' + obj['articleTitle'] + '</a>' +
+                '<a href="/article/' + obj['articleId'] + '">' + obj['articleTitle'] + '</a>' +
                 '</div>' +
                 '</header>'));
             var amCommentBd = $('<div class="am-comment-bd"></div>');
@@ -107,7 +107,7 @@
             var categories = $('.categories');
             categories.empty();
             categories.append($('<div class="categories-title">' +
-                '<h3>Categories</h3>' +
+                '<h3 style="font-size: 20px">Categories</h3>' +
                 '</div>'));
             var categoriesComment = $('<div class="categories-comment am-animation-slide-top"></div>');
             $.each(data['result'], function (index, obj) {

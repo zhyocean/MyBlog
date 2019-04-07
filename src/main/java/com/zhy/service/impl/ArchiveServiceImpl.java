@@ -1,7 +1,6 @@
 package com.zhy.service.impl;
 
 import com.zhy.mapper.ArchiveMapper;
-import com.zhy.model.Archive;
 import com.zhy.service.ArchiveService;
 import com.zhy.service.ArticleService;
 import com.zhy.utils.TimeUtil;

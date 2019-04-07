@@ -5,7 +5,6 @@ import com.zhy.service.ArticleLikesRecordService;
 import com.zhy.service.ArticleService;
 import com.zhy.service.UserService;
 import com.zhy.utils.TimeUtil;
-import com.zhy.utils.TransCodingUtil;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +38,10 @@ public class ShowArticleControl {
     /**
      *  获取文章
      * @param articleId 文章id
-     * @param originalAuthor 原作者
      * @return
      */
-    @PostMapping("/getArticleByArticleIdAndOriginalAuthor")
-    public @ResponseBody JSONObject getArticleByIdAndOriginalAuthor(@RequestParam("articleId") String articleId,
-                                                                    @RequestParam("originalAuthor") String originalAuthor,
+    @PostMapping("/getArticleByArticleId")
+    public @ResponseBody JSONObject getArticleById(@RequestParam("articleId") String articleId,
                                                                     @AuthenticationPrincipal Principal principal){
         String username = null;
         try {
@@ -52,7 +49,7 @@ public class ShowArticleControl {
         } catch (NullPointerException e){
             logger.info("This user is not login");
         }
-        JSONObject jsonObject = articleService.getArticleByArticleIdAndOriginalAuthor(Long.parseLong(articleId), TransCodingUtil.unicodeToString(originalAuthor),username);
+        JSONObject jsonObject = articleService.getArticleByArticleId(Long.parseLong(articleId),username);
         return jsonObject;
     }
 
@@ -66,7 +63,6 @@ public class ShowArticleControl {
      */
     @GetMapping("/addArticleLike")
     public @ResponseBody int addArticleLike(@RequestParam("articleId") String articleId,
-                                     @RequestParam("originalAuthor") String originalAuthor,
                                      @AuthenticationPrincipal Principal principal){
 
         String username="";
@@ -77,13 +73,12 @@ public class ShowArticleControl {
             return -1;
         }
 
-        String stringOriginalAuthor = TransCodingUtil.unicodeToString(originalAuthor);
-        if(articleLikesRecordService.isLiked(Long.parseLong(articleId), stringOriginalAuthor, username)){
+        if(articleLikesRecordService.isLiked(Long.parseLong(articleId), username)){
             logger.info("你已经点过赞了");
             return -2;
         }
-        int likes = articleService.updateLikeByArticleIdAndOriginalAuthor(Long.parseLong(articleId), stringOriginalAuthor);
-        ArticleLikesRecord articleLikesRecord = new ArticleLikesRecord(Long.parseLong(articleId), stringOriginalAuthor, userService.findIdByUsername(username), new TimeUtil().getFormatDateForFive());
+        int likes = articleService.updateLikeByArticleId(Long.parseLong(articleId));
+        ArticleLikesRecord articleLikesRecord = new ArticleLikesRecord(Long.parseLong(articleId), userService.findIdByUsername(username), new TimeUtil().getFormatDateForFive());
         articleLikesRecordService.insertArticleLikesRecord(articleLikesRecord);
         logger.info("点赞成功");
         return likes;
