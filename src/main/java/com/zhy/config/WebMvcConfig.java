@@ -22,6 +22,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
         //配置静态资源映射
         registry.addResourceHandler("/article/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/template/**").addResourceLocations("classpath:/static/");
     }
 
     @Bean

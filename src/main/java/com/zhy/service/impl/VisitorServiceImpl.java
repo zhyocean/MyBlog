@@ -3,6 +3,9 @@ package com.zhy.service.impl;
 import com.zhy.mapper.VisitorMapper;
 import com.zhy.service.VisitorService;
 import net.sf.json.JSONObject;
+import org.apache.ibatis.binding.BindingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Service
 public class VisitorServiceImpl implements VisitorService {
+
+    private Logger logger = LoggerFactory.getLogger(VisitorServiceImpl.class);
 
     @Autowired
     VisitorMapper visitorMapper;
@@ -46,11 +51,16 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     public JSONObject getVisitorNumByPageName(String pageName) {
 
-        long totalVisitor = visitorMapper.getVisitorNumByPageName("totalVisitor");
-        long pageVisitor = visitorMapper.getVisitorNumByPageName(pageName);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("totalVisitor", totalVisitor);
-        jsonObject.put("pageVisitor", pageVisitor);
+        long totalVisitor = visitorMapper.getVisitorNumByPageName("totalVisitor");
+        long pageVisitor;
+        try {
+            pageVisitor = visitorMapper.getVisitorNumByPageName(pageName);
+            jsonObject.put("totalVisitor", totalVisitor);
+            jsonObject.put("pageVisitor", pageVisitor);
+        } catch (BindingException e){
+            logger.info("Page '" + pageName + "' is not exist");
+        }
         return jsonObject;
     }
 
