@@ -1,6 +1,5 @@
 <!doctype html>
-<html class="no-js fixed-layout" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html class="no-js fixed-layout" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,54 +25,10 @@
 </head>
 <body>
 
-<div class="header">
-    <div class="am-topbar" style="margin-bottom: 0">
-        <h1 class="am-topbar-brand">
-            <a href="/" class="blogTitleName"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
-        </h1>
-        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" style="background-color: #CCCCCC;border-color: white;border-radius: 6px" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+<!--引入共有头部-->
+<div th:replace="header :: header"></div>
 
-        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
-            <ul class="am-nav am-nav-pills am-topbar-nav">
-                <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="am-icon-home"></span>&nbsp;首页</a></li>
-                <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="am-icon-th"></span>&nbsp;分类</a></li>
-                <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="am-icon-archive"></span>&nbsp;归档</a></li>
-                <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="am-icon-tags"></span>&nbsp;标签</a></li>
-                <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="am-icon-calendar-plus-o"></span>&nbsp;更新</a></li>
-                <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="am-icon-street-view"></span>&nbsp;友链</a></li>
-                <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="am-icon-user"></span>&nbsp;关于我</a> </li>
-            </ul>
-
-            <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
-                <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
-                    <button class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></button>
-                    <ul class="am-dropdown-content">
-                        <li><a href="/user" sec:authorize="hasRole('ROLE_USER')">个人主页</a></li>
-                        <li><a href="/superadmin" sec:authorize="hasRole('ROLE_SUPERADMIN')">网站后台管理</a></li>
-
-                        <li><a class="feedbackClick">反馈</a></li>
-                        <hr style="margin: 10px 0 5px 0;">
-                        <li><a th:href="@{/logout}">退出登录</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
-                <a href="/register" class="am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">注册</a>
-            </div>
-            <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
-                <a href="/login" class="loginBtn am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">登录</a>
-            </div>
-            <div class="am-topbar-right writing am-hide-md-down">
-                <a  href="/editor" target="_blank" style="text-decoration: none">
-                    <img class="am-circle" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/writing.png">
-                    <span class="write-word">写博客</span>
-                </a>
-            </div>
-
-        </div>
-    </div>
-</div>
-
+<!--页面主体内容-->
 <div class="am-cf admin-main" style="padding-top: 0">
 
     <!--左侧-->
@@ -103,14 +58,14 @@
                     <div class="myStoryContent">
                         <div class="timeline timeline-wrap">
                             <div class="timeline-row">
-                                <span class="node" style="-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;">
-                                    <i class="am-icon-coffee"></i>
-                                </span>
+                                    <span class="node" style="-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;">
+                                        <i class="am-icon-coffee"></i>
+                                    </span>
                                 <h1 class="title"></h1>
                             </div>
                             <div class="timeline-row-major">
-                                <span class="node am-animation-slide-top am-animation-delay-1">
-                                </span>
+                                    <span class="node am-animation-slide-top am-animation-delay-1">
+                                    </span>
                                 <div class="content am-comment-main am-animation-slide-top am-animation-delay-1">
                                     <header class="am-comment-hd" style="background: #fff">
                                         <div class="contentTitle am-comment-meta">
@@ -125,8 +80,8 @@
                                 </div>
                             </div>
                             <div class="timeline-row-major">
-                                <span class="node am-animation-slide-top am-animation-delay-1">
-                                </span>
+                                    <span class="node am-animation-slide-top am-animation-delay-1">
+                                    </span>
                                 <div class="content am-comment-main am-animation-slide-top am-animation-delay-1">
                                     <header class="am-comment-hd" style="background: #fff">
                                         <div class="contentTitle am-comment-meta">
@@ -141,8 +96,8 @@
                                 </div>
                             </div>
                             <div class="timeline-row-major">
-                                <span class="node am-animation-slide-top am-animation-delay-1">
-                                </span>
+                                    <span class="node am-animation-slide-top am-animation-delay-1">
+                                    </span>
                                 <div class="content am-comment-main am-animation-slide-top am-animation-delay-1">
                                     <header class="am-comment-hd" style="background: #fff">
                                         <div class="contentTitle am-comment-meta">
@@ -157,8 +112,8 @@
                                 </div>
                             </div>
                             <div class="timeline-row-major">
-                                <span class="node am-animation-slide-top am-animation-delay-1">
-                                </span>
+                                    <span class="node am-animation-slide-top am-animation-delay-1">
+                                    </span>
                                 <div class="content am-comment-main am-animation-slide-top am-animation-delay-1">
                                     <header class="am-comment-hd" style="background: #fff">
                                         <div class="contentTitle am-comment-meta">
@@ -214,37 +169,12 @@
             </div>
         </div>
     </div>
+    <!--消息盒子+反馈-->
+    <div th:replace="other :: other"></div>
 
-    <!--成功消息盒-->
-    <div class="notice successNoticeAlert am-animation-slide-top">
-        <span class="successNotice"></span>
-    </div>
-    <!--失败消息盒-->
-    <div class="notice dangerNoticeAlert am-animation-slide-top">
-        <span class="dangerNotice"></span>
-    </div>
-
-    <div class="feedback am-animation-slide-top">
-        <a class="feedbackClose am-close am-close-alt am-close-spin am-icon-times"></a>
-        <div class="feedbackTitle">
-            反馈
-        </div>
-        <div class="feedbackWord">
-            您对于本博客网站有任何意见或是存在Bug的地方，欢迎进行反馈
-        </div>
-        <div class="feedbackForm">
-            <form class="am-form">
-                <fieldset class="am-form-set">
-                    <textarea id="feedbackFormContent" placeholder="非常感谢您抽出时间填写问题反馈。必填"></textarea>
-                    <input type="text" class="feedbackFormQQ" placeholder="方便留下QQ或是微信联系你吗。选填">
-                </fieldset>
-                <button type="button" class="feedbackFormBtn am-btn am-btn-primary am-btn-block">提交反馈</button>
-            </form>
-        </div>
-
-    </div>
 </div>
 
+<!--手机适配显示左侧按钮-->
 <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
 <script src="js/plugs_paging.js"></script>

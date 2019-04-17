@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <!--所有页面共有头部-->
+    <div th:fragment="header">
+        <div class="header">
+            <div class="am-topbar" style="margin-bottom: 0">
+                <h1 class="am-topbar-brand">
+                    <a href="/" class="blogTitleName"><img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png" class="imgStyle">程序猿张先森</a>
+                </h1>
+
+                <!--手机适配导航显示按钮-->
+                <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" style="background-color: #CCCCCC;border-color: white;border-radius: 6px" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+                <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+                    <ul class="am-nav am-nav-pills am-topbar-nav">
+                        <li><a class="top_bar" href="/" style="cursor: pointer;"><span class="am-icon-home"></span>&nbsp;首页</a></li>
+                        <li><a class="top_bar" href="/categories" style="cursor: pointer;"><span class="am-icon-th"></span>&nbsp;分类</a></li>
+                        <li><a class="top_bar" href="/archives" style="cursor: pointer;"><span class="am-icon-archive"></span>&nbsp;归档</a></li>
+                        <li><a class="top_bar" href="/tags" style="cursor: pointer;"><span class="am-icon-tags"></span>&nbsp;标签</a></li>
+                        <li><a class="top_bar" href="/update" style="cursor: pointer;"><span class="am-icon-calendar-plus-o"></span>&nbsp;更新</a></li>
+                        <li><a class="top_bar" href="/friendlylink" style="cursor: pointer;"><span class="am-icon-street-view"></span>&nbsp;友链</a></li>
+                        <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="am-icon-user"></span>&nbsp;关于我</a> </li>
+                    </ul>
+
+                    <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
+                        <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+                            <button class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></button>
+                            <ul class="am-dropdown-content">
+                                <li><a href="/user" sec:authorize="hasRole('ROLE_USER')">个人主页</a></li>
+                                <li><a href="/superadmin" sec:authorize="hasRole('ROLE_SUPERADMIN')">网站后台管理</a></li>
+
+                                <li><a class="feedbackClick">反馈</a></li>
+                                <hr style="margin: 10px 0 5px 0;">
+                                <li><a th:href="@{/logout}">退出登录</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                        <a href="/register" class="am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">注册</a>
+                    </div>
+                    <div class="am-topbar-right" th:unless="${#httpServletRequest.remoteUser}">
+                        <a href="/login" class="loginBtn am-btn am-btn-primary am-topbar-btn am-btn-sm" style="color: white">登录</a>
+                    </div>
+                    <div class="am-topbar-right writing am-hide-md-down">
+                        <a  href="/editor" target="_blank" style="text-decoration: none">
+                            <img class="am-circle" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/writing.png">
+                            <span class="write-word">写博客</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</html>

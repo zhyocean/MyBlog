@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
+    <!--所有页面共有底部-->
+    <div th:fragment="footer">
+        <div class="footer">
+            <div class="footer am-u-sm-centered">
+                <div class="am-vertical-align" style="text-align: center">
+                    <hr>
+                    <div class="am-vertical-align-bottom">
+                        <div style="color: #009688;font-size: 15px;">
+                            &copy; 2018-2019 程序猿张先森 - <i class="am-icon-coffee" style="margin: 0 5px"></i>张海洋 版权所有
+                        </div>
+                        <div id="footer" style="color: #009688;font-size: 15px;">
+                            总访问量 <span id="totalVisitors"><strong></strong></span> 次  访客量 <span id="visitorVolume"><strong></strong></span> 人次
+                        </div>
+                        <div class="webLogo" style="font-size: 15px;">
+                            <a href="http://www.miitbeian.gov.cn" target="_blank">
+                                蜀ICP备18000229号
+                            </a>
+                        </div>
+                        <div class="webLogo" style="font-size: 15px;">
+                            <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/webLog.png">
+                            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51011402000164" target="_blank">
+                                川公网安备 51011402000164号
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sidebar_toggle" class="sidebar_toggle" data-am-offcanvas="{target: '#offCanvas'}">
+                <div class="sidebar_toggle_line_wrap">
+                    <span class="sidebar-toggle-line sidebar-toggle-line-first" style="width: 100%; top: 0; transform: rotateZ(0deg); opacity: 1; left:0"></span>
+                    <span class="sidebar-toggle-line sidebar-toggle-line-middle" style="width: 100%; opacity: 1; left: 0; top: 0; transform: rotateZ(0deg);"></span>
+                    <span class="sidebar-toggle-line sidebar-toggle-line-last" style="width: 100%; top: 0; transform: rotateZ(0deg); opacity: 1; left: 0;"></span>
+                </div>
+            </div>
+            <div id="offCanvas" class="am-offcanvas">
+                <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+                    <div class="am-offcanvas-content">
+                        <div class="sidebar-inner">
+                            <div class="site-overview">
+                                <div class="img-author" style="text-align: center">
+                                    <p style="font-size: large;font-family: 仿宋">微信公众号</p>
+                                    <div id="weixin">
+                                        <img class="weixinPublic" src="">
+                                    </div>
+                                    <div class="author-name">
+                                        张海洋
+                                    </div>
+                                    <div class="author-words">
+                                        <p>专注于Spring,SpringBoot等后端技术探索</p>
+                                        <p>以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习</p>
+                                    </div>
+
+                                </div>
+                                <div class="site-state" style="opacity: 1; display: block; transform: translateX(0px);">
+                                    <div class="site-state-item learn-posts">
+                                        <a href="/archives">
+                                            <span class="archivesNum site-state-item-count"></span>
+                                            <span class="site-state-item-name">日志</span>
+                                        </a>
+                                    </div>
+                                    <div class="site-state-item learn-categories">
+                                        <a id="site-state-item-a" href="/categories">
+                                            <span class="categoriesNum site-state-item-count"></span>
+                                            <span class="site-state-item-name">分类</span>
+                                        </a>
+                                    </div>
+                                    <div class="site-state-item learn-tags">
+                                        <a href="/tags">
+                                            <span class="tagsNum site-state-item-count"></span>
+                                            <span class="site-state-item-name">标签</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="contact-way">
+                                    <span><i class="am-icon-qq">&nbsp;&nbsp;1125694337</i></span>
+                                    <span><i class="am-icon-wechat">&nbsp;&nbsp;zhy1125694337</i></span>
+                                </div>
+                                <div class="rss">
+                                    <div class="rss-site">
+                                        <a class="rss-site-a" href="/rss">
+                                            <i class="am-icon-rss"> RSS</i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="author-words">
+                                    <p>本人目前本科生在读</p>
+                                    <p>由于水平有限，希望大家多多支持</p>
+                                    <p>有不足之处也希望各位前辈指出</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+                <a id="toTop"  href="#top">
+                <span title="到顶部" style="color: white">
+                    <i class="am-icon-arrow-up"></i>
+                </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</html>

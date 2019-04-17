@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="other">
+        <!--成功消息盒-->
+        <div class="notice successNoticeAlert am-animation-slide-top">
+            <span class="successNotice"></span>
+        </div>
+        <!--失败消息盒-->
+        <div class="notice dangerNoticeAlert am-animation-slide-top">
+            <span class="dangerNotice"></span>
+        </div>
+        <!--反馈-->
+        <div class="feedback am-animation-slide-top">
+            <a class="feedbackClose am-close am-close-alt am-close-spin am-icon-times"></a>
+            <div class="feedbackTitle">
+                反馈
+            </div>
+            <div class="feedbackWord">
+                您对于本博客网站有任何意见或是存在Bug的地方，欢迎进行反馈
+            </div>
+            <div class="feedbackForm">
+                <form class="am-form">
+                    <fieldset class="am-form-set">
+                        <textarea id="feedbackFormContent" placeholder="非常感谢您抽出时间填写问题反馈。必填"></textarea>
+                        <input type="text" class="feedbackFormQQ" placeholder="方便留下QQ或是微信联系你吗。选填">
+                    </fieldset>
+                    <button type="button" class="feedbackFormBtn am-btn am-btn-primary am-btn-block">提交反馈</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</html>
