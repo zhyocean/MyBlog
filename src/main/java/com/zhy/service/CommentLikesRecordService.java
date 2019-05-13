@@ -1,6 +1,7 @@
 package com.zhy.service;
 
 import com.zhy.model.CommentLikesRecord;
+import org.springframework.stereotype.Service;
 
 /**
  * @author: zhangocean

@@ -144,7 +144,7 @@
                 '<div class="article-comment-line"></div>' +
                 '</div>');
             var newComment = $('<div class="new-comment">' +
-                '<i class="all-comment am-icon-ellipsis-v"></i>全部评论' +
+                '<i class="all-comment am-icon-ellipsis-v"></i>全部评论（<span class="commentNum">' + '' + '</span>）' +
                 '</div>');
             articleComment.append(articleCommentTop);
             articleComment.append(newComment);
@@ -153,7 +153,7 @@
                 if(index != (data.length)-1){
                     var visitorReplies = $('<div class="visitorReplies"></div>');
                     $.each(obj['replies'],function (index1,obj1) {
-                        var visitorReply = $('<div class="visitorReply"></div>');
+                        var visitorReply = $('<div id="p' + obj1['id'] + '" class="visitorReply"></div>');
                         var visitorReplyWords = $('<div class="visitorReplyWords">' +
                             '<a class="answerer">' + obj1['answerer'] + '</a>： <a class="respondent">@' + obj1['respondent'] + ' </a>' + obj1['commentContent'] +
                             '</div>');
@@ -242,6 +242,8 @@
             articleComment.append(allComments);
             commentBottom.append(articleComment);
             comment.append(commentBottom);
+            //添加评论数
+            $('.commentNum').html(data.length-1);
         }
 
         var reply = $('.reply');

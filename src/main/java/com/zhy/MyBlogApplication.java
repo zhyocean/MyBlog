@@ -13,6 +13,7 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  */
 @SpringBootApplication
 @EnableTransactionManagement
+@EnableWebMvc
 public class MyBlogApplication {
 
 	public static void main(String[] args) {

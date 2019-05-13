@@ -47,6 +47,11 @@ public class LeaveMessage {
      */
     private String leaveMessageContent;
 
+    /**
+     * 该条留言是否已读  1--未读   0--已读
+     */
+    private int isRead = 1;
+
     public LeaveMessage() {
     }
 

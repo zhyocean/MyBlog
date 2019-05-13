@@ -3,11 +3,13 @@ package com.zhy.controller;
 import com.zhy.service.ArticleService;
 import com.zhy.utils.TransCodingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -191,7 +193,7 @@ public class BackControl {
         String archive = request.getParameter("archive");
 
         try {
-            response.setHeader("archive", TransCodingUtil.stringToUnicode(archive));
+            response.setHeader("archive",TransCodingUtil.stringToUnicode(archive));
         } catch (Exception e){
         }
         return "archives";
@@ -209,7 +211,7 @@ public class BackControl {
         String category = request.getParameter("category");
 
         try {
-            response.setHeader("category", TransCodingUtil.stringToUnicode(category));
+            response.setHeader("category",TransCodingUtil.stringToUnicode(category));
         } catch (Exception e){
         }
         return "categories";
@@ -227,7 +229,7 @@ public class BackControl {
 
         String tag = request.getParameter("tag");
         try {
-            response.setHeader("tag", TransCodingUtil.stringToUnicode(tag));
+            response.setHeader("tag",TransCodingUtil.stringToUnicode(tag));
         } catch (Exception e){
         }
         return "tags";
@@ -240,6 +242,16 @@ public class BackControl {
     public String superadmin(HttpServletRequest request){
         request.getSession().removeAttribute("lastUrl");
         return "superadmin";
+    }
+
+//    @GetMapping("/yesterday")
+//    public String yesterday(){
+//        return "yesterday";
+//    }
+
+    @GetMapping("/today")
+    public String today(){
+        return "today";
     }
 
 }

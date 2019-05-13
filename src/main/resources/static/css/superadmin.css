@@ -159,3 +159,69 @@
 .articleManagementBtn{
     margin-right: 10px;
 }
+/*p评论管理*/
+.thumbsUpManagement{
+    margin-top: 30px;
+    padding-left: 1.5rem;
+}
+.msgRead{
+    padding-bottom: 10px;
+    margin-right: 150px;
+}
+.msgHead{
+    font-size: 14px;
+}
+.msgPerson{
+    color: #3399ea;
+    display: inline-block;
+    margin-right: 8px;
+}
+.msgHead a:hover{
+    text-decoration: underline;
+    color: #3399ea;
+}
+.msgType{
+    display: inline-block;
+    height: 20px;
+    line-height: 18px;
+    padding: 0 5px;
+    color: #4d4d4d;
+    font-size: 12px;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+}
+.msgTxt{
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 0px;
+    padding: 0;
+    color: #4d4d4d;
+}
+.msgTxt .articleTitle{
+    word-wrap: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 30px;
+}
+.msgDate{
+    font-style: normal;
+    color: #ccc;
+    float: right;
+}
+.msgIsRead{
+    float: right;
+    margin-right: 150px;
+    cursor: pointer;
+    color: #3399ea;
+}
+.msgIsRead:hover{
+    color: #3399ea;
+}
+.navigationBar{
+    margin-bottom: 10px;
+}
+.msgReadTop{
+    margin: 5px auto 10px;
+}

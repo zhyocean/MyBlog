@@ -24,9 +24,9 @@ import java.util.List;
 public class CustomUserServiceImpl implements UserDetailsService{
 
     @Autowired
-    UserMapper userMapper;
-    @Autowired
     UserService userService;
+    @Autowired
+    UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {

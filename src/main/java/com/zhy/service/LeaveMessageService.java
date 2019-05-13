@@ -2,6 +2,7 @@ package com.zhy.service;
 
 import com.zhy.model.LeaveMessage;
 import net.sf.json.JSONObject;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -62,5 +63,16 @@ public interface LeaveMessageService {
      * 获得留言总数
      */
     int countLeaveMessageNum();
+
+    /**
+     * 已读一条留言
+     * @param id 评论id
+     */
+    int readOneLeaveMessageRecord(int id);
+
+    /**
+     * 全部标记为已读
+     */
+    JSONObject readAllLeaveMessage(String username);
 
 }

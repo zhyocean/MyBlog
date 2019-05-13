@@ -3,6 +3,7 @@ package com.zhy.service.impl;
 import com.zhy.constant.RoleConstant;
 import com.zhy.mapper.UserMapper;
 import com.zhy.model.User;
+import com.zhy.redis.HashRedisService;
 import com.zhy.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,7 +182,6 @@ public class UserServiceImpl implements UserService {
     public int countUserNum() {
         return userMapper.countUserNum();
     }
-
 
     /**
      * 增加用户权限

@@ -47,4 +47,9 @@ public class Comment {
      */
     private String commentContent;
 
+    /**
+     * 该条评论是否已读  1--未读   0--已读
+     */
+    private int isRead = 1;
+
 }

@@ -98,8 +98,6 @@ public interface UserService {
 
     /**
      * 获得头像url
-     * @param username
-     * @return
      */
     JSONObject getHeadPortraitUrl(int id);
 

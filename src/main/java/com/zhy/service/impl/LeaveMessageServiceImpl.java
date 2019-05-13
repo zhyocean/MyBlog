@@ -6,6 +6,8 @@ import com.zhy.component.JavaScriptCheck;
 import com.zhy.constant.SiteOwner;
 import com.zhy.mapper.LeaveMessageMapper;
 import com.zhy.model.LeaveMessage;
+import com.zhy.model.UserReadNews;
+import com.zhy.redis.HashRedisService;
 import com.zhy.service.LeaveMessageLikesRecordService;
 import com.zhy.service.LeaveMessageService;
 import com.zhy.service.UserService;
@@ -31,6 +33,8 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
     LeaveMessageLikesRecordService leaveMessageLikesRecordService;
     @Autowired
     UserService userService;
+    @Autowired
+    HashRedisService hashRedisService;
 
     @Override
     public void publishLeaveMessage(String leaveMessageContent, String pageName, String answerer) {
@@ -40,8 +44,12 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
         leaveMessageContent = JavaScriptCheck.javaScriptCheck(leaveMessageContent);
         LeaveMessage leaveMessage = new LeaveMessage(pageName, userService.findIdByUsername(answerer), userService.findIdByUsername(SiteOwner.SITE_OWNER), nowStr, leaveMessageContent);
 
+        if(leaveMessage.getAnswererId() == leaveMessage.getRespondentId()){
+            leaveMessage.setIsRead(0);
+        }
         leaveMessageMapper.publishLeaveMessage(leaveMessage);
-
+        //redis中保存该用户未读消息
+        addNotReadNews(leaveMessage);
     }
 
     @Override
@@ -50,7 +58,12 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
         String nowStr = timeUtil.getFormatDateForFive();
         leaveMessage.setLeaveMessageDate(nowStr);
         leaveMessage.setRespondentId(userService.findIdByUsername(respondent));
+        if(leaveMessage.getAnswererId() == leaveMessage.getRespondentId()){
+            leaveMessage.setIsRead(0);
+        }
         leaveMessageMapper.publishLeaveMessage(leaveMessage);
+        //redis中保存该用户未读消息
+        addNotReadNews(leaveMessage);
         return leaveMessage;
     }
 
@@ -102,6 +115,7 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
             replyJsonArray = new JSONArray();
             for(LeaveMessage reply : leaveMessageReplies){
                 replyJson = new JSONObject();
+                replyJson.put("id", reply.getId());
                 replyJson.put("answerer", userService.findUsernameById(reply.getAnswererId()));
                 replyJson.put("respondent", userService.findUsernameById(reply.getRespondentId()));
                 replyJson.put("leaveMessageDate", reply.getLeaveMessageDate());
@@ -126,9 +140,9 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
     @Override
     public JSONObject getUserLeaveMessage(int rows, int pageNum, String username) {
 
-        int answererId = userService.findIdByUsername(username);
+        int respondentId = userService.findIdByUsername(username);
         PageHelper.startPage(pageNum, rows);
-        List<LeaveMessage> leaveMessages = leaveMessageMapper.getUserLeaveMessage(answererId);
+        List<LeaveMessage> leaveMessages = leaveMessageMapper.getUserLeaveMessage(respondentId);
         PageInfo<LeaveMessage> pageInfo = new PageInfo<>(leaveMessages);
         JSONObject returnJson = new JSONObject();
         returnJson.put("status",200);
@@ -136,20 +150,18 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
         JSONArray leaveMessageJsonArray = new JSONArray();
         for(LeaveMessage leaveMessage : leaveMessages){
             leaveMessageJson = new JSONObject();
+            leaveMessageJson.put("id",leaveMessage.getId());
+            leaveMessageJson.put("pId",leaveMessage.getPId());
             leaveMessageJson.put("pageName",leaveMessage.getPageName());
-            leaveMessageJson.put("answerer",username);
+            leaveMessageJson.put("answerer",userService.findUsernameById(leaveMessage.getAnswererId()));
             leaveMessageJson.put("leaveMessageDate",leaveMessage.getLeaveMessageDate());
-            if(leaveMessage.getPId() == 0){
-                leaveMessageJson.put("leaveMessageContent",leaveMessage.getLeaveMessageContent());
-                leaveMessageJson.put("replyNum",leaveMessageMapper.countReplyNumById(leaveMessage.getId()));
-            } else {
-                leaveMessageJson.put("leaveMessageContent","@" + userService.findUsernameById(leaveMessage.getRespondentId()) + " " + leaveMessage.getLeaveMessageContent());
-                leaveMessageJson.put("replyNum",leaveMessageMapper.countReplyNumByIdAndRespondentId(leaveMessage.getId(), leaveMessage.getRespondentId()));
-            }
+            leaveMessageJson.put("isRead",leaveMessage.getIsRead());
             leaveMessageJsonArray.add(leaveMessageJson);
         }
 
         returnJson.put("result",leaveMessageJsonArray);
+        returnJson.put("msgIsNotReadNum",leaveMessageMapper.countIsReadNumByRespondentId(respondentId));
+
         JSONObject pageJson = new JSONObject();
         pageJson.put("pageNum",pageInfo.getPageNum());
         pageJson.put("pageSize",pageInfo.getPageSize());
@@ -176,6 +188,7 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
             if(leaveMessage.getPId() != 0){
                 leaveMessage.setLeaveMessageContent("@" + userService.findUsernameById(leaveMessage.getRespondentId()) + " " + leaveMessage.getLeaveMessageContent());
             }
+            jsonObject.put("id",leaveMessage.getId());
             jsonObject.put("pagePath",leaveMessage.getPageName());
             jsonObject.put("answerer",userService.findUsernameById(leaveMessage.getAnswererId()));
             jsonObject.put("leaveWordDate",leaveMessage.getLeaveMessageDate().substring(0,10));
@@ -199,5 +212,42 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
     @Override
     public int countLeaveMessageNum() {
         return leaveMessageMapper.countLeaveMessageNum();
+    }
+
+    @Override
+    public int readOneLeaveMessageRecord(int id) {
+        try {
+            leaveMessageMapper.readOneLeaveMessageRecord(id);
+            return 1;
+        } catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public JSONObject readAllLeaveMessage(String username) {
+        int respondentId = userService.findIdByUsername(username);
+        leaveMessageMapper.readLeaveMessageRecordByRespondentId(respondentId);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status",200);
+        jsonObject.put("result","success");
+        return jsonObject;
+    }
+
+    /**
+     * 保存评论成功后往redis中增加一条未读评论数
+     */
+    private void addNotReadNews(LeaveMessage leaveMessage){
+        if(leaveMessage.getRespondentId() != leaveMessage.getAnswererId()){
+            Boolean isExitKey = hashRedisService.hasKey(leaveMessage.getRespondentId()+"");
+            if(!isExitKey){
+                UserReadNews news = new UserReadNews(1,0,1);
+                hashRedisService.put(String.valueOf(leaveMessage.getRespondentId()), news, UserReadNews.class);
+            } else {
+                hashRedisService.hashIncrement(leaveMessage.getRespondentId()+"", "allNewsNum",1);
+                hashRedisService.hashIncrement(leaveMessage.getRespondentId()+"", "leaveMessageNum",1);
+            }
+        }
     }
 }

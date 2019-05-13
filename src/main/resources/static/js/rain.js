@@ -1,5 +1,5 @@
 var canvas = document.querySelector(".rain");
-ctx = canvas.getContext("2d");
+    ctx = canvas.getContext("2d");
 
 var aRain = [];
 
@@ -30,7 +30,7 @@ Rain.prototype={
         this.vr = 1;
         this.vY = random(4,5);
     },
-
+    
     draw:function () {
 
         if(this.y<this.h){

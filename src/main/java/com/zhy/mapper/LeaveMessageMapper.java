@@ -15,34 +15,37 @@ import java.util.List;
 @Repository
 public interface LeaveMessageMapper {
 
-    @Insert("insert into leave_message_record(pageName,pId,answererId,respondentId,leaveMessageDate,likes,leaveMessageContent) " +
-            "values(#{pageName},#{pId},#{answererId},#{respondentId},#{leaveMessageDate},#{likes},#{leaveMessageContent})")
+    @Insert("insert into leave_message_record(pageName,pId,answererId,respondentId,leaveMessageDate,likes,leaveMessageContent,isRead) " +
+            "values(#{pageName},#{pId},#{answererId},#{respondentId},#{leaveMessageDate},#{likes},#{leaveMessageContent},#{isRead})")
     void publishLeaveMessage(LeaveMessage leaveMessage);
 
     @Select("select * from leave_message_record where pageName=#{pageName} and pId=#{pId} order by id desc")
     List<LeaveMessage> findAllLeaveMessage(@Param("pageName") String pageName, @Param("pId") int pId);
 
-    @Select("select answererId,respondentId,leaveMessageDate,leaveMessageContent from leave_message_record where pageName=#{pageName} and pId=#{pId}")
+    @Select("select id,answererId,respondentId,leaveMessageDate,leaveMessageContent from leave_message_record where pageName=#{pageName} and pId=#{pId}")
     List<LeaveMessage> findLeaveMessageReplyByPageNameAndPid(@Param("pageName") String pageName, @Param("pId") int pId);
 
     @Update("update leave_message_record set likes=likes+1 where pageName=#{pageName} and id=#{id}")
-    void updateLikeByPageNameAndId(@Param("pageName") String pageName, @Param("id") int id);
+    void updateLikeByPageNameAndId(@Param("pageName") String pageName,@Param("id") int id);
 
     @Select("select IFNULL(max(likes),0) from leave_message_record where pageName=#{pageName} and id=#{id}")
-    int findLikesByPageNameAndId(@Param("pageName") String pageName, @Param("id") int id);
+    int findLikesByPageNameAndId(@Param("pageName") String pageName,@Param("id") int id);
 
-    @Select("select pId,pageName,answererId,respondentId,leaveMessageDate,leaveMessageContent from leave_message_record where answererId=#{answererId} order by id desc")
-    List<LeaveMessage> getUserLeaveMessage(@Param("answererId") int answererId);
+    @Select("select id,pId,pageName,answererId,leaveMessageDate,isRead from leave_message_record where respondentId=#{respondentId} and answererId<>#{respondentId} order by id desc")
+    List<LeaveMessage> getUserLeaveMessage(@Param("respondentId") int respondentId);
 
-    @Select("select count(*) from leave_message_record where pId=#{id}")
-    int countReplyNumById(@Param("id") int id);
+    @Select("select count(*) from leave_message_record where isRead=1 and respondentId=#{respondentId} and answererId<>#{respondentId}")
+    int countIsReadNumByRespondentId(@Param("respondentId") int respondentId);
 
-    @Select("select count(*) from leave_message_record where pId=#{id} and respondentId=#{respondentId}")
-    int countReplyNumByIdAndRespondentId(@Param("id") int id, @Param("respondentId") int respondentId);
-
-    @Select("select pageName,pId,answererId,respondentId,leaveMessageDate,leaveMessageContent from leave_message_record order by id desc")
+    @Select("select id,pageName,answererId,leaveMessageDate,leaveMessageContent from leave_message_record order by id desc")
     List<LeaveMessage> findFiveNewLeaveWord();
 
     @Select("select count(*) from leave_message_record")
     int countLeaveMessageNum();
+
+    @Update("update leave_message_record set isRead=0 where id=#{id}")
+    void readOneLeaveMessageRecord(int id);
+
+    @Update("update leave_message_record set isRead=0 where respondentId=#{respondentId}")
+    void readLeaveMessageRecordByRespondentId(int respondentId);
 }

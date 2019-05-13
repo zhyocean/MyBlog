@@ -21,214 +21,238 @@
 </head>
 <body>
 
-<!--引入共有头部-->
-<div th:replace="header :: header"></div>
+    <!--引入共有头部-->
+    <div th:replace="header :: header"></div>
 
-<!--页面主体内容-->
-<div class="am-cf admin-main" style="padding-top: 0">
+    <!--页面主体内容-->
+    <div class="am-cf admin-main" style="padding-top: 0">
 
-    <!--左侧-->
-    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-        <div class="am-offcanvas-bar admin-offcanvas-bar">
-            <ul class="userList am-list admin-sidebar-list">
-                <li class="clickLi personalDate" ><a><i class="am-icon-credit-card-alt am-icon-fw"></i> 个人资料</a></li>
-                <li class="clickLi basicSetting"><a><i class="am-icon-cog am-icon-fw"></i> 安全设置</a></li>
-                <li class="clickLi leaveMessage"><a><i class="am-icon-comment am-icon-fw"></i> 评论留言</a></li>
-                <li class="clickLi privateWord"><a><i class="am-icon-pencil-square-o am-icon-fw"></i> 悄悄话</a></li>
-            </ul>
-            <div class="am-panel am-panel-default admin-sidebar-panel">
-                <div class="am-panel-bd">
-                    <p><span class="am-icon-bookmark"></span> 公告</p>
-                    <p>时光静好，与君语；细水流年，与君同。—— 张先森</p>
+        <!--左侧-->
+        <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+            <div class="am-offcanvas-bar admin-offcanvas-bar">
+                <ul class="userList am-list admin-sidebar-list">
+                    <li class="clickLi personalDate" ><a><i class="am-icon-credit-card-alt am-icon-fw"></i> 个人资料</a></li>
+                    <li class="clickLi basicSetting"><a><i class="am-icon-cog am-icon-fw"></i> 安全设置</a></li>
+                    <li class="clickLi commentMessage"><a><i class="am-icon-commenting am-icon-fw"></i> 评论管理</a></li>
+                    <li class="clickLi leaveMessage"><a><i class="am-icon-comments am-icon-fw"></i> 留言管理</a></li>
+                    <li class="clickLi privateWord"><a><i class="am-icon-pencil-square-o am-icon-fw"></i> 悄悄话</a></li>
+                </ul>
+                <div class="am-panel am-panel-default admin-sidebar-panel">
+                    <div class="am-panel-bd">
+                        <p><span class="am-icon-bookmark"></span> 公告</p>
+                        <p>时光静好，与君语；细水流年，与君同。—— 张先森</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--右侧-->
-    <div class="admin-content">
-        <div class="userInfo">
-            <div id="personalDate">
-                <div class="zhy-personalDate">
-                    <div class="personalDateHeadPortrait">
-                        <div class="headPortrait">
-                            <img id="headPortrait" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif"/>
-                        </div>
-                        <div class="headChange">
-                            <div class="headPortraitChange">
-                                <input id="imgTest" type="file" onchange="imgChange(event)" accept=".gif,.jpg,.jpeg,.png">
-                                <a>更改头像</a>
+        <!--右侧-->
+        <div class="admin-content">
+            <div class="userInfo">
+                <div id="personalDate">
+                    <ol class="am-breadcrumb  am-breadcrumb-slash">
+                        <li class="am-active am-icon-home"> 个人主页</li>
+                        <li class="am-active">个人资料</li>
+                    </ol>
+                    <div class="zhy-personalDate">
+                        <div class="personalDateHeadPortrait">
+                            <div class="headPortrait">
+                                <img id="headPortrait" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif"/>
                             </div>
-                        </div>
+                            <div class="headChange">
+                                <div class="headPortraitChange">
+                                    <input id="imgTest" type="file" onchange="imgChange(event)" accept=".gif,.jpg,.jpeg,.png">
+                                    <a>更改头像</a>
+                                </div>
+                            </div>
 
+                        </div>
+                        <div class="personalDateForm">
+                            <form id="personalDateForm">
+                                <div class="userNameTable">
+                                    <label for="username">昵称</label>
+                                    <input class="formInput" type="text" id="username" placeholder="填写你的昵称">
+                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                                </div>
+                                <div class="phoneTable">
+                                    <label>手机</label>
+                                    <div class="phone" id="personalPhone"></div>
+                                    <i class="phoneCheck am-icon-check">已验证</i>
+                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                                </div>
+                                <div class="trueNameTable">
+                                    <label for="trueName">姓名</label>
+                                    <input class="formInput" type="text" id="trueName" placeholder="填写你的真实姓名">
+                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                                </div>
+                                <div class="birthdayTable">
+                                    <label for="birthday">生日</label>
+                                    <input class="formInput" type="text" id="birthday" data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" placeholder="填写你的生日"/>
+                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+                                </div>
+                                <div class="genderTable">
+                                    <label>性别</label>
+                                    <label class="am-radio-inline" style="width: 60px">
+                                        <input class="formInput" type="radio" id="male" name="gender" value="male" data-am-ucheck>
+                                        <span class="am-icon-male "></span>
+                                    </label>
+                                    <label class="am-radio-inline" style="width: 60px">
+                                        <input class="formInput" type="radio" id="female" name="gender" value="female" data-am-ucheck>
+                                        <span class="am-icon-female "></span>
+                                    </label>
+                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+                                </div>
+                                <div class="emailTable">
+                                    <label for="email">邮箱</label>
+                                    <input class="formInput" type="email" id="email" placeholder="填写你的邮箱">
+                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                                </div>
+                                <div class="personalBriefTable">
+                                    <label for="personalBrief">个人简介</label>
+                                    <textarea class="formInput" id="personalBrief" placeholder="填写你的个人简介"></textarea>
+                                    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                                </div>
+                                <button type="button" id="savePersonalDateBtn" class="savePersonalDateBtn am-btn am-btn-warning">保存</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="personalDateForm">
-                        <form id="personalDateForm">
-                            <div class="userNameTable">
-                                <label for="username">昵称</label>
-                                <input class="formInput" type="text" id="username" placeholder="填写你的昵称">
+                </div>
+                <div id="basicSetting">
+                    <ol class="am-breadcrumb  am-breadcrumb-slash">
+                        <li class="am-active am-icon-home"> 个人主页</li>
+                        <li class="am-active">安全设置</li>
+                    </ol>
+                    <div class="zhy-basicSetting">
+                        <form id="basicSettingForm">
+                            <div class="phoneTable">
+                                <label for="phone">手机</label>
+                                <input class="formInput" type="text" id="phone" placeholder="填写你的手机号">
+                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                            </div>
+                            <div class="authCodeTable">
+                                <label for="authCode">验证码</label>
+                                <input class="formInput" type="text" id="authCode" placeholder="填写验证码">
+                                <button type="button" id="authCodeBtn" class="authCodeBtn am-btn am-btn-secondary am-round am-btn-sm">获取验证码</button>
+                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                            </div>
+                            <div class="passwordTable">
+                                <label for="password">新密码</label>
+                                <input class="formInput" type="password" id="password" placeholder="填写你的密码">
                                 <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
                             </div>
                             <div class="phoneTable">
-                                <label>手机</label>
-                                <div class="phone" id="personalPhone"></div>
-                                <i class="phoneCheck am-icon-check">已验证</i>
+                                <label for="surePassword">确认密码</label>
+                                <input class="formInput" type="password" id="surePassword" placeholder="再次填写你的密码">
                                 <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
                             </div>
-                            <div class="trueNameTable">
-                                <label for="trueName">姓名</label>
-                                <input class="formInput" type="text" id="trueName" placeholder="填写你的真实姓名">
-                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-                            </div>
-                            <div class="birthdayTable">
-                                <label for="birthday">生日</label>
-                                <input class="formInput" type="text" id="birthday" data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" placeholder="填写你的生日"/>
-                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
-                            </div>
-                            <div class="genderTable">
-                                <label>性别</label>
-                                <label class="am-radio-inline" style="width: 60px">
-                                    <input class="formInput" type="radio" id="male" name="gender" value="male" data-am-ucheck>
-                                    <span class="am-icon-male "></span>
-                                </label>
-                                <label class="am-radio-inline" style="width: 60px">
-                                    <input class="formInput" type="radio" id="female" name="gender" value="female" data-am-ucheck>
-                                    <span class="am-icon-female "></span>
-                                </label>
-                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
-                            </div>
-                            <div class="emailTable">
-                                <label for="email">邮箱</label>
-                                <input class="formInput" type="email" id="email" placeholder="填写你的邮箱">
-                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-                            </div>
-                            <div class="personalBriefTable">
-                                <label for="personalBrief">个人简介</label>
-                                <textarea class="formInput" id="personalBrief" placeholder="填写你的个人简介"></textarea>
-                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-                            </div>
-                            <button type="button" id="savePersonalDateBtn" class="savePersonalDateBtn am-btn am-btn-warning">保存</button>
+                            <button type="button" id="changePasswordBtn" class="changePasswordBtn am-btn am-btn-warning">保存</button>
                         </form>
                     </div>
                 </div>
-            </div>
-            <div id="basicSetting">
-                <div class="zhy-basicSetting">
-                    <form id="basicSettingForm">
-                        <div class="phoneTable">
-                            <label for="phone">手机</label>
-                            <input class="formInput" type="text" id="phone" placeholder="填写你的手机号">
-                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                <div id="commentMessage">
+                    <div class="msgCommentMessage">
+                        <ol class="am-breadcrumb  am-breadcrumb-slash navigationBar">
+                            <li class="am-active am-icon-home"> 个人主页</li>
+                            <li class="am-active">评论管理</li>
+                        </ol>
+                        <div class="msgContent">
+                            <!--填充评论信息-->
                         </div>
-                        <div class="authCodeTable">
-                            <label for="authCode">验证码</label>
-                            <input class="formInput" type="text" id="authCode" placeholder="填写验证码">
-                            <button type="button" id="authCodeBtn" class="authCodeBtn am-btn am-btn-secondary am-round am-btn-sm">获取验证码</button>
-                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-                        </div>
-                        <div class="passwordTable">
-                            <label for="password">新密码</label>
-                            <input class="formInput" type="password" id="password" placeholder="填写你的密码">
-                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-                        </div>
-                        <div class="phoneTable">
-                            <label for="surePassword">确认密码</label>
-                            <input class="formInput" type="password" id="surePassword" placeholder="再次填写你的密码">
-                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-                        </div>
-                        <button type="button" id="changePasswordBtn" class="changePasswordBtn am-btn am-btn-warning">保存</button>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <div id="leaveMessage">
-                <div class="zhy-leaveMessage">
-
-                    <div class="am-tabs  am-animation-slide-left" data-am-tabs="{noSwipe: 1}" id="doc-tab-demo-1">
-                        <ul class="am-tabs-nav am-nav am-nav-tabs" style="padding-left: 0">
-                            <li class="am-active"><a href="javascript: void(0)">评论</a></li>
-                            <li><a id="userLeaveMessageClick" href="javascript: void(0)">留言</a></li>
-                        </ul>
-
-                        <div class="am-tabs-bd">
-                            <!--评论内容-->
-                            <div class="comment am-tab-panel am-active">
-                                <div class="noComment">
-                                    你还没有任何评论哦
-                                </div>
+                <div id="leaveMessage">
+                    <div class="msgLeaveMessage">
+                        <ol class="am-breadcrumb  am-breadcrumb-slash navigationBar">
+                            <li class="am-active am-icon-home"> 个人主页</li>
+                            <li class="am-active">留言管理</li>
+                        </ol>
+                        <div class="msgContent">
+                         <!--这里填充留言-->
+                            <div style="height: 500px">
                             </div>
-                            <!--留言内容-->
-                            <div class="userLeaveMessage am-tab-panel">
-                                <div class="noLeaveMessage">
-                                    你还没有任何留言哦
-                                </div>
+                        </div>
+                        <!--留言分页-->
+                        <div class="my-row" id="leaveMessagePageFather">
+                            <div id="leaveMessagePagination">
+                                <ul class="am-pagination  am-pagination-centered">
+                                    <li class="am-disabled"><a href="#">&laquo; 上一页</a></li>
+                                    <li class="am-active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">下一页 &raquo;</a></li>
+                                </ul>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
-            </div>
-            <div id="privateWord">
-                <div class="zhy-privateWord">
-                    <div class="zhangSay  am-animation-slide-top">
-                        <span class="word">生命中有一些人与我们擦肩了，却来不及遇见</span>
-                        <span class="word">遇见了，却来不及相识</span>
-                        <span class="word">相识了，却来不及熟悉</span>
-                        <span class="word">熟悉了，却还是要说再见...</span>
-                        <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-                    </div>
-                    <div class="userSay  am-animation-slide-top">
-                        <div class="am-panel am-panel-danger">
-                            <div class="am-panel-hd">你一言，我一语</div>
-                            <textarea id="userSay" placeholder="说出你想对我说的话，让我慢慢回答给你听吧..."></textarea>
+                <div id="privateWord">
+                    <div class="zhy-privateWord">
+                        <ol class="am-breadcrumb  am-breadcrumb-slash">
+                            <li class="am-active am-icon-home"> 个人主页</li>
+                            <li class="am-active">悄悄话</li>
+                        </ol>
+                        <div class="zhangSay  am-animation-slide-top">
+                            <span class="word">生命中有一些人与我们擦肩了，却来不及遇见</span>
+                            <span class="word">遇见了，却来不及相识</span>
+                            <span class="word">相识了，却来不及熟悉</span>
+                            <span class="word">熟悉了，却还是要说再见...</span>
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
                         </div>
-                        <button type="button" class="userSayBtn am-btn am-btn-warning am-round">Send</button>
-                    </div>
-                    <div class="yesterday  am-animation-slide-bottom">
-                        <h3>往昔</h3>
-                        <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-                        <div class="yesterdayContent">
-                            <div class="noYesterday">
-                                你的曾今我好像未曾参与耶
+                        <div class="userSay  am-animation-slide-top">
+                            <div class="am-panel am-panel-danger">
+                                <div class="am-panel-hd">你一言，我一语</div>
+                                <textarea id="userSay" placeholder="说出你想对我说的话，让我慢慢回答给你听吧..."></textarea>
                             </div>
-                            <div class="says">
-                                <div class="say">
-                                    <div class="youSay">
-                                        <div class="youSayTime">
-                                            2018年7月20日
-                                        </div>
-                                        <div class="you">
-                                            <span>张海洋</span>：哈哈哈，你是傻子吧
-                                        </div>
-                                        <div class="me">
-                                            <span class="noReply">暂未收到回复</span>
-                                        </div>
-
-                                    </div>
+                            <button type="button" class="userSayBtn am-btn am-btn-warning am-round">Send</button>
+                        </div>
+                        <div class="yesterday  am-animation-slide-bottom">
+                            <h3>往昔</h3>
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                            <div class="yesterdayContent">
+                                <div class="noYesterday">
+                                    你的曾今我好像未曾参与耶
                                 </div>
-                                <div class="say">
-                                    <div class="youSay">
-                                        <div class="youSayTime">
-                                            2018年7月20日
-                                        </div>
-                                        <div class="you">
-                                            <span>张海洋</span>：哈哈哈，你是傻子吧
-                                        </div>
-                                        <div class="me">
-                                            你才是傻子吧：张大仙
+                                <div class="says">
+                                    <div class="say">
+                                        <div class="youSay">
+                                            <div class="youSayTime">
+                                                2018年7月20日
+                                            </div>
+                                            <div class="you">
+                                                <span>张海洋</span>：哈哈哈，你是傻子吧
+                                            </div>
+                                            <div class="me">
+                                                <span class="noReply">暂未收到回复</span>
+                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
-                                <div class="my-row" id="page-father">
-                                    <div id="pagination">
-                                        <ul class="am-pagination  am-pagination-centered">
-                                            <li class="am-disabled"><a href="#">&laquo; 上一页</a></li>
-                                            <li class="am-active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#">5</a></li>
-                                            <li><a href="#">下一页 &raquo;</a></li>
-                                        </ul>
+                                    <div class="say">
+                                        <div class="youSay">
+                                            <div class="youSayTime">
+                                                2018年7月20日
+                                            </div>
+                                            <div class="you">
+                                                <span>张海洋</span>：哈哈哈，你是傻子吧
+                                            </div>
+                                            <div class="me">
+                                                你才是傻子吧：张大仙
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my-row" id="page-father">
+                                        <div id="pagination">
+                                            <ul class="am-pagination  am-pagination-centered">
+                                                <li class="am-disabled"><a href="#">&laquo; 上一页</a></li>
+                                                <li class="am-active"><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">4</a></li>
+                                                <li><a href="#">5</a></li>
+                                                <li><a href="#">下一页 &raquo;</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -237,17 +261,16 @@
                 </div>
             </div>
         </div>
+        <!--消息盒子+反馈-->
+        <div th:replace="other :: other"></div>
+
     </div>
-    <!--消息盒子+反馈-->
-    <div th:replace="other :: other"></div>
 
-</div>
-
-<!--手机适配显示左侧按钮-->
-<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+    <!--手机适配显示左侧按钮-->
+    <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
 <script src="js/all.js"></script>
-<script src="js/user.js"></script>
 <script src="js/plugs_paging.js"></script>
+<script src="js/user.js"></script>
 </body>
 </html>

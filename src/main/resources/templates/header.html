@@ -29,7 +29,7 @@
                             <ul class="am-dropdown-content">
                                 <li><a href="/user" sec:authorize="hasRole('ROLE_USER')">个人主页</a></li>
                                 <li><a href="/superadmin" sec:authorize="hasRole('ROLE_SUPERADMIN')">网站后台管理</a></li>
-
+                                <li><a href="/user" class="news">消息</a></li>
                                 <li><a class="feedbackClick">反馈</a></li>
                                 <hr style="margin: 10px 0 5px 0;">
                                 <li><a th:href="@{/logout}">退出登录</a></li>

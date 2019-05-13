@@ -3,6 +3,7 @@ package com.zhy.service;
 import com.zhy.model.Article;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;

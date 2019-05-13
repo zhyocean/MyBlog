@@ -39,10 +39,9 @@
                         <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
                             <span class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></span>
                             <ul class="am-dropdown-content">
-                                <li><a href="/user">个人主页</a></li>
-                                <li><a href="#">账户管理</a></li>
-
-                                <li><a class="feedbackClick">反馈</a></li>
+                                <li><a href="/user" sec:authorize="hasRole('ROLE_USER')">个人主页</a></li>
+                                <li><a href="/superadmin" sec:authorize="hasRole('ROLE_SUPERADMIN')">网站后台管理</a></li>
+                                <li><a href="/user" class="news">消息<span class="newsNum am-badge am-badge-danger"></span></a></li>
                                 <hr style="margin: 0">
                                 <li><a th:href="@{/logout}">退出登录</a></li>
                             </ul>
@@ -196,11 +195,12 @@
             <i class="am-icon-exclamation-circle"></i>
             <span> 原文链接不能为空</span>
         </div>
+
     </div>
 
 </div>
 
-
+<script src="js/all.js"></script>
 <script src="js/editormd/editor.js"></script>
 </body>
 </html>

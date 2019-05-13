@@ -15,11 +15,11 @@ public class OSSClientConstants {
     /**
      * 阿里云API的密钥Access Key ID
      */
-    public static final String ACCESS_KEY_ID = "这里填KeyID";
+    public static final String ACCESS_KEY_ID = "填写你的Access Key ID";
     /**
      *阿里云API的密钥Access Key Secret
      */
-    public static final String ACCESS_KEY_SECRET = "这里填KeySecret";
+    public static final String ACCESS_KEY_SECRET = "填写你的Access Key Secret";
 
     /**
      * 阿里云API的bucket名称

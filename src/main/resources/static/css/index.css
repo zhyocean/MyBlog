@@ -421,13 +421,13 @@ a.tag:hover{
     text-decoration: none;
     color: #0a0a0a;
 }
-
 .bg-myStory{
     background:repeating-linear-gradient(45deg, #74ccff, #74ccff 15px, #bba985 0, #bba985 30px);
 }
 .bg-myGirl{
     background:repeating-linear-gradient(45deg, #ffbb33, #fb3 15px, #58a 0,#58a 30px);
 }
+
 /*background:#eee;*/
 /*background-image: linear-gradient(45deg,#bbb 25%,transparent 0),linear-gradient(45deg,transparent 75%,#bbb 0),linear-gradient(45deg,#bbb 25%,transparent 0),linear-gradient(45deg,transparent 75%,#bbb 0);*/
 /*background-size: 30px 30px;*/

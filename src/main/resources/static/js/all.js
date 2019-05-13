@@ -136,6 +136,31 @@
         $('.weixinPublic').attr("src","https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin.jpg");
     });
 
+    //获得登录用户未读消息
+    $.ajax({
+        type:'post',
+        url:'/getUserNews',
+        dataType:'json',
+        data:{
+        },
+        success:function (data) {
+            var thisPageName = window.location.pathname + window.location.search;
+            var news = $('.news');
+            if(data['result'] != 0){
+                news.append($('<span class="newsNum am-badge am-badge-danger am-round">' + data['result']['allNewsNum'] + '</span>'));
+                if(thisPageName === "/user"){
+                    if(data['result']['commentNum'] !== 0){
+                        $('.commentMessage').find('a').append($('<span class="commentNotReadNum am-margin-right am-fr am-badge am-badge-danger am-round">' + data['result']['commentNum'] + '</span>'));
+                    }
+                    if(data['result']['leaveMessageNum'] !== 0){
+                        $('.leaveMessage').find('a').append($('<span class="leaveMessageNotReadNum am-margin-right am-fr am-badge am-badge-danger am-round">' + data['result']['leaveMessageNum'] + '</span>'));
+                    }
+                }
+            }
+        },
+        error:function () {
+        }
+    });
 
     //反馈
     $('.feedbackClick').click(function () {

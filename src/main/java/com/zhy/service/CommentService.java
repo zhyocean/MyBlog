@@ -3,6 +3,7 @@ package com.zhy.service;
 import com.zhy.model.Comment;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -74,5 +75,16 @@ public interface CommentService {
      * @param articleId 文章id'
      */
     void deleteCommentByArticleId(long articleId);
+
+    /**
+     * 已读一条评论
+     * @param id 评论id
+     */
+    int readOneCommentRecord(int id);
+
+    /**
+     * 将该用户的所有未读消息标记为已读
+     */
+    JSONObject readAllComment(String username);
 
 }

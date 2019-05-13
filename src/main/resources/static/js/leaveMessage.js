@@ -16,7 +16,7 @@
                 '<div class="article-comment-line"></div>' +
                 '</div>' +
                 '<div class="new-comment">' +
-                '<i class="all-comment am-icon-ellipsis-v"></i>全部留言' +
+                '<i class="all-comment am-icon-ellipsis-v"></i>全部留言（<span class="leaveMessageNum">' + '' + '</span>）' +
                 '</div>'));
             var allComments = $('<div class="all-comments"></div>');
             $.each(data['result'], function (index,obj) {
@@ -63,7 +63,7 @@
                 var subCommentList = $('<div class="sub-comment-list"></div>');
                 var visitorReplies = $('<div class="visitorReplies"></div>');
                 $.each(obj['replies'],function (index1,obj1) {
-                    var visitorReply = $('<div class="visitorReply"></div>');
+                    var visitorReply = $('<div id="p' + obj1['id'] + '" class="visitorReply"></div>');
                     var visitorReplyWords = $('<div class="visitorReplyWords">' +
                         '<a class="answerer">' + obj1['answerer'] + '</a>： <a class="respondent">@' + obj1['respondent'] + ' </a>' + obj1['leaveMessageContent'] +
                         '</div>');
@@ -105,6 +105,8 @@
             });
             articleComment.append(allComments);
             commentBottom.append(articleComment);
+            //添加留言数组数
+            $('.leaveMessageNum').html(data['result'].length);
         }
 
         //保存被回复者

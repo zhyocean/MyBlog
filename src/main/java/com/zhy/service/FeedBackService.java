@@ -2,6 +2,7 @@ package com.zhy.service;
 
 import com.zhy.model.FeedBack;
 import net.sf.json.JSONObject;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

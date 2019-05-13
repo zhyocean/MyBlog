@@ -15,8 +15,8 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
-    @Insert("insert into comment_record(articleId,pId,answererId,respondentId,commentDate,likes,commentContent)" +
-            " values(#{articleId},#{pId},#{answererId},#{respondentId},#{commentDate},#{likes},#{commentContent})")
+    @Insert("insert into comment_record(articleId,pId,answererId,respondentId,commentDate,likes,commentContent,isRead)" +
+            " values(#{articleId},#{pId},#{answererId},#{respondentId},#{commentDate},#{likes},#{commentContent},#{isRead})")
     void insertComment(Comment comment);
 
     @Select("select * from comment_record where articleId=#{articleId} and pId=#{pId} order by id desc")
@@ -31,21 +31,24 @@ public interface CommentMapper {
     @Select("select IFNULL(max(likes),0) from comment_record where articleId=#{articleId} and id=#{id}")
     int findLikesByArticleIdAndId(@Param("articleId") long articleId, @Param("id") long id);
 
-    @Select("select articleId,pId,answererId,respondentId,commentDate,commentContent from comment_record order by id desc")
+    @Select("select id,articleId,pId,answererId,respondentId,commentDate,commentContent from comment_record order by id desc")
     List<Comment> findFiveNewComment();
 
-    @Select("select id,pId,articleId,answererId,respondentId,commentDate,commentContent from comment_record where answererId=#{answererId} order by id desc")
-    List<Comment> getUserComment(@Param("answererId") int answererId);
+    @Select("select id,pId,articleId,answererId,commentDate,isRead from comment_record where respondentId=#{respondentId} and answererId<>#{respondentId} order by id desc")
+    List<Comment> getUserCommentByRespondentId(@Param("respondentId") int respondentId);
 
-    @Select("select count(*) from comment_record where pId=#{id}")
-    int countReplyNumById(@Param("id") long id);
-
-    @Select("select count(*) from comment_record where id>#{id} and pId=#{pId} and respondentId=#{respondentId}")
-    int countReplyNumByIdAndRespondentId(@Param("pId") long pId, @Param("respondentId") int respondentId, @Param("id") long id);
+    @Select("select count(*) from comment_record where isRead=1 and respondentId=#{respondentId} and answererId<>#{respondentId}")
+    int countIsReadNumByRespondentId(@Param("respondentId") int respondentId);
 
     @Select("select count(*) from comment_record")
     int commentNum();
 
     @Delete("delete from comment_record where articleId=#{articleId}")
     void deleteCommentByArticleId(long articleId);
+
+    @Update("update comment_record set isRead=0 where id=#{id}")
+    void readCommentRecordById(int id);
+
+    @Update("update comment_record set isRead=0 where respondentId=#{respondentId}")
+    void readCommentRecordByRespondentId(int respondentId);
 }
