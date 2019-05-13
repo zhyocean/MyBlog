@@ -153,7 +153,7 @@
                         $('.commentMessage').find('a').append($('<span class="commentNotReadNum am-margin-right am-fr am-badge am-badge-danger am-round">' + data['result']['commentNum'] + '</span>'));
                     }
                     if(data['result']['leaveMessageNum'] !== 0){
-                        $('.leaveMessage').find('a').append($('<span class="leaveMessageNotReadNum am-margin-right am-fr am-badge am-badge-danger am-round">' + data['result']['leaveMessageNum'] + '</span>'));
+                        $('.leaveWord').find('a').append($('<span class="leaveMessageNotReadNum am-margin-right am-fr am-badge am-badge-danger am-round">' + data['result']['leaveMessageNum'] + '</span>'));
                     }
                 }
             }

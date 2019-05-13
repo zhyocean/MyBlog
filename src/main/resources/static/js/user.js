@@ -1,7 +1,7 @@
 
     $('.userList .clickLi').click(function () {
         var flag = $(this).attr('class').substring(8);
-        $('#personalDate,#basicSetting,#commentMessage,#leaveMessage,#privateWord').css("display","none");
+        $('#personalDate,#basicSetting,#commentMessage,#leaveMessage,#leaveWord,#privateWord').css("display","none");
         $("#" + flag).css("display","block");
     });
 
@@ -411,7 +411,7 @@
         })
     }
     //填充用户留言
-    function putInLeaveMessageInfo(data) {
+    function putInLeaveWordInfo(data) {
         var msgContent = $('.msgContent');
         msgContent.empty();
         if(data['result'].length == 0){
@@ -419,11 +419,8 @@
                 '这里空空如也' +
                 '</div>'));
         } else {
-            var msgReadTop = $('<div class="msgReadTop">' +
-                '未读消息：<span class="msgIsReadNum">' + data['msgIsNotReadNum'] + '</span>' +
-                '<a class="msgIsRead">全部标记为已读</a>' +
-                '</div>')
-            msgContent.append(msgReadTop);
+            var msgTop = $('<div class="msgReadTop">未读消息：<span class="msgIsReadNum">' + data['msgIsNotReadNum'] + '</span><a class="msgIsRead">全部标记为已读</a></div>');
+            msgContent.append(msgTop);
             $.each(data['result'], function (index, obj) {
                 var msgRead = $('<div id="p' + obj['id'] + '" class="msgRead"></div>');
                 var msgReadSign = $('<span class="msgReadSign"></span>');
@@ -434,29 +431,22 @@
                 var msgHead = $('<span class="msgHead"></span>');
                 if(obj['pId'] == 0){
                     msgHead.append($('<span class="msgHead">' +
-                        '<a class="msgPerson">' + obj['answerer'] + '</a>给你留言啦！</span>'));
+                        '<a class="msgPerson">' + obj['answerer'] + '</a>给你留言啦！' +
+                        '</span>'));
                 } else {
                     msgHead.append($('<span class="msgHead">' +
-                        '<a class="msgPerson">' + obj['answerer'] + '</a>回复了你的留言！</span>'));
+                        '<a class="msgPerson">' + obj['answerer'] + '</a>回复了你的留言！' +
+                        '</span>'));
                 }
                 msgHead.append($('<a href="/' + obj['pageName'] + '#p' + obj['id'] + '" target="_blank" class="msgHref">戳这里去看看</a>'));
                 msgRead.append(msgHead);
                 msgRead.append($('<span class="msgDate">' + obj['leaveMessageDate'] + '</span><hr>'));
                 msgContent.append(msgRead);
-            });
-            // msgContent.append($('<div class="my-row" id="leaveMessagePageFather">' +
-            //     '                            <div id="leaveMessagePagination">' +
-            //     '                                <ul class="am-pagination  am-pagination-centered">' +
-            //     '                                    <li class="am-disabled"><a href="#">&laquo; 上一页</a></li>' +
-            //     '                                    <li class="am-active"><a href="#">1</a></li>' +
-            //     '                                    <li><a href="#">2</a></li>' +
-            //     '                                    <li><a href="#">3</a></li>' +
-            //     '                                    <li><a href="#">4</a></li>' +
-            //     '                                    <li><a href="#">5</a></li>' +
-            //     '                                    <li><a href="#">下一页 &raquo;</a></li>' +
-            //     '                                </ul>' +
-            //     '                            </div>' +
-            //     '                        </div>'));
+            })
+            msgContent.append($('<div class="my-row" id="leaveWordPage">' +
+                '<div class="leaveWordPagePagination">' +
+                '</div>' +
+                '</div>'))
         }
 
         //已读一条消息
@@ -625,10 +615,10 @@
         })
     }
     //获得留言
-    function getUserLeaveMessage(currentPage) {
+    function getUserLeaveWord(currentPage) {
         $.ajax({
             type:'post',
-            url:'/getUserLeaveMessage',
+            url:'/getUserLeaveWord',
             dataType:'json',
             data:{
                 rows:"10",
@@ -640,17 +630,17 @@
                         window.location.replace("/login");
                     });
                 }
-                putInLeaveMessageInfo(data);
+                putInLeaveWordInfo(data);
                 scrollTo(0,0);//回到顶部
 
                 //分页
-                $("#leaveMessagePagination").paging({
+                $(".leaveWordPagePagination").paging({
                     rows:data['pageInfo']['pageSize'],//每页显示条数
                     pageNum:data['pageInfo']['pageNum'],//当前所在页码
                     pages:data['pageInfo']['pages'],//总页数
                     total:data['pageInfo']['total'],//总记录数
                     callback:function(currentPage){
-                        getUserLeaveMessage(currentPage);
+                        getUserLeaveWord(currentPage);
                     }
                 });
             },
@@ -698,10 +688,9 @@
     $('.commentMessage').click(function () {
         getUserComment(1);
     });
-
     //点击留言管理
-    $('.leaveMessage').click(function () {
-        getUserLeaveMessage(1);
+    $('.leaveWord').click(function () {
+        getUserLeaveWord(1);
     });
 
     //发布悄悄话

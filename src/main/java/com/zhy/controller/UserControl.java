@@ -139,7 +139,7 @@ public class UserControl {
     /**
      * 获得该用户曾今的所有留言
      */
-    @PostMapping("/getUserLeaveMessage")
+    @PostMapping("/getUserLeaveWord")
     public JSONObject getUserLeaveMessage(@RequestParam("rows") String rows,
                                           @RequestParam("pageNum") String pageNum,
                                           @AuthenticationPrincipal Principal principal){
