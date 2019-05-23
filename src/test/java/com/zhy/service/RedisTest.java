@@ -1,7 +1,11 @@
 package com.zhy.service;
 
-import com.zhy.model.UserReadNews;
-import com.zhy.redis.HashRedisService;
+import com.zhy.mapper.CategoryMapper;
+import com.zhy.mapper.FriendLinkMapper;
+import com.zhy.mapper.VisitorMapper;
+import com.zhy.model.FriendLink;
+import com.zhy.redis.HashRedisServiceImpl;
+import com.zhy.redis.StringRedisServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +24,12 @@ import java.util.LinkedHashMap;
 public class RedisTest {
 
     @Autowired
-    private HashRedisService hashRedisService;
+    HashRedisServiceImpl hashRedisService;
+    @Autowired
+    VisitorMapper visitorMapper;
 
     @Test
-    public void redisTest() throws IllegalAccessException {
-
-        LinkedHashMap news = (LinkedHashMap) hashRedisService.hashGetAll("3");
-
+    public void redisTest(){
     }
 
 }

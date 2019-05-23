@@ -1,8 +1,12 @@
 package com.zhy.service.impl;
 
 import com.zhy.mapper.VisitorMapper;
+import com.zhy.model.Result;
 import com.zhy.model.Visitor;
+import com.zhy.redis.HashRedisServiceImpl;
+import com.zhy.service.RedisService;
 import com.zhy.service.VisitorService;
+import com.zhy.utils.ResultUtil;
 import net.sf.json.JSONObject;
 import org.apache.ibatis.binding.BindingException;
 import org.slf4j.Logger;
@@ -24,45 +28,46 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Autowired
     VisitorMapper visitorMapper;
+    @Autowired
+    RedisService redisService;
 
     @Override
-    public void addVisitorNumByPageName(String pageName, HttpServletRequest request) {
+    public Result addVisitorNumByPageName(String pageName, HttpServletRequest request) {
 
         String visitor;
-        if("visitorVolume".equals(pageName)){
-            visitor = (String) request.getSession().getAttribute("visitor");
-            if(visitor == null){
-                visitorMapper.updateVisitorNumByTotalVisitorAndPageName(pageName);
-                request.getSession().setAttribute("visitor","yes");
-            }else {
-                visitorMapper.updateVisitorNumByTotalVisitor();
-            }
-        } else {
-            visitor = (String) request.getSession().getAttribute(pageName);
-            if(visitor == null){
-                visitorMapper.updateVisitorNumByTotalVisitorAndPageName(pageName);
-                request.getSession().setAttribute(pageName, "yes");
-            } else {
-                visitorMapper.updateVisitorNumByTotalVisitor();
-            }
-        }
-
-    }
-
-    @Override
-    public JSONObject getVisitorNumByPageName(String pageName) {
-
+        Long pageVisitor = null;
         JSONObject jsonObject = new JSONObject();
-        long totalVisitor = visitorMapper.getVisitorNumByPageName("totalVisitor");
-        long pageVisitor;
-        try {
-            pageVisitor = visitorMapper.getVisitorNumByPageName(pageName);
-            jsonObject.put("totalVisitor", totalVisitor);
-            jsonObject.put("pageVisitor", pageVisitor);
-        } catch (BindingException e){
-            logger.info("Page '" + pageName + "' is not exist");
+
+        visitor = (String) request.getSession().getAttribute(pageName);
+        if(visitor == null){
+            //先去redis中查找
+            pageVisitor = redisService.addVisitorNumOnRedis("visitor", pageName, 1);
+            if(pageVisitor == null){
+                //redis中未命中则从数据库中获得
+                pageVisitor = visitorMapper.getVisitorNumByPageName(pageName);
+                pageVisitor = redisService.putVisitorNumOnRedis("visitor", pageName, pageVisitor+1);
+            }
+            //在session中保存该用户访问页面的记录，在一段时间内重复访问时不增加在页面的访问人次
+            request.getSession().setAttribute(pageName,"yes");
+        } else {
+            pageVisitor = redisService.addVisitorNumOnRedis("visitor", pageName, 0);
+            if(pageVisitor == null){
+                //redis中未命中则从数据库中获得
+                pageVisitor = visitorMapper.getVisitorNumByPageName(pageName);
+                pageVisitor = redisService.putVisitorNumOnRedis("visitor", pageName, pageVisitor);
+            }
         }
-        return jsonObject;
+
+        //增加总访问人数
+        Long totalVisitor = redisService.addVisitorNumOnRedis("visitor", "totalVisitor", 1);
+        if(totalVisitor == null){
+            totalVisitor = visitorMapper.getTotalVisitor();
+            totalVisitor = redisService.putVisitorNumOnRedis("visitor", "totalVisitor", totalVisitor+1);
+        }
+
+        jsonObject.put("totalVisitor", totalVisitor);
+        jsonObject.put("pageVisitor", pageVisitor);
+        return ResultUtil.success(jsonObject, "获得访客量成功");
     }
 
     @Override
@@ -76,8 +81,13 @@ public class VisitorServiceImpl implements VisitorService {
     }
 
     @Override
-    public long getAllVisitor() {
-        return visitorMapper.getAllVisitor();
+    public long getTotalVisitor() {
+        return visitorMapper.getTotalVisitor();
+    }
+
+    @Override
+    public void updateVisitorNumByPageName(String pageName, String visitorNum) {
+        visitorMapper.updateVisitorNumByPageName(pageName, visitorNum);
     }
 
 }

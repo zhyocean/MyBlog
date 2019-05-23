@@ -46,8 +46,8 @@ public class ArchiveServiceImpl implements ArchiveService {
 
     @Override
     public void addArchiveName(String archiveName) {
-        int archiveNameIsExit = archiveMapper.findArchiveNameByArchiveName(archiveName);
-        if(archiveNameIsExit == 0){
+        int archiveNameIsExist = archiveMapper.findArchiveNameByArchiveName(archiveName);
+        if(archiveNameIsExist == 0){
             archiveMapper.addArchiveName(archiveName);
         }
     }

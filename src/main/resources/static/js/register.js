@@ -239,7 +239,7 @@
                     }
                 },
                 error: function () {
-                    alert("fail");
+                    alert("注册失败");
                 }
             })
         }

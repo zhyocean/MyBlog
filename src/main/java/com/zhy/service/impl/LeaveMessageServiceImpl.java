@@ -7,7 +7,7 @@ import com.zhy.constant.SiteOwner;
 import com.zhy.mapper.LeaveMessageMapper;
 import com.zhy.model.LeaveMessage;
 import com.zhy.model.UserReadNews;
-import com.zhy.redis.HashRedisService;
+import com.zhy.redis.HashRedisServiceImpl;
 import com.zhy.service.LeaveMessageLikesRecordService;
 import com.zhy.service.LeaveMessageService;
 import com.zhy.service.UserService;
@@ -34,7 +34,7 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
     @Autowired
     UserService userService;
     @Autowired
-    HashRedisService hashRedisService;
+    HashRedisServiceImpl hashRedisServiceImpl;
 
     @Override
     public void publishLeaveMessage(String leaveMessageContent, String pageName, String answerer) {
@@ -240,13 +240,13 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
      */
     private void addNotReadNews(LeaveMessage leaveMessage){
         if(leaveMessage.getRespondentId() != leaveMessage.getAnswererId()){
-            Boolean isExitKey = hashRedisService.hasKey(leaveMessage.getRespondentId()+"");
-            if(!isExitKey){
+            Boolean isExistKey = hashRedisServiceImpl.hasKey(leaveMessage.getRespondentId()+"");
+            if(!isExistKey){
                 UserReadNews news = new UserReadNews(1,0,1);
-                hashRedisService.put(String.valueOf(leaveMessage.getRespondentId()), news, UserReadNews.class);
+                hashRedisServiceImpl.put(String.valueOf(leaveMessage.getRespondentId()), news, UserReadNews.class);
             } else {
-                hashRedisService.hashIncrement(leaveMessage.getRespondentId()+"", "allNewsNum",1);
-                hashRedisService.hashIncrement(leaveMessage.getRespondentId()+"", "leaveMessageNum",1);
+                hashRedisServiceImpl.hashIncrement(leaveMessage.getRespondentId()+"", "allNewsNum",1);
+                hashRedisServiceImpl.hashIncrement(leaveMessage.getRespondentId()+"", "leaveMessageNum",1);
             }
         }
     }

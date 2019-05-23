@@ -1,6 +1,6 @@
 
     //网站最后更新时间（版本更新需更改）
-    var siteLastUpdateTime = '2019年05月12日22点';
+    var siteLastUpdateTime = '2019年05月23日13点';
 
     //网站开始时间
     var siteBeginRunningTime = '2018-07-25 20:00:00';
@@ -261,7 +261,6 @@
 
         },
         error: function () {
-            alert("获得最新评论信息失败！");
         }
     });
 }
@@ -292,7 +291,6 @@
 
             },
             error: function () {
-                alert("获得最新留言信息失败！");
             }
         });
     }
@@ -329,7 +327,6 @@
 
         },
         error: function () {
-            alert("获得标签云失败！");
         }
     });
 

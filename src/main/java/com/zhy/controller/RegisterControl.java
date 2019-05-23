@@ -1,6 +1,7 @@
 package com.zhy.controller;
 
 import com.zhy.model.User;
+import com.zhy.redis.StringRedisServiceImpl;
 import com.zhy.service.UserService;
 import com.zhy.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class RegisterControl {
 
     @Autowired
     UserService userService;
+    @Autowired
+    StringRedisServiceImpl stringRedisService;
 
     @PostMapping("/register")
     @ResponseBody
@@ -28,18 +31,18 @@ public class RegisterControl {
 
         String authCode = request.getParameter("authCode");
 
-        String trueMsgCode = (String) request.getSession().getAttribute("trueMsgCode");
-        String msgCodePhone = (String) request.getSession().getAttribute("msgCodePhone");
+        String trueMsgCode = (String) stringRedisService.get(user.getPhone());
 
+        //判断手机号是否正确
+        if(trueMsgCode == null){
+            return "5";
+        }
         //判断验证码是否正确
         if(!authCode.equals(trueMsgCode)){
             return "0";
         }
-        if(!msgCodePhone.equals(user.getPhone())){
-            return "5";
-        }
         //判断用户名是否存在
-        if(userService.usernameIsExit(user.getUsername())){
+        if(userService.usernameIsExist(user.getUsername())){
             return "3";
         }
         //注册时对密码进行MD5加密

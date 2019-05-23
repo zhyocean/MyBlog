@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.zhy.mapper.CommentMapper;
 import com.zhy.model.Comment;
 import com.zhy.model.UserReadNews;
-import com.zhy.redis.HashRedisService;
+import com.zhy.redis.HashRedisServiceImpl;
 import com.zhy.service.ArticleService;
 import com.zhy.service.CommentLikesRecordService;
 import com.zhy.service.CommentService;
@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     UserService userService;
     @Autowired
-    HashRedisService hashRedisService;
+    HashRedisServiceImpl hashRedisServiceImpl;
 
     @Override
     public Comment insertComment(Comment comment) {
@@ -261,13 +261,13 @@ public class CommentServiceImpl implements CommentService {
      */
     private void addNotReadNews(Comment comment){
         if(comment.getRespondentId() != comment.getAnswererId()){
-            boolean isExitKey = hashRedisService.hasKey(comment.getRespondentId()+"");
-            if(!isExitKey){
+            boolean isExistKey = hashRedisServiceImpl.hasKey(comment.getRespondentId()+"");
+            if(!isExistKey){
                 UserReadNews news = new UserReadNews(1,1,0);
-                hashRedisService.put(String.valueOf(comment.getRespondentId()), news, UserReadNews.class);
+                hashRedisServiceImpl.put(String.valueOf(comment.getRespondentId()), news, UserReadNews.class);
             } else {
-                hashRedisService.hashIncrement(comment.getRespondentId()+"", "allNewsNum",1);
-                hashRedisService.hashIncrement(comment.getRespondentId()+"", "commentNum",1);
+                hashRedisServiceImpl.hashIncrement(comment.getRespondentId()+"", "allNewsNum",1);
+                hashRedisServiceImpl.hashIncrement(comment.getRespondentId()+"", "commentNum",1);
             }
         }
     }

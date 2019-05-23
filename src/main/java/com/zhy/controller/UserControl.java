@@ -43,7 +43,7 @@ public class UserControl {
      */
     @PostMapping("/uploadHead")
     public JSONObject uploadHead(HttpServletRequest request,
-                          @AuthenticationPrincipal Principal principal){
+                                 @AuthenticationPrincipal Principal principal){
         String username;
         try {
             username = principal.getName();
@@ -71,9 +71,9 @@ public class UserControl {
             userService.updateAvatarImgUrlById(url, userId);
             jsonObject = userService.getHeadPortraitUrl(userId);
         } catch (Exception e){
-         e.printStackTrace();
-         logger.error("更改头像失败",e.getMessage(),e);
-         return jsonObject;
+            e.printStackTrace();
+            logger.error("更改头像失败",e.getMessage(),e);
+            return jsonObject;
         }
         return jsonObject;
     }
@@ -223,7 +223,7 @@ public class UserControl {
     @GetMapping("/readAllMsg")
     @ResponseBody
     public JSONObject readAllMsg(@RequestParam("msgType") int msgType,
-                                    @AuthenticationPrincipal Principal principal){
+                                 @AuthenticationPrincipal Principal principal){
         String username;
         try {
             username = principal.getName();

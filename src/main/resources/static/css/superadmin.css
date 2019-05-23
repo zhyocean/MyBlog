@@ -19,6 +19,24 @@
         padding:10px 25px;
         border-radius: 5px;
     }
+    .categories{
+        margin:10px 150px 0 0;
+        padding: 20px 30px;
+    }
+    .updateCategory,.updateFriendLink{
+        float: right;
+        margin-right: 150px;
+    }
+    .msgIsRead{
+        float: right;
+        margin-right: 150px;
+        cursor: pointer;
+        color: #3399ea;
+    }
+    .msgRead{
+        padding-bottom: 10px;
+        margin-right: 150px;
+    }
 }
 @media screen and (max-width: 768px) {
     .successNoticeAlert{
@@ -41,6 +59,24 @@
         padding:10px 25px;
         border-radius: 5px;
     }
+    .categories{
+        margin:10px 0 0 0;
+        padding: 20px 30px;
+    }
+    .updateCategory,.updateFriendLink{
+        float: right;
+        margin-right: 30px;
+    }
+    .msgIsRead{
+        float: right;
+        cursor: pointer;
+        color: #3399ea;
+        margin-right: 30px;
+    }
+    .msgRead{
+        padding-bottom: 10px;
+        margin-right: 30px;
+    }
 }
 .notice{
     text-align: center;
@@ -59,9 +95,6 @@
 .article a:hover{
     text-decoration: none;
     background-color: #F0F0F0;
-}
-.site-inner{
-    margin: 50px 0 0 50px;
 }
 /*反馈*/
 .userFeedbackInfo,.privateWord{
@@ -140,14 +173,15 @@
     margin-top: 5px;
 }
 /*文章管理*/
+.subject{
+    margin-top: 30px;
+    padding-left: 1.5rem;
+}
 .subject h4{
     margin: 50px 0 0 20px;
 }
 .articles{
     margin-top: 30px;
-}
-.articleManagementBtn{
-    padding: 6px;
 }
 .articles td,th{
     border: 1px solid #eceff2;
@@ -160,21 +194,13 @@
     margin-right: 10px;
 }
 /*p评论管理*/
-.thumbsUpManagement{
-    margin-top: 30px;
-    padding-left: 1.5rem;
-}
-.msgRead{
-    padding-bottom: 10px;
-    margin-right: 150px;
-}
 .msgHead{
     font-size: 14px;
 }
 .msgPerson{
     color: #3399ea;
     display: inline-block;
-    margin-right: 8px;
+    margin: 0 8px 0 8px;
 }
 .msgHead a:hover{
     text-decoration: underline;
@@ -210,12 +236,6 @@
     color: #ccc;
     float: right;
 }
-.msgIsRead{
-    float: right;
-    margin-right: 150px;
-    cursor: pointer;
-    color: #3399ea;
-}
 .msgIsRead:hover{
     color: #3399ea;
 }
@@ -224,4 +244,49 @@
 }
 .msgReadTop{
     margin: 5px auto 10px;
+}
+.noNews{
+    height: 30px;
+    background: #f0f0f0;
+    text-align: center;
+    opacity: .5;
+    line-height: 30px;
+}
+/*未读消息红点*/
+.msgReadSign{
+    content: " ";
+    border: 3px solid red;
+    border-radius:3px;
+    position: absolute;
+    transform: translate(-8px,10px);
+}
+.addCategory,.subCategory{
+    cursor: pointer;
+    color: #3399ea;
+}
+/*文章分类*/
+.category{
+    margin: 5px;
+    padding: 10px 7px;
+    border-radius: 0.25rem;
+    background-color: #6c757d;
+    color: #fff !important;
+    line-height: 1;
+    text-align: center;
+    font-size: 80%;
+    display: inline-block;
+}
+/*友联管理*/
+.friendLinkManagement td,th{
+    border: 1px solid #eceff2;
+}
+.friendLinkManagement table{
+    border-collapse: collapse;
+    border: 1px solid #eceff2;
+}
+.friendLinkManagementBtn{
+    margin-right: 10px;
+}
+.addFriendLink,.subFriendLink{
+    cursor: pointer;
 }

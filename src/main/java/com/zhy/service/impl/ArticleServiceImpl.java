@@ -6,6 +6,7 @@ import com.zhy.component.StringAndArray;
 import com.zhy.constant.SiteOwner;
 import com.zhy.mapper.ArticleMapper;
 import com.zhy.model.Article;
+import com.zhy.model.ArticleLikesRecord;
 import com.zhy.service.*;
 import com.zhy.utils.TimeUtil;
 import net.sf.json.JSONArray;

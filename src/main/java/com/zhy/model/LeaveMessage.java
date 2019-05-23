@@ -1,6 +1,7 @@
 package com.zhy.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: zhangocean
@@ -8,6 +9,7 @@ import lombok.Data;
  * Describe: 留言
  */
 @Data
+@NoArgsConstructor
 public class LeaveMessage {
 
     private int id;
@@ -51,9 +53,6 @@ public class LeaveMessage {
      * 该条留言是否已读  1--未读   0--已读
      */
     private int isRead = 1;
-
-    public LeaveMessage() {
-    }
 
     public LeaveMessage(String pageName, int answererId, int respondentId, String leaveMessageDate, String leaveMessageContent) {
         this.pageName = pageName;

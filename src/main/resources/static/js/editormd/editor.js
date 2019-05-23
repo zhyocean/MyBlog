@@ -182,19 +182,24 @@
             });
         };
         addTagsBtn.on('click', function() {
-            if(i == 4){
+            if(i >= 4){
                 addTagsBtn.attr('disabled','disabled');
             }
             var value=$('.tag-name').eq(i-1).html();
            if(value != ""){
                appendPanel(i);
                i++;
+               console.log(i)
            }
         });
 
         $('.tag').on('click','.removeTag',function () {
             $(this).parent().remove();
             i--;
+            if(i <= 4){
+                addTagsBtn.removeAttr('disabled');
+            }
+            console.log(i)
         });
 
     });

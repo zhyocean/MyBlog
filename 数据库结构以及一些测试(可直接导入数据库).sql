@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2019-05-13 13:05:32
+Date: 2019-05-23 14:28:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -70,14 +70,15 @@ CREATE TABLE `article_likes_record` (
   `articleId` bigint(20) NOT NULL,
   `likerId` int(11) NOT NULL,
   `likeDate` varchar(255) NOT NULL,
+  `isRead` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of article_likes_record
 -- ----------------------------
-INSERT INTO `article_likes_record` VALUES ('1', '1532884460', '1', '2018-07-31 20:00');
-INSERT INTO `article_likes_record` VALUES ('2', '1533196734', '1', '2018-08-02 21:24');
+INSERT INTO `article_likes_record` VALUES ('1', '1532884460', '1', '2018-07-31 20:00', '0');
+INSERT INTO `article_likes_record` VALUES ('2', '1533196734', '1', '2018-08-02 21:24', '0');
 
 -- ----------------------------
 -- Table structure for categories
@@ -136,83 +137,6 @@ INSERT INTO `comment_record` VALUES ('2', '0', '1533196734', '1', '1', '2018-08-
 INSERT INTO `comment_record` VALUES ('3', '2', '1533196734', '1', '1', '2018-08-03 00:15', '0', '一切正常，哈哈哈', '0');
 
 -- ----------------------------
--- Table structure for daily_speech
--- ----------------------------
-DROP TABLE IF EXISTS `daily_speech`;
-CREATE TABLE `daily_speech` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` text NOT NULL,
-  `mood` varchar(20) NOT NULL,
-  `picsUrl` text,
-  `publishDate` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of daily_speech
--- ----------------------------
-INSERT INTO `daily_speech` VALUES ('1', '整了快一个月的页面，终于上线了<br>\r\n果不其然，前端页面是最恼火的<br>\r\n<br>\r\n把那些不想在空间或是朋友圈说的话<br>\r\n在自己的这片空间里<br>\r\n记录每日的心情<br>\r\n写写身边发生的小事<br>', 'happy', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544079972079.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544079973042.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544079973159.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544079973261.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544079973360.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544079973453.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544079973688.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544079973939.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544079974188.jpeg', '2018-12-06 15:06:14');
-INSERT INTO `daily_speech` VALUES ('2', '每晚回寝室的路上<br/>\n总是能看见小情侣的卿卿我我<br/>\n<br/>\n其实我也好想能有大学到结婚的爱情<br/>\n可是爱情不是配不配得上<br/>\n更多的时候<br/>\n是连追求的资格都没有', 'terrible', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544110157631.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544110158407.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544110158509.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544110158611.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544110158705.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544110158790.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544110158891.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544110159127.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-06/1544110159229.jpeg', '2018-12-06 23:29:19');
-INSERT INTO `daily_speech` VALUES ('3', '这个冬天，冻的是肉体，寒的是心里<br/>\n只有工作室里的空调<br/>\n加上一瓶娃哈哈<br/>\n才有不一般的感觉，哈哈<br/>\n<br/>\n从朋友那才听说到，西安下雪了<br/>\n真的真的很美<br/>\n雪落西安，便是长安<br/>\n总有一天，我也想带着喜欢的人一起去看雪', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-07/1544155891051.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-07/1544155905452.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-07/1544155926976.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-07/1544155927224.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-07/1544155927486.jpeg', '2018-12-07 12:12:08');
-INSERT INTO `daily_speech` VALUES ('4', '尴尬，前两周一个朋友帮我把简历投给成都的一家公司，刚才突然接到电话预约面试<br/>\n前提是要求我周一到周五推掉学校的课去实习<br/>\n<br/>\n没办法，只有果断拒绝了，下学期的课还是蛮多的也没时间去吧<br/>\n不过，那个小姐姐还多好的，哈哈哈<br/>\n挺有缘的一家公司，明年春招有机会到还可以去试试', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-07/1544166768415.jpeg', '2018-12-07 15:12:49');
-INSERT INTO `daily_speech` VALUES ('5', '男人的嘴，骗人的鬼<br/>\n现在每次想起我朋友对我说的这句话就想笑<br/>\n今天又恰好在一篇文章中看到，又忍不住笑了<br/>\n<br/>\n天气真冷，冷的我都不敢装疯了', 'just', null, '2018-12-07 19:09:48');
-INSERT INTO `daily_speech` VALUES ('6', '想起好久都没给家里打电话了<br/>\n也有要半年没有回过家了<br/>\n<br/>\n我也不知道自己在忙啥<br/>\n明明每天都有在制定计划的学习<br/>\n可是还是总那么漫无目的的进行着', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-08/1544244861281.jpeg', '2018-12-08 12:54:21');
-INSERT INTO `daily_speech` VALUES ('7', '这周团队打卡时间严重不够<br/>\n就算如此，还跑去看了海王<br/>\n<br/>\n湄拉真的太太太漂亮了<br/>\n呜呜呜~~<br/>\n瞬间小心脏怦怦乱跳了<br/>\n<br/>\n看完吃了米粉跟煎饼<br/>\n一个满足的夜晚<br/>\n<br/>\n朋友们都开始关心起我要不帮我找女朋友<br/>\n总是嫌我看电影在她们之前一个人去<br/>\n哈哈哈，我有啥子办法', 'happy', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-08/1544274538113.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-08/1544274538898.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-08/1544274556234.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-08/1544274574171.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-08/1544274578820.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-08/1544274578821.jpeg', '2018-12-08 21:09:39');
-INSERT INTO `daily_speech` VALUES ('8', '每天困得不行<br/>\n还得硬撑着复习<br/>\n真的是难受的一匹<br/>\n<br/>\n何时是个头喃', 'terrible', null, '2018-12-09 14:55:26');
-INSERT INTO `daily_speech` VALUES ('9', '芬兰的极光酒店<br/>\n简直美得过分！<br/>\n<br/>\n已经想好了<br/>\n藏心阁的往昔栏以及我的故事中的个人相册<br/>\n就统一做成相册形式吧<br/>\n往昔栏留着当以后的爱情相册<br/>\n我的故事就是一个简单的个人生活相册<br/>\nemmmm，等页面设计好了闲下来了就开干', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-09/1544345499285.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-09/1544345500043.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-09/1544345500167.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-09/1544345500630.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-09/1544345501337.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-09/1544345502029.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-09/1544345502503.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-09/1544345503220.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-09/1544345503915.jpeg', '2018-12-09 16:51:45');
-INSERT INTO `daily_speech` VALUES ('10', '做一个稳妥的人<br/>\n不要高估两年后的自己<br/>\n也不要低估十年后的自己', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-10/1544408133749.jpeg', '2018-12-10 10:15:34');
-INSERT INTO `daily_speech` VALUES ('13', '突然想起来有一周没看《我是大哥大》了<br/>\n今天赶忙去看了看<br/>\n果然还没有更新<br/>\n<br/>\n傻屌剧，一周的快乐源泉吖<br/>\n还有美美的理子', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-10/1544417650107.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-10/1544417650598.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-10/1544417651549.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-10/1544417652677.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-10/1544417653346.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-10/1544417661243.jpeg', '2018-12-10 12:54:45');
-INSERT INTO `daily_speech` VALUES ('14', '昨晚上为了看最新的一集大哥大熬到12点半<br/>\n结果早上马原课起的多晚<br/>\n没吃早饭<br/>\n有点饿啊', 'terrible', null, '2018-12-11 10:14:40');
-INSERT INTO `daily_speech` VALUES ('15', '今晚数据库原理上机<br/>\n本来以为可以一节课就写完的<br/>\n可是没想到<br/>\n不仅有点难，题还多<br/>\n其实写完这个实验才发现<br/>\n我的SQL语句写的真的有点差<br/>\n还需要多练呀<br/>\n平时项目中用到的SQL语句也都太简单<br/>\n仅仅涉及到的是单表查询<br/>\n<br/>\n今天的课多的一匹<br/>\n从早上到晚的<br/>\n奔溃啊！！<br/>\n', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-11/1544532394297.jpeg', '2018-12-11 20:46:35');
-INSERT INTO `daily_speech` VALUES ('16', '其实，我们只是想找一个谈得来、合脾性，在一起舒坦、分开久了有点想念，安静久了想闹腾一下、吵架了又立马会后悔认输的人。爱情如此，友情同理。&nbsp;​​​', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544580376566.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544580376665.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544580376684.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544580376763.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544580376999.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544580377254.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544580377494.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544580377735.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544580377982.jpeg', '2018-12-12 10:06:18');
-INSERT INTO `daily_speech` VALUES ('17', '这周到目前为止<br/>\n团队打卡时间不超过10个小时<br/>\n课又多<br/>\n还要抽时间去健身<br/>\n真滴累吖<br/>\n<br/>\n晚上跟伟哥他们健完身<br/>\n又是一顿豪餐(也挺便宜的，但是好吃啊)<br/>\n鸡腿堡+鸡肉卷+中可<br/>\n哇，健身需要的营养太多了<br/>\n<br/>\n', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544628931913.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-12/1544628932074.jpeg', '2018-12-12 23:35:47');
-INSERT INTO `daily_speech` VALUES ('18', '下午对团队大一大二的进行了一番思想教育<br/>\n晚上还跟着去上了一会网<br/>\n英雄联盟打的又自闭了<br/>\n一晚上就只赢了两把<br/>\n有把还是对面挂机<br/>\n<br/>\n距离六级还有两天<br/>\nemmmm，我好像还没有开始<br/>\n明天刷几道阅读理解吧', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544707864765.jpeg', '2018-12-13 21:31:05');
-INSERT INTO `daily_speech` VALUES ('19', '8102<br/>\n又是单身的一年<br/>\n羡慕那种<br/>\n让人痴迷的爱情<br/>\n', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544715110241.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544715110383.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544715110481.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544715111160.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544715111655.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544715112332.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544715112799.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544715113492.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-13/1544715114181.jpeg', '2018-12-13 23:31:55');
-INSERT INTO `daily_speech` VALUES ('20', '昨晚做了个梦<br/>\n<br/>\n我妈给我生了一个弟弟跟妹妹<br/>\n弟弟很皮<br/>\n妹妹很乖<br/>\n<br/>\n我给我妈说能不能不要弟弟<br/>\n我只想要妹妹<br/>\n<br/>\n因为在梦里我弟打我<br/>\nemmmmm', 'just', null, '2018-12-14 12:40:42');
-INSERT INTO `daily_speech` VALUES ('21', '下午健身练背+肱二头肌<br/>\n感觉还行，但是训练强度还不够<br/>\n<br/>\n晚上健完身又是吃华莱士+一份炒面<br/>\n奢侈的晚餐，花了20块大洋<br/>\n<br/>\n说好的一周只去上一次网的<br/>\n结果又没忍住朋友们的诱惑<br/>\n<br/>\n明天还要考六级什么都没准备<br/>\n算我活该吧', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-15/1544803662546.jpeg', '2018-12-15 00:07:43');
-INSERT INTO `daily_speech` VALUES ('22', '下午考了六级<br/>\n很安逸，考的很懵逼<br/>\n下次不考了，浪费钱<br/>\n<br/>\n还有就是<br/>\n这周时间要打不够了<br/>\n不想罚钱啊', 'terrible', null, '2018-12-15 20:31:41');
-INSERT INTO `daily_speech` VALUES ('23', '今早8点钟起床<br/>\n就为了早早的到团队打卡<br/>\n<br/>\n中午的时候感受到了地震的晃感<br/>\n然后在明理楼十楼根本没有跑下去的欲望<br/>\n<br/>\n中午没有吃饭就为了把这周的48个小时打够<br/>\n然而下午饿的不得了<br/>\n偷偷的签着到跑到后门吃了久香冒菜', 'just', null, '2018-12-16 20:35:13');
-INSERT INTO `daily_speech` VALUES ('24', '如今<br/>\n连一个可以道晚安的人都没有<br/>\n<br/>\n那就<br/>\n晚安啦，世界', 'terrible', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-17/1544976393817.jpeg', '2018-12-17 00:06:34');
-INSERT INTO `daily_speech` VALUES ('25', '又双叒叕没吃早饭<br/>\n<br/>\n上马原课<br/>\n逛微博<br/>\n聊微信<br/>\n肚子叫乎乎', 'just', null, '2018-12-18 10:48:45');
-INSERT INTO `daily_speech` VALUES ('26', '生活不如意<br/>\n你有什么办法<br/>\n还不是得自己一人扛<br/>\n<br/>\n我也想<br/>\n多读书<br/>\n多旅行<br/>\n多去认识一些可爱的人', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-18/1545135803567.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-18/1545135803719.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-18/1545135803857.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-18/1545135803957.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-18/1545135804052.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-18/1545135804142.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-18/1545135804377.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-18/1545135804859.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-18/1545135805333.jpeg', '2018-12-18 20:23:26');
-INSERT INTO `daily_speech` VALUES ('27', '喜欢慢一点的关系<br/>\n<br/>\n可以用很长时间去喜欢一个人<br/>\n但是只希望不要对喜欢草草决定<br/>\n<br/>\n你可以慢点来<br/>\n我们可以慢慢认识', 'just', null, '2018-12-19 20:41:52');
-INSERT INTO `daily_speech` VALUES ('28', '其实互相喜欢并不难<br/>\n难的是既相爱又合适', 'terrible', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-19/1545231291407.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-19/1545231291611.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-19/1545231291722.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-19/1545231291825.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-19/1545231291903.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-19/1545231291990.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-19/1545231292094.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-19/1545231292177.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-19/1545231292270.jpeg', '2018-12-19 22:54:52');
-INSERT INTO `daily_speech` VALUES ('29', '今天圣诞节<br/>\n会不会有什么不一样吖<br/>\n<br/>\n生活：不会<br/>\n我：嗷', 'terrible', null, '2018-12-20 23:11:51');
-INSERT INTO `daily_speech` VALUES ('30', '今天真是蠢到家了<br/>\n<br/>\n前两天看完了少帅<br/>\n今天突然想看灵魂摆渡<br/>\n于是充了爱奇艺<br/>\n挺开心的哈哈哈<br/>\n<br/>\n但是我发现充错手机号了<br/>\n···········(假装保持微笑)', 'just', null, '2018-12-21 12:49:09');
-INSERT INTO `daily_speech` VALUES ('31', '这学期坚持下来了两件事<br/>\n一是写博客<br/>\n二是健身<br/>\n也想要把这两件事一直坚持下去<br/>\n<br/>\n这两天开始看起《灵魂摆渡》电视剧<br/>\n炒鸡不错<br/>\n就是不要再像昨晚一样<br/>\n为了看剧熬到1点多睡了', 'terrible', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-22/1545460085149.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-22/1545460093590.jpeg', '2018-12-22 14:28:17');
-INSERT INTO `daily_speech` VALUES ('32', '最近作息时间不规律<br/>\n痘痘又冒出来了<br/>\n还长了个溃疡<br/>\n贼难受<br/>\n<br/>\n这两天还碰到个傻逼网友<br/>\n妈的，有病<br/>\n三言两句就骂人的<br/>\n要不是看是个女的而且还是个程序媛<br/>\n早把她删了<br/>\n哇，我从小到大真没见过这种人', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-23/1545540737756.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-23/1545540737621.jpeg', '2018-12-23 12:52:18');
-INSERT INTO `daily_speech` VALUES ('33', '今日健身后晚餐<br/>\n依然是<br/>\n汉堡、鸡肉卷、中可and一份饺子<br/>\n二十块大洋<br/>\n吃不起吃不起了<br/>\n<br/>\n2018年倒数第二个星期天<br/>\n过的还是那么一般<br/>\n圣诞节要到了<br/>\n今年没有苹果吧', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-23/1545566448140.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-23/1545566448316.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-23/1545566456944.jpeg', '2018-12-23 20:01:05');
-INSERT INTO `daily_speech` VALUES ('34', '最近<br/>\n又长了好多痘痘<br/>\n真的好烦', 'terrible', null, '2018-12-25 13:13:15');
-INSERT INTO `daily_speech` VALUES ('35', '最近迷上了《灵魂摆渡》<br/>\n每天干的事就是追剧<br/>\n团队、教室、寝室<br/>\n整的这几天完全不在状态<br/>\n学习没有学多少<br/>\n觉也睡的少，成天困兮兮的<br/>\n也逃了不少课<br/>\n果然追剧害死人喃<br/>\n还好，今天追完了<br/>\n可以回归正常作息', 'just', null, '2018-12-26 17:09:58');
-INSERT INTO `daily_speech` VALUES ('36', '喜欢到极致<br/>\n是种什么样的感觉<br/>\n我不曾尝过<br/>\n<br/>\n今日是最后一次熬夜追剧<br/>\n哦不，是电影<br/>\n《灵魂摆渡黄泉》<br/>\n三七，你这个憨货<br/>\n怎能这生美丽', 'happy', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-27/1545842834835.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-27/1545842841884.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-27/1545842851856.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-27/1545842862641.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-27/1545842871946.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-27/1545842881904.jpeg', '2018-12-27 00:48:08');
-INSERT INTO `daily_speech` VALUES ('37', '早起的人为了钱<br/>\n晚睡的人为了情<br/>\n我不仅要晚睡还要早起<br/>\n因为我喜欢的东西都很贵<br/>\n我爱的人不爱我', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-27/1545896980246.jpeg', '2018-12-27 15:49:40');
-INSERT INTO `daily_speech` VALUES ('38', '今天一个同行让我长了一般见识<br/>\n事情是这样的<br/>\n晚上访问我的博客网站首页<br/>\n发现加载完首页后会立刻跳转到百度页面<br/>\n由于这中间的速度真的太快没法调试是怎么跳过去的<br/>\n一开始以为是网站被DNS攻击了<br/>\n并且阿里云服务器攻击日志里今天也恰好有几条恶意攻击日志<br/>\n有恶意脚本也有人试图上传恶意漏洞<br/>\n不过都被防火墙防御住了<br/>\n也是这误导了我以为是DNS解析的问题<br/>\n花了点时间买了个VIP升级版的DNS云解析后发现问题仍在<br/>\n跟前端朋友交流后猛然发现是不是页面加载完后执行了什么js跳转<br/>\n于是去数据库里查看网站评论信息<br/>\n果然………mlgb，有人在文章评论中故意输入了重定向到百度的js代码<br/>\n而我恰好没有处理输入是js的情况<br/>\n<br/>\n惭愧惭愧，一件小小的恶意攻击事反应出了编码过程的不严谨<br/>\n网站安全还有待提高', 'just', null, '2018-12-27 23:47:13');
-INSERT INTO `daily_speech` VALUES ('39', '希望我的2019<br/>\n吃得好&nbsp;睡得香<br/>\n痘痘全没&nbsp;身体备棒<br/>\n有朋友&nbsp;玩到老<br/>\n有人陪&nbsp;一起走<br/>\n<br/>\n我不善言语&nbsp;凡事冷漠&nbsp;<br/>\n不刻意迎合也不取悦谁&nbsp;<br/>\n性子很傲&nbsp;慢热但是重感情&nbsp;<br/>\n我没有很难过&nbsp;也没有很快乐<br/>\n<br/>\n以上，晚安。', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2018-12-27/1545926191217.jpeg', '2018-12-27 23:56:32');
-INSERT INTO `daily_speech` VALUES ('40', '明天就是2018年的最后一天了<br/>\n朋友买了《地球最后的夜晚》的电影请我看<br/>\n看完打算一起去吃个烧烤<br/>\n以此度过18年地球最后一个夜晚吧<br/>\n<br/>\n抽时间写一篇文章<br/>\n简单的记录下我的2018吧', 'just', null, '2018-12-30 18:57:36');
-INSERT INTO `daily_speech` VALUES ('41', '2018走的很快<br/>\n元旦三天选择了待在学校<br/>\n重复着团队、寝室、网吧的生活<br/>\n写了一篇年度总结<br/>\n但是我知道想写的其实远远不止那些<br/>\n<br/>\n总之<br/>\n2018，慢走<br/>\n2019，请善待我', 'happy', null, '2019-01-02 16:51:56');
-INSERT INTO `daily_speech` VALUES ('42', '我的网易云年度总结<br/>\n想着去年好像关键字也是“姑娘”<br/>\n可能就好这口吧，哈哈<br/>\n<br/>\n为啥子我听民谣<br/>\n还是那么上瘾呢<br/>\n就不腻吗？', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-01-04/1546581780570.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-01-04/1546581783884.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-01-04/1546581786191.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-01-04/1546581788261.jpeg', '2019-01-04 14:03:12');
-INSERT INTO `daily_speech` VALUES ('43', '1月9号有两门考试<br/>\n马原跟物联网传输技术<br/>\n还没有开始复习<br/>\n<br/>\n距离考试还有4天', 'terrible', null, '2019-01-05 13:32:19');
-INSERT INTO `daily_speech` VALUES ('44', '以后博客只发技术文章了<br/>\n情感生活类还是转移到公众号上吧<br/>\n<br/>\n当然了<br/>\n自认为有写的好的还是例外', 'just', null, '2019-01-07 20:55:14');
-INSERT INTO `daily_speech` VALUES ('45', '马原马原<br/>\n你要我命吗<br/>\n<br/>\n哲学不愧是哲学<br/>\n读起来都脑壳痛', 'terrible', null, '2019-01-08 13:50:39');
-INSERT INTO `daily_speech` VALUES ('46', '经历了一场伟大哲学的斗争后发现<br/>\n其实马原考试也没那么难嘛<br/>\n自己挺会编的嘛<br/>\n<br/>\n上传解决了网站评论恶意js代码问题后<br/>\n不小心自己又写了bug<br/>\n怪不得留言内容都不见了<br/>\nemmmmm<br/>\n果然<br/>\nbug无处不在', 'just', null, '2019-01-09 14:58:33');
-INSERT INTO `daily_speech` VALUES ('47', '明天还有最后两门专业课考试<br/>\n考完了就可以安心准备面试过程了<br/>\n<br/>\n很久没有给家里打电话了<br/>\n每次都是在生活费要完时才会主动给家里打电话<br/>\n<br/>\n最近眼睛干涩的很<br/>\n很疲劳，右下眼皮也经常跳个不停<br/>\n总是担心最近有什么不好的事情发生<br/>\n', 'terrible', null, '2019-01-13 20:50:14');
-INSERT INTO `daily_speech` VALUES ('48', '正式开始最后一个寒假生活<br/>\n昨天上了一下午的网<br/>\n满足了心中的网瘾了<br/>\n<br/>\n剩下的日子就好好在学校学习吧<br/>\n认真做好每天的学习任务<br/>\n少玩点手机吧', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-01-16/1547630077822.jpeg', '2019-01-16 17:14:38');
-INSERT INTO `daily_speech` VALUES ('49', '昨天跟王萍讨论了一下我的简历<br/>\n真的是见识大涨<br/>\n听到了很多以前听过但不了解的牛逼技术<br/>\n也才发现自己真的有点自以为是了<br/>\n对于目前会的知识就以为自己会很多了<br/>\n殊不知<br/>\n那只是冰山一角啊', 'just', null, '2019-01-19 12:05:15');
-INSERT INTO `daily_speech` VALUES ('50', '目标：乐山<br/>\n回家的第一天<br/>\n仔细算算也有半年没有回家了<br/>\n<br/>\n内心还算平静吧<br/>\n以后回家的时间也更少了<br/>\n也是跟妈妈吵架后的第一次回家<br/>\n<br/>\n希望一切都是好的<br/>\n希望有个好年吧<br/>\n回家好好复习<br/>\n准备年后的面试', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-01-24/1548315043459.jpeg', '2019-01-24 15:30:53');
-INSERT INTO `daily_speech` VALUES ('51', '放假回家这么久了<br/>\n已经完全忘记了初衷<br/>\n<br/>\n今天是一月的最后一天<br/>\n是该结束这样浑浑浊浊的日子了', 'terrible', null, '2019-01-31 14:52:33');
-INSERT INTO `daily_speech` VALUES ('52', '时间：2018年农历大年三十<br/>\n<br/>\n今年一个人在老家默默的看着春晚，父母都去打牌了，苦苦的一个人哎，哎<br/>\n我的小女朋友你在哪里，我好想你<br/>\n<br/>\n今年的集福集卡也就将就不到30块钱<br/>\n年年虽如此<br/>\n没有什么好运<br/>\n但是重在参与嘛<br/>\n嘻嘻', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-02-04/1549291288578.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-02-04/1549291289484.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-02-04/1549291291102.jpeg', '2019-02-04 22:41:40');
-INSERT INTO `daily_speech` VALUES ('53', '拿着压岁钱<br/>\n一口气还完花呗的感觉真好<br/>\n<br/>\n最后一年拿压岁钱了<br/>\n以后就要自己挣钱喽', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-02-06/1549439974619.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-02-06/1549439974664.jpeg', '2019-02-06 15:59:37');
-INSERT INTO `daily_speech` VALUES ('54', '好久没来写了<br/>\n都要忘了自己还有个藏心阁了<br/>\n<br/>\n提前了快一周就来到学校复习<br/>\n完善了自己的简历<br/>\n投了不少的公司的春招提前批<br/>\n<br/>\n结果是大多数公司回复要么不合适要么待处理(然后进度就不变了)<br/>\n也是有点郁闷<br/>\n不过好在<br/>\n有个厦门吉比特的游戏公司简历过了<br/>\n一面也过了<br/>\n等着下周一的二面<br/>\n<br/>\n加油，不知这会不会是我人生的第一个offer', 'happy', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-02-22/1550842370721.jpeg', '2019-02-22 21:32:51');
-INSERT INTO `daily_speech` VALUES ('55', '英语六级350<br/>\n还是出乎了我的意料<br/>\n裸考都能这么高<br/>\n那我准备一下岂不是就...<br/>\n嘿嘿<br/>\n不过也没有机会考了<br/>\n<br/>\n吉比特经过三轮面试基本稳了<br/>\n就等后两天的HR面了<br/>\n还蛮期待的', 'happy', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-02-27/1551253478253.jpeg', '2019-02-27 15:44:38');
-INSERT INTO `daily_speech` VALUES ('56', '春招开始的第一个offer<br/>\n工作薪资还挺心动的<br/>\n问题在于<br/>\n深圳的房价啊是真的高。。。<br/>\n<br/>\n接下来春招还得继续<br/>\n不能因为有了一个offer就放弃后面更多的机会<br/>\n毕竟<br/>\n梦想可是大厂啊<br/>\n', 'happy', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-03-01/1551404682346.jpeg', '2019-03-01 09:45:02');
-INSERT INTO `daily_speech` VALUES ('57', '做梦都没想到的事<br/>\n一天就面完了一二面<br/>\n期待下周一的公司面试', 'happy', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-03-01/1551436735693.jpeg', '2019-03-01 18:38:56');
-INSERT INTO `daily_speech` VALUES ('58', '腾讯的三面多半是凉了<br/>\n不过好在<br/>\n吉比特的offer已经发下来了<br/>\n可问题也在这<br/>\n有了一个offer后就很懈怠了<br/>\n而且最近也没有面试<br/>\n是有点闲闲的', 'just', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-03-07/1551961248948.jpeg', '2019-03-07 20:20:50');
-INSERT INTO `daily_speech` VALUES ('59', '呜呜呜<br/>\n今天收到腾讯春招提前批凉了<br/>\n哎<br/>\n阿里那边简历又一直处于筛选阶段', 'terrible', null, '2019-03-10 13:18:09');
-INSERT INTO `daily_speech` VALUES ('60', '可怜，今天有小猫咪抓出血了<br/>\n第一次觉得离死亡进了一步<br/>\n吓得我感觉跑去打了狂犬疫苗<br/>\n<br/>\n明天字节跳动面试<br/>\n嘤嘤嘤<br/>\n加油吧<br/>\n反正希望不大', 'terrible', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-03-22/1553261811823.jpeg', '2019-03-22 21:37:11');
-INSERT INTO `daily_speech` VALUES ('61', '我恋爱了，爱上了一个小傻瓜，好开心<br/>\n一定一定要好好爱她<br/>\n刘云芸，我爱你', 'happy', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-04-22/1555919411914.jpeg', '2019-04-19 10:50:13');
-INSERT INTO `daily_speech` VALUES ('62', '刚刚改了博客的一些内容<br/>\n和她在一起的感觉真好<br/>\n虽然她有时真的挺傻的<br/>\n我也很笨<br/>\n总是喜欢黏着她<br/>\n哎<br/>\n说好的是她黏着我的嘛<br/>\n怎么。。。<br/>\n不过每次她叫我小宝贝时心里就甜蜜蜜的<br/>\n哈哈哈，喜欢上她的感觉真好', 'happy', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-04-22/1555920059475.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-04-22/1555920059945.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-04-22/1555920060416.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-04-22/1555920060888.jpeg,https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/dailySpeech/2019-04-22/1555920063524.jpeg', '2019-04-22 16:01:06');
-
--- ----------------------------
 -- Table structure for feedback
 -- ----------------------------
 DROP TABLE IF EXISTS `feedback`;
@@ -228,6 +152,31 @@ CREATE TABLE `feedback` (
 -- ----------------------------
 -- Records of feedback
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for friendlink
+-- ----------------------------
+DROP TABLE IF EXISTS `friendlink`;
+CREATE TABLE `friendlink` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `blogger` varchar(40) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of friendlink
+-- ----------------------------
+INSERT INTO `friendlink` VALUES ('1', 'naget的小屋', 'https://naget.github.io');
+INSERT INTO `friendlink` VALUES ('2', 'Li Pan\'s 博客', 'http://www.lipan.xyz');
+INSERT INTO `friendlink` VALUES ('3', '陈晓雷个人博客', 'http://www.csxll.top');
+INSERT INTO `friendlink` VALUES ('4', 'SAn Blog', 'https://sanii.cn');
+INSERT INTO `friendlink` VALUES ('5', '会打篮球的程序猿', 'http://www.liuzhaopo.top');
+INSERT INTO `friendlink` VALUES ('6', 'Mr_曾中杰', 'https://www.zengzhongjie.com');
+INSERT INTO `friendlink` VALUES ('7', '去当CTO', 'https://www.qdcto.com');
+INSERT INTO `friendlink` VALUES ('8', 'Face2Object', 'https://www.bossding.com.cn');
+INSERT INTO `friendlink` VALUES ('9', '小海博客', 'https://www.celess.cn');
+INSERT INTO `friendlink` VALUES ('10', '枫之羽', 'http://fzhiy.com');
 
 -- ----------------------------
 -- Table structure for leave_message_likes_record
@@ -349,7 +298,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '19940790216', '张海洋', 'a3caed36f0fe5a01e5f144db8927235e', 'male', '张海洋', '1997-07-05', '1125694337@qq.com', '', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/张海洋/1536759681.jpeg', '2018-09-19 13:52:50');
+INSERT INTO `user` VALUES ('1', '19940790216', '张海洋', 'a3caed36f0fe5a01e5f144db8927235e', 'male', '张海洋', '1997-07-05', '1125694337@qq.com', '', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/张海洋/1536759681.jpeg', '2019-05-23 14:24:39');
 
 -- ----------------------------
 -- Table structure for user_role

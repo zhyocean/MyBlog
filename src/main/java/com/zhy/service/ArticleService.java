@@ -13,7 +13,6 @@ import java.util.Map;
  * @Date: 2018/6/20 21:41
  * Describe: 文章业务操作
  */
-//@Service
 public interface ArticleService {
 
     /**
@@ -39,7 +38,7 @@ public interface ArticleService {
     JSONObject getArticleByArticleId(long articleId, String username);
 
     /**
-     * 通过文章id和原作者获得文章名
+     * 通过文章id获得文章名和文章摘要
      * @param id 文章id
      * @return 文章名
      */

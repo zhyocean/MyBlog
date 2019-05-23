@@ -275,7 +275,7 @@
                         }
                     },
                     error: function () {
-                        alert("评论失败！");
+                        alert("回复失败！");
                     }
                 });
             }

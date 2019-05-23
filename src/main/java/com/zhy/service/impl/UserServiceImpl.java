@@ -3,7 +3,6 @@ package com.zhy.service.impl;
 import com.zhy.constant.RoleConstant;
 import com.zhy.mapper.UserMapper;
 import com.zhy.model.User;
-import com.zhy.redis.HashRedisService;
 import com.zhy.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
         if(username.length() > 35 || "".equals(username)){
             return "4";
         }
-        if(userIsExit(user.getPhone())){
+        if(userIsExist(user.getPhone())){
             return "1";
         }
         if("male".equals(user.getGender())){
@@ -64,6 +63,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePasswordByPhone(String phone, String password) {
         userMapper.updatePassword(phone, password);
+//        密码修改成功后注销当前用户
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean usernameIsExit(String username) {
+    public boolean usernameIsExist(String username) {
         User user = userMapper.findUsernameByUsername(username);
         return user != null;
     }
@@ -156,7 +157,7 @@ public class UserServiceImpl implements UserService {
 
         //改了昵称
         if(!newName.equals(username)){
-            if(usernameIsExit(newName)){
+            if(usernameIsExist(newName)){
                 returnJson.put("status",500);
                 return returnJson;
             }
@@ -197,7 +198,7 @@ public class UserServiceImpl implements UserService {
      * @param phone 手机号
      * @return true--存在  false--不存在
      */
-    private boolean userIsExit(String phone){
+    private boolean userIsExist(String phone){
         User user = userMapper.findUserByPhone(phone);
         return user != null;
     }

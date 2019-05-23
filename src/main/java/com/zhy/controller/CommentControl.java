@@ -46,17 +46,15 @@ public class CommentControl {
      */
     @PostMapping("/getAllComment")
     @ResponseBody
-    public JSONArray getAllComment(@RequestParam("articleId") String articleId,
+    public JSONArray getAllComment(@RequestParam("articleId") Long articleId,
                                    @AuthenticationPrincipal Principal principal){
 
         String username = null;
         try {
             username = principal.getName();
         } catch (NullPointerException e){
-            logger.info("This user is not login");
         }
-        JSONArray jsonArray = commentService.findCommentByArticleId(Long.parseLong(articleId),username);
-        return jsonArray;
+        return commentService.findCommentByArticleId(articleId,username);
 
     }
 

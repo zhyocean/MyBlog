@@ -11,6 +11,7 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableWebMvc
+@EnableScheduling
 public class MyBlogApplication {
 
 	public static void main(String[] args) {

@@ -1,6 +1,7 @@
 package com.zhy.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: zhangocean
@@ -8,6 +9,7 @@ import lombok.Data;
  * Describe: 标签
  */
 @Data
+@NoArgsConstructor
 public class Tag {
 
     private int id;
@@ -21,9 +23,6 @@ public class Tag {
      * 标签大小
      */
     private int tagSize;
-
-    public Tag() {
-    }
 
     public Tag(String tagName, int tagSize) {
         this.tagName = tagName;

@@ -80,7 +80,7 @@ public interface UserService {
      * @param username 用户名
      * @return true--存在  false--不存在
      */
-    boolean usernameIsExit(String username);
+    boolean usernameIsExist(String username);
 
     /**
      * 通过手机号判断是否为超级用户

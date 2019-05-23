@@ -29,5 +29,15 @@ public interface CategoryService {
      */
     int countCategoriesNum();
 
+    /**
+     * 获得分类名和对应id
+     */
+    JSONObject findAllCategories();
 
+    /**
+     * 更新分类
+     * @param categoryName 分类名
+     * @param type 1--增加分类   2--删除分类
+     */
+    JSONObject updateCategory(String categoryName, int type);
 }

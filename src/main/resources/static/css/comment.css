@@ -105,6 +105,9 @@
     color: #999;
     text-align: center;
 }
+.visitorReplyWords{
+    font-size: 14px;
+}
 .visitorReplyWords a{
     text-decoration: none;
 }

@@ -1,6 +1,7 @@
 package com.zhy.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: zhangocean
@@ -8,15 +9,12 @@ import lombok.Data;
  * Describe: 权限
  */
 @Data
+@NoArgsConstructor
 public class Role {
 
     private int id;
 
     private String name;
-
-    public Role(){
-
-    }
 
     public Role(int id, String name) {
         this.id = id;

@@ -419,7 +419,7 @@
                         }
                     },
                     error: function () {
-                        alert("获得文章信息失败！");
+                        alert("回复失败！");
                     }
                 });
             }
@@ -517,7 +517,6 @@
            putInComment(data);
         },
         error:function () {
-            console.log("请求评论失败");
         }
     });
 

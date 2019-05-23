@@ -74,12 +74,12 @@ public class DruidDataSourceConfig {
       servletRegistrationBean.setServlet(new StatViewServlet());
       servletRegistrationBean.addUrlMappings("/druid/*");
       Map<String, String> initParameters = new HashMap<String, String>();
-      initParameters.put("loginUsername", "druid登录账号");
-      initParameters.put("loginPassword", "druid登录密码");
+      initParameters.put("loginUsername", "设置druid登录账号");
+      initParameters.put("loginPassword", "设置druid登录密码");
       initParameters.put("resetEnable", "true");
         //下面是黑白名单，多个ip地址之间用逗号隔开
-//      initParameters.put("allow", "");
-//      initParameters.put("deny", "");
+//      initParameters.put("allow", "白名单ip");
+//      initParameters.put("deny", "黑名单ip");
       servletRegistrationBean.setInitParameters(initParameters);
 
       return servletRegistrationBean;

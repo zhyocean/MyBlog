@@ -37,7 +37,7 @@
                         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
                             <li class="superAdminClick articleManagement"><a class="am-cf"><span class="am-icon-check"></span> 文章管理<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
 
-                            <li class="superAdminClick articleThumbsUp"><a><span class="am-icon-thumbs-up"></span> 点赞管理<span class="am-badge am-badge-warning am-margin-right am-fr articleThumbsUpNum">24</span></a></li>
+                            <li class="superAdminClick articleThumbsUp"><a><span class="am-icon-thumbs-up"></span> 点赞管理</a></li>
                             <li class="superAdminClick articleCategories"><a><span class="am-icon-th"></span> 分类管理</a></li>
                         </ul>
                     </li>
@@ -60,16 +60,16 @@
         <div class="admin-content">
             <div class="superAdminInfo">
                 <div class="superFunction" id="statistics">
-                    <div class="site-inner">
+                    <div class="subject">
                         <ol class="am-breadcrumb  am-breadcrumb-slash">
                             <li class="am-active am-icon-home"> 后台管理</li>
                             <li class="am-active">仪表盘</li>
                         </ol>
                         <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
-                            <li><a href="#" class="am-text-success"><span class="am-icon-btn am-icon-meh-o"></span><br/>总访问量<br/><span class="allVisitor">1230</span></a></li>
-                            <li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-recycle"></span><br/>昨日访问<br/><span class="yesterdayVisitor">465</span></a></li>
-                            <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-user-md"></span><br/>总用户量<br/><span class="allUser">132</span></a></li>
-                            <li><a href="#" class="am-text-secondary"><span class="am-icon-btn am-icon-file-text"></span><br/>文章量<br/><span class="articleNum">132</span></a></li>
+                            <li><a href="#" class="am-text-success"><span class="am-icon-btn am-icon-meh-o"></span><br/>总访问量<br/><span class="allVisitor"></span></a></li>
+                            <li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-recycle"></span><br/>昨日访问<br/><span class="yesterdayVisitor">-1</span></a></li>
+                            <li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-user-md"></span><br/>总用户量<br/><span class="allUser"></span></a></li>
+                            <li><a href="#" class="am-text-secondary"><span class="am-icon-btn am-icon-file-text"></span><br/>文章量<br/><span class="articleNum"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -77,21 +77,24 @@
                     <div class="subject">
                         <div class="articles">
                             <div class="am-g">
-                                <div class="am-u-sm-12">
+                                <div class="am-u-sm-12 " style="padding-left: 0;">
                                     <ol class="am-breadcrumb  am-breadcrumb-slash">
                                         <li class="am-active am-icon-home"> 后台管理</li>
                                         <li class="am-active">文章管理</li>
                                     </ol>
-                                    <table class="am-table am-table-bd am-table-striped admin-content-table">
-                                        <thead>
-                                        <tr>
-                                            <th>文章标题</th><th>发布时间</th><th>文章分类</th><th>浏览量</th><th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="articleManagementTable">
+                                    <div class="articleManagementTable">
+                                        <table class="table am-table am-table-bd am-table-striped admin-content-table  am-animation-slide-right">
+                                            <thead>
+                                            <tr>
+                                                <th>文章标题</th><th>发布时间</th><th>文章分类</th><th>浏览量</th><th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="tables">
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -104,94 +107,65 @@
                                 <li class="am-active am-icon-home"> 后台管理</li>
                                 <li class="am-active">点赞管理</li>
                             </ol>
-                            <div class="msgContent">
-                                <div class="msgReadTop">
-                                    <span class="msgIsReadNum">未读消息：</span>0
-                                    <a class="msgIsRead">全部标记为已读</a>
-                                </div>
-                                <div class="msgRead"><span class="msgReadSign">*</span>
-                                    <span class="am-badge msgType">博客</span>
-                                    <span class="msgHead">
-                                        <a href="" class="msgPerson">张海洋</a>点赞了你的博文
-                                    </span>
-                                    <div class="msgTxt">
-                                        <span><a class="articleTitle" href="/" target="_blank">SpringBoot之从零搭建博客网站（可提供源码）</a></span>
-                                        <span class="msgDate">2019-04-09</span>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="msgRead"><span class="msgReadSign">*</span>
-                                    <span class="am-badge msgType">博客</span>
-                                    <span class="msgHead">
-                                        <a href="" class="msgPerson">张海洋</a>点赞了你的博文
-                                    </span>
-                                    <div class="msgTxt">
-                                        <span><a class="articleTitle" href="/" target="_blank">SpringBoot之从零搭建博客网站（可提供源码）</a></span>
-                                        <span class="msgDate">2019-04-09</span>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="msgRead"><span class="msgReadSign">*</span>
-                                    <span class="am-badge msgType">博客</span>
-                                    <span class="msgHead">
-                                        <a href="" class="msgPerson">张海洋</a>点赞了你的博文
-                                    </span>
-                                    <div class="msgTxt">
-                                        <span><a class="articleTitle" href="/" target="_blank">SpringBoot之从零搭建博客网站（可提供源码）</a></span>
-                                        <span class="msgDate">2019-04-09</span>
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="my-row" id="thumbsUpPageFather">
-                                    <div id="thumbsUpPagination">
-                                        <ul class="am-pagination  am-pagination-centered">
-                                            <li class="am-disabled"><a href="#">&laquo; 上一页</a></li>
-                                            <li class="am-active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#">5</a></li>
-                                            <li><a href="#">下一页 &raquo;</a></li>
-                                        </ul>
-                                    </div>
+                            <div class="msgContent am-animation-slide-right">
+                                <!--填充文章点赞信息-->
+                                <div style="height: 800px;">
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="superFunction" id="articleCategories">
-                    <div class="site-inner">
-                        4
-                    </div>
-                </div>
-                <div class="superFunction" id="friendLink">
-                    <div class="site-inner">
-                        5
-                    </div>
-                </div>
-                <div class="superFunction" id="userFeedback">
-                    <div class="site-inner">
-                        <ol class="am-breadcrumb  am-breadcrumb-slash">
-                            <li class="am-active am-icon-home"> 后台管理</li>
-                            <li class="am-active">反馈</li>
-                        </ol>
-                        <div class="userFeedbackInfo">
-                            <div class="feedbackInfos">
-
+                    <div class="subject">
+                        <div class="articleCategoriesManagement">
+                            <ol class="am-breadcrumb  am-breadcrumb-slash navigationBar">
+                                <li class="am-active am-icon-home"> 后台管理</li>
+                                <li class="am-active">分类管理</li>
+                            </ol>
+                            <div class="categoryContent">
+                                <!--分类管理-->
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="superFunction" id="friendLink">
+                    <div class="subject">
+                        <div class="friendLinkManagement">
+                            <ol class="am-breadcrumb  am-breadcrumb-slash navigationBar">
+                                <li class="am-active am-icon-home"> 后台管理</li>
+                                <li class="am-active">友链管理</li>
+                            </ol>
+                            <div class="friendLinkContent">
+                                <!--填充友链信息-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="superFunction" id="userFeedback">
+                    <div class="subject">
+                        <div class="userFeedbackManagement">
+                            <ol class="am-breadcrumb  am-breadcrumb-slash">
+                                <li class="am-active am-icon-home"> 后台管理</li>
+                                <li class="am-active">反馈管理</li>
+                            </ol>
+                            <div class="userFeedbackInfo">
+                                <div class="feedbackInfos  am-animation-slide-right">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
                 <div class="superFunction" id="privateWord">
-                    <div class="site-inner">
+                    <div class="subject">
                         <ol class="am-breadcrumb  am-breadcrumb-slash">
                             <li class="am-active am-icon-home"> 后台管理</li>
                             <li class="am-active">悄悄话</li>
                         </ol>
                         <div class="privateWord">
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -219,13 +193,71 @@
             </div>
         </div>
 
+        <!--添加分类模态框-->
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="addCategory">
+            <div class="am-modal-dialog">
+                <div class="top am-modal-hd">添加分类</div>
+                <div class="am-modal-bd">
+                    <span class="describe">输入需要添加的分类名：</span>
+                    <input type="text" class="am-modal-prompt-input">
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+                </div>
+            </div>
+        </div>
+
+        <!--删除分类模态框-->
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="subCategory">
+            <div class="am-modal-dialog">
+                <div class="top am-modal-hd">删除分类</div>
+                <div class="am-modal-bd">
+                    <span class="describe">输入需要删除的分类名：</span>
+                    <input type="text" class="am-modal-prompt-input">
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+                </div>
+            </div>
+        </div>
+
+        <!--增加友链模态框-->
+        <div class="am-modal am-modal-alert" tabindex="-1" id="addFriendLink">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">添加友链</div>
+                <span>博主：</span>
+                <input id="blogger" type="text" class="am-modal-prompt-input">
+                <span>博客地址：</span>
+                <input id="url" type="text" class="am-modal-prompt-input">
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="sureFriendLinkAddBtn am-modal-btn">确定</span>
+                </div>
+            </div>
+        </div>
+
+        <!--删除友链模态框-->
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="deleteFriendLink">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">删除友链</div>
+                <div class="am-modal-bd">
+                    你确定要删除吗？删除了就无法恢复了呦!
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="sureFriendLinkDeleteBtn am-modal-btn" data-am-modal-confirm>确定</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!--手机适配显示左侧按钮-->
     <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
 <script src="js/all.js"></script>
-<script src="js/superadmin.js"></script>
 <script src="js/plugs_paging.js"></script>
+<script src="js/superadmin.js"></script>
 </body>
 </html>

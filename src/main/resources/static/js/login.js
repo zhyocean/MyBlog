@@ -251,7 +251,7 @@
                     }
                 },
                 error:function () {
-                    alert("fail");
+                    alert("修改密码失败");
                 }
             })
         }

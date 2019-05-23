@@ -244,14 +244,4 @@ public class BackControl {
         return "superadmin";
     }
 
-//    @GetMapping("/yesterday")
-//    public String yesterday(){
-//        return "yesterday";
-//    }
-
-    @GetMapping("/today")
-    public String today(){
-        return "today";
-    }
-
 }

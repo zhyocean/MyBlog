@@ -1,6 +1,7 @@
 package com.zhy.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: zhangocean
@@ -8,6 +9,7 @@ import lombok.Data;
  * Describe: 文章评论点赞记录
  */
 @Data
+@NoArgsConstructor
 public class CommentLikesRecord {
 
     private long id;
@@ -31,9 +33,6 @@ public class CommentLikesRecord {
      * 点赞时间
      */
     private String likeDate;
-
-    public CommentLikesRecord() {
-    }
 
     public CommentLikesRecord(long articleId, int pId, int likerId, String likeDate) {
         this.articleId = articleId;

@@ -112,3 +112,15 @@
 .visitorCommentImg {
     padding-left: 7px;
 }
+/*我的友链*/
+.myFriendLink{
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 400;
+}
+.friendLink{
+    display: inline-block;
+    width: 30%;
+    padding: 7px 0;
+}

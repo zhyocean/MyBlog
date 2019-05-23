@@ -3,6 +3,7 @@ package com.zhy.controller;
 import com.zhy.model.ArticleLikesRecord;
 import com.zhy.service.ArticleLikesRecordService;
 import com.zhy.service.ArticleService;
+import com.zhy.service.RedisService;
 import com.zhy.service.UserService;
 import com.zhy.utils.TimeUtil;
 import com.zhy.utils.TransCodingUtil;
@@ -35,6 +36,8 @@ public class ShowArticleControl {
     ArticleService articleService;
     @Autowired
     UserService userService;
+    @Autowired
+    RedisService redisService;
 
     /**
      *  获取文章
@@ -81,7 +84,7 @@ public class ShowArticleControl {
         int likes = articleService.updateLikeByArticleId(Long.parseLong(articleId));
         ArticleLikesRecord articleLikesRecord = new ArticleLikesRecord(Long.parseLong(articleId), userService.findIdByUsername(username), new TimeUtil().getFormatDateForFive());
         articleLikesRecordService.insertArticleLikesRecord(articleLikesRecord);
-        logger.info("点赞成功");
+        redisService.readThumbsUpRecordOnRedis("articleThumbsUp", 1);
         return likes;
     }
 

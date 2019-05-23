@@ -1,6 +1,7 @@
 package com.zhy.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: zhangocean
@@ -8,6 +9,7 @@ import lombok.Data;
  * Describe: 悄悄话
  */
 @Data
+@NoArgsConstructor
 public class PrivateWord {
 
     private int id;
@@ -36,9 +38,6 @@ public class PrivateWord {
      * 发布时间
      */
     private String publisherDate;
-
-    public PrivateWord() {
-    }
 
     public PrivateWord(String privateWord, int publisherId, String publisherDate) {
         this.privateWord = privateWord;

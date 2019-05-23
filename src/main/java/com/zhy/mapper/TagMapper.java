@@ -22,7 +22,7 @@ public interface TagMapper {
     void insertTag(Tag tag);
 
     @Select("select IFNULL(max(id),0) from tags where tagName=#{tagName}")
-    int findIsExitByTagName(@Param("tagName") String tagName);
+    int findIsExistByTagName(@Param("tagName") String tagName);
 
     @Select("select * from tags order by id desc")
     List<Tag> findTagsCloud();

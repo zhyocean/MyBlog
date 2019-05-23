@@ -24,7 +24,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public void addTags(String[] tags, int tagSize) {
         for(String tag : tags){
-            if(tagMapper.findIsExitByTagName(tag) == 0){
+            if(tagMapper.findIsExistByTagName(tag) == 0){
                 Tag t = new Tag(tag, tagSize);
                 tagMapper.insertTag(t);
             }

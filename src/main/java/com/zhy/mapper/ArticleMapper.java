@@ -1,6 +1,7 @@
 package com.zhy.mapper;
 
 import com.zhy.model.Article;
+import com.zhy.model.ArticleLikesRecord;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

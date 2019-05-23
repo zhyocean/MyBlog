@@ -8,6 +8,8 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.zhy.component.PhoneRandomBuilder;
+import com.zhy.redis.StringRedisServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class GetPhoneCodeControl {
 
+    @Autowired
+    StringRedisServiceImpl stringRedisService;
+
+    private static final String REGISTER = "register";
+
     @PostMapping("/getCode")
     @ResponseBody
     public int getAuthCode(HttpServletRequest request){
@@ -29,16 +36,18 @@ public class GetPhoneCodeControl {
         String phone = request.getParameter("phone");
         String sign = request.getParameter("sign");
         String trueMsgCode = PhoneRandomBuilder.randomBuilder();
+        System.out.println("验证手机号：" + trueMsgCode);
 
-        request.getSession().setAttribute("trueMsgCode", trueMsgCode);
-        request.getSession().setAttribute("msgCodePhone", phone);
+//        在redis中保存手机号验证码并设置过期时间
+        stringRedisService.set(phone, trueMsgCode);
+        stringRedisService.expire(phone, 300);
 
         String msgCode = "SMS_136394413";
-        //注册
-        if("register".equals(sign)){
+        //注册的短信模板
+        if(REGISTER.equals(sign)){
             msgCode = "SMS_136394413";
         }
-        //改密码
+        //改密码的短信模板
         else {
             msgCode = "SMS_139982667";
         }
@@ -60,14 +69,14 @@ public class GetPhoneCodeControl {
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
         //"***"分别填写自己的AccessKey ID和Secret
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", "这里填accessKey", "这里填secret");
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", "这里填OSS的key", "这里填OSS的secret");
         DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "Dysmsapi", "dysmsapi.aliyuncs.com");
         IAcsClient acsClient = new DefaultAcsClient(profile);
         SendSmsRequest request = new SendSmsRequest();
         //填写接收方的手机号码
         request.setPhoneNumbers(phoneNumber);
         //此处填写已申请的短信签名
-        request.setSignName("这里填你的短信签名");
+        request.setSignName("填你的短信签名");
         //此处填写获得的短信模版CODE
         request.setTemplateCode(msgCode);
         //笔者的短信模版中有${code}, 因此此处对应填写验证码
