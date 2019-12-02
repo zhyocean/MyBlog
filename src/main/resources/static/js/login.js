@@ -122,9 +122,11 @@
                     sign:"changePassword"
                 },
                 success:function (data) {
-                    if(parseInt(data) == 1) {
-                        alert("手机验证码发送成功！");
+                    if(parseInt(data['status']) == 0) {
+                        alert("短信验证码发送成功");
                         timeCount();
+                    } else {
+                        alert("短信验证码发送异常");
                     }
                 },
                 error:function () {
@@ -234,20 +236,20 @@
                 url:'/changePassword',
                 dataType:'json',
                 data:{
-                    "phone":modal_phone_value,
-                    "authCode":modal_auth_code_value,
-                    "newPassword":modal_new_password_value
+                    phone:modal_phone_value,
+                    authCode:modal_auth_code_value,
+                    newPassword:modal_new_password_value
                 },
                 success:function (data) {
-                    if(data == "0"){
+                    if(data['status'] == 902){
                         auth_code_error.show();
-                    }else if (data == "2"){
+                    }else if (data['status'] == 508){
                         $('.phoneNotExitSpan').show();
-                    }else if(data == "1"){
+                    }else if(data['status'] == 901){
+                        alert("手机号不正确，请重新输入");
+                    }else {
                         alert("密码修改成功，快去登录吧！");
                         window.location.reload();
-                    }else if(data == "3"){
-                        alert("手机号不正确，请重新输入");
                     }
                 },
                 error:function () {

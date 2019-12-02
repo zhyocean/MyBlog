@@ -114,6 +114,13 @@
                     <li><a class="top_bar" href="/aboutme" style="cursor: pointer;"><span class="am-icon-user"></span>&nbsp;关于我</a> </li>
                 </ul>
 
+                <div class="am-topbar-right reward am-show-sm-down">
+                    <a  href="/reward" style="text-decoration: none">
+                        <img class="am-circle" src="/img/favicon.png">
+                        <span class="reward-word">公益募捐</span>
+                    </a>
+                </div>
+
                 <div class="am-topbar-right" th:if="${#httpServletRequest.remoteUser}">
                     <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
                         <button class="personalSpace am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle><span sec:authentication="name"></span> <span class="am-icon-caret-down"></span></button>
@@ -137,6 +144,12 @@
                     <a  href="/editor" target="_blank" style="text-decoration: none">
                         <img class="am-circle" src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/loading.gif" data-src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/writing.png">
                         <span class="write-word">写博客</span>
+                    </a>
+                </div>
+                <div class="am-topbar-right reward am-hide-sm-down">
+                    <a  href="/reward" style="text-decoration: none">
+                        <img class="am-circle" src="/img/favicon.png">
+                        <span class="reward-word">公益募捐</span>
                     </a>
                 </div>
 
@@ -543,6 +556,12 @@
                             <div><a class="bg-myGirl-a" href="/mylove" target="_blank">我的女孩</a></div>
                         </div>
                         <div class="myStory-words">我的女孩，你还在吗</div>
+                    </div>
+                    <div class="myStory" >
+                        <div class="bg-myHeart">
+                            <div><a class="bg-myGirl-a" href="/myheart" target="_blank">藏心阁</a></div>
+                        </div>
+                        <div class="myStory-words">曾经的我，写给未来的自己</div>
                     </div>
                     <!--<div class="myStory" >-->
                         <!--<div class="bg-myStory" style="background: url(img/index/ali.jpg) repeat">-->

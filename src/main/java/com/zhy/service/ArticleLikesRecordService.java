@@ -1,8 +1,7 @@
 package com.zhy.service;
 
 import com.zhy.model.ArticleLikesRecord;
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
+import com.zhy.utils.DataMap;
 
 /**
  * @author: zhangocean
@@ -34,15 +33,15 @@ public interface ArticleLikesRecordService {
     /**
      * 获得文章点赞信息
      */
-    JSONObject getArticleThumbsUp(String username, int rows, int pageNum);
+    DataMap getArticleThumbsUp(int rows, int pageNum);
 
     /**
      * 已读一条点赞记录
      */
-    int readThisThumbsUp(int id);
+    DataMap readThisThumbsUp(int id);
 
     /**
      * 已读所有点赞记录
      */
-    JSONObject readAllThumbsUp();
+    DataMap readAllThumbsUp();
 }

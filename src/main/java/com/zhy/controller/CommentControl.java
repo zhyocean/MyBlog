@@ -1,24 +1,25 @@
 package com.zhy.controller;
 
+import com.zhy.aspect.annotation.PermissionCheck;
 import com.zhy.component.JavaScriptCheck;
+import com.zhy.constant.CodeType;
 import com.zhy.constant.SiteOwner;
 import com.zhy.model.Comment;
 import com.zhy.model.CommentLikesRecord;
 import com.zhy.service.CommentLikesRecordService;
 import com.zhy.service.CommentService;
 import com.zhy.service.UserService;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.JsonResult;
+import com.zhy.utils.StringUtil;
 import com.zhy.utils.TimeUtil;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
@@ -27,10 +28,8 @@ import java.security.Principal;
  * @Date: 2018/7/5 23:14
  * Describe: 评论和回复
  */
-@Controller
+@RestController
 public class CommentControl {
-
-    private Logger logger = LoggerFactory.getLogger(ShowArticleControl.class);
 
     @Autowired
     private CommentService commentService;
@@ -44,40 +43,27 @@ public class CommentControl {
      * @param articleId 文章id
      * @return
      */
-    @PostMapping("/getAllComment")
-    @ResponseBody
-    public JSONArray getAllComment(@RequestParam("articleId") Long articleId,
+    @PostMapping(value = "/getAllComment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getAllComment(@RequestParam("articleId") Long articleId,
                                    @AuthenticationPrincipal Principal principal){
 
         String username = null;
-        try {
+        if(principal != null){
             username = principal.getName();
-        } catch (NullPointerException e){
         }
-        return commentService.findCommentByArticleId(articleId,username);
-
+        DataMap data = commentService.findCommentByArticleId(articleId,username);
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 评论
      * @param principal 当前用户
-     * @return
      */
-    @PostMapping("/publishComment")
-    @ResponseBody
-    public JSONArray publishComment(Comment comment,
+    @PostMapping(value = "/publishComment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_USER")
+    public String publishComment(Comment comment,
                                     @AuthenticationPrincipal Principal principal){
-        String publisher;
-        try {
-            publisher  = principal.getName();
-        } catch (NullPointerException e){
-            logger.error("no principal,please to login");
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("status",403);
-            JSONArray jsonArray = new JSONArray();
-            jsonArray.add(jsonObject);
-            return jsonArray;
-        }
+        String publisher = principal.getName();
         TimeUtil timeUtil = new TimeUtil();
         comment.setCommentDate(timeUtil.getFormatDateForFive());
         int userId = userService.findIdByUsername(publisher);
@@ -87,32 +73,22 @@ public class CommentControl {
 
         commentService.insertComment(comment);
 
-        JSONArray jsonArray = commentService.findCommentByArticleId(comment.getArticleId(),publisher);
-        return jsonArray;
+        DataMap data = commentService.findCommentByArticleId(comment.getArticleId(),publisher);
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 评论中的回复
      * @param principal 当前用户
-     * @return
      */
-    @PostMapping("/publishReply")
-    @ResponseBody
-    public JSONArray publishReply(Comment comment,
+    @PostMapping(value = "/publishReply", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_USER")
+    public String publishReply(Comment comment,
                                   @RequestParam("parentId") String parentId,
                                   @RequestParam("respondent") String respondent,
                                   @AuthenticationPrincipal Principal principal){
 
-        String username = null;
-        JSONArray jsonArray = new JSONArray();
-        try {
-            username = principal.getName();
-        } catch (NullPointerException e){
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("status",403);
-            jsonArray.add(jsonObject);
-            return jsonArray;
-        }
+        String username = principal.getName();
 
         comment.setPId(Long.parseLong(parentId.substring(1)));
         comment.setAnswererId(userService.findIdByUsername(username));
@@ -127,36 +103,24 @@ public class CommentControl {
             comment.setCommentContent(commentContent.trim());
         }
         //判断用户输入内容是否为空字符串
-        if("".equals(comment.getCommentContent())){
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("status",400);
-            jsonArray.add(jsonObject);
-            return jsonArray;
+        if(StringUtil.BLANK.equals(comment.getCommentContent())){
+            return JsonResult.fail(CodeType.COMMENT_BLANK).toJSON();
         } else {
             //防止xss攻击
             comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
-            comment = commentService.insertComment(comment);
+            commentService.insertComment(comment);
         }
-        jsonArray = commentService.replyReplyReturn(comment, username, respondent);
-        return jsonArray;
+        DataMap data = commentService.replyReplyReturn(comment, username, respondent);
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 是否登陆
-     * @param principal 当前用户
-     * @return
      */
-    @GetMapping("/isLogin")
-    @ResponseBody
-    public int isLogin(@AuthenticationPrincipal Principal principal){
-        String username;
-        try {
-            username = principal.getName();
-            return 1;
-        } catch (NullPointerException e){
-            logger.info("This user is not login");
-            return 0;
-        }
+    @GetMapping(value = "/isLogin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_USER")
+    public String isLogin(){
+        return JsonResult.success().toJSON();
     }
 
     /**
@@ -166,30 +130,23 @@ public class CommentControl {
      * @param principal 当前用户
      * @return 点赞数
      */
-    @GetMapping("/addCommentLike")
-    @ResponseBody
-    public int addCommentLike(@RequestParam("articleId") String articleId,
+    @GetMapping(value = "/addCommentLike", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_USER")
+    public String addCommentLike(@RequestParam("articleId") String articleId,
                               @RequestParam("respondentId") String respondentId,
                               @AuthenticationPrincipal Principal principal){
 
-        String username;
-        try {
-            username = principal.getName();
-        } catch (NullPointerException e){
-            logger.info("This user is not login");
-            return -1;
-        }
+        String username = principal.getName();
 
         TimeUtil timeUtil = new TimeUtil();
         CommentLikesRecord commentLikesRecord = new CommentLikesRecord(Long.parseLong(articleId),
                 Integer.parseInt(respondentId.substring(1)),userService.findIdByUsername(username),timeUtil.getFormatDateForFive());
         if(commentLikesRecordService.isLiked(commentLikesRecord.getArticleId(), commentLikesRecord.getPId(), username)){
-            logger.info("This user had clicked good for this article");
-            return -2;
+            return JsonResult.fail(CodeType.MESSAGE_HAS_THUMBS_UP).toJSON();
         }
-        int likes = commentService.updateLikeByArticleIdAndId(commentLikesRecord.getArticleId(),commentLikesRecord.getPId());
+        DataMap data = commentService.updateLikeByArticleIdAndId(commentLikesRecord.getArticleId(),commentLikesRecord.getPId());
         commentLikesRecordService.insertCommentLikesRecord(commentLikesRecord);
-        return likes;
+        return JsonResult.build(data).toJSON();
     }
 
 }

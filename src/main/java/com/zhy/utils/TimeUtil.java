@@ -1,5 +1,8 @@
 package com.zhy.utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -101,5 +104,18 @@ public class TimeUtil {
         s.append("-");
         s.append(str.substring(5,7));
         return String.valueOf(s);
+    }
+
+    /**
+     * String To date
+     */
+    public Date stringToDateThree(String date){
+        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return format1.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

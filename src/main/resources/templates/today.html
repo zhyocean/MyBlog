@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>今日 | 程序猿张先森</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="keywords" content="博客,个人,学习,IT,生活,张海洋,程序猿,springboot,java,后端，友链">
+    <meta name="description" content="张海洋，正宗97后，爱编程。喜欢旅行、摄影、爱生活。专注于Spring,SpringBoot等后端技术探索，以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习。">
+
+    <link rel="icon" type="image/x-icon" href="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/favicon.ico">
+    <link rel="stylesheet" href="css/lightMoreGallery.css">
+    <link href="https://lib.baomitu.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/today.css">
+
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="js/lightMoreGallery.js"></script>
+
+    <style>
+        body{
+            background-image: url(https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/love.jpg);
+        }
+    </style>
+</head>
+<body>
+    <div class="all">
+        <div class="head">
+            <h1 class="vintage4">张先森的日常</h1>
+            <div class="h1Word">
+                <p>曾经我们都以为自己可以为爱情死</p>
+                <p>其实爱情死不了人</p>
+                <p>它只会在最疼的地方扎上一针</p>
+                <p>然后我们欲哭无泪</p>
+                <p>我们辗转反侧</p>
+                <p>我们久病成医</p>
+                <p>我们百炼成钢</p>
+            </div>
+        </div>
+        <div class="main">
+            <div class="am-container">
+                <div class="me am-u-sm-12 am-u-lg-10">
+                    <form id="uploadForm" name="uploadForm" enctype="multipart/form-data" method="post">
+                        <div class="am-panel am-panel-danger">
+                            <div class="sayTitle am-panel-hd">喜欢一个人是什么感觉</div>
+                            <textarea id="iSay" name="content" placeholder="每天都有数不尽的话想说，奈何只有对自己说......"></textarea>
+                        </div>
+                        <input id="picture" name="picture" type="file" multiple="multiple" onchange="readAsDataURL()" accept=".gif,.jpg,.jpeg,.png"><a class="am-icon-heart am-icon-sm"> 图片</a>
+                        <div class="moods" style="display: inline-block">
+                            <i id="happy" class="happy am-icon-smile-o am-icon-sm"> 开心</i><i id="just" class="just am-icon-meh-o am-icon-sm"> 一般</i><i id="terrible" class="terrible am-icon-frown-o am-icon-sm"> 伤心</i>
+                        </div>
+                        <button type="submit" class="sendBtn am-btn am-btn-warning am-round">Ｉ Lᵒᵛᵉᵧₒᵤ❤</button>
+                    </form>
+
+                    <div class="sayContent">
+                        <hr data-am-widget="divider" style="border-top-color: #906f6f" class="am-divider am-divider-dashed" />
+                        <div style="text-align: center;color: red">
+                            <h1 class="dayDayTitle">===== 每天的闹腾事 ❥(^_-) ======</h1>
+                        </div>
+                        <div class="says">
+                            <!--<div class="time">-->
+                                <!--<h1>2018</h1>-->
+                                <!--<i class="yearHeart am-icon-heart am-icon-md"></i>-->
+                            <!--</div>-->
+                            <!--<div class="timeline-wrap">-->
+                                <!--<div class="timeline-row-major">-->
+                                    <!--<span class="node"></span>-->
+                                    <!--<div class="month">10月</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="timeline-wrap">-->
+                                <!--<div class="timeline-row-major">-->
+                                    <!--<span class="node"></span>-->
+                                    <!--<div class="say am-comment-main">-->
+                                        <!--<div class="todayTime">-->
+                                            <!--<i class="todayTimeNow am-icon-clock-o"></i> 2018-10-20 21:32-->
+                                            <!--<i class="todayMood am-icon-frown-o" style="color: red"></i><span class="todayMoodWord"> 伤心透顶</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="missYou">-->
+                                            <!--单方事故第三个第四个讽德诵功第三方广东省高单方事故地方施工队发送给方事故第三个第四个讽德诵功第三方广东省高单方-->
+                                            <!--事故地方施工队发送给方事故第三个第四个讽德诵功第三方广东省高单方事故地方施工队发送给-->
+                                        <!--</div>-->
+                                        <!--<div class="todayPic">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="timeline-wrap">-->
+                                <!--<div class="timeline-row-major">-->
+                                    <!--<span class="node"></span>-->
+                                    <!--<div class="say am-comment-main">-->
+                                        <!--<div class="todayTime">-->
+                                            <!--<i class="todayTimeNow am-icon-clock-o"></i> 2018-10-20 21:32-->
+                                            <!--<i class="todayMood am-icon-meh-o" style="color: #666666"></i><span class="todayMoodWord"> 不喜不悲</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="missYou">-->
+                                            <!--单方事故第三个第四个讽德诵功第三方广东省高单方事故地方施工队发送给-->
+                                        <!--</div>-->
+                                        <!--<div class="todayPic">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="timeline-wrap">-->
+                                <!--<div class="timeline-row-major">-->
+                                    <!--<span class="node"></span>-->
+                                    <!--<div class="month">11月</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="timeline-wrap">-->
+                                <!--<div class="timeline-row-major">-->
+                                    <!--<span class="node"></span>-->
+                                    <!--<div class="say am-comment-main">-->
+                                        <!--<div class="todayTime">-->
+                                            <!--<i class="todayTimeNow am-icon-clock-o"></i> 2018-10-20 21:32-->
+                                            <!--<i class="todayMood am-icon-smile-o" style="color: #ff8f52;"></i><span class="todayMoodWord"> 开心至极</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="missYou">-->
+                                            <!--单方事故第三个第四个讽德诵功第三方广东省高单方事故地方施工队发送给-->
+                                        <!--</div>-->
+                                        <!--<div class="todayPic">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="time">-->
+                                <!--<h1>2017</h1>-->
+                                <!--<i class="am-icon-heart am-icon-md" style="margin-left: 25px;color: red"></i>-->
+                            <!--</div>-->
+                            <!--<div class="timeline-wrap">-->
+                                <!--<div class="timeline-row-major">-->
+                                    <!--<span class="node"></span>-->
+                                    <!--<div class="month">12月</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="timeline-wrap">-->
+                                <!--<div class="timeline-row-major">-->
+                                    <!--<span class="node"></span>-->
+                                    <!--<div class="say am-comment-main">-->
+                                        <!--<div class="todayTime">-->
+                                            <!--<i class="todayTimeNow am-icon-clock-o"></i> 2018-10-20 21:32-->
+                                            <!--<i class="todayMood am-icon-frown-o" style="color: red"></i><span class="todayMoodWord"> 伤心透顶</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="missYou">-->
+                                            <!--单方事故第三个第四个讽德诵功第三方广东省高单方事故地方施工队发送给方事故第三个第四个讽德诵功第三方广东省高单方-->
+                                            <!--事故地方施工队发送给方事故第三个第四个讽德诵功第三方广东省高单方事故地方施工队发送给-->
+                                        <!--</div>-->
+                                        <!--<div class="todayPic">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                            <!--<img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/zhy.png">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="saysButton">
+                            <!--<button type="button" id="moreSaysButton" class="lookMore am-btn am-btn-default am-radius">相不相信还有更多日常</button>-->
+
+                            <!--<div class="buttonLine">-->
+                                <!--<hr data-am-widget="divider" class="am-divider am-divider-default" />-->
+                                <!--<span>别点啦，俺老张也是有底线的人～(>_<)～～</span>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer">
+            <div class="footerIcon">
+                © 2018-2019 <a href="http://www.miitbeian.gov.cn" target="_blank">蜀ICP备18000229号 </a> <i class="am-icon-coffee" style="margin: 0 5px"></i>张海洋
+            </div>
+        </div>
+        <div id="toTop" data-am-widget="gotop" class="am-gotop am-gotop-fixed" >
+            <a href="#top" title="回到顶部">
+                <i class="am-gotop-icon am-icon-arrow-up"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="js/heart.js"></script>
+    <script src="js/today.js"></script>
+</body>
+</html>

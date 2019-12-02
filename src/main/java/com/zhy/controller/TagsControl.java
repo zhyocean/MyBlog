@@ -2,10 +2,12 @@ package com.zhy.controller;
 
 import com.zhy.service.ArticleService;
 import com.zhy.service.TagService;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.JsonResult;
+import com.zhy.utils.StringUtil;
 import com.zhy.utils.TransCodingUtil;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,20 +32,18 @@ public class TagsControl {
      * @param tag
      * @return
      */
-    @PostMapping("/getTagArticle")
-    public JSONObject getTagArticle(@RequestParam("tag") String tag,
+    @PostMapping(value = "/getTagArticle", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getTagArticle(@RequestParam("tag") String tag,
                                     HttpServletRequest request){
-        try {
-            tag = TransCodingUtil.unicodeToString(tag);
-        } catch (Exception e){
+        if(tag.equals(StringUtil.BLANK)){
+            return JsonResult.build(tagService.findTagsCloud()).toJSON();
         }
-        if("".equals(tag)){
-            return tagService.findTagsCloud();
-        } else {
-            int rows = Integer.parseInt(request.getParameter("rows"));
-            int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-            return articleService.findArticleByTag(tag, rows, pageNum);
-        }
+
+        tag = TransCodingUtil.unicodeToString(tag);
+        int rows = Integer.parseInt(request.getParameter("rows"));
+        int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        DataMap data = articleService.findArticleByTag(tag, rows, pageNum);
+        return JsonResult.build(data).toJSON();
     }
 
 }

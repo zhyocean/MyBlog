@@ -1,8 +1,6 @@
 package com.zhy.service;
 
-import com.zhy.model.Result;
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
+import com.zhy.utils.DataMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +15,7 @@ public interface VisitorService {
      * 通过页名增加访客量
      * @param pageName
      */
-    Result addVisitorNumByPageName(String pageName, HttpServletRequest request);
+    DataMap addVisitorNumByPageName(String pageName, HttpServletRequest request);
 
 
     /**

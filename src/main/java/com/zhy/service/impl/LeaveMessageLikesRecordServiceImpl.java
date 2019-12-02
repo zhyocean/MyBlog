@@ -26,6 +26,6 @@ public class LeaveMessageLikesRecordServiceImpl implements LeaveMessageLikesReco
 
     @Override
     public void insertLeaveMessageLikesRecord(LeaveMessageLikesRecord leaveMessageLikesRecord) {
-        leaveMessageLikesRecordMapper.insertLeaveMessageLikesRecord(leaveMessageLikesRecord);
+        leaveMessageLikesRecordMapper.save(leaveMessageLikesRecord);
     }
 }

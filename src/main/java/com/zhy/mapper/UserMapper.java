@@ -34,7 +34,7 @@ public interface UserMapper {
     String findUsernameById(int id);
 
     @Insert("insert into user(phone,username,password,gender,avatarImgUrl) values(#{phone},#{username},#{password},#{gender},#{avatarImgUrl})")
-    void insert(User user);
+    void save(User user);
 
     @Select("select username from user where phone=#{phone}")
     User findUsernameByPhone(@Param("phone") String phone);
@@ -43,7 +43,7 @@ public interface UserMapper {
     User findUsernameByUsername(@Param("username") String username);
 
     @Insert("insert into user_role(User_id, Role_id) values (#{userId}, #{roleId})")
-    void insertRole(@Param("userId") int userId, @Param("roleId") int roleId);
+    void saveRole(@Param("userId") int userId, @Param("roleId") int roleId);
 
     @Select("select Role_id from user_role where User_id=#{userId}")
     List<Object> findRoleIdByUserId(@Param("userId") int userId);
@@ -52,7 +52,7 @@ public interface UserMapper {
     int findUserIdByPhone(@Param("phone") String phone);
 
     @Update("update user set password=#{password} where phone=#{phone}")
-    void updatePassword(@Param("phone") String phone,@Param("password") String password);
+    void updatePassword(@Param("phone") String phone, @Param("password") String password);
 
     @Select("select phone from user where username=#{username}")
     String findPhoneByUsername(@Param("username") String username);

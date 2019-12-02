@@ -34,6 +34,13 @@
         padding:10px 25px;
         border-radius: 5px;
     }
+    /*公益*/
+    .reward{
+        margin: 12px 13px 0 0;
+    }
+    .reward-word{
+        color: #999999;
+    }
 }
 @media screen and (max-width: 768px) {
 
@@ -68,6 +75,16 @@
         color: #ff3023;
         padding:10px 25px;
         border-radius: 5px;
+    }
+    /*公益*/
+    .reward{
+        margin-left: 10px;
+    }
+    .reward-word{
+        color: #666;
+    }
+    .reward img{
+        width: 28px;
     }
 }
 #app{

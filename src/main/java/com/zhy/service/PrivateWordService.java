@@ -1,7 +1,6 @@
 package com.zhy.service;
 
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
+import com.zhy.utils.DataMap;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -17,20 +16,20 @@ public interface PrivateWordService {
      * @return
      */
     @Transactional
-    JSONObject publishPrivateWord(String privateWordContent, String username);
+    DataMap publishPrivateWord(String privateWordContent, String username);
 
     /**
      * 获得悄悄话内容
      * @param publisher
      * @return
      */
-    JSONObject getPrivateWordByPublisher(String publisher, int rows, int pageNum);
+    DataMap getPrivateWordByPublisher(String publisher, int rows, int pageNum);
 
     /**
      * 获得所有悄悄内容
      * @return
      */
-    JSONObject getAllPrivateWord();
+    DataMap getAllPrivateWord();
 
     /**
      * 回复悄悄话
@@ -39,5 +38,5 @@ public interface PrivateWordService {
      * @return
      */
     @Transactional
-    JSONObject replyPrivateWord(String replyContent, String username, int id);
+    DataMap replyPrivateWord(String replyContent, String username, int id);
 }

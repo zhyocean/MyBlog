@@ -87,9 +87,11 @@
                     sign:"register"
                 },
                 success:function (data) {
-                    if(parseInt(data) == 1){
-                        alert("手机验证码发送成功！");
+                    if(parseInt(data['status']) == 0){
+                        alert("短信验证码发送成功");
                         timeCount();
+                    } else {
+                        alert("短信验证码发送异常");
                     }
 
                 },
@@ -221,21 +223,21 @@
                     "gender":gender_value
                 },
                 success: function (data) {
-                    if(data == "0"){
+                    if(data['status'] == 902){
                         auth_code_warn.css("display","block");
                         auth_code_error.css("display","block");
-                    } else if(data == "1"){
+                    } else if(data['status'] == 903){
                         phone_warn.css("display","block");
                         phone_error.css("display","block");
-                    } else if(data == "3"){
+                    } else if(data['status'] == 505){
                         username_warn.css("display","block");
-                    } else if(data == "2"){
-                        putIn();
-                    } else if(data == "4"){
+                    } else if(data['status'] == 509){
                         username_warn1.css("display","block");
-                    } else if(data == "5"){
+                    } else if(data['status'] == 901){
                         phone_warn1.css("display","block");
                         phone_error.css("display","block");
+                    } else {
+                        putIn();
                     }
                 },
                 error: function () {

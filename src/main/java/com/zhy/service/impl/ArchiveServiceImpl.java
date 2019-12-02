@@ -1,9 +1,9 @@
 package com.zhy.service.impl;
 
 import com.zhy.mapper.ArchiveMapper;
-import com.zhy.model.Archive;
 import com.zhy.service.ArchiveService;
 import com.zhy.service.ArticleService;
+import com.zhy.utils.DataMap;
 import com.zhy.utils.TimeUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -26,7 +26,7 @@ public class ArchiveServiceImpl implements ArchiveService {
     ArticleService articleService;
 
     @Override
-    public JSONObject findArchiveNameAndArticleNum() {
+    public DataMap findArchiveNameAndArticleNum() {
         List<String> archives = archiveMapper.findArchives();
         JSONArray archivesJsonArray = new JSONArray();
         JSONObject archiveJson;
@@ -39,16 +39,15 @@ public class ArchiveServiceImpl implements ArchiveService {
             archivesJsonArray.add(archiveJson);
         }
         JSONObject returnJson = new JSONObject();
-        returnJson.put("status",200);
         returnJson.put("result", archivesJsonArray);
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 
     @Override
     public void addArchiveName(String archiveName) {
         int archiveNameIsExist = archiveMapper.findArchiveNameByArchiveName(archiveName);
         if(archiveNameIsExist == 0){
-            archiveMapper.addArchiveName(archiveName);
+            archiveMapper.save(archiveName);
         }
     }
 

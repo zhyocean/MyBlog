@@ -21,5 +21,5 @@ public interface LeaveMessageLikesRecordMapper {
 
     @Insert("insert into leave_message_likes_record(pageName,pId,likerId,likeDate) " +
             "values(#{pageName},#{pId},#{likerId},#{likeDate})")
-    void insertLeaveMessageLikesRecord(LeaveMessageLikesRecord leaveMessageLikesRecord);
+    void save(LeaveMessageLikesRecord leaveMessageLikesRecord);
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public interface ArticleLikesMapper {
 
     @Insert("insert into article_likes_record(articleId,likerId,likeDate,isRead) values(#{articleId},#{likerId},#{likeDate},#{isRead})")
-    void insertArticleLikesRecord(ArticleLikesRecord articleLikesRecord);
+    void save(ArticleLikesRecord articleLikesRecord);
 
     @Select("select likeDate from article_likes_record where articleId=#{articleId} and likerId=#{likerId}")
     ArticleLikesRecord isLiked(@Param("articleId") long articleId, @Param("likerId") int likerId);
@@ -24,8 +24,8 @@ public interface ArticleLikesMapper {
     @Delete("delete from article_likes_record where articleId=#{articleId}")
     void deleteArticleLikesRecordByArticleId(long articleId);
 
-    @Select("select * from article_likes_record where likerId<>#{likerId} order by id desc")
-    List<ArticleLikesRecord> getArticleThumbsUp(int likerId);
+    @Select("select * from article_likes_record order by id desc")
+    List<ArticleLikesRecord> getArticleThumbsUp();
 
     @Select("select count(*) from article_likes_record where isRead=1")
     int countIsReadNum();

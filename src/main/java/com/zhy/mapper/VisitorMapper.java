@@ -16,7 +16,7 @@ public interface VisitorMapper {
     long getVisitorNumByPageName(@Param("pageName") String pageName);
 
     @Insert("insert into visitor(visitorNum,pageName) values(0,#{pageName})")
-    void insertVisitorArticlePage(String pageName);
+    void save(String pageName);
 
     @Select("select visitorNum from visitor where pageName='totalVisitor'")
     long getTotalVisitor();

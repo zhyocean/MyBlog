@@ -2,11 +2,13 @@ package com.zhy.controller;
 
 import com.zhy.service.ArticleService;
 import com.zhy.service.CategoryService;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.JsonResult;
+import com.zhy.utils.StringUtil;
 import com.zhy.utils.TransCodingUtil;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author: zhangocean
  * @Date: 2018/7/17 20:50
- * Describe:
+ * Describe: 分类
  */
 @RestController
 public class CategoriesControl {
@@ -29,27 +31,26 @@ public class CategoriesControl {
      * 获得所有分类名以及每个分类名的文章数目
      * @return
      */
-    @GetMapping("/findCategoriesNameAndArticleNum")
-    public JSONObject findCategoriesNameAndArticleNum(){
-        return categoryService.findCategoriesNameAndArticleNum();
+    @GetMapping(value = "/findCategoriesNameAndArticleNum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String findCategoriesNameAndArticleNum(){
+        DataMap data = categoryService.findCategoriesNameAndArticleNum();
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 分页获得该分类下的文章
      * @return
      */
-    @GetMapping("/getCategoryArticle")
-    public JSONObject getCategoryArticle(@RequestParam("category") String category,
+    @GetMapping(value = "/getCategoryArticle", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getCategoryArticle(@RequestParam("category") String category,
                                          HttpServletRequest request){
-
-        try {
+        if(!category.equals(StringUtil.BLANK)){
             category = TransCodingUtil.unicodeToString(category);
-        } catch (Exception e){
         }
         int rows = Integer.parseInt(request.getParameter("rows"));
         int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-
-        return articleService.findArticleByCategory(category, rows, pageNum);
+        DataMap data = articleService.findArticleByCategory(category, rows, pageNum);
+        return JsonResult.build(data).toJSON();
     }
 
 

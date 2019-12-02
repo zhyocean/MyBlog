@@ -19,7 +19,7 @@ import java.util.List;
 public interface CategoryMapper {
 
     @Insert("insert into categories(categoryName) value(#{categoryName})")
-    void addCategory(Categories categories);
+    void save(Categories categories);
 
     @Select("select categoryName from categories")
     List<String> findCategoriesName();

@@ -1,7 +1,7 @@
 package com.zhy.service;
 
 import com.zhy.model.User;
-import net.sf.json.JSONObject;
+import com.zhy.utils.DataMap;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -27,11 +27,9 @@ public interface UserService {
 
     /**
      * 注册用户
-     * @param user 用户
-     * @return "1"--用户存在，插入失败             "2"--用户不存在，插入成功       "4"--用户名太长，插入失败
      */
     @Transactional
-    String insert(User user);
+    DataMap insert(User user);
 
     /**
      * 通过手机号查找用户id
@@ -99,13 +97,13 @@ public interface UserService {
     /**
      * 获得头像url
      */
-    JSONObject getHeadPortraitUrl(int id);
+    DataMap getHeadPortraitUrl(int id);
 
     /**
      * 获得用户个人信息
      * @return
      */
-    JSONObject getUserPersonalInfoByUsername(String username);
+    DataMap getUserPersonalInfoByUsername(String username);
 
     /**
      * 保存用户个人信息
@@ -113,7 +111,7 @@ public interface UserService {
      * @param username 当前更改的用户
      * @return
      */
-    JSONObject savePersonalDate(User user, String username);
+    DataMap savePersonalDate(User user, String username);
 
     /**
      * 获得用户头像的地址

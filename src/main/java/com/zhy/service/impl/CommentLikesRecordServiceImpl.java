@@ -27,7 +27,7 @@ public class CommentLikesRecordServiceImpl implements CommentLikesRecordService 
 
     @Override
     public void insertCommentLikesRecord(CommentLikesRecord commentLikesRecord) {
-        commentLikesMapper.insertCommentLikesRecord(commentLikesRecord);
+        commentLikesMapper.save(commentLikesRecord);
     }
 
     @Override

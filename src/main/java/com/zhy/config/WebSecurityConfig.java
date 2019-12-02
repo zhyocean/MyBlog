@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     UserDetailsService customUserService(){
@@ -49,11 +49,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .authorizeRequests()
             .antMatchers("/","/index","/aboutme","/archives","/categories","/friendlylink","/tags","/update")
                 .permitAll()
-                .antMatchers("/editor","/user","/mylove").hasAnyRole("USER")
-                .antMatchers("/ali").hasAnyRole("ADMIN")
+                .antMatchers("/editor","/user").hasAnyRole("USER")
+                .antMatchers("/ali","/mylove").hasAnyRole("ADMIN")
                 .antMatchers("/superadmin","/myheart","/today","/yesterday").hasAnyRole("SUPERADMIN")
                 .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error").defaultSuccessUrl("/")
+                .and()
+                .headers().frameOptions().sameOrigin()
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/");
 

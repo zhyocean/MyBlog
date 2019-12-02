@@ -17,7 +17,7 @@ public interface PrivateWordMapper {
 
     @Insert("insert into privateword(privateWord,publisherId,replierId,replyContent,publisherDate) " +
             "values(#{privateWord},#{publisherId},#{replierId},#{replyContent},#{publisherDate})")
-    void publishPrivateWord(PrivateWord privateWord);
+    void save(PrivateWord privateWord);
 
     @Select("select * from privateword where publisherId=#{publisherId} order by id desc")
     List<PrivateWord> getPrivateWordByPublisher(@Param("publisherId") int publisherId);

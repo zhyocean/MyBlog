@@ -1,8 +1,6 @@
 package com.zhy.service;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
+import com.zhy.utils.DataMap;
 
 /**
  * @author: zhangocean
@@ -15,13 +13,13 @@ public interface CategoryService {
      * 获得所有的分类以及该分类的文章总数
      * @return
      */
-    JSONObject findCategoriesNameAndArticleNum();
+    DataMap findCategoriesNameAndArticleNum();
 
     /**
      * 获得所有的分类
      * @return
      */
-    JSONArray findCategoriesName();
+    DataMap findCategoriesName();
 
     /**
      * 获得分类数目
@@ -32,12 +30,12 @@ public interface CategoryService {
     /**
      * 获得分类名和对应id
      */
-    JSONObject findAllCategories();
+    DataMap findAllCategories();
 
     /**
      * 更新分类
      * @param categoryName 分类名
      * @param type 1--增加分类   2--删除分类
      */
-    JSONObject updateCategory(String categoryName, int type);
+    DataMap updateCategory(String categoryName, int type);
 }

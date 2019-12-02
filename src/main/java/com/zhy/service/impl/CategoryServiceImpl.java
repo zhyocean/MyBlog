@@ -1,9 +1,11 @@
 package com.zhy.service.impl;
 
+import com.zhy.constant.CodeType;
 import com.zhy.mapper.CategoryMapper;
 import com.zhy.model.Categories;
 import com.zhy.service.ArticleService;
 import com.zhy.service.CategoryService;
+import com.zhy.utils.DataMap;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
     ArticleService articleService;
 
     @Override
-    public JSONObject findCategoriesNameAndArticleNum() {
+    public DataMap findCategoriesNameAndArticleNum() {
         List<String> categoryNames = categoryMapper.findCategoriesName();
         JSONObject categoryJson;
         JSONArray categoryJsonArray = new JSONArray();
@@ -36,15 +38,14 @@ public class CategoryServiceImpl implements CategoryService {
             categoryJson.put("categoryArticleNum",articleService.countArticleCategoryByCategory(categoryName));
             categoryJsonArray.add(categoryJson);
         }
-        returnJson.put("status",200);
         returnJson.put("result",categoryJsonArray);
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 
     @Override
-    public JSONArray findCategoriesName() {
+    public DataMap findCategoriesName() {
         List<String> categoryNames = categoryMapper.findCategoriesName();
-        return JSONArray.fromObject(categoryNames);
+        return DataMap.success().setData(categoryNames);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public JSONObject findAllCategories() {
+    public DataMap findAllCategories() {
         List<Categories> lists = categoryMapper.findAllCategories();
         JSONObject returnJson = new JSONObject();
         JSONArray jsonArray = new JSONArray();
@@ -65,38 +66,39 @@ public class CategoryServiceImpl implements CategoryService {
             jsonArray.add(jsonObject);
         }
 
-        returnJson.put("status", 200);
         returnJson.put("result", jsonArray);
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 
     @Override
-    public JSONObject updateCategory(String categoryName, int type) {
-        JSONObject jsonObject = new JSONObject();
+    public DataMap updateCategory(String categoryName, int type) {
         int isExistCategory = categoryMapper.findIsExistByCategoryName(categoryName);
         if(type == 1){
             if(isExistCategory == 0){
                 Categories categories = new Categories();
                 categories.setCategoryName(categoryName);
-                categoryMapper.addCategory(categories);
-                jsonObject.put("status", 200);
-                jsonObject.put("id", categoryMapper.findIsExistByCategoryName(categoryName));
-                jsonObject.put("msg", "添加分类成功！");
+                categoryMapper.save(categories);
+
+                int id = categoryMapper.findIsExistByCategoryName(categoryName);
+
+                return DataMap.success(CodeType.ADD_CATEGORY_SUCCESS)
+                        .setData(id);
             } else {
-                jsonObject.put("status", 201);
-                jsonObject.put("msg", "分类已存在，请勿重复添加");
+                return DataMap.fail(CodeType.CATEGORY_EXIST);
             }
         } else {
             if(isExistCategory != 0){
+                int articleNum = articleService.countArticleCategoryByCategory(categoryName);
+                if(articleNum > 0){
+                    return DataMap.fail(CodeType.CATEGORY_HAS_ARTICLE);
+                }
+
                 categoryMapper.deleteCategory(categoryName);
-                jsonObject.put("status", 202);
-                jsonObject.put("msg", "删除分类成功！");
+                return DataMap.success(CodeType.DELETE_CATEGORY_SUCCESS);
             }else {
-                jsonObject.put("status", 203);
-                jsonObject.put("msg", "分类不存在，删除失败！");
+                return DataMap.fail(CodeType.CATEGORY_NOT_EXIST);
             }
         }
-        return jsonObject;
     }
 
 }

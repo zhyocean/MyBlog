@@ -17,7 +17,7 @@ public class TransCodingUtil {
      */
     public static String stringToUnicode(final String gbString) {
         char[] utfBytes = gbString.toCharArray();
-        String unicodeBytes = "";
+        String unicodeBytes = StringUtil.BLANK;
         for (int i = 0; i < utfBytes.length; i++) {
             String hexB = Integer.toHexString(utfBytes[i]);
             if (hexB.length() <= 2) {
@@ -30,27 +30,25 @@ public class TransCodingUtil {
 
     /**
      * unicode编码转中文
-     * @param dataStr unicode编码
+     * @param unicode unicode编码
      * @return 中文
      */
-    public static String unicodeToString(final String dataStr) {
-        int start = 0;
-        int end = 0;
-        final StringBuffer buffer = new StringBuffer();
-        while (start > -1) {
-            end = dataStr.indexOf("\\u", start + 2);
-            String charStr = "";
-            if (end == -1) {
-                charStr = dataStr.substring(start + 2, dataStr.length());
-            } else {
-                charStr = dataStr.substring(start + 2, end);
-            }
-            // 16进制parse整形字符串。
-            char letter = (char) Integer.parseInt(charStr, 16);
-            buffer.append(new Character(letter).toString());
-            start = end;
+    public static String unicodeToString(String unicode) {
+        if(!unicode.contains("\\u")){
+            return unicode;
         }
-        return buffer.toString();
+
+        StringBuffer string = new StringBuffer();
+        String[] hex = unicode.split("\\\\u");
+
+        for (int i = 1; i < hex.length; i++) {
+            // 转换出每一个代码点
+            int data = Integer.parseInt(hex[i], 16);
+            // 追加成string
+            string.append((char) data);
+        }
+
+        return string.toString();
     }
 
     /**
@@ -86,7 +84,7 @@ public class TransCodingUtil {
 //     */
 //    public static String stringToHex16(String s){
 //        System.out.println("汉字转16进制-------汉字：" + s);
-//        if (s == null || s.equals("")) {
+//        if (s == null || s.equals(StringUtil.BLANK)) {
 //            return null;
 //        }
 //        StringBuffer sb = new StringBuffer();
@@ -122,7 +120,7 @@ public class TransCodingUtil {
 //     */
 //    public static String hex16ToString(String s){
 //        System.out.println("16进制转汉字-------16进制：" + s);
-//        if (s == null || s.equals("")) {
+//        if (s == null || s.equals(StringUtil.BLANK)) {
 //            return null;
 //        }
 //

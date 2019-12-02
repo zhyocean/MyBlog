@@ -66,8 +66,8 @@
                     var selectCategories = $('#select-categories');
                     selectCategories.empty();
                     selectCategories.append($('<option class="categoriesOption" value="choose">请选择</option>'));
-                    for(var i=0;i<data.length;i++){
-                        selectCategories.append($('<option class="categoriesOption" value="' + data[i] + '">' + data[i] + '</option>'));
+                    for(var i=0;i<data['data'].length;i++){
+                        selectCategories.append($('<option class="categoriesOption" value="' + data['data'][i] + '">' + data['data'][i] + '</option>'));
                     }
                     if(aCategory !== "" && aCategory.length > 0){
                         selectCategories.val(aCategory);
@@ -115,7 +115,7 @@
         },
         dataType:"json",
         success:function (data) {
-            if(data == 0){
+            if(data['status'] != 0){
                 var noticeBoxWrite = $('<div class="notice-box-write">' +
                     '<div class="am-alert am-alert-danger">' +
                     '<p>在线写博客功能暂不对外开放，您所写的文章都将发布无效<button type="button" class="canYouWrite am-close">&times;</button></p>' +
@@ -139,25 +139,25 @@
         },
         dataType:"json",
         success:function (data) {
-            if(data['status'] == 201){
-                $('#zhy-editor-title').val(data['result']['articleTitle']);
-                $('#my-editormd-markdown-doc').html(data['result']['articleContent']);
-                $('#select-type').val(data['result']['articleType']);
-                $('#select-grade').val(data['result']['articleGrade']);
-                $('#originalAuthor').val(data['result']['originalAuthor']);
-                $('#articleUrl').val(data['result']['articleUrl']);
-                if(data['result']['articleType'] == "转载"){
+            if(data['status'] == 0){
+                $('#zhy-editor-title').val(data['data']['articleTitle']);
+                $('#my-editormd-markdown-doc').html(data['data']['articleContent']);
+                $('#select-type').val(data['data']['articleType']);
+                $('#select-grade').val(data['data']['articleGrade']);
+                $('#originalAuthor').val(data['data']['originalAuthor']);
+                $('#articleUrl').val(data['data']['articleUrl']);
+                if(data['data']['articleType'] == "转载"){
                     $('#originalAuthorHide').show();
                     $('.articleUrlHide').show();
                 }
-                aCategory = data['result']['articleCategories'];
-                var tags = data['result']['articleTags'];
+                aCategory = data['data']['articleCategories'];
+                var tags = data['data']['articleTags'];
                 var tag = $('.tag');
                 for(var i in tags){
                     tag.append($('<div style="display: inline-block;"><p class="tag-name" contenteditable="true">' + tags[i] + '</p>' +
                         '<i class="am-icon-times removeTag" style="color: #CCCCCC"></i></div>'));
                 }
-                var articleId = data['result']['id'];
+                var articleId = data['data']['id'];
                 if(articleId != 0){
                     $('.surePublishBtn ').attr("id",articleId);
                 }
@@ -264,23 +264,23 @@
                 contentType:"application/x-www-form-urlencoded; charset=utf-8",
                 dataType:"json",
                 success:function (data) {
-                    if(data['status'] == 200){
-                        $('#my-alert').modal('close');
-                        window.removeEventListener('beforeunload',fnClose);
-                        publishSuccessPutIn(data);
-                    } else if (data['status'] == 403){
+                    if(data['status'] == 101){
                         window.removeEventListener('beforeunload',fnClose);
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
-                    } else if(data['status'] == 500) {
+                    } else if(data['status'] == 205) {
                         alert("发布失败了，都叫你不要发布了，不听嘛")
+                    } else if(data['status'] == 206) {
+                        alert("服务器异常")
                     } else {
-                        alert("发表博客失败");
+                        $('#my-alert').modal('close');
+                        window.removeEventListener('beforeunload',fnClose);
+                        publishSuccessPutIn(data['data']);
                     }
                 },
                 error:function () {
-                    alert("发表博客请求失败！")
+                    alert("发表博客异常")
                 }
             })
         }

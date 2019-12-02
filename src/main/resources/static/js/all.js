@@ -126,9 +126,9 @@ $('#sidebar_toggle').click(function () {
         data:{
         },
         success:function (data) {
-            $('.archivesNum').html(data['archivesNum']);
-            $('.categoriesNum').html(data['categoriesNum']);
-            $('.tagsNum').html(data['tagsNum']);
+            $('.archivesNum').html(data['data']['archivesNum']);
+            $('.categoriesNum').html(data['data']['categoriesNum']);
+            $('.tagsNum').html(data['data']['tagsNum']);
         },
         error:function () {
         }
@@ -146,14 +146,14 @@ $.ajax({
     success:function (data) {
         var thisPageName = window.location.pathname + window.location.search;
         var news = $('.news');
-        if(data['result'] != 0){
-            news.append($('<span class="newsNum am-badge am-badge-danger am-round">' + data['result']['allNewsNum'] + '</span>'));
+        if(data['status'] != 101 && data['data']['result'] != 0){
+            news.append($('<span class="newsNum am-badge am-badge-danger am-round">' + data['data']['result']['allNewsNum'] + '</span>'));
             if(thisPageName === "/user"){
-                if(data['result']['commentNum'] !== 0){
-                    $('.commentMessage').find('a').append($('<span class="commentNotReadNum am-margin-right am-fr am-badge am-badge-danger am-round">' + data['result']['commentNum'] + '</span>'));
+                if(data['data']['result']['commentNum'] !== 0){
+                    $('.commentMessage').find('a').append($('<span class="commentNotReadNum am-margin-right am-fr am-badge am-badge-danger am-round">' + data['data']['result']['commentNum'] + '</span>'));
                 }
-                if(data['result']['leaveMessageNum'] !== 0){
-                    $('.leaveWord').find('a').append($('<span class="leaveMessageNotReadNum am-margin-right am-fr am-badge am-badge-danger am-round">' + data['result']['leaveMessageNum'] + '</span>'));
+                if(data['data']['result']['leaveMessageNum'] !== 0){
+                    $('.leaveWord').find('a').append($('<span class="leaveMessageNotReadNum am-margin-right am-fr am-badge am-badge-danger am-round">' + data['data']['result']['leaveMessageNum'] + '</span>'));
                 }
             }
         }
@@ -184,7 +184,7 @@ $('.feedbackFormBtn').click(function () {
                 contactInfo:feedbackFormQQ.val()
             },
             success:function (data) {
-                if(data['status'] == 403){
+                if(data['status'] == 101){
                     $.get("/toLogin",function(data,status,xhr){
                         window.location.replace("/login");
                     });

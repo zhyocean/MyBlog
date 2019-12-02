@@ -2,6 +2,7 @@ package com.zhy.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zhy.constant.CodeType;
 import com.zhy.mapper.CommentMapper;
 import com.zhy.model.Comment;
 import com.zhy.model.UserReadNews;
@@ -10,10 +11,10 @@ import com.zhy.service.ArticleService;
 import com.zhy.service.CommentLikesRecordService;
 import com.zhy.service.CommentService;
 import com.zhy.service.UserService;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.StringUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,6 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
-
     @Autowired
     CommentMapper commentMapper;
     @Autowired
@@ -41,18 +40,17 @@ public class CommentServiceImpl implements CommentService {
     HashRedisServiceImpl hashRedisServiceImpl;
 
     @Override
-    public Comment insertComment(Comment comment) {
+    public void insertComment(Comment comment) {
         if(comment.getAnswererId() == comment.getRespondentId()){
             comment.setIsRead(0);
         }
-        commentMapper.insertComment(comment);
+        commentMapper.save(comment);
         //redis中保存该用户未读消息
         addNotReadNews(comment);
-        return comment;
     }
 
     @Override
-    public JSONArray findCommentByArticleId(long articleId, String username) {
+    public DataMap findCommentByArticleId(long articleId, String username) {
 
         List<Comment> commentLists = commentMapper.findCommentByArticleIdAndPid(articleId, 0);
         JSONArray commentJsonArray = new JSONArray();
@@ -98,59 +96,31 @@ public class CommentServiceImpl implements CommentService {
             }
             commentJsonArray.add(commentJsonObject);
         }
-        commentJsonObject = new JSONObject();
-        commentJsonObject.put("status",200);
-        commentJsonArray.add(commentJsonObject);
-        return commentJsonArray;
+        return DataMap.success().setData(commentJsonArray);
     }
 
     @Override
-    public JSONArray findReplyByArticleIdAndPid(long articleId, long pId) {
-        List<Comment> commentList = commentMapper.findCommentByArticleIdAndPidNoOrder(articleId, pId);
-        JSONObject jsonObject;
-        JSONArray jsonArray = new JSONArray();
-        for(Comment comment : commentList){
-            jsonObject = new JSONObject();
-            jsonObject.put("answerer", userService.findUsernameById(comment.getAnswererId()));
-            jsonObject.put("respondent", userService.findUsernameById(comment.getRespondentId()));
-            jsonObject.put("commentContent", comment.getCommentContent());
-            jsonObject.put("commentDate", comment.getCommentDate());
-            jsonArray.add(jsonObject);
-        }
-        jsonObject = new JSONObject();
-        jsonObject.put("status",200);
-        jsonArray.add(jsonObject);
-        logger.info("该评论下所有的回复是：" + jsonArray);
-        return jsonArray;
+    public DataMap replyReplyReturn(Comment comment, String answerer, String respondent) {
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", comment.getId());
+        jsonObject.put("answerer", answerer);
+        jsonObject.put("respondent", respondent);
+        jsonObject.put("commentContent", comment.getCommentContent());
+        jsonObject.put("commentDate", comment.getCommentDate());
+
+        return DataMap.success().setData(jsonObject);
     }
 
     @Override
-    public JSONArray replyReplyReturn(Comment comment, String answerer, String respondent) {
-
-        JSONObject jsonObject1 = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        jsonObject1.put("answerer", answerer);
-        jsonObject1.put("respondent", respondent);
-        jsonObject1.put("commentContent", comment.getCommentContent());
-        jsonObject1.put("commentDate", comment.getCommentDate());
-
-        JSONObject jsonObject2 = new JSONObject();
-        jsonObject2.put("status",200);
-
-        jsonArray.add(jsonObject1);
-        jsonArray.add(jsonObject2);
-
-        return jsonArray;
-    }
-
-    @Override
-    public int updateLikeByArticleIdAndId(long articleId, long id) {
+    public DataMap updateLikeByArticleIdAndId(long articleId, long id) {
         commentMapper.updateLikeByArticleIdAndId(articleId, id);
-        return commentMapper.findLikesByArticleIdAndId(articleId, id);
+        int liked = commentMapper.findLikesByArticleIdAndId(articleId, id);
+        return DataMap.success().setData(liked);
     }
 
     @Override
-    public JSONObject findFiveNewComment(int rows, int pageNum) {
+    public DataMap findFiveNewComment(int rows, int pageNum) {
 
         JSONObject returnJson = new JSONObject();
         PageHelper.startPage(pageNum, rows);
@@ -173,7 +143,6 @@ public class CommentServiceImpl implements CommentService {
             jsonObject.put("articleTitle",articleService.findArticleTitleByArticleId(comment.getArticleId()).get("articleTitle"));
             jsonArray.add(jsonObject);
         }
-        returnJson.put("status",200);
         returnJson.put("result",jsonArray);
         JSONObject pageJson = new JSONObject();
         pageJson.put("pageNum",pageInfo.getPageNum());
@@ -184,11 +153,11 @@ public class CommentServiceImpl implements CommentService {
         pageJson.put("isLastPage",pageInfo.isIsLastPage());
         returnJson.put("pageInfo",pageJson);
 
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 
     @Override
-    public JSONObject getUserComment(int rows, int pageNum, String username) {
+    public DataMap getUserComment(int rows, int pageNum, String username) {
 
         int userId = userService.findIdByUsername(username);
         PageHelper.startPage(pageNum, rows);
@@ -196,7 +165,6 @@ public class CommentServiceImpl implements CommentService {
         PageInfo<Comment> pageInfo = new PageInfo<>(comments);
 
         JSONObject returnJson = new JSONObject();
-        returnJson.put("status",200);
         JSONObject commentJson;
         JSONArray commentJsonArray = new JSONArray();
         for(Comment comment : comments){
@@ -222,7 +190,7 @@ public class CommentServiceImpl implements CommentService {
         pageJson.put("isLastPage",pageInfo.isIsLastPage());
         returnJson.put("pageInfo",pageJson);
 
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 
     @Override
@@ -236,24 +204,21 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public int readOneCommentRecord(int id) {
+    public DataMap readOneCommentRecord(int id) {
         try {
             commentMapper.readCommentRecordById(id);
-            return 1;
+            return DataMap.success();
         } catch (Exception e){
             e.printStackTrace();
-            return 0;
+            return DataMap.fail(CodeType.READ_MESSAGE_FAIL);
         }
     }
 
     @Override
-    public JSONObject readAllComment(String username) {
+    public DataMap readAllComment(String username) {
         int respondentId = userService.findIdByUsername(username);
         commentMapper.readCommentRecordByRespondentId(respondentId);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",200);
-        jsonObject.put("result","success");
-        return jsonObject;
+        return DataMap.success();
     }
 
     /**
@@ -261,13 +226,13 @@ public class CommentServiceImpl implements CommentService {
      */
     private void addNotReadNews(Comment comment){
         if(comment.getRespondentId() != comment.getAnswererId()){
-            boolean isExistKey = hashRedisServiceImpl.hasKey(comment.getRespondentId()+"");
+            boolean isExistKey = hashRedisServiceImpl.hasKey(comment.getRespondentId()+ StringUtil.BLANK);
             if(!isExistKey){
                 UserReadNews news = new UserReadNews(1,1,0);
                 hashRedisServiceImpl.put(String.valueOf(comment.getRespondentId()), news, UserReadNews.class);
             } else {
-                hashRedisServiceImpl.hashIncrement(comment.getRespondentId()+"", "allNewsNum",1);
-                hashRedisServiceImpl.hashIncrement(comment.getRespondentId()+"", "commentNum",1);
+                hashRedisServiceImpl.hashIncrement(comment.getRespondentId()+ StringUtil.BLANK, "allNewsNum",1);
+                hashRedisServiceImpl.hashIncrement(comment.getRespondentId()+ StringUtil.BLANK, "commentNum",1);
             }
         }
     }

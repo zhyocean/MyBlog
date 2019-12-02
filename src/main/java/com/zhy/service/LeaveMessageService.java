@@ -1,8 +1,7 @@
 package com.zhy.service;
 
 import com.zhy.model.LeaveMessage;
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
+import com.zhy.utils.DataMap;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -26,14 +25,14 @@ public interface LeaveMessageService {
      * @param leaveMessage
      */
     @Transactional
-    LeaveMessage publishLeaveMessageReply(LeaveMessage leaveMessage, String respondent);
+    void publishLeaveMessageReply(LeaveMessage leaveMessage, String respondent);
 
     /**
      * 返回最新的留言回复
      * @param leaveMessage
      * @return
      */
-    JSONObject leaveMessageNewReply(LeaveMessage leaveMessage, String answerer, String respondent);
+    DataMap leaveMessageNewReply(LeaveMessage leaveMessage, String answerer, String respondent);
 
     /**
      * 获得当前页的所有留言
@@ -41,23 +40,23 @@ public interface LeaveMessageService {
      * @param pId
      * @return
      */
-    JSONObject findAllLeaveMessage(String pageName, int pId, String username);
+    DataMap findAllLeaveMessage(String pageName, int pId, String username);
 
     /**
      * 更新点赞数
      * @return 点赞数
      */
-    int updateLikeByPageNameAndId(String pageName, int id);
+    DataMap updateLikeByPageNameAndId(String pageName, int id);
 
     /**
      * 分页获得用户所有留言
      */
-    JSONObject getUserLeaveMessage(int rows, int pageNum, String username);
+    DataMap getUserLeaveMessage(int rows, int pageNum, String username);
 
     /**
      * 返回最新5条留言
      */
-    JSONObject findFiveNewComment(int rows, int pageNum);
+    DataMap findFiveNewComment(int rows, int pageNum);
 
     /**
      * 获得留言总数
@@ -68,11 +67,11 @@ public interface LeaveMessageService {
      * 已读一条留言
      * @param id 评论id
      */
-    int readOneLeaveMessageRecord(int id);
+    DataMap readOneLeaveMessageRecord(int id);
 
     /**
      * 全部标记为已读
      */
-    JSONObject readAllLeaveMessage(String username);
+    DataMap readAllLeaveMessage(String username);
 
 }

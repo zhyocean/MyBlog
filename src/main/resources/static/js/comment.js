@@ -20,12 +20,12 @@
                     articleId:articleId
                 },
                 success: function (data) {
-                    if(data[data.length-1]['status'] == 403){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
                     }else{
-                        putInComment(data);
+                        putInComment(data['data']);
                     }
                 },
                 error: function () {

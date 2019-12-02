@@ -3,9 +3,9 @@ package com.zhy.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -26,11 +26,15 @@ import java.util.Map;
  * Describe: Druid 数据库连接池配置
  */
 @Configuration
-@ConditionalOnClass(com.alibaba.druid.pool.DruidDataSource.class)
+@ConditionalOnClass(DruidDataSource.class)
 @ConditionalOnProperty(name = "spring.dataSource.type", havingValue = "com.alibaba.druid.pool.DruidDataSource", matchIfMissing = true)
+@Slf4j
 public class DruidDataSourceConfig {
 
-    private Logger logger = LoggerFactory.getLogger(DruidDataSourceConfig.class);
+    @Value("${druidUsername}")
+    private String druidUsername;
+    @Value("${druidPassword}")
+    private String druidPassword;
 
     @Bean(name = "druidDataSource")
     @Primary
@@ -59,7 +63,7 @@ public class DruidDataSourceConfig {
         try {
             dataSource.setFilters(environment.getProperty("spring.datasource.druid.filters"));
         } catch (SQLException e) {
-            logger.error("druid configuration initialization filter", e);
+            log.error("druid configuration initialization filter", e);
         }
         return dataSource;
     }
@@ -69,17 +73,17 @@ public class DruidDataSourceConfig {
      */
     @Bean
     public ServletRegistrationBean druidServlet(){
-        logger.info("init Druid Servlet Configuration ");
+        log.info("init Druid Servlet Configuration ");
       ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean();
       servletRegistrationBean.setServlet(new StatViewServlet());
       servletRegistrationBean.addUrlMappings("/druid/*");
       Map<String, String> initParameters = new HashMap<String, String>();
-      initParameters.put("loginUsername", "设置druid登录账号");
-      initParameters.put("loginPassword", "设置druid登录密码");
+      initParameters.put("loginUsername", druidUsername);
+      initParameters.put("loginPassword", druidPassword);
       initParameters.put("resetEnable", "true");
         //下面是黑白名单，多个ip地址之间用逗号隔开
-//      initParameters.put("allow", "白名单ip");
-//      initParameters.put("deny", "黑名单ip");
+//      initParameters.put("allow", "119.23.202.55,127.0.0.1,10.24.38.152");
+//      initParameters.put("deny", "119.23.202.55");
       servletRegistrationBean.setInitParameters(initParameters);
 
       return servletRegistrationBean;

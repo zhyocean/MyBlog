@@ -26,13 +26,13 @@ function imgChange(e) {
                     img:this.result
                 },
                 success:function (data) {
-                    if(data['status'] == 403){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
                     } else {
-                        if(data['status'] == 200){
-                            $('#headPortrait').attr("src",data['avatarImgUrl']);
+                        if(data['status'] == 0){
+                            $('#headPortrait').attr("src",data['data']);
                             successNotice("更改头像成功");
                         } else {
                             dangerNotice("更改头像失败")
@@ -57,41 +57,27 @@ function getUserPersonalInfo() {
         data:{
         },
         success:function (data) {
-            if(data['status'] == 403){
+            if(data['status'] == 101){
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
             } else {
-                $('#username').attr("value",data['result']['username']);
-                var personalPhone = data['result']['phone'];
+                $('#username').attr("value",data['data']['username']);
+                var personalPhone = data['data']['phone'];
                 $('#personalPhone').html(personalPhone.substring(0,3) + "****" + personalPhone.substring(7));
-                $('#trueName').attr("value",data['result']['trueName']);
-                $('#birthday').attr("value",data['result']['birthday']);
-                var gender = data['result']['gender'];
+                $('#trueName').attr("value",data['data']['trueName']);
+                $('#birthday').attr("value",data['data']['birthday']);
+                var gender = data['data']['gender'];
                 if(gender == "male"){
                     $('.genderTable input').eq(0).attr("checked","checked");
                 } else {
                     $('.genderTable input').eq(1).attr("checked","checked");
                 }
-                $('#email').attr("value",data['result']['email']);
-                $('#personalBrief').val(data['result']['personalBrief']);
-            }
-        },
-        error:function () {
-        }
-    });
-}
+                $('#email').attr("value",data['data']['email']);
+                $('#personalBrief').val(data['data']['personalBrief']);
 
-//获得头像url
-function showHeadPortrait() {
-    $.ajax({
-        type:'get',
-        url:'/getHeadPortraitUrl',
-        dataType:'json',
-        data:{
-        },
-        success:function (data) {
-            $('#headPortrait').attr("src",data['avatarImgUrl']);
+                $('#headPortrait').attr("src",data['data']['avatarImgUrl']);
+            }
         },
         error:function () {
         }
@@ -132,25 +118,25 @@ savePersonalDateBtn.click(function () {
                 personalBrief:personalBrief.val()
             },
             success:function (data) {
-                if(data['status'] == 403){
+                if(data['status'] == 101){
                     $.get("/toLogin",function(data,status,xhr){
                         window.location.replace("/login");
                     });
                 } else {
-                    if(data['status'] == 200){
+                    if(data['status'] == 503){
                         successNotice("更改成功,重新登录后生效");
                         setTimeout(function () {
                             location.reload();
                         },3000);
-                    } else if (data['status'] == 500){
-                        dangerNotice("该昵称已被占用");
-                    } else if (data['status'] == 201){
-                        successNotice("更改个人信息成功");
                     } else if (data['status'] == 501){
                         dangerNotice("更改失败，昵称太长啦");
                     } else if (data['status'] == 502){
                         dangerNotice("更改失败，昵称不能为空");
-                    }  else {
+                    } else if (data['status'] == 504){
+                        successNotice("更改个人信息成功");
+                    } else if (data['status'] == 505){
+                        dangerNotice("该昵称已被占用");
+                    } else {
                         dangerNotice("更改个人信息失败");
                     }
                 }
@@ -218,9 +204,11 @@ $('#authCodeBtn').click(function () {
                     sign:"changePassword"
                 },
                 success:function (data) {
-                    if(parseInt(data) == 1) {
+                    if(parseInt(data['status']) == 0) {
                         successNotice("短信验证码发送成功");
                         timeCount();
+                    } else {
+                        dangerNotice("短信验证码发送异常")
                     }
                 },
                 error:function () {
@@ -261,22 +249,21 @@ $('#changePasswordBtn').click(function () {
                     newPassword:password.val()
                 },
                 success:function (data) {
-                    if(data == "0"){
+                    if(data['status'] == 902){
                         dangerNotice("验证码不正确")
-                    }else if (data == "2"){
+                    }else if (data['status'] == 508){
                         dangerNotice("手机号不存在")
-                    }else if(data == "1"){
+                    }else if(data['status'] == 901){
+                        dangerNotice("手机号不正确");
+                    } else {
                         successNotice("密码修改成功,请重新登录");
                         setTimeout(function () {
                             location.reload();
                         },3000);
-
-                    }else if(data == "3"){
-                        dangerNotice("手机号不正确");
                     }
                 },
                 error:function () {
-                    alert("修改密码失败");
+                    dangerNotice("修改密码失败");
                 }
             })
         }
@@ -391,7 +378,7 @@ function putInCommentInfo(date) {
                     msgType:1
                 },
                 success:function (data) {
-                    if(data['status'] == 403){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
@@ -511,7 +498,7 @@ function putInLeaveWordInfo(data) {
                     msgType:2
                 },
                 success:function (data) {
-                    if(data['status'] == 403){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
@@ -594,20 +581,20 @@ function getUserComment(currentPage) {
             pageNum:currentPage
         },
         success:function (data) {
-            if(data['status'] == 403){
+            if(data['status'] == 101){
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
             }
-            putInCommentInfo(data);
+            putInCommentInfo(data['data']);
             scrollTo(0,0);//回到顶部
 
             //分页
             $("#commentPagination").paging({
-                rows:data['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['pageInfo']['pageNum'],//当前所在页码
-                pages:data['pageInfo']['pages'],//总页数
-                total:data['pageInfo']['total'],//总记录数
+                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                pages:data['data']['pageInfo']['pages'],//总页数
+                total:data['data']['pageInfo']['total'],//总记录数
                 callback:function(currentPage){
                     getUserComment(currentPage);
                 }
@@ -629,20 +616,20 @@ function getUserLeaveWord(currentPage) {
             pageNum:currentPage
         },
         success:function (data) {
-            if(data['status'] == 403){
+            if(data['status'] == 101){
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
             }
-            putInLeaveWordInfo(data);
+            putInLeaveWordInfo(data['data']);
             scrollTo(0,0);//回到顶部
 
             //分页
             $(".leaveWordPagePagination").paging({
-                rows:data['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['pageInfo']['pageNum'],//当前所在页码
-                pages:data['pageInfo']['pages'],//总页数
-                total:data['pageInfo']['total'],//总记录数
+                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                pages:data['data']['pageInfo']['pages'],//总页数
+                total:data['data']['pageInfo']['total'],//总记录数
                 callback:function(currentPage){
                     getUserLeaveWord(currentPage);
                 }
@@ -664,19 +651,19 @@ function getPrivateWordByPublisher(currentPage) {
             pageNum:currentPage
         },
         success:function (data) {
-            if(data['status'] == 403){
+            if(data['status'] == 101){
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
             }
-            putInPrivateWord(data);
+            putInPrivateWord(data['data']);
 
             //分页
             $("#privateWordPagination").paging({
-                rows:data['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['pageInfo']['pageNum'],//当前所在页码
-                pages:data['pageInfo']['pages'],//总页数
-                total:data['pageInfo']['total'],//总记录数
+                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                pages:data['data']['pageInfo']['pages'],//总页数
+                total:data['data']['pageInfo']['total'],//总记录数
                 callback:function(currentPage){
                     getPrivateWordByPublisher(currentPage);
                 }
@@ -701,7 +688,6 @@ $('.leaveWord').click(function () {
 $('.userSayBtn').click(function () {
     var userSay = $('#userSay').val();
     userSay = $.trim(userSay);
-    console.log(userSay)
     if(userSay == ""){
         dangerNotice("你还没说两句呢");
     } else {
@@ -713,12 +699,12 @@ $('.userSayBtn').click(function () {
                 privateWord:userSay
             },
             success:function (data) {
-                if(data['status'] == 403){
+                if(data['status'] == 101){
                     $.get("/toLogin",function(data,status,xhr){
                         window.location.replace("/login");
                     });
                 } else {
-                    if(data['status'] == 200){
+                    if(data['status'] == 0){
                         successNotice("发布悄悄话成功");
                     }
                     $('#userSay').val("");
@@ -736,6 +722,5 @@ $('.privateWord').click(function () {
     getPrivateWordByPublisher(1);
 });
 
-showHeadPortrait();
 getUserPersonalInfo();
 

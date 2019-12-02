@@ -6,6 +6,8 @@ import com.zhy.mapper.FeedBackMapper;
 import com.zhy.model.FeedBack;
 import com.zhy.service.FeedBackService;
 import com.zhy.service.UserService;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.StringUtil;
 import com.zhy.utils.TimeUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -28,23 +30,19 @@ public class FeedBackServiceImpl implements FeedBackService {
     UserService userService;
 
     @Override
-    public JSONObject submitFeedback(FeedBack feedBack) {
+    public void submitFeedback(FeedBack feedBack) {
         TimeUtil timeUtil = new TimeUtil();
         feedBack.setFeedbackDate(timeUtil.getFormatDateForSix());
-        feedBackMapper.insertFeedback(feedBack);
-        JSONObject returnJson = new JSONObject();
-        returnJson.put("status",200);
-        return returnJson;
+        feedBackMapper.save(feedBack);
     }
 
     @Override
-    public JSONObject getAllFeedback(int rows, int pageNum) {
+    public DataMap getAllFeedback(int rows, int pageNum) {
         PageHelper.startPage(pageNum, rows);
         List<FeedBack> feedBacks = feedBackMapper.getAllFeedback();
         PageInfo<FeedBack> pageInfo = new PageInfo<>(feedBacks);
 
         JSONObject returnJson = new JSONObject();
-        returnJson.put("status",200);
         JSONArray jsonArray = new JSONArray();
         JSONObject feedbackJson;
 
@@ -54,7 +52,7 @@ public class FeedBackServiceImpl implements FeedBackService {
             feedbackJson.put("person", userService.findUsernameById(feedBack.getPersonId()));
             feedbackJson.put("feedbackDate", feedBack.getFeedbackDate());
             if(feedBack.getContactInfo() == null){
-                feedbackJson.put("contactInfo", "");
+                feedbackJson.put("contactInfo", StringUtil.BLANK);
             } else {
                 feedbackJson.put("contactInfo", feedBack.getContactInfo());
             }
@@ -71,6 +69,6 @@ public class FeedBackServiceImpl implements FeedBackService {
         pageJson.put("isFirstPage",pageInfo.isIsFirstPage());
         pageJson.put("isLastPage",pageInfo.isIsLastPage());
         returnJson.put("pageInfo",pageJson);
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 }

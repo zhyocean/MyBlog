@@ -2,12 +2,16 @@ package com.zhy.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zhy.constant.CodeType;
 import com.zhy.mapper.ArticleLikesMapper;
 import com.zhy.model.ArticleLikesRecord;
 import com.zhy.redis.StringRedisServiceImpl;
 import com.zhy.service.ArticleLikesRecordService;
 import com.zhy.service.ArticleService;
 import com.zhy.service.UserService;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.StringUtil;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,7 @@ import java.util.List;
  * Describe:
  */
 @Service
+@Slf4j
 public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService {
 
     @Autowired
@@ -41,7 +46,7 @@ public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService 
 
     @Override
     public void insertArticleLikesRecord(ArticleLikesRecord articleLikesRecord) {
-        articleLikesMapper.insertArticleLikesRecord(articleLikesRecord);
+        articleLikesMapper.save(articleLikesRecord);
     }
 
     @Override
@@ -50,12 +55,11 @@ public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService 
     }
 
     @Override
-    public JSONObject getArticleThumbsUp(String username, int rows, int pageNum) {
+    public DataMap getArticleThumbsUp(int rows, int pageNum) {
         JSONObject returnJson = new JSONObject();
 
-        int likerId = userService.findIdByUsername(username);
         PageHelper.startPage(pageNum, rows);
-        List<ArticleLikesRecord> likesRecords = articleLikesMapper.getArticleThumbsUp(likerId);
+        List<ArticleLikesRecord> likesRecords = articleLikesMapper.getArticleThumbsUp();
         PageInfo<ArticleLikesRecord> pageInfo = new PageInfo<>(likesRecords);
         JSONArray returnJsonArray = new JSONArray();
         JSONObject articleLikesJson;
@@ -69,7 +73,6 @@ public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService 
             articleLikesJson.put("isRead", a.getIsRead());
             returnJsonArray.add(articleLikesJson);
         }
-        returnJson.put("status", 200);
         returnJson.put("result", returnJsonArray);
         returnJson.put("msgIsNotReadNum",articleLikesMapper.countIsReadNum());
 
@@ -82,32 +85,36 @@ public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService 
         pageJson.put("isLastPage",pageInfo.isIsLastPage());
         returnJson.put("pageInfo",pageJson);
 
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 
     @Override
-    public int readThisThumbsUp(int id) {
+    public DataMap readThisThumbsUp(int id) {
         try {
             articleLikesMapper.readThisThumbsUp(id);
-            stringRedisService.stringIncrement("articleThumbsUp",-1);
-            int articleThumbsUp = (int) stringRedisService.get("articleThumbsUp");
+            stringRedisService.stringIncrement(StringUtil.ARTICLE_THUMBS_UP,-1);
+            int articleThumbsUp = (int) stringRedisService.get(StringUtil.ARTICLE_THUMBS_UP);
             if(articleThumbsUp == 0){
-                stringRedisService.remove("articleThumbsUp");
+                stringRedisService.remove(StringUtil.ARTICLE_THUMBS_UP);
             }
-            return 1;
+            return DataMap.success();
         } catch (Exception e){
-            e.printStackTrace();
-            return 0;
+            log.error("read article thumbs up info fail", e);
+            return DataMap.fail(CodeType.READ_ARTICLE_THUMBS_UP_FAIL);
         }
     }
 
     @Override
-    public JSONObject readAllThumbsUp() {
-        JSONObject jsonObject = new JSONObject();
-        articleLikesMapper.readAllThumbsUp();
-        stringRedisService.remove("articleThumbsUp");
-        jsonObject.put("status", 200);
-        return jsonObject;
+    public DataMap readAllThumbsUp() {
+        try {
+            articleLikesMapper.readAllThumbsUp();
+            stringRedisService.remove(StringUtil.ARTICLE_THUMBS_UP);
+            return DataMap.success();
+        }catch (Exception e){
+            log.error("read all article thumbs up info fail", e);
+            return DataMap.fail(CodeType.READ_ARTICLE_THUMBS_UP_FAIL);
+        }
+
     }
 
 }

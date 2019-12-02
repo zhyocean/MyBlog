@@ -1,8 +1,10 @@
 package com.zhy.service.impl;
 
+import com.zhy.constant.CodeType;
 import com.zhy.mapper.TagMapper;
 import com.zhy.model.Tag;
 import com.zhy.service.TagService;
+import com.zhy.utils.DataMap;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +28,18 @@ public class TagServiceImpl implements TagService {
         for(String tag : tags){
             if(tagMapper.findIsExistByTagName(tag) == 0){
                 Tag t = new Tag(tag, tagSize);
-                tagMapper.insertTag(t);
+                tagMapper.save(t);
             }
         }
     }
 
     @Override
-    public JSONObject findTagsCloud() {
+    public DataMap findTagsCloud() {
         List<Tag> tags = tagMapper.findTagsCloud();
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",200);
         jsonObject.put("result",JSONArray.fromObject(tags));
         jsonObject.put("tagsNum",tags.size());
-        return jsonObject;
+        return DataMap.success(CodeType.FIND_TAGS_CLOUD).setData(jsonObject);
     }
 
     @Override

@@ -123,7 +123,7 @@
                 data:{
                 },
                 success:function (data) {
-                    if(data ==0){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
@@ -149,7 +149,7 @@
                 data:{
                 },
                 success:function (data) {
-                    if(data ==0){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
@@ -178,7 +178,7 @@
                 data:{
                 },
                 success:function (data) {
-                    if (data == 0) {
+                    if (data['status'] == 101) {
                         $.get("/toLogin", function (data, status, xhr) {
                             window.location.replace("/login");
                         });
@@ -207,7 +207,6 @@
             if(replyContent == ""){
                 alert("我没看清你要回复啥吖！");
             } else {
-                console.log(respondent);
                 $.ajax({
                     type: 'POST',
                     url: '/publishLeaveMessageReply',
@@ -219,20 +218,20 @@
                         respondent:respondent
                     },
                     success: function (data) {
-                        if(data['status'] == 403){
+                        if(data['status'] == 101){
                             $.get("/toLogin",function(data,status,xhr){
                                 window.location.replace("/login");
                             });
-                        } else if (data['status'] == 400){
+                        } else if (data['status'] == 801){
                             alert("内容不能为空！");
                         } else {
                             var sub_comment = $this.parent().parent().parent().parent();
                             var visitorReply = $('<div class="visitorReply"></div>');
                             var visitorReplyWords = $('<div class="visitorReplyWords">' +
-                                '<a class="answerer">' + data['result']['answerer'] + '</a>： <a class="respondent">@' + data['result']['respondent'] + ' </a>' + data['result']['leaveMessageContent'] +  '' +
+                                '<a class="answerer">' + data['data']['answerer'] + '</a>： <a class="respondent">@' + data['data']['respondent'] + ' </a>' + data['data']['leaveMessageContent'] +  '' +
                                 '</div>');
                             var visitorReplyTime = $('<div class="visitorReplyTime">' +
-                                '<span class="visitorReplyTimeTime">' + data['result']['leaveMessageDate'] + '</span>' +
+                                '<span class="visitorReplyTimeTime">' + data['data']['leaveMessageDate'] + '</span>' +
                                 '<a>' +
                                 '<i class="replyReply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
                                 '</a>' +
@@ -296,13 +295,13 @@
                     respondentId : respondentId
                 },
                 success:function (data) {
-                    if(data == -1){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
-                    } else if(data == -2){
+                    } else if(data['status'] == 802){
                     } else {
-                        $this.find('span').html(data);
+                        $this.find('span').html(data['data']);
                         $.tipsBox({
                             obj: $this,
                             str: "+1",
@@ -331,16 +330,15 @@
             pageName:window.location.pathname.substring(1)
         },
         success: function (data) {
-            if(data['status'] == 403){
+            if(data['status'] == 101){
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
             }else{
-                putInLeaveMessage(data);
+                putInLeaveMessage(data['data']);
             }
         },
         error: function () {
-            alert("获得留言信息失败！");
         }
     });
 
@@ -366,12 +364,12 @@
                     pageName:url.substring(1)
                 },
                 success: function (data) {
-                    if(data['status'] == 403){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
                     }else{
-                        putInLeaveMessage(data);
+                        putInLeaveMessage(data['data']);
                     }
                 },
                 error: function () {

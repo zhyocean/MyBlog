@@ -1,10 +1,12 @@
 package com.zhy.service.impl;
 
+import com.zhy.constant.CodeType;
 import com.zhy.constant.RoleConstant;
 import com.zhy.mapper.UserMapper;
 import com.zhy.model.User;
 import com.zhy.service.UserService;
-import net.sf.json.JSONObject;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -33,26 +35,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String insert(User user) {
+    public DataMap insert(User user) {
 
-        user.setUsername(user.getUsername().trim().replaceAll(" ", ""));
+        user.setUsername(user.getUsername().trim().replaceAll(" ", StringUtil.BLANK));
         String username = user.getUsername();
 
-        if(username.length() > 35 || "".equals(username)){
-            return "4";
+        if(username.length() > 35 || StringUtil.BLANK.equals(username)){
+            return DataMap.fail(CodeType.USERNAME_FORMAT_ERROR);
         }
         if(userIsExist(user.getPhone())){
-            return "1";
+            return DataMap.fail(CodeType.PHONE_EXIST);
         }
         if("male".equals(user.getGender())){
             user.setAvatarImgUrl("https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin_male.jpg");
         } else {
             user.setAvatarImgUrl("https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/noLogin_female.jpg");
         }
-        userMapper.insert(user);
+        userMapper.save(user);
         int userId = userMapper.findUserIdByPhone(user.getPhone());
         insertRole(userId, RoleConstant.ROLE_USER);
-        return "2";
+        return DataMap.success();
     }
 
     @Override
@@ -113,65 +115,45 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JSONObject getHeadPortraitUrl(int id) {
-        JSONObject jsonObject = new JSONObject();
+    public DataMap getHeadPortraitUrl(int id) {
         String avatarImgUrl = userMapper.getHeadPortraitUrl(id);
-        if(!"".equals(avatarImgUrl) && avatarImgUrl != null){
-            jsonObject.put("status",200);
-            jsonObject.put("avatarImgUrl",avatarImgUrl);
-        }
-        return jsonObject;
+        return DataMap.success().setData(avatarImgUrl);
     }
 
     @Override
-    public JSONObject getUserPersonalInfoByUsername(String username) {
+    public DataMap getUserPersonalInfoByUsername(String username) {
         User user = userMapper.getUserPersonalInfoByUsername(username);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status",200);
-        JSONObject userJon = new JSONObject();
-        userJon.put("phone",user.getPhone());
-        userJon.put("username",user.getUsername());
-        userJon.put("gender",user.getGender());
-        userJon.put("trueName",user.getTrueName());
-        userJon.put("birthday",user.getBirthday());
-        userJon.put("email",user.getEmail());
-        userJon.put("personalBrief",user.getPersonalBrief());
-        userJon.put("avatarImgUrl",user.getAvatarImgUrl());
-        jsonObject.put("result",userJon);
-        return jsonObject;
+        return DataMap.success().setData(user);
     }
 
     @Override
-    public JSONObject savePersonalDate(User user, String username) {
-        JSONObject returnJson = new JSONObject();
+    public DataMap savePersonalDate(User user, String username) {
 
-        user.setUsername(user.getUsername().trim().replaceAll(" ",""));
+        user.setUsername(user.getUsername().trim().replaceAll(" ", StringUtil.BLANK));
         String newName = user.getUsername();
-        if(newName.length() > 35){
-            returnJson.put("status",501);
-            return returnJson;
-        } else if ("".equals(newName)){
-            returnJson.put("status",502);
-            return returnJson;
+        if(newName.length() > StringUtil.USERNAME_MAX_LENGTH){
+            return DataMap.fail(CodeType.USERNAME_TOO_LANG);
+        } else if (StringUtil.BLANK.equals(newName)){
+            return DataMap.fail(CodeType.USERNAME_BLANK);
         }
 
+        int status;
         //改了昵称
         if(!newName.equals(username)){
             if(usernameIsExist(newName)){
-                returnJson.put("status",500);
-                return returnJson;
+                return DataMap.fail(CodeType.USERNAME_EXIST);
             }
-            returnJson.put("status",200);
+            status = CodeType.HAS_MODIFY_USERNAME.getCode();
             //注销当前登录用户
             SecurityContextHolder.getContext().setAuthentication(null);
         }
         //没改昵称
         else {
-            returnJson.put("status",201);
+            status = CodeType.NOT_MODIFY_USERNAME.getCode();
         }
         userMapper.savePersonalDate(user, username);
 
-        return returnJson;
+        return DataMap.success(status);
     }
 
     @Override
@@ -190,7 +172,7 @@ public class UserServiceImpl implements UserService {
      * @param roleId 权限id
      */
     private void insertRole(int userId, int roleId) {
-        userMapper.insertRole(userId, roleId);
+        userMapper.saveRole(userId, roleId);
     }
 
     /**

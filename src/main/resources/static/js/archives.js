@@ -92,15 +92,15 @@
                 pageNum:currentPage
             },
             success:function (data) {
-                putInArchivesArticleInfo(data);
+                putInArchivesArticleInfo(data['data']);
                 scrollTo(0,0);//回到顶部
 
                 //分页
                 $("#pagination").paging({
-                    rows:data['pageInfo']['pageSize'],//每页显示条数
-                    pageNum:data['pageInfo']['pageNum'],//当前所在页码
-                    pages:data['pageInfo']['pages'],//总页数
-                    total:data['pageInfo']['total'],//总记录数
+                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                    pages:data['data']['pageInfo']['pages'],//总页数
+                    total:data['data']['pageInfo']['total'],//总记录数
                     callback:function(currentPage){
                         ajaxFirst(currentPage, archive1);
                     }
@@ -128,7 +128,7 @@
                 '<h3 style="font-size: 20px">Archives</h3>' +
                 '</div>'));
             var categoriesComment = $('<div class="categories-comment am-animation-slide-top"></div>');
-            $.each(data['result'], function (index, obj) {
+            $.each(data['data']['result'], function (index, obj) {
                 categoriesComment.append($('<div class="category">' +
                     '<span>' +
                     '<a class="categoryName">' + obj['archiveName'] + '</a>' +

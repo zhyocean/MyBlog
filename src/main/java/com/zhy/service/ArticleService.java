@@ -1,9 +1,7 @@
 package com.zhy.service;
 
 import com.zhy.model.Article;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
+import com.zhy.utils.DataMap;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
@@ -21,21 +19,21 @@ public interface ArticleService {
      * @return  status: 200--成功   500--失败
      */
 
-    JSONObject insertArticle(Article article);
+    DataMap insertArticle(Article article);
 
     /**
      * 修改文章
      * @return
      */
     @Transactional
-    JSONObject updateArticleById(Article article);
+    DataMap updateArticleById(Article article);
 
     /**
      * 获得文章
      * @param articleId 文章id
      * @return
      */
-    JSONObject getArticleByArticleId(long articleId, String username);
+    DataMap getArticleByArticleId(long articleId, String username);
 
     /**
      * 通过文章id获得文章名和文章摘要
@@ -50,7 +48,7 @@ public interface ArticleService {
      * @param pageNo 第几页
      * @return 该页所有文章
      */
-    JSONArray findAllArticles(String rows, String pageNo);
+    DataMap findAllArticles(String rows, String pageNo);
 
     /**
      * 通过文章id更新它的上一篇或下一篇文章id
@@ -65,14 +63,14 @@ public interface ArticleService {
      * @param articleId 文章id
      * @return 目前点赞数
      */
-    int updateLikeByArticleId(long articleId);
+    DataMap updateLikeByArticleId(long articleId);
 
     /**
      * 通过标签分页获得文章部分信息
      * @param tag
      * @return
      */
-    JSONObject findArticleByTag(String tag, int rows, int pageNum);
+    DataMap findArticleByTag(String tag, int rows, int pageNum);
 
     /**
      * 分页获得该分类下的所有文章
@@ -81,7 +79,7 @@ public interface ArticleService {
      * @param pageNum 页数
      * @return
      */
-    JSONObject findArticleByCategory(String category, int rows, int pageNum);
+    DataMap findArticleByCategory(String category, int rows, int pageNum);
 
     /**
      * 分页获得该归档日期下的所有文章
@@ -90,18 +88,18 @@ public interface ArticleService {
      * @param pageNum 页数
      * @return
      */
-    JSONObject findArticleByArchive(String archive, int rows, int pageNum);
+    DataMap findArticleByArchive(String archive, int rows, int pageNum);
 
     /**
      * 获得草稿中的文章
      * @return
      */
-    JSONObject getDraftArticle(Article article, String[] articleTags, int articleGrade);
+    DataMap getDraftArticle(Article article, String[] articleTags, int articleGrade);
 
     /**
      * 分页获得文章管理
      */
-    JSONObject getArticleManagement(int rows, int pageNum);
+    DataMap getArticleManagement(int rows, int pageNum);
 
     /**
      * 通过id获取文章
@@ -131,9 +129,8 @@ public interface ArticleService {
     /**
      * 通过id删除文章
      * @param id 文章id
-     * @return 1--删除成功  0--删除失败
      */
     @Transactional
-    int deleteArticle(long id);
+    DataMap deleteArticle(long id);
 
 }

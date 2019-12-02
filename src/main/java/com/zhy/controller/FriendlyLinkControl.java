@@ -1,8 +1,10 @@
 package com.zhy.controller;
 
-import com.zhy.model.Result;
 import com.zhy.service.FriendLinkService;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,9 +22,10 @@ public class FriendlyLinkControl {
     /**
      * 获得所有友链信息
      */
-    @PostMapping("/getFriendLinkInfo")
-    public Result getFriendLink(){
-        return friendLinkService.getFriendLink();
+    @PostMapping(value = "/getFriendLinkInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getFriendLink(){
+        DataMap data = friendLinkService.getFriendLink();
+        return JsonResult.build(data).toJSON();
     }
 
 }

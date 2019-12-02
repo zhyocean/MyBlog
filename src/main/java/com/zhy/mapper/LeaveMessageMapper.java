@@ -17,7 +17,7 @@ public interface LeaveMessageMapper {
 
     @Insert("insert into leave_message_record(pageName,pId,answererId,respondentId,leaveMessageDate,likes,leaveMessageContent,isRead) " +
             "values(#{pageName},#{pId},#{answererId},#{respondentId},#{leaveMessageDate},#{likes},#{leaveMessageContent},#{isRead})")
-    void publishLeaveMessage(LeaveMessage leaveMessage);
+    void save(LeaveMessage leaveMessage);
 
     @Select("select * from leave_message_record where pageName=#{pageName} and pId=#{pId} order by id desc")
     List<LeaveMessage> findAllLeaveMessage(@Param("pageName") String pageName, @Param("pId") int pId);
@@ -26,10 +26,10 @@ public interface LeaveMessageMapper {
     List<LeaveMessage> findLeaveMessageReplyByPageNameAndPid(@Param("pageName") String pageName, @Param("pId") int pId);
 
     @Update("update leave_message_record set likes=likes+1 where pageName=#{pageName} and id=#{id}")
-    void updateLikeByPageNameAndId(@Param("pageName") String pageName,@Param("id") int id);
+    void updateLikeByPageNameAndId(@Param("pageName") String pageName, @Param("id") int id);
 
     @Select("select IFNULL(max(likes),0) from leave_message_record where pageName=#{pageName} and id=#{id}")
-    int findLikesByPageNameAndId(@Param("pageName") String pageName,@Param("id") int id);
+    int findLikesByPageNameAndId(@Param("pageName") String pageName, @Param("id") int id);
 
     @Select("select id,pId,pageName,answererId,leaveMessageDate,isRead from leave_message_record where respondentId=#{respondentId} and answererId<>#{respondentId} order by id desc")
     List<LeaveMessage> getUserLeaveMessage(@Param("respondentId") int respondentId);

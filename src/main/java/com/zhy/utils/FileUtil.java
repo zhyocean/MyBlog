@@ -54,11 +54,11 @@ public class FileUtil {
             dir.mkdirs();
         }
         BufferedOutputStream bos = null;
-        java.io.FileOutputStream fos = null;
+        FileOutputStream fos = null;
         try {
             byte[] bytes = Base64.getDecoder().decode(base64);
             file=new File(filePath+"/"+fileName);
-            fos = new java.io.FileOutputStream(file);
+            fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
             bos.write(bytes);
         } catch (Exception e) {
@@ -120,7 +120,7 @@ public class FileUtil {
         if (!dir.exists() && !dir.isDirectory()) {
             dir.mkdirs();
         }
-        if("".equals(multipartFile) || multipartFile.getSize() <= 0){
+        if(StringUtil.BLANK.equals(multipartFile) || multipartFile.getSize() <= 0){
             multipartFile = null;
         } else {
             try {

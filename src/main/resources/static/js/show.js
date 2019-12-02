@@ -131,7 +131,7 @@
         var comment = $('.comment');
         var commentBottom = $('.comment-bottom');
         commentBottom.html('');
-        if(data.length == 1){
+        if(data.length == 0){
             var comments = $('<div class="comments">' +
                 '<span class="noComment" style="color: black">还没有评论，快来抢沙发吧！</span>' +
                 '</div>');
@@ -150,100 +150,97 @@
             articleComment.append(newComment);
             var allComments = $('<div class="all-comments"></div>');
             $.each(data,function (index,obj) {
-                if(index != (data.length)-1){
-                    var visitorReplies = $('<div class="visitorReplies"></div>');
-                    $.each(obj['replies'],function (index1,obj1) {
-                        var visitorReply = $('<div id="p' + obj1['id'] + '" class="visitorReply"></div>');
-                        var visitorReplyWords = $('<div class="visitorReplyWords">' +
-                            '<a class="answerer">' + obj1['answerer'] + '</a>： <a class="respondent">@' + obj1['respondent'] + ' </a>' + obj1['commentContent'] +
-                            '</div>');
-                        var visitorReplyTime = $('<div class="visitorReplyTime">' +
-                            '<span class="visitorReplyTimeTime">' + obj1['commentDate'] + '</span>' +
-                            '<a>' +
-                            '<i class="replyReply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
-                            '</a>' +
-                            '</div>');
-                        visitorReply.append(visitorReplyWords);
-                        visitorReply.append(visitorReplyTime);
-                        visitorReply.append($('<hr data-am-widget="divider" style="" class="am-divider am-divider-dashed"/>'));
-                        visitorReplies.append(visitorReply);
-                    });
-                    var subCommentList = $('<div class="sub-comment-list"></div>');
-                    var moreComment = $('<div class="more-comment">' +
+                var visitorReplies = $('<div class="visitorReplies"></div>');
+                $.each(obj['replies'],function (index1,obj1) {
+                    var visitorReply = $('<div id="p' + obj1['id'] + '" class="visitorReply"></div>');
+                    var visitorReplyWords = $('<div class="visitorReplyWords">' +
+                        '<a class="answerer">' + obj1['answerer'] + '</a>： <a class="respondent">@' + obj1['respondent'] + ' </a>' + obj1['commentContent'] +
+                        '</div>');
+                    var visitorReplyTime = $('<div class="visitorReplyTime">' +
+                        '<span class="visitorReplyTimeTime">' + obj1['commentDate'] + '</span>' +
                         '<a>' +
-                        '<i class="moreComment am-icon-edit"> 添加新评论</i>' +
+                        '<i class="replyReply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
                         '</a>' +
                         '</div>');
-                    subCommentList.append(visitorReplies);
-                    subCommentList.append(moreComment);
-                    var subComment = $('<div class="sub-comment"></div>');
-                    if(obj['replies'].length != 0){
-                        subComment.append(subCommentList);
-                    }
-                    subComment.append($('<div class="reply-sub-comment-list am-animation-slide-bottom">' +
-                        '<div class="replyWord">' +
-                        '<div class="replyWordBtn">' +
-                        '<textarea class="replyWordTextarea" placeholder="写下你的评论..."></textarea>' +
-                        '<button type="button" class="sendReplyWordBtn am-btn am-btn-success">发送</button>' +
-                        '<button type="button" class="quitReplyWordBtn am-btn">取消</button>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>'));
-                    
-                    var amG = $('<div class="am-g"></div>');
-                    amG.append($('<div class="visitorCommentImg am-u-sm-2 am-u-lg-1">' +
-                        '<img src="' + obj['avatarImgUrl'] + '">' +
-                        '</div>'));
-                    var amUSm10 = $('<div class="am-u-sm-10 am-u-lg-11"></div>');
-                    var visitorInfo = $('<div class="visitorInfo">' +
-                        '<span class="visitorFloor">#' + ((data.length-1)-index) + '楼</span>' +
-                        '<span class="visitorName">' +
-                        obj['answerer'] +
-                        '</span>' +
-                        '<span class="visitorPublishDate">' +
-                        obj['commentDate'] +
-                        '</span>' +
-                        '</div>');
-                    var visitorSay = $('<div class="visitorSay">' +
-                        obj['commentContent'] +
-                        '</div>');
-                    var toolGroup1 = $('<div class="tool-group">' +
-                        '<a>' +
-                        '<i class="like am-icon-thumbs-o-up">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
-                        '</a>' +
-                        '<a>' +
-                        '<i class="reply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
-                        '</a>' +
-                        '</div>');
-                    var toolGroup2 = $('<div class="tool-group">' +
-                        '<a>' +
-                        '<i class="like am-icon-thumbs-up text-success">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
-                        '</a>' +
-                        '<a>' +
-                        '<i class="reply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
-                        '</a>' +
-                        '</div>');
-                    amUSm10.append(visitorInfo);
-                    amUSm10.append(visitorSay);
-                    if(obj['isLiked'] == 1){
-                        amUSm10.append(toolGroup2);
-                    } else {
-                        amUSm10.append(toolGroup1);
-                    }
-                    amUSm10.append(subComment);
-                    amG.append(amUSm10);
-                    var visitorComment = $('<div class="visitorComment" id="p' + obj['id'] +  '"></div>');
-                    visitorComment.append(amG);
-                    visitorComment.append($('<hr>'));
-                    allComments.append(visitorComment);
-
+                    visitorReply.append(visitorReplyWords);
+                    visitorReply.append(visitorReplyTime);
+                    visitorReply.append($('<hr data-am-widget="divider" style="" class="am-divider am-divider-dashed"/>'));
+                    visitorReplies.append(visitorReply);
+                });
+                var subCommentList = $('<div class="sub-comment-list"></div>');
+                var moreComment = $('<div class="more-comment">' +
+                    '<a>' +
+                    '<i class="moreComment am-icon-edit"> 添加新评论</i>' +
+                    '</a>' +
+                    '</div>');
+                subCommentList.append(visitorReplies);
+                subCommentList.append(moreComment);
+                var subComment = $('<div class="sub-comment"></div>');
+                if(obj['replies'].length != 0){
+                    subComment.append(subCommentList);
                 }
+                subComment.append($('<div class="reply-sub-comment-list am-animation-slide-bottom">' +
+                    '<div class="replyWord">' +
+                    '<div class="replyWordBtn">' +
+                    '<textarea class="replyWordTextarea" placeholder="写下你的评论..."></textarea>' +
+                    '<button type="button" class="sendReplyWordBtn am-btn am-btn-success">发送</button>' +
+                    '<button type="button" class="quitReplyWordBtn am-btn">取消</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'));
+
+                var amG = $('<div class="am-g"></div>');
+                amG.append($('<div class="visitorCommentImg am-u-sm-2 am-u-lg-1">' +
+                    '<img src="' + obj['avatarImgUrl'] + '">' +
+                    '</div>'));
+                var amUSm10 = $('<div class="am-u-sm-10 am-u-lg-11"></div>');
+                var visitorInfo = $('<div class="visitorInfo">' +
+                    '<span class="visitorFloor">#' + (data.length-index) + '楼</span>' +
+                    '<span class="visitorName">' +
+                    obj['answerer'] +
+                    '</span>' +
+                    '<span class="visitorPublishDate">' +
+                    obj['commentDate'] +
+                    '</span>' +
+                    '</div>');
+                var visitorSay = $('<div class="visitorSay">' +
+                    obj['commentContent'] +
+                    '</div>');
+                var toolGroup1 = $('<div class="tool-group">' +
+                    '<a>' +
+                    '<i class="like am-icon-thumbs-o-up">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
+                    '</a>' +
+                    '<a>' +
+                    '<i class="reply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
+                    '</a>' +
+                    '</div>');
+                var toolGroup2 = $('<div class="tool-group">' +
+                    '<a>' +
+                    '<i class="like am-icon-thumbs-up text-success">&nbsp;&nbsp;<span>' + obj['likes'] + '</span>人赞</i>' +
+                    '</a>' +
+                    '<a>' +
+                    '<i class="reply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
+                    '</a>' +
+                    '</div>');
+                amUSm10.append(visitorInfo);
+                amUSm10.append(visitorSay);
+                if(obj['isLiked'] == 1){
+                    amUSm10.append(toolGroup2);
+                } else {
+                    amUSm10.append(toolGroup1);
+                }
+                amUSm10.append(subComment);
+                amG.append(amUSm10);
+                var visitorComment = $('<div class="visitorComment" id="p' + obj['id'] +  '"></div>');
+                visitorComment.append(amG);
+                visitorComment.append($('<hr>'));
+                allComments.append(visitorComment);
             });
             articleComment.append(allComments);
             commentBottom.append(articleComment);
             comment.append(commentBottom);
             //添加评论数
-            $('.commentNum').html(data.length-1);
+            $('.commentNum').html(data.length);
         }
 
         var reply = $('.reply');
@@ -263,7 +260,7 @@
                 data:{
                 },
                 success:function (data) {
-                    if(data ==0){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
@@ -292,7 +289,7 @@
                 data:{
                 },
                 success:function (data) {
-                    if(data ==0){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
@@ -321,7 +318,7 @@
                 data:{
                 },
                 success:function (data) {
-                    if (data == 0) {
+                    if (data['status'] == 101) {
                         $.get("/toLogin", function (data, status, xhr) {
                             window.location.replace("/login");
                         });
@@ -363,21 +360,20 @@
                         respondent:respondent
                     },
                     success: function (data) {
-                        if(data[data.length-1]['status'] == 403){
+                        if(data['status'] == 101){
                             $.get("/toLogin",function(data,status,xhr){
                                 window.location.replace("/login");
                             });
-                        } else if (data[data.length-1]['status'] == 400){
+                        } else if (data['status'] == 801){
                             alert("内容不能为空！");
                         } else {
                             var sub_comment = $this.parent().parent().parent().parent();
-                            console.log(sub_comment)
-                            var visitorReply = $('<div class="visitorReply"></div>');
+                            var visitorReply = $('<div id=p' + data['data']['id'] + ' class="visitorReply"></div>');
                             var visitorReplyWords = $('<div class="visitorReplyWords">' +
-                                '<a class="answerer">' + data[0]['answerer'] + '</a>： <a class="respondent">@' + data[0]['respondent'] + ' </a>' + data[0]['commentContent'] +  '' +
+                                '<a class="answerer">' + data['data']['answerer'] + '</a>： <a class="respondent">@' + data['data']['respondent'] + ' </a>' + data['data']['commentContent'] +  '' +
                                 '</div>');
                             var visitorReplyTime = $('<div class="visitorReplyTime">' +
-                                '<span class="visitorReplyTimeTime">' + data[0]['commentDate'] + '</span>' +
+                                '<span class="visitorReplyTimeTime">' + data['data']['commentDate'] + '</span>' +
                                 '<a>' +
                                 '<i class="replyReply am-icon-comment-o">&nbsp;&nbsp;回复</i>' +
                                 '</a>' +
@@ -439,14 +435,14 @@
                     respondentId : respondentId
                 },
                 success:function (data) {
-                    if(data == -1){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
-                    } else if(data == -2){
+                    } else if(data['status'] == 802){
                         //已经点过赞了，啥都不干
                     } else {
-                        $this.find('span').html(data);
+                        $this.find('span').html(data['data']);
                         $.tipsBox({
                             obj: $this,
                             str: "+1",
@@ -485,8 +481,8 @@
             articleId : articleId,
         },
         success:function (data) {
-            if(data.status == "200"){
-                putInArticle(data);
+            if(data['status'] == 0){
+                putInArticle(data['data']);
             } else {
                 $('.content').html('');
                 var error = $('<div class="article"><div class="zhy-article-top"><div class="error">' +
@@ -514,7 +510,7 @@
             articleId : articleId,
         },
         success:function (data) {
-           putInComment(data);
+           putInComment(data['data']);
         },
         error:function () {
         }
@@ -579,13 +575,14 @@
                 articleId : articleId
             },
             success:function (data) {
-                if(data == -1){
+                if(data['status'] == 101){
                     $.get("/toLogin",function(data,status,xhr){
                         window.location.replace("/login");
                     });
-                } else if(data == -2){
+                } else if(data['status'] == 203){
+                    //文章已经点过赞了，啥都不干
                 } else {
-                    $('.likesNum').find('span').html(data);
+                    $('.likesNum').find('span').html(data['data']);
                     $('.likeBtn').css({
                         "background-color": "#EA6F5A",
                         "color":"white"

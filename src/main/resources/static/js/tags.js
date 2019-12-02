@@ -95,18 +95,18 @@
                 pageNum:currentPage
             },
             success:function (data) {
-                if(data['status'] == 200){
-                    putInAllTags(data);
-                } else {
-                    putInTagArticleInfo(data);
+                if(data['status'] == 301){
+                    putInAllTags(data['data']);
+                } else if(data['status'] == 302) {
+                    putInTagArticleInfo(data['data']);
                     scrollTo(0,0);//回到顶部
 
                     //分页
                     $("#pagination").paging({
-                        rows:data['pageInfo']['pageSize'],//每页显示条数
-                        pageNum:data['pageInfo']['pageNum'],//当前所在页码
-                        pages:data['pageInfo']['pages'],//总页数
-                        total:data['pageInfo']['total'],//总记录数
+                        rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                        pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                        pages:data['data']['pageInfo']['pages'],//总页数
+                        total:data['data']['pageInfo']['total'],//总记录数
                         callback:function(currentPage){
                             ajaxFirst(currentPage);
                         }

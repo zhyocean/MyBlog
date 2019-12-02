@@ -1,17 +1,19 @@
 package com.zhy.controller;
 
+import com.zhy.aspect.annotation.PermissionCheck;
 import com.zhy.component.JavaScriptCheck;
+import com.zhy.constant.CodeType;
 import com.zhy.model.LeaveMessage;
 import com.zhy.model.LeaveMessageLikesRecord;
 import com.zhy.service.LeaveMessageLikesRecordService;
 import com.zhy.service.LeaveMessageService;
 import com.zhy.service.UserService;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.JsonResult;
+import com.zhy.utils.StringUtil;
 import com.zhy.utils.TimeUtil;
-import net.sf.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +30,6 @@ import java.security.Principal;
 @RestController
 public class LeaveMessageControl {
 
-    private Logger logger = LoggerFactory.getLogger(LeaveMessageControl.class);
-
     @Autowired
     LeaveMessageService leaveMessageService;
     @Autowired
@@ -44,24 +44,16 @@ public class LeaveMessageControl {
      * @param principal 当前用户
      * @return
      */
-    @PostMapping("/publishLeaveMessage")
-    public JSONObject publishLeaveMessage(@RequestParam("leaveMessageContent") String leaveMessageContent,
+    @PostMapping(value = "/publishLeaveMessage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_USER")
+    public String publishLeaveMessage(@RequestParam("leaveMessageContent") String leaveMessageContent,
                                           @RequestParam("pageName") String pageName,
                                           @AuthenticationPrincipal Principal principal){
 
-        String answerer = null;
-        JSONObject jsonObject;
-        try {
-            answerer = principal.getName();
-        } catch (NullPointerException e){
-            logger.info("This user is not login");
-            jsonObject = new JSONObject();
-            jsonObject.put("status",403);
-            jsonObject.put("result","You are not sign in");
-            return jsonObject;
-        }
+        String answerer = principal.getName();
         leaveMessageService.publishLeaveMessage(leaveMessageContent,pageName, answerer);
-        return leaveMessageService.findAllLeaveMessage(pageName, 0, answerer);
+        DataMap data = leaveMessageService.findAllLeaveMessage(pageName, 0, answerer);
+        return JsonResult.build(data).toJSON();
 
     }
 
@@ -70,36 +62,28 @@ public class LeaveMessageControl {
      * @param pageName 当前页
      * @return
      */
-    @GetMapping("/getPageLeaveMessage")
-    public JSONObject getPageLeaveMessage(@RequestParam("pageName") String pageName,
+    @GetMapping(value = "/getPageLeaveMessage", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getPageLeaveMessage(@RequestParam("pageName") String pageName,
                                           @AuthenticationPrincipal Principal principal){
         String username = null;
-        try {
+        if(principal != null){
             username = principal.getName();
-        } catch (NullPointerException e){
-            logger.info("This user is not login");
         }
-        return leaveMessageService.findAllLeaveMessage(pageName, 0, username);
+        DataMap data = leaveMessageService.findAllLeaveMessage(pageName, 0, username);
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 发布留言中的评论
      * @return
      */
-    @PostMapping("/publishLeaveMessageReply")
-    public JSONObject publishLeaveMessageReply(LeaveMessage leaveMessage,
+    @PostMapping(value = "/publishLeaveMessageReply", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_USER")
+    public String publishLeaveMessageReply(LeaveMessage leaveMessage,
                                                @RequestParam("parentId") String parentId,
                                                @RequestParam("respondent") String respondent,
                                                @AuthenticationPrincipal Principal principal){
-        String username = null;
-        JSONObject jsonObject;
-        try {
-            username = principal.getName();
-        } catch (NullPointerException e){
-            jsonObject = new JSONObject();
-            jsonObject.put("status",403);
-            jsonObject.put("result","You are not sign in");
-        }
+        String username = principal.getName();
         leaveMessage.setAnswererId(userService.findIdByUsername(username));
         leaveMessage.setPId(Integer.parseInt(parentId.substring(1)));
         leaveMessage.setLeaveMessageContent(JavaScriptCheck.javaScriptCheck(leaveMessage.getLeaveMessageContent()));
@@ -109,42 +93,38 @@ public class LeaveMessageControl {
         } else {
             leaveMessage.setLeaveMessageContent(commentContent.trim());
         }
-        if("".equals(leaveMessage.getLeaveMessageContent())){
-            jsonObject = new JSONObject();
-            jsonObject.put("status",400);
-            return jsonObject;
-        }
-        leaveMessage = leaveMessageService.publishLeaveMessageReply(leaveMessage, respondent);
 
-        return leaveMessageService.leaveMessageNewReply(leaveMessage, username, respondent);
+        if(StringUtil.BLANK.equals(leaveMessage.getLeaveMessageContent())){
+            return JsonResult.fail(CodeType.COMMENT_BLANK).toJSON();
+        }
+
+        leaveMessageService.publishLeaveMessageReply(leaveMessage, respondent);
+
+        DataMap data = leaveMessageService.leaveMessageNewReply(leaveMessage, username, respondent);
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 点赞
      * @return 点赞数
      */
-    @GetMapping("/addLeaveMessageLike")
-    public int addLeaveMessageLike(@RequestParam("pageName") String pageName,
+    @GetMapping(value = "/addLeaveMessageLike", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_USER")
+    public String addLeaveMessageLike(@RequestParam("pageName") String pageName,
                                    @RequestParam("respondentId") String respondentId,
                                    @AuthenticationPrincipal Principal principal){
 
-        String username;
-        try {
-            username = principal.getName();
-        } catch (NullPointerException e){
-            logger.info("This user is not login");
-            return -1;
-        }
+        String username = principal.getName();
         TimeUtil timeUtil = new TimeUtil();
         int userId = userService.findIdByUsername(username);
         LeaveMessageLikesRecord leaveMessageLikesRecord = new LeaveMessageLikesRecord(pageName, Integer.parseInt(respondentId.substring(1)), userId, timeUtil.getFormatDateForFive());
+
         if(leaveMessageLikesRecordService.isLiked(leaveMessageLikesRecord.getPageName(), leaveMessageLikesRecord.getPId(), userId)){
-            logger.info("This user had clicked good for this page");
-            return -2;
+            return JsonResult.fail(CodeType.MESSAGE_HAS_THUMBS_UP).toJSON();
         }
-        int likes = leaveMessageService.updateLikeByPageNameAndId(pageName, leaveMessageLikesRecord.getPId());
+        DataMap data = leaveMessageService.updateLikeByPageNameAndId(pageName, leaveMessageLikesRecord.getPId());
         leaveMessageLikesRecordService.insertLeaveMessageLikesRecord(leaveMessageLikesRecord);
-        return likes;
+        return JsonResult.build(data).toJSON();
     }
 
 }

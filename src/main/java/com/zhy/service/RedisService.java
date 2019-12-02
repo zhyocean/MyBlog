@@ -3,6 +3,7 @@ package com.zhy.service;
 import com.zhy.model.UserReadNews;
 import com.zhy.redis.HashRedisServiceImpl;
 import com.zhy.redis.StringRedisServiceImpl;
+import com.zhy.utils.DataMap;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class RedisService {
     /**
      * 获得redis中用户的未读消息
      */
-    public JSONObject getUserNews(String username) {
+    public DataMap getUserNews(String username) {
         JSONObject jsonObject = new JSONObject();
 
         int userId = userService.findIdByUsername(username);
@@ -41,8 +42,7 @@ public class RedisService {
             UserReadNews news = new UserReadNews(allNewNum, commentNum, leaveMessageNum);
             jsonObject.put("result", news);
         }
-        jsonObject.put("status", "200");
-        return jsonObject;
+        return DataMap.success().setData(jsonObject);
     }
 
     /**

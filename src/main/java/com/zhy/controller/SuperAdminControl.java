@@ -1,17 +1,23 @@
 package com.zhy.controller;
 
+import com.zhy.aspect.annotation.PermissionCheck;
+import com.zhy.constant.CodeType;
 import com.zhy.model.FriendLink;
-import com.zhy.model.Result;
+import com.zhy.model.Reward;
 import com.zhy.redis.StringRedisServiceImpl;
 import com.zhy.service.*;
-import com.zhy.utils.ResultUtil;
-import net.sf.json.JSONArray;
+import com.zhy.utils.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 /**
@@ -42,36 +48,32 @@ public class SuperAdminControl {
     FriendLinkService friendLinkService;
     @Autowired
     RedisService redisService;
+    @Autowired
+    private RewardService rewardService;
 
     /**
      * 获得所有悄悄话
      * @return
      */
-    @PostMapping("/getAllPrivateWord")
-    @PreAuthorize("hasAuthority('ROLE_SUPERADMIN')")
-    public JSONObject getAllPrivateWord(){
-        return privateWordService.getAllPrivateWord();
+    @PostMapping(value = "/getAllPrivateWord", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String getAllPrivateWord(){
+        DataMap data = privateWordService.getAllPrivateWord();
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 回复悄悄话
      * @return
      */
-    @PostMapping("/replyPrivateWord")
-    public JSONObject replyPrivateWord(@AuthenticationPrincipal Principal principal,
+    @PostMapping(value = "/replyPrivateWord", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String replyPrivateWord(@AuthenticationPrincipal Principal principal,
                                        @RequestParam("replyContent") String replyContent,
                                        @RequestParam("replyId") String id){
-        String username;
-        JSONObject jsonObject;
-        try {
-            username = principal.getName();
-        } catch (NullPointerException e){
-            jsonObject = new JSONObject();
-            jsonObject.put("status",403);
-            return jsonObject;
-        }
-
-        return privateWordService.replyPrivateWord(replyContent, username, Integer.parseInt(id));
+        String username = principal.getName();
+        DataMap data = privateWordService.replyPrivateWord(replyContent, username, Integer.parseInt(id));
+        return JsonResult.build(data).toJSON();
     }
 
     /**
@@ -79,18 +81,21 @@ public class SuperAdminControl {
      * @param rows 一页大小
      * @param pageNum 当前页
      */
-    @GetMapping("/getAllFeedback")
-    public JSONObject getAllFeedback(@RequestParam("rows") String rows,
+    @GetMapping(value = "/getAllFeedback", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String getAllFeedback(@RequestParam("rows") String rows,
                                      @RequestParam("pageNum") String pageNum){
-        return feedBackService.getAllFeedback(Integer.parseInt(rows),Integer.parseInt(pageNum));
+        DataMap data = feedBackService.getAllFeedback(Integer.parseInt(rows),Integer.parseInt(pageNum));
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 获得统计信息
      * @return
      */
-    @GetMapping("/getStatisticsInfo")
-    public JSONObject getStatisticsInfo(){
+    @GetMapping(value = "/getStatisticsInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String getStatisticsInfo(){
         JSONObject returnJson = new JSONObject();
         Long totalVisitor = redisService.getVisitorNumOnRedis("visitor", "totalVisitor");
         Long yesterdayVisitor = redisService.getVisitorNumOnRedis("visitor", "yesterdayVisitor");
@@ -98,142 +103,177 @@ public class SuperAdminControl {
         returnJson.put("allUser", userService.countUserNum());
         returnJson.put("yesterdayVisitor", yesterdayVisitor);
         returnJson.put("articleNum", articleService.countArticle());
-        if(stringRedisService.hasKey("articleThumbsUp")){
-            int articleThumbsUp = (int) stringRedisService.get("articleThumbsUp");
+        if(stringRedisService.hasKey(StringUtil.ARTICLE_THUMBS_UP)){
+            int articleThumbsUp = (int) stringRedisService.get(StringUtil.ARTICLE_THUMBS_UP);
             returnJson.put("articleThumbsUpNum", articleThumbsUp);
         } else {
             returnJson.put("articleThumbsUpNum", 0);
         }
-        return returnJson;
+        DataMap data = DataMap.success().setData(returnJson);
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 获得文章管理
      * @return
      */
-    @PostMapping("/getArticleManagement")
-    public JSONObject getArticleManagement(@AuthenticationPrincipal Principal principal,
-                                           @RequestParam("rows") String rows,
+    @PostMapping(value = "/getArticleManagement", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String getArticleManagement(@RequestParam("rows") String rows,
                                            @RequestParam("pageNum") String pageNum){
-        String username = null;
-        JSONObject returnJson = new JSONObject();
-        try {
-            username = principal.getName();
-        } catch (NullPointerException e){
-            returnJson.put("status",403);
-            return  returnJson;
-        }
-        return articleService.getArticleManagement(Integer.parseInt(rows), Integer.parseInt(pageNum));
+        DataMap data = articleService.getArticleManagement(Integer.parseInt(rows), Integer.parseInt(pageNum));
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 删除文章
      * @param id 文章id
-     * @return 1--删除成功   0--删除失败
      */
-    @GetMapping("/deleteArticle")
-    public int deleteArticle(@RequestParam("id") String id){
-        if("".equals(id) || id == null){
-            return 0;
+    @GetMapping(value = "/deleteArticle", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String deleteArticle(@RequestParam("id") String id){
+        if(StringUtil.BLANK.equals(id) || id == null){
+            return JsonResult.build(DataMap.fail(CodeType.DELETE_ARTICLE_FAIL)).toJSON();
         }
-        return articleService.deleteArticle(Long.parseLong(id));
+        DataMap data = articleService.deleteArticle(Long.parseLong(id));
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 获得文章点赞信息
      */
-    @PostMapping("/getArticleThumbsUp")
-    public JSONObject getArticleThumbsUp(@RequestParam("rows") int rows,
-                                         @RequestParam("pageNum") int pageNum,
-                                         @AuthenticationPrincipal Principal principal){
-        String username;
-        try {
-            username = principal.getName();
-        } catch (NullPointerException e){
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("status", 403);
-            return jsonObject;
-        }
-        return articleLikesRecordService.getArticleThumbsUp(username, rows, pageNum);
+    @PostMapping(value = "/getArticleThumbsUp", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String getArticleThumbsUp(@RequestParam("rows") int rows,
+                                         @RequestParam("pageNum") int pageNum){
+        DataMap data = articleLikesRecordService.getArticleThumbsUp(rows, pageNum);
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 已读一条点赞信息
      */
-    @GetMapping("/readThisThumbsUp")
-    public int readThisThumbsUp(@RequestParam("id") int id){
-
-        return articleLikesRecordService.readThisThumbsUp(id);
+    @GetMapping(value = "/readThisThumbsUp", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String readThisThumbsUp(@RequestParam("id") int id){
+        DataMap data = articleLikesRecordService.readThisThumbsUp(id);
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 已读所有点赞信息
      */
-    @GetMapping("/readAllThumbsUp")
-    public JSONObject readAllThumbsUp(@AuthenticationPrincipal Principal principal){
-        String username;
-        try {
-            username = principal.getName();
-        } catch (NullPointerException e){
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("status", 403);
-            return jsonObject;
-        }
-        return articleLikesRecordService.readAllThumbsUp();
+    @GetMapping(value = "/readAllThumbsUp", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String readAllThumbsUp(){
+        DataMap data = articleLikesRecordService.readAllThumbsUp();
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 获得所有分类
      */
-    @GetMapping("/getArticleCategories")
-    public JSONObject getArticleCategories(){
-        return categoryService.findAllCategories();
+    @GetMapping(value = "/getArticleCategories", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String getArticleCategories(){
+        DataMap data = categoryService.findAllCategories();
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 添加或删除分类
      */
-    @PostMapping("/updateCategory")
-    @ResponseBody
-    public JSONObject updateCategory(@RequestParam("categoryName") String  categoryName,
+    @PostMapping(value = "/updateCategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String updateCategory(@RequestParam("categoryName") String  categoryName,
                               @RequestParam("type") int type){
-        return categoryService.updateCategory(categoryName, type);
+        DataMap data = categoryService.updateCategory(categoryName, type);
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 获得友链
      */
-    @PostMapping("/getFriendLink")
-    public JSONArray getFriendLink(){
-        return friendLinkService.getAllFriendLink();
+    @PostMapping(value = "/getFriendLink", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String getFriendLink(){
+        DataMap data = friendLinkService.getAllFriendLink();
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 添加或编辑友链
      */
-    @PostMapping("/addFriendLink")
-    public Result addFriendLink(@RequestParam("id") String id,
+    @PostMapping(value = "/addFriendLink", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String addFriendLink(@RequestParam("id") String id,
                                 @RequestParam("blogger") String blogger,
                                 @RequestParam("url") String url){
         FriendLink friendLink = new FriendLink(blogger, url);
-        if("".equals(id)){
-            return friendLinkService.addFriendLink(friendLink);
+        DataMap data;
+        if(StringUtil.BLANK.equals(id)){
+            data = friendLinkService.addFriendLink(friendLink);
         } else {
-            return friendLinkService.updateFriendLink(friendLink, Integer.parseInt(id));
+            data = friendLinkService.updateFriendLink(friendLink, Integer.parseInt(id));
         }
+        return JsonResult.build(data).toJSON();
     }
 
     /**
      * 删除友链
      */
-    @PostMapping("/deleteFriendLink")
-    public Result deleteFriendLink(@RequestParam("id") int id,
-                                   @AuthenticationPrincipal Principal principal){
-        try {
-            String username = principal.getName();
-        } catch (NullPointerException e){
-            return ResultUtil.error(403, "该用户没有权限！");
+    @PostMapping(value = "/deleteFriendLink", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String deleteFriendLink(@RequestParam("id") int id){
+        DataMap data = friendLinkService.deleteFriendLink(id);
+        return JsonResult.build(data).toJSON();
+    }
+
+    /**
+     * 增加募捐记录
+     */
+    @PostMapping(value = "/addReward", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public String addReward(@RequestParam("file") MultipartFile file,
+                            HttpServletRequest request,
+                            Reward reward){
+
+        //获得募捐时间
+        String rewardDate = request.getParameter("reward-date");
+
+        //上次募捐证书
+        FileUtil fileUtil = new FileUtil();
+        String filePath = this.getClass().getResource("/").getPath().substring(1) + "blogImg/";
+        String fileContentType = file.getContentType();
+        String fileExtension = fileContentType.substring(fileContentType.indexOf("/") + 1);
+        TimeUtil timeUtil = new TimeUtil();
+        String fileName = timeUtil.getLongTime() + "." + fileExtension;
+        String subCatalog = "rewardRecord/" + new TimeUtil().getFormatDateForThree();
+        String fileUrl = fileUtil.uploadFile(fileUtil.multipartFileToFile(file, filePath, fileName), subCatalog);
+
+        reward.setRewardDate(timeUtil.stringToDateThree(rewardDate));
+        //募捐去处处理
+        if(reward.getFundraisingPlace().indexOf("《") == 0 && reward.getFundraisingPlace().indexOf("》") == reward.getFundraisingPlace().length()-1){
+            reward.setFundraisingPlace(reward.getFundraisingPlace());
+        } else {
+            reward.setFundraisingPlace("《"+reward.getFundraisingPlace()+"》");
         }
-        return friendLinkService.deleteFriendLink(id);
+        reward.setRewardUrl(fileUrl);
+        if(reward.getRemarks() == null || StringUtil.BLANK.equals(reward.getRemarks().trim())){
+            reward.setRemarks("无");
+        }
+
+        DataMap data = rewardService.save(reward);
+        return JsonResult.build(data).toJSON();
+    }
+
+    /**
+     * 删除募捐记录
+     */
+    @GetMapping(value = "/deleteReward", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PermissionCheck(value = "ROLE_SUPERADMIN")
+    public  String deleteReward(@RequestParam("id") int id){
+        DataMap data = rewardService.deleteReward(id);
+        return JsonResult.build(data).toJSON();
     }
 }

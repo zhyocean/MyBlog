@@ -1,6 +1,6 @@
 
     //网站最后更新时间（版本更新需更改）
-    var siteLastUpdateTime = '2019年05月23日13点';
+    var siteLastUpdateTime = '2019年12月02日19点';
 
     //网站开始时间
     var siteBeginRunningTime = '2018-07-25 20:00:00';
@@ -214,15 +214,16 @@
         },
         success: function (data) {
             //放入数据
-            putInArticle(data);
+            putInArticle(data['data']);
             scrollTo(0,0);//回到顶部
 
+            var length = data['data'].length;
             //分页
             $("#pagination").paging({
-                rows:data[data.length-1]['pageSize'],//每页显示条数
-                pageNum:data[data.length-1]['pageNum'],//当前所在页码
-                pages:data[data.length-1]['pages'],//总页数
-                total:data[data.length-1]['total'],//总记录数
+                rows:data['data'][length-1]['pageSize'],//每页显示条数
+                pageNum:data['data'][length-1]['pageNum'],//当前所在页码
+                pages:data['data'][length-1]['pages'],//总页数
+                total:data['data'][length-1]['total'],//总记录数
                 callback:function(currentPage){
                     ajaxFirst(currentPage);
                 }
@@ -245,14 +246,14 @@
             pageNum:currentPage
         },
         success: function (data) {
-            putInNewComment(data);
+            putInNewComment(data['data']);
 
             //分页
             $(".newCommentPagination").paging({
-                rows:data['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['pageInfo']['pageNum'],//当前所在页码
-                pages:data['pageInfo']['pages'],//总页数
-                total:data['pageInfo']['total'],//总记录数
+                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                pages:data['data']['pageInfo']['pages'],//总页数
+                total:data['data']['pageInfo']['total'],//总记录数
                 flag:0,
                 callback:function(currentPage){
                     newCommentAjax(currentPage);
@@ -275,14 +276,14 @@
                 pageNum:currentPage
             },
             success: function (data) {
-                putInNewLeaveWord(data);
+                putInNewLeaveWord(data['data']);
 
                 //分页
                 $(".newLeaveWordPagination").paging({
-                    rows:data['pageInfo']['pageSize'],//每页显示条数
-                    pageNum:data['pageInfo']['pageNum'],//当前所在页码
-                    pages:data['pageInfo']['pages'],//总页数
-                    total:data['pageInfo']['total'],//总记录数
+                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                    pages:data['data']['pageInfo']['pages'],//总页数
+                    total:data['data']['pageInfo']['total'],//总记录数
                     flag:0,
                     callback:function(currentPage){
                         newLeaveWordAjax(currentPage);
@@ -314,7 +315,7 @@
         data: {
         },
         success: function (data) {
-            if(data['result'].length == 0){
+            if(data['data']['result'].length == 0){
                 var tagCloud = $('.tag-cloud');
                 tagCloud.empty();
                 tagCloud.append($('<h3 class="widget-title">标签云</h3>'));
@@ -322,7 +323,7 @@
                 tagCloud.append(widgetTagCloud);
                 $('#right').append(tagCloud);
             } else {
-                putInTagsCloud(data);
+                putInTagsCloud(data['data']);
             }
 
         },
@@ -346,16 +347,16 @@
                 '</h5>');
             var siteDefault = $('<ul class="site-default"></ul>');
             siteDefault.append('<li>' +
-                '<i class="am-icon-file site-default-icon"></i><span class="site-default-word">文章总数</span>：' + data['articleNum'] + ' 篇' +
+                '<i class="am-icon-file site-default-icon"></i><span class="site-default-word">文章总数</span>：' + data['data']['articleNum'] + ' 篇' +
                 '</li>');
             siteDefault.append('<li>' +
-                '<i class="am-icon-tags site-default-icon"></i><span class="site-default-word">标签总数</span>：' + data['tagsNum'] + ' 个' +
+                '<i class="am-icon-tags site-default-icon"></i><span class="site-default-word">标签总数</span>：' + data['data']['tagsNum'] + ' 个' +
                 '</li>');
             siteDefault.append('<li>' +
-                '<i class="am-icon-comments-o site-default-icon"></i><span class="site-default-word">留言总数</span>：' + data['leaveWordNum'] + ' 条' +
+                '<i class="am-icon-comments-o site-default-icon"></i><span class="site-default-word">留言总数</span>：' + data['data']['leaveWordNum'] + ' 条' +
                 '</li>');
             siteDefault.append('<li>' +
-                '<i class="am-icon-commenting-o site-default-icon"></i><span class="site-default-word">评论总数</span>：' + data['commentNum'] + ' 条' +
+                '<i class="am-icon-commenting-o site-default-icon"></i><span class="site-default-word">评论总数</span>：' + data['data']['commentNum'] + ' 条' +
                 '</li>');
             siteDefault.append('<li>' +
                 '<i class="am-icon-pencil-square site-default-icon"></i><span class="site-default-word">网站最后更新</span>：<span class="siteUpdateTime">' + siteLastUpdateTime + '</span>' +

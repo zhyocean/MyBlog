@@ -1,9 +1,7 @@
 package com.zhy.service;
 
 import com.zhy.model.FriendLink;
-import com.zhy.model.Result;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.zhy.utils.DataMap;
 
 /**
  * @author: zhangocean
@@ -12,13 +10,13 @@ import net.sf.json.JSONObject;
  */
 public interface FriendLinkService {
 
-    Result addFriendLink(FriendLink friendLink);
+    DataMap addFriendLink(FriendLink friendLink);
 
-    JSONArray getAllFriendLink();
+    DataMap getAllFriendLink();
 
-    Result updateFriendLink(FriendLink friendLink, int id);
+    DataMap updateFriendLink(FriendLink friendLink, int id);
 
-    Result deleteFriendLink(int id);
+    DataMap deleteFriendLink(int id);
 
-    Result getFriendLink();
+    DataMap getFriendLink();
 }

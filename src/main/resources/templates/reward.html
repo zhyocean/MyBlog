@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>公益募捐 | 程序猿张先森</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="keywords" content="博客,个人,学习,IT,生活,张海洋,程序猿,springboot,java,后端，友链">
+    <meta name="description" content="张海洋，正宗97后，爱编程。喜欢旅行、摄影、爱生活。专注于Spring,SpringBoot等后端技术探索，以及MySql,Oracle数据库开发和SSM,SSH等后端流行框架学习。">
+
+    <link rel="icon" type="image/x-icon" href="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/favicon.ico">
+    <link href="https://lib.baomitu.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/font-awesome/5.8.0/css/fontawesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/comment.css">
+    <link rel="stylesheet" href="css/reward.css">
+
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://lib.baomitu.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--引入共有头部-->
+    <div th:replace="header :: header"></div>
+    <!--页面主体-->
+    <div id="main">
+        <div class="am-container" style="max-width: 1150px;">
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-lg-12">
+                    <div class="inner">
+                        <div class="reward-top">
+                            <h1>关于公益？</h1>
+                            <p>
+                                我是一名普普通通的程序猿，拿着完全足够养活自己的工资，经营着一个流量并不大的网站和公众号。很喜欢一句话，世界的改变，不是一个人做了很多，是很多人如你一般，做了一点点。
+                                从一个简单的想法诞生，到执行需要多大的勇气，那么既然开始了，就走下去吧...
+                            </p>
+                            <p>
+                               我从不幻想我会成为拯救世界的英雄，可我帮助了他们，我就是自己心中的英雄。
+                            </p>
+                            <p class="reward-declare">
+                                <u>自2019年7月5日开始，公众号文章赞赏以及本网站收到的所有赞赏，将全部通过腾讯公益捐出，并会及时将捐赠情况展示于该页。</u>
+                            </p>
+                        </div>
+                        <div class="reward-show">
+                            <div class="reward-show-title">
+                                <i class="am-icon-plus-square"></i>
+                                公益募捐记录
+                                <span style="font-size: 13px;font-weight: 600;">仅展示赞赏金额 >= 1元 的募捐记录</span>
+                            </div>
+                            <div class="reward-show-content">
+                                <table class="table am-table am-table-bd box-shadow am-table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>昵称</th><th>募捐来源</th><th  class="am-hide-sm-down">募捐去处</th><th style="width: 60px;">金额</th><th class="am-hide-sm-down" style="width: 340px;">备注</th><th>时间</th><th>详情</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="rewardTable">
+                                        <!--填充募捐记录-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="website-admire">
+                            <div class="reward-show-title">
+                                <i class="am-icon-plus-square"></i>
+                                赞赏二维码
+                                <span style="font-size: 13px;font-weight: 600;">请各位朋友赞赏的时候能另外备注下你的名字（昵称也行）</span>
+                            </div>
+                            <div id="admire-pics">
+                                <div class="admire-pic" style="display: block">
+                                    <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin-admire.jpg">
+                                </div>
+                                <div class="admire-pic-word">
+                                    (微信赞赏码，微信扫一扫，赞赏任意额度)
+                                </div>
+                                <div class="admire-pic">
+                                    <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/alipay-payment-code.jpg">
+                                </div>
+                                <div class="admire-pic">
+                                    <img src="https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/static/img/weixin-payment-code.jpg">
+                                </div>
+                                <div class="admire-pic-word">
+                                    (扫码打赏，建议金额1-10元)
+                                </div>
+                                <div class="admire-pic-word-danger">
+                                    提醒：打赏金额将直接进入对方账号，无法退款，请您谨慎操作。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reward-comment">
+                            <div class="reward-show-title">
+                                <i class="am-icon-plus-square"></i>
+                                赞赏评论
+                            </div>
+                            <div class="comment">
+                                <div class="comment-top">
+                                    <div class="comment-top-input" th:if="${#httpServletRequest.remoteUser}">
+                                        <textarea id="comment" placeholder="客官，来说两句吧..."></textarea>
+                                    </div>
+                                    <div class="comment-top-input" th:unless="${#httpServletRequest.remoteUser}">
+                                        <div class="goToLogin">
+                                            &nbsp;&nbsp;&nbsp;<a id="toLogin">登录</a>后才可以发表留言呦...
+                                        </div>
+                                    </div>
+                                    <div class="commentBtn">
+                                        <button id="commentBtn" type="button" class="am-btn am-btn-secondary">发表留言</button>
+                                    </div>
+                                </div>
+                                <!--页面留言-->
+                                <div class="comment-bottom">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--引入共有底部-->
+    <div th:replace="footer :: footer"></div>
+    <!--消息盒子+反馈-->
+    <div th:replace="other :: other"></div>
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="reward-show-modal">
+        <div class="modelShow am-modal-dialog">
+            <img src="">
+        </div>
+    </div>
+</div>
+
+<script src="js/all.js"></script>
+<script src="js/leaveMessage.js"></script>
+<script src="js/reward.js"></script>
+</body>
+</html>

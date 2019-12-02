@@ -1,20 +1,19 @@
 package com.zhy.controller;
 
 import com.zhy.service.ArticleService;
+import com.zhy.utils.StringUtil;
 import com.zhy.utils.TransCodingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.Principal;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 
 /**
@@ -25,24 +24,18 @@ import java.util.Map;
 @Controller
 public class BackControl {
 
+    private static final String SLASH_SYMBOL = "/";
+
     @Autowired
     ArticleService articleService;
-
 
     /**
      * 跳转首页
      */
     @GetMapping("/")
-    public String index(HttpServletRequest request, HttpServletResponse response,
-                        @AuthenticationPrincipal Principal principal){
-        String username = null;
-        try {
-            username = principal.getName();
-        } catch (NullPointerException e){
-            request.getSession().removeAttribute("lastUrl");
-            return "index";
-        }
+    public String index(HttpServletRequest request, HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
+        //判断是否有需要回跳的url，有则将需要回跳的url保存在响应头中
         response.setHeader("lastUrl", (String) request.getSession().getAttribute("lastUrl"));
         return "index";
     }
@@ -84,9 +77,20 @@ public class BackControl {
      * 登录前尝试保存上一个页面的url
      */
     @GetMapping("/toLogin")
-    public @ResponseBody void toLogin(HttpServletRequest request){
+    @ResponseBody
+    public void toLogin(HttpServletRequest request){
         //保存跳转页面的url
-        request.getSession().setAttribute("lastUrl", request.getHeader("Referer"));
+        String lastUrl = request.getHeader("Referer");
+        if(lastUrl != null){
+            try {
+                URL url = new URL(lastUrl);
+                if(!SLASH_SYMBOL.equals(url.getPath())){
+                    request.getSession().setAttribute("lastUrl", lastUrl);
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -148,7 +152,7 @@ public class BackControl {
     public String editor(HttpServletRequest request){
         request.getSession().removeAttribute("lastUrl");
         String id = request.getParameter("id");
-        if(!"".equals(id)){
+        if(!StringUtil.BLANK.equals(id)){
             request.getSession().setAttribute("id", id);
         }
         return "editor";
@@ -192,10 +196,10 @@ public class BackControl {
         request.getSession().removeAttribute("lastUrl");
         String archive = request.getParameter("archive");
 
-        try {
-            response.setHeader("archive",TransCodingUtil.stringToUnicode(archive));
-        } catch (Exception e){
+        if(archive != null && !archive.equals(StringUtil.BLANK)){
+            response.setHeader("archive",archive);
         }
+
         return "archives";
     }
 
@@ -210,10 +214,10 @@ public class BackControl {
         request.getSession().removeAttribute("lastUrl");
         String category = request.getParameter("category");
 
-        try {
-            response.setHeader("category",TransCodingUtil.stringToUnicode(category));
-        } catch (Exception e){
+        if(category != null && !category.equals(StringUtil.BLANK)){
+            response.setHeader("category", TransCodingUtil.stringToUnicode(category));
         }
+
         return "categories";
     }
 
@@ -226,12 +230,12 @@ public class BackControl {
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
         request.getSession().removeAttribute("lastUrl");
-
         String tag = request.getParameter("tag");
-        try {
-            response.setHeader("tag",TransCodingUtil.stringToUnicode(tag));
-        } catch (Exception e){
+
+        if(tag != null && !tag.equals(StringUtil.BLANK)){
+            response.setHeader("tag", TransCodingUtil.stringToUnicode(tag));
         }
+
         return "tags";
     }
 
@@ -244,4 +248,19 @@ public class BackControl {
         return "superadmin";
     }
 
+//    @GetMapping("/yesterday")
+//    public String yesterday(){
+//        return "yesterday";
+//    }
+
+    @GetMapping("/today")
+    public String today(){
+        return "today";
+    }
+
+    @GetMapping("/reward")
+    public String reward(HttpServletRequest request){
+        request.getSession().removeAttribute("lastUrl");
+        return "reward";
+    }
 }

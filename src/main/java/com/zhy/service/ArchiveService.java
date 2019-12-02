@@ -1,7 +1,6 @@
 package com.zhy.service;
 
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
+import com.zhy.utils.DataMap;
 
 /**
  * @author: zhangocean
@@ -14,7 +13,7 @@ public interface ArchiveService {
      * 获得归档信息
      * @return
      */
-    JSONObject findArchiveNameAndArticleNum();
+    DataMap findArchiveNameAndArticleNum();
 
     /**
      * 添加归档日期

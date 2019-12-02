@@ -1,10 +1,14 @@
 package com.zhy.constant;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 /**
  * @author: zhangocean
  * @Date: 2018/6/9 19:45
  * Describe: 阿里云连接密钥
  */
+@Component
 public class OSSClientConstants {
 
     /**
@@ -15,11 +19,11 @@ public class OSSClientConstants {
     /**
      * 阿里云API的密钥Access Key ID
      */
-    public static final String ACCESS_KEY_ID = "这里填Access Key ID";
+    public static String ACCESS_KEY_ID;
     /**
      *阿里云API的密钥Access Key Secret
      */
-    public static final String ACCESS_KEY_SECRET = "这里填Access Key Secret";
+    public static String ACCESS_KEY_SECRET;
 
     /**
      * 阿里云API的bucket名称
@@ -33,4 +37,13 @@ public class OSSClientConstants {
      */
     public static final String FOLDER="public/";
 
+    @Value("${aliyun.accessKeyId}")
+    public void setAccessKeyId(String accessKeyId) {
+        ACCESS_KEY_ID = accessKeyId;
+    }
+
+    @Value("${aliyun.secret}")
+    public void setAccessKeySecret(String accessKeySecret) {
+        ACCESS_KEY_SECRET = accessKeySecret;
+    }
 }

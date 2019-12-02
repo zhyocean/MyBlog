@@ -6,16 +6,16 @@ import com.zhy.mapper.PrivateWordMapper;
 import com.zhy.model.PrivateWord;
 import com.zhy.service.PrivateWordService;
 import com.zhy.service.UserService;
+import com.zhy.utils.DataMap;
+import com.zhy.utils.StringUtil;
 import com.zhy.utils.TimeUtil;
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: zhangocean
@@ -31,17 +31,15 @@ public class PrivateWordServiceImpl implements PrivateWordService {
     UserService userService;
 
     @Override
-    public JSONObject publishPrivateWord(String privateWordContent, String username) {
+    public DataMap publishPrivateWord(String privateWordContent, String username) {
         TimeUtil timeUtil = new TimeUtil();
         PrivateWord privateWord = new PrivateWord(privateWordContent, userService.findIdByUsername(username), timeUtil.getFormatDateForSix());
-        privateWordMapper.publishPrivateWord(privateWord);
-        JSONObject returnJson = new JSONObject();
-        returnJson.put("status",200);
-        return returnJson;
+        privateWordMapper.save(privateWord);
+        return DataMap.success();
     }
 
     @Override
-    public JSONObject getPrivateWordByPublisher(String publisher, int rows, int pageNum) {
+    public DataMap getPrivateWordByPublisher(String publisher, int rows, int pageNum) {
         int publisherId = userService.findIdByUsername(publisher);
         PageHelper.startPage(pageNum, rows);
         List<PrivateWord> privateWords = privateWordMapper.getPrivateWordByPublisher(publisherId);
@@ -55,8 +53,8 @@ public class PrivateWordServiceImpl implements PrivateWordService {
             privateWordJson.put("privateWord", privateWord.getPrivateWord());
             privateWordJson.put("publisher", publisher);
             if(privateWord.getReplyContent() == null){
-                privateWordJson.put("replier", "");
-                privateWordJson.put("replyContent", "");
+                privateWordJson.put("replier", StringUtil.BLANK);
+                privateWordJson.put("replyContent", StringUtil.BLANK);
             } else {
                 privateWordJson.put("replier", userService.findUsernameById(privateWord.getReplierId()));
                 privateWordJson.put("replyContent", privateWord.getReplyContent());
@@ -66,7 +64,6 @@ public class PrivateWordServiceImpl implements PrivateWordService {
             privateWordJson.put("publisherDate", publisherDate);
             privateWordJsonArray.add(privateWordJson);
         }
-        returnJson.put("status",200);
         returnJson.put("result",privateWordJsonArray);
 
         JSONObject pageJson = new JSONObject();
@@ -78,11 +75,11 @@ public class PrivateWordServiceImpl implements PrivateWordService {
         pageJson.put("isLastPage",pageInfo.isIsLastPage());
 
         returnJson.put("pageInfo",pageJson);
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 
     @Override
-    public JSONObject getAllPrivateWord() {
+    public DataMap getAllPrivateWord() {
         List<PrivateWord> privateWords = privateWordMapper.getAllPrivateWord();
 
         JSONObject returnJson = new JSONObject();
@@ -90,7 +87,6 @@ public class PrivateWordServiceImpl implements PrivateWordService {
         JSONArray allJsonArray = new JSONArray();
         JSONObject newUserJson;
 
-        returnJson.put("status",200);
         List<String> publishers = new ArrayList<>();
         String publisher;
         for(PrivateWord privateWord : privateWords){
@@ -101,8 +97,8 @@ public class PrivateWordServiceImpl implements PrivateWordService {
             userJson.put("publisherDate", privateWord.getPublisherDate());
             userJson.put("id", privateWord.getId());
             if(privateWord.getReplyContent() == null){
-                userJson.put("replier","");
-                userJson.put("replyContent","");
+                userJson.put("replier", StringUtil.BLANK);
+                userJson.put("replyContent", StringUtil.BLANK);
             } else {
                 userJson.put("replyContent",privateWord.getReplyContent());
                 userJson.put("replier",userService.findUsernameById(privateWord.getReplierId()));
@@ -129,18 +125,17 @@ public class PrivateWordServiceImpl implements PrivateWordService {
             }
         }
         returnJson.put("result",allJsonArray);
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 
     @Override
-    public JSONObject replyPrivateWord(String replyContent, String username, int id) {
+    public DataMap replyPrivateWord(String replyContent, String username, int id) {
         JSONObject returnJson = new JSONObject();
         privateWordMapper.replyPrivateWord(replyContent, userService.findIdByUsername(username), id);
-        returnJson.put("status",200);
         JSONObject replyJson = new JSONObject();
         replyJson.put("replyContent",replyContent);
         replyJson.put("replyId",id);
         returnJson.put("result",replyJson);
-        return returnJson;
+        return DataMap.success().setData(returnJson);
     }
 }

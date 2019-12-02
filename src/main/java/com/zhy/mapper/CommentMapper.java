@@ -2,6 +2,7 @@ package com.zhy.mapper;
 
 import com.zhy.model.Comment;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,9 +16,10 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, statementType = StatementType.STATEMENT,resultType=int.class)
     @Insert("insert into comment_record(articleId,pId,answererId,respondentId,commentDate,likes,commentContent,isRead)" +
             " values(#{articleId},#{pId},#{answererId},#{respondentId},#{commentDate},#{likes},#{commentContent},#{isRead})")
-    void insertComment(Comment comment);
+    int save(Comment comment);
 
     @Select("select * from comment_record where articleId=#{articleId} and pId=#{pId} order by id desc")
     List<Comment> findCommentByArticleIdAndPid(@Param("articleId") long articleId, @Param("pId") long pId);

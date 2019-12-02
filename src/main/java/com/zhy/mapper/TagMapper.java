@@ -19,7 +19,7 @@ import java.util.List;
 public interface TagMapper {
 
     @Insert("insert into tags(tagName,tagSize) values(#{tagName},#{tagSize})")
-    void insertTag(Tag tag);
+    void save(Tag tag);
 
     @Select("select IFNULL(max(id),0) from tags where tagName=#{tagName}")
     int findIsExistByTagName(@Param("tagName") String tagName);

@@ -24,7 +24,7 @@ public class ScheduledTask {
     /**
      * cron表达式生成器：http://cron.qqe2.com/
      *
-     * 每晚20点清空redis中当日网站访问记录，但保存totalVisitor、visitorVolume、yesterdayVisitor
+     * 每晚24点清空redis中当日网站访问记录，但保存totalVisitor、visitorVolume、yesterdayVisitor
      */
     @Scheduled(cron = "0 0 0 * * ? ")
     public void resetVisitorNumber(){

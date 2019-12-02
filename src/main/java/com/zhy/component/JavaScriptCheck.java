@@ -8,10 +8,20 @@ package com.zhy.component;
 public class JavaScriptCheck {
 
     public static String javaScriptCheck(String comment){
+
+        comment = textCheck(comment, "script");
+        comment = textCheck(comment, "iframe");
+
+        return comment;
+    }
+
+    private static String textCheck(String comment, String sign){
+        String signFir = "<" + sign;
+        String signSec = "</" + sign + ">";
         int begin,end,theEnd;
         String newStr = "";
-        begin = comment.indexOf("<script");
-        end = comment.indexOf("</script>");
+        begin = comment.indexOf(signFir);
+        end = comment.indexOf(signSec);
         if (begin == -1){
             return comment;
         }
@@ -22,8 +32,8 @@ public class JavaScriptCheck {
 
             comment = comment.substring(end+9);
 
-            begin = comment.indexOf("<script");
-            end = comment.indexOf("</script>");
+            begin = comment.indexOf(signFir);
+            end = comment.indexOf(signSec);
         }
         return newStr;
     }

@@ -1,12 +1,11 @@
 package com.zhy.service.impl;
 
+import com.zhy.constant.CodeType;
 import com.zhy.mapper.FriendLinkMapper;
 import com.zhy.model.FriendLink;
-import com.zhy.model.Result;
 import com.zhy.service.FriendLinkService;
-import com.zhy.utils.ResultUtil;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.zhy.utils.DataMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,56 +17,60 @@ import java.util.List;
  * Describe:
  */
 @Service
+@Slf4j
 public class FriendLinkServiceImpl implements FriendLinkService {
 
     @Autowired
     FriendLinkMapper friendLinkMapper;
 
     @Override
-    public Result addFriendLink(FriendLink friendLink) {
+    public DataMap addFriendLink(FriendLink friendLink) {
         int id = friendLinkMapper.findIsExistByBlogger(friendLink.getBlogger());
         try {
             if(id == 0){
-                friendLinkMapper.addFriendLink(friendLink);
-                return ResultUtil.success(200, friendLink.getId(), "添加友链成功!");
+                friendLinkMapper.save(friendLink);
+                return DataMap.success(CodeType.ADD_FRIEND_LINK_SUCCESS)
+                        .setData(friendLink.getId());
             } else {
-                return ResultUtil.success(201, id, "该友链已存在!");
+                return DataMap.fail(CodeType.FRIEND_LINK_EXIST);
             }
         } catch (Exception e){
-            return ResultUtil.error(500, "更新友链失败!");
+            log.error("add friend link exception", e);
+            return DataMap.fail(CodeType.ADD_FRIEND_LINK_EXCEPTION);
         }
     }
 
     @Override
-    public JSONArray getAllFriendLink() {
+    public DataMap getAllFriendLink() {
         List<FriendLink> links = friendLinkMapper.getAllFriendLink();
-        return JSONArray.fromObject(links);
+        return DataMap.success().setData(links);
     }
 
     @Override
-    public Result updateFriendLink(FriendLink friendLink, int id) {
+    public DataMap updateFriendLink(FriendLink friendLink, int id) {
         try {
             friendLinkMapper.updateFriendLink(friendLink, id);
-            return ResultUtil.success(202, id, "更新友链成功!");
+            return DataMap.success(CodeType.UPDATE_FRIEND_LINK_SUCCESS);
         } catch (Exception e){
-            return ResultUtil.error(500, "更新友链失败!");
+            log.error("update friend link exception", e);
+            return DataMap.fail(CodeType.UPDATE_FRIEND_LINK_EXCEPTION);
         }
     }
 
     @Override
-    public Result deleteFriendLink(int id) {
+    public DataMap deleteFriendLink(int id) {
         try {
             friendLinkMapper.deleteFriendLinkById(id);
-            return ResultUtil.success("删除友链成功!");
+            return DataMap.success(CodeType.DELETE_FRIEND_LINK_SUCCESS);
         } catch (Exception e){
-            e.printStackTrace();
-            return ResultUtil.error(500, "删除友链失败!");
+            log.error("delete friend link exception", e);
+            return DataMap.fail(CodeType.DELETE_FRIEND_LINK_EXCEPTION);
         }
     }
 
     @Override
-    public Result getFriendLink() {
+    public DataMap getFriendLink() {
         List<FriendLink> links = friendLinkMapper.getAllFriendLink();
-        return ResultUtil.success(links, "success");
+        return DataMap.success().setData(links);
     }
 }

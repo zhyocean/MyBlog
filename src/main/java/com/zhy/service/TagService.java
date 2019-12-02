@@ -1,7 +1,6 @@
 package com.zhy.service;
 
-import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
+import com.zhy.utils.DataMap;
 
 /**
  * @author: zhangocean
@@ -21,7 +20,7 @@ public interface TagService {
      * 获得标签云
      * @return
      */
-    JSONObject findTagsCloud();
+    DataMap findTagsCloud();
 
     /**
      * 获得标签云数量

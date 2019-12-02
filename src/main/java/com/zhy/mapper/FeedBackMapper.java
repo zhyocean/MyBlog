@@ -18,7 +18,7 @@ import java.util.List;
 public interface FeedBackMapper {
 
     @Insert("insert into feedback(feedbackContent,contactInfo,personId,feedbackDate) values(#{feedbackContent},#{contactInfo},#{personId},#{feedbackDate})")
-    void insertFeedback(FeedBack feedBack);
+    void save(FeedBack feedBack);
 
     @Select("select * from feedback order by id desc")
     List<FeedBack> getAllFeedback();

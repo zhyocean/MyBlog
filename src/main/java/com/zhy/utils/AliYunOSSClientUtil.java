@@ -6,8 +6,7 @@ import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectResult;
 import com.zhy.constant.OSSClientConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -21,9 +20,8 @@ import java.util.Date;
  * @Date: 2018/6/10 17:45
  * Describe: 阿里云OSS连接
  */
+@Slf4j
 public class AliYunOSSClientUtil {
-
-    private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
     private static String ENDPOINT;
 
@@ -64,7 +62,7 @@ public class AliYunOSSClientUtil {
         if(!ossClient.doesBucketExist(bucketName)){
             //创建存储空间
             Bucket bucket=ossClient.createBucket(bucketName);
-            logger.info("创建存储空间成功");
+            log.info("创建存储空间成功");
             return bucket.getName();
         }
         return bucketNames;
@@ -77,7 +75,7 @@ public class AliYunOSSClientUtil {
      */
     public static  void deleteBucket(OSSClient ossClient, String bucketName){
         ossClient.deleteBucket(bucketName);
-        logger.info("删除" + bucketName + "Bucket成功");
+        log.info("删除" + bucketName + "Bucket成功");
     }
 
 
@@ -95,7 +93,7 @@ public class AliYunOSSClientUtil {
         if(!ossClient.doesObjectExist(bucketName, keySuffixWithSlash)){
             //创建文件夹
             ossClient.putObject(bucketName, keySuffixWithSlash, new ByteArrayInputStream(new byte[0]));
-            logger.info("创建文件夹成功");
+            log.info("创建文件夹成功");
             //得到文件夹名
             OSSObject object = ossClient.getObject(bucketName, keySuffixWithSlash);
             String fileDir=object.getKey();
@@ -113,7 +111,7 @@ public class AliYunOSSClientUtil {
      */
     public static void deleteFile(OSSClient ossClient, String bucketName, String folder, String key){
         ossClient.deleteObject(bucketName, folder + key);
-        logger.info("删除" + bucketName + "下的文件" + folder + key + "成功");
+        log.info("删除" + bucketName + "下的文件" + folder + key + "成功");
     }
 
     /**
@@ -154,7 +152,7 @@ public class AliYunOSSClientUtil {
             resultStr = putResult.getETag();
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("上传阿里云OSS服务器异常." + e.getMessage(), e);
+            log.error("上传阿里云OSS服务器异常." + e.getMessage(), e);
         }
         return resultStr;
     }

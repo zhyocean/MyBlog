@@ -23,7 +23,7 @@
         margin:10px 150px 0 0;
         padding: 20px 30px;
     }
-    .updateCategory,.updateFriendLink{
+    .updateCategory,.updateFriendLink,.updateReward{
         float: right;
         margin-right: 150px;
     }
@@ -36,6 +36,13 @@
     .msgRead{
         padding-bottom: 10px;
         margin-right: 150px;
+    }
+    .rewardFormContent{
+        width: 300px;
+    }
+    #remarks{
+        height: 50px;
+        width: 300px;
     }
 }
 @media screen and (max-width: 768px) {
@@ -63,7 +70,7 @@
         margin:10px 0 0 0;
         padding: 20px 30px;
     }
-    .updateCategory,.updateFriendLink{
+    .updateCategory,.updateFriendLink,.updateReward{
         float: right;
         margin-right: 30px;
     }
@@ -76,6 +83,16 @@
     .msgRead{
         padding-bottom: 10px;
         margin-right: 30px;
+    }
+    .rewardFormContent{
+        width: 150px;
+    }
+    #reward-date{
+        width: 150px;
+    }
+    #remarks{
+        height: 50px;
+        width: 150px;
     }
 }
 .notice{
@@ -95,6 +112,9 @@
 .article a:hover{
     text-decoration: none;
     background-color: #F0F0F0;
+}
+.contentTop{
+    margin-bottom: 15px;
 }
 /*反馈*/
 .userFeedbackInfo,.privateWord{
@@ -287,6 +307,34 @@
 .friendLinkManagementBtn{
     margin-right: 10px;
 }
-.addFriendLink,.subFriendLink{
+.addFriendLink,.subFriendLink,.addReward{
     cursor: pointer;
+}
+/*募捐管理*/
+.table thead{
+    font-size: 16px;
+}
+.table th{
+    border: 1px solid #ddd!important;
+}
+.am-table-striped > tbody > tr:nth-child(2n+1) > td, .am-table-striped > tbody > tr:nth-child(2n+1) > th{
+    background-color: white;
+}
+.table tbody th{
+    font: inherit;
+}
+.is-me{
+    margin-left: 1px;
+    padding: .15em .425em;
+}
+.addRewardForm{
+    text-align: left;
+    margin-bottom: 0;
+}
+.addRewardForm label{
+    margin-bottom: 25px;
+    width: 70px;
+}
+#rewardUrl{
+    display: inline-block;
 }
