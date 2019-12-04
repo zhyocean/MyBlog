@@ -83,7 +83,7 @@ public class ArticleServiceImpl implements ArticleService {
             dataMap.put("articleUrl","/article/" + article.getArticleId());
             return DataMap.success().setData(dataMap);
         } catch (Exception e){
-            log.error("publish article [{}] fail", article.getArticleTitle(), e);
+            log.error("publish article [{}] exception", article.getArticleTitle(), e);
             return DataMap.fail(CodeType.PUBLISH_ARTICLE_EXCEPTION);
         }
     }
@@ -418,7 +418,7 @@ public class ArticleServiceImpl implements ArticleService {
             commentLikesRecordService.deleteCommentLikesRecordByArticleId(deleteArticle.getArticleId());
             articleLikesRecordService.deleteArticleLikesRecordByArticleId(deleteArticle.getArticleId());
         }catch (Exception e){
-            log.error("delete article fail,article id is [{}]", id, e);
+            log.error("delete article exception,article id is [{}]", id, e);
             return DataMap.fail(CodeType.DELETE_ARTICLE_FAIL);
         }
         return DataMap.success();

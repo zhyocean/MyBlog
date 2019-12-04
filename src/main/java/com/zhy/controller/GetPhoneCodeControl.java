@@ -73,7 +73,7 @@ public class GetPhoneCodeControl {
         try {
             sendSmsResponse(phone, trueMsgCode, msgCode);
         } catch (ClientException e) {
-            log.error("[{}] send phone message fail", phone, e);
+            log.error("[{}] send phone message exception", phone, e);
             return JsonResult.fail().toJSON();
         }
 

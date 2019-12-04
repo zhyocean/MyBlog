@@ -110,8 +110,13 @@ $.ajax({
         pageName:pageName.substring(1)
     },
     success:function (data) {
-        $("#totalVisitors").html(data['data']['totalVisitor']);
-        $("#visitorVolume").html(data['data']['pageVisitor']);
+        if(data['status'] == 103){
+            $("#totalVisitors").html(0);
+            $("#visitorVolume").html(0);
+        } else {
+            $("#totalVisitors").html(data['data']['totalVisitor']);
+            $("#visitorVolume").html(data['data']['pageVisitor']);
+        }
     },
     error:function () {
     }

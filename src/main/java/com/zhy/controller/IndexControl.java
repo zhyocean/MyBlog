@@ -1,10 +1,12 @@
 package com.zhy.controller;
 
 import com.zhy.aspect.annotation.PermissionCheck;
+import com.zhy.constant.CodeType;
 import com.zhy.model.FeedBack;
 import com.zhy.service.*;
 import com.zhy.utils.DataMap;
 import com.zhy.utils.JsonResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,6 +26,7 @@ import java.util.Map;
  * Describe:
  */
 @RestController
+@Slf4j
 public class IndexControl {
 
     @Autowired
@@ -49,13 +52,18 @@ public class IndexControl {
      */
     @GetMapping(value = "/getVisitorNumByPageName", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getVisitorNumByPageName(HttpServletRequest request,
-                                   @RequestParam("pageName") String pageName){
-        int index = pageName.indexOf("/");
-        if(index == -1){
-            pageName = "visitorVolume";
+                                          @RequestParam("pageName") String pageName){
+        try {
+            int index = pageName.indexOf("/");
+            if(index == -1){
+                pageName = "visitorVolume";
+            }
+            DataMap data = visitorService.addVisitorNumByPageName(pageName, request);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("pageName [{}] get visitor num exception", pageName, e);
         }
-        DataMap data = visitorService.addVisitorNumByPageName(pageName, request);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -65,9 +73,14 @@ public class IndexControl {
      */
     @PostMapping(value = "/myArticles", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String myArticles(@RequestParam("rows") String rows,
-                                @RequestParam("pageNum") String pageNum){
-        DataMap data = articleService.findAllArticles(rows, pageNum);
-        return JsonResult.build(data).toJSON();
+                             @RequestParam("pageNum") String pageNum){
+        try {
+            DataMap data = articleService.findAllArticles(rows, pageNum);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Homepage get paged article exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -75,7 +88,7 @@ public class IndexControl {
      */
     @GetMapping(value = "/newComment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String newComment(@RequestParam("rows") String rows,
-                                @RequestParam("pageNum") String pageNum){
+                             @RequestParam("pageNum") String pageNum){
         DataMap data = commentService.findFiveNewComment(Integer.parseInt(rows),Integer.parseInt(pageNum));
         return JsonResult.build(data).toJSON();
     }
@@ -85,7 +98,7 @@ public class IndexControl {
      */
     @GetMapping(value = "/newLeaveWord", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String newLeaveWord(@RequestParam("rows") String rows,
-                                   @RequestParam("pageNum") String pageNum){
+                               @RequestParam("pageNum") String pageNum){
         DataMap data = leaveMessageService.findFiveNewComment(Integer.parseInt(rows),Integer.parseInt(pageNum));
         return JsonResult.build(data).toJSON();
     }
@@ -130,7 +143,7 @@ public class IndexControl {
     @PostMapping(value = "/submitFeedback", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PermissionCheck(value = "ROLE_USER")
     public String submitFeedback(FeedBack feedBack,
-                                     @AuthenticationPrincipal Principal principal){
+                                 @AuthenticationPrincipal Principal principal){
         String username = principal.getName();
         feedBack.setPersonId(userService.findIdByUsername(username));
         feedBackService.submitFeedback(feedBack);

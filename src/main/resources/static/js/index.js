@@ -213,21 +213,25 @@
             pageNum:currentPage
         },
         success: function (data) {
-            //放入数据
-            putInArticle(data['data']);
-            scrollTo(0,0);//回到顶部
+            if(data['status'] == 103){
+                dangerNotice("服务器异常，获得文章信息失败");
+            } else {
+                //放入数据
+                putInArticle(data['data']);
+                scrollTo(0,0);//回到顶部
 
-            var length = data['data'].length;
-            //分页
-            $("#pagination").paging({
-                rows:data['data'][length-1]['pageSize'],//每页显示条数
-                pageNum:data['data'][length-1]['pageNum'],//当前所在页码
-                pages:data['data'][length-1]['pages'],//总页数
-                total:data['data'][length-1]['total'],//总记录数
-                callback:function(currentPage){
-                    ajaxFirst(currentPage);
-                }
-            });
+                var length = data['data'].length;
+                //分页
+                $("#pagination").paging({
+                    rows:data['data'][length-1]['pageSize'],//每页显示条数
+                    pageNum:data['data'][length-1]['pageNum'],//当前所在页码
+                    pages:data['data'][length-1]['pages'],//总页数
+                    total:data['data'][length-1]['total'],//总记录数
+                    callback:function(currentPage){
+                        ajaxFirst(currentPage);
+                    }
+                });
+            }
         },
         error: function () {
             alert("获得文章信息失败！");

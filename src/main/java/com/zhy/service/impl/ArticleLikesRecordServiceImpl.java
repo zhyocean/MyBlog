@@ -99,7 +99,7 @@ public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService 
             }
             return DataMap.success();
         } catch (Exception e){
-            log.error("read article thumbs up info fail", e);
+            log.error("read article thumbs up info exception", e);
             return DataMap.fail(CodeType.READ_ARTICLE_THUMBS_UP_FAIL);
         }
     }
@@ -111,7 +111,7 @@ public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService 
             stringRedisService.remove(StringUtil.ARTICLE_THUMBS_UP);
             return DataMap.success();
         }catch (Exception e){
-            log.error("read all article thumbs up info fail", e);
+            log.error("read all article thumbs up info exception", e);
             return DataMap.fail(CodeType.READ_ARTICLE_THUMBS_UP_FAIL);
         }
 

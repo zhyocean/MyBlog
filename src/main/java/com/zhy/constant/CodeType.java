@@ -14,6 +14,7 @@ public enum CodeType {
 
     USER_NOT_LOGIN(101, "用户未登录"),
     PERMISSION_VERIFY_FAIL(102, "权限验证失败"),
+    SERVER_EXCEPTION(103, "服务器异常"),
 
     DELETE_ARTICLE_FAIL(201, "删除文章失败"),
     READ_ARTICLE_THUMBS_UP_FAIL(202, "阅读文章点赞信息失败"),
