@@ -98,10 +98,12 @@
                     contactInfo:feedbackFormQQ.val()
                 },
                 success:function (data) {
-                    if(data['status'] == 403){
+                    if(data['status'] == 101){
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
+                    } else if (data['status'] == 103){
+                        dangerNotice(data['message'] + " 反馈失败")
                     } else {
                         successNotice("反馈成功，我会尽快解决的！嘻嘻");
                         $('.feedback').css("display","none");
@@ -124,20 +126,23 @@
                 pageNum:currentPage
             },
             success:function (data) {
-                putInMyStory(data['data']);
+                if(data['status'] == 103){
+                    alert(data['message'] + " 获得我的故事失败")
+                } else {
+                    putInMyStory(data['data']);
+                    scrollTo(0,0);//回到顶部
 
-                scrollTo(0,0);//回到顶部
-
-                //分页
-                $("#myStoryPagination").paging({
-                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                    pages:data['data']['pageInfo']['pages'],//总页数
-                    total:data['data']['pageInfo']['total'],//总记录数
-                    callback:function(currentPage){
-                        getMyStory(currentPage);
-                    }
-                });
+                    //分页
+                    $("#myStoryPagination").paging({
+                        rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                        pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                        pages:data['data']['pageInfo']['pages'],//总页数
+                        total:data['data']['pageInfo']['total'],//总记录数
+                        callback:function(currentPage){
+                            getMyStory(currentPage);
+                        }
+                    });
+                }
             },
             error:function () {
             }

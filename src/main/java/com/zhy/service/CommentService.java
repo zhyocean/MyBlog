@@ -70,11 +70,11 @@ public interface CommentService {
      * 已读一条评论
      * @param id 评论id
      */
-    DataMap readOneCommentRecord(int id);
+    void readOneCommentRecord(int id);
 
     /**
      * 将该用户的所有未读消息标记为已读
      */
-    DataMap readAllComment(String username);
+    void readAllComment(String username);
 
 }

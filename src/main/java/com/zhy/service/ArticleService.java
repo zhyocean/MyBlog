@@ -48,7 +48,7 @@ public interface ArticleService {
      * @param pageNo 第几页
      * @return 该页所有文章
      */
-    DataMap findAllArticles(String rows, String pageNo);
+    DataMap findAllArticles(int rows, int pageNum);
 
     /**
      * 通过文章id更新它的上一篇或下一篇文章id

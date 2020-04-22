@@ -90,10 +90,12 @@ function putInAllPrivateWord(data) {
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
+                    } else if(data['status'] == 103){
+                        dangerNotice(data['message'] + " 回复悄悄话失败")
                     } else {
                         successNotice("回复成功！");
                         $this.prev().val("");
-                        $('#p' + data['data']['result']['replyId']).find('.myReplyContent').html(data['data']['result']['replyContent']);
+                        $('#p' + data['data']['replyId']).find('.myReplyContent').html(data['data']['replyContent']);
                         $this.parent().css("display","none");
                         $this.parent().prev().find('.myNoReply').css("color","#b5b5b5");
                         $this.parent().prev().attr('disabled', 'true');
@@ -275,8 +277,8 @@ function putInArticleThumbsUp(data) {
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
-                    }else if (data['status'] == 202){
-                        dangerNotice("已读所有文章点赞失败")
+                    } else if(data['status'] == 103){
+                        dangerNotice(data['message'] + " 已读失败")
                     } else{
                         $('.msgIsReadNum').html(0);
                         $('.msgContent').find($('.msgReadSign')).removeClass('msgReadSign');
@@ -304,6 +306,8 @@ $('.sureArticleDeleteBtn').click(function () {
         success:function (data) {
             if(data['status'] == 201){
                 dangerNotice("删除文章失败")
+            } else if(data['status'] == 103){
+                dangerNotice(data['message'] + " 删除文章失败")
             } else {
                 successNotice("删除文章成功");
                 getArticleManagement(1);
@@ -321,7 +325,7 @@ $('.sureFriendLinkAddBtn').click(function () {
     if(blogger != "" && url != ""){
         $.ajax({
             type:'post',
-            url:'/addFriendLink',
+            url:'/updateFriendLink',
             dataType:'json',
             data:{
                 id:friendLinkId,
@@ -345,6 +349,8 @@ $('.sureFriendLinkAddBtn').click(function () {
 
                     //刷新刚填充上的友链的两个按钮，使编辑和删除两个按钮的js生效
                     updateFriendLinkEditAndDelBtn();
+                } else if(data['status'] == 103){
+                    dangerNotice(data['message'] + " 更新友链失败")
                 } else if (data['status'] == 602){
                     dangerNotice(data['message']);
                 } else if(data['status'] == 603){
@@ -378,6 +384,8 @@ $('.sureFriendLinkDeleteBtn').click(function () {
                 $('#p'+ friendLinkId).remove();
                 var friendLinkNum = $('.friendLinkNum').html();
                 $('.friendLinkNum').html(--friendLinkNum);
+            } else if(data['status'] == 103){
+                dangerNotice(data['message'] + " 删除友链失败")
             } else {
                 dangerNotice(data['message']);
             }
@@ -405,6 +413,8 @@ $('.sureRewardDeleteBtn').click(function () {
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
+            } else if(data['status'] == 103){
+                dangerNotice(data['message'] + " 删除募捐记录失败")
             } else if (data['status'] == 702){
                 successNotice(data['message']);
                 $('#p'+removeRewardMoneyId).remove();
@@ -474,7 +484,9 @@ $('.sureAddRewardBtn').click(function () {
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
-            }else if(data['status'] == 701){
+            } else if(data['status'] == 103){
+                dangerNotice(data['message'] + " 增加募捐记录失败")
+            } else if(data['status'] == 701){
                 successNotice(data['message'])
 
                 var rewardContent = $('.rewardContent .table tbody');
@@ -517,19 +529,23 @@ function getAllFeedback(currentPage) {
             pageNum:currentPage
         },
         success:function (data) {
-            putInAllFeedback(data['data']);
-            scrollTo(0,0);//回到顶部
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得反馈失败")
+            } else {
+                putInAllFeedback(data['data']);
+                scrollTo(0,0);//回到顶部
 
-            //分页
-            $("#feedbackPagination").paging({
-                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                pages:data['data']['pageInfo']['pages'],//总页数
-                total:data['data']['pageInfo']['total'],//总记录数
-                callback:function(currentPage){
-                    getAllFeedback(currentPage);
-                }
-            });
+                //分页
+                $("#feedbackPagination").paging({
+                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                    pages:data['data']['pageInfo']['pages'],//总页数
+                    total:data['data']['pageInfo']['total'],//总记录数
+                    callback:function(currentPage){
+                        getAllFeedback(currentPage);
+                    }
+                });
+            }
         },
         error:function () {
             alert("获取反馈信息失败");
@@ -545,12 +561,16 @@ function getStatisticsInfo() {
         data:{
         },
         success:function (data) {
-            $('.allVisitor').html(data['data']['allVisitor']);
-            $('.yesterdayVisitor').html(data['data']['yesterdayVisitor']);
-            $('.allUser').html(data['data']['allUser']);
-            $('.articleNum').html(data['data']['articleNum']);
-            if(data['data']['articleThumbsUpNum'] != 0){
-                $('.articleThumbsUp').find('a').append($('<span class="am-badge am-badge-warning am-margin-right am-fr articleThumbsUpNum">' + data['data']['articleThumbsUpNum'] + '</span>'));
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获取统计信息失败")
+            } else {
+                $('.allVisitor').html(data['data']['allVisitor']);
+                $('.yesterdayVisitor').html(data['data']['yesterdayVisitor']);
+                $('.allUser').html(data['data']['allUser']);
+                $('.articleNum').html(data['data']['articleNum']);
+                if(data['data']['articleThumbsUpNum'] != 0){
+                    $('.articleThumbsUp').find('a').append($('<span class="am-badge am-badge-warning am-margin-right am-fr articleThumbsUpNum">' + data['data']['articleThumbsUpNum'] + '</span>'));
+                }
             }
         },
         error:function () {
@@ -569,19 +589,23 @@ function getArticleManagement(currentPage) {
             pageNum:currentPage
         },
         success:function (data) {
-            putInArticleManagement(data['data']);
-            scrollTo(0,0);//回到顶部
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获取文章失败")
+            } else {
+                putInArticleManagement(data['data']);
+                scrollTo(0,0);//回到顶部
 
-            //分页
-            $("#articleManagementPagination").paging({
-                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                pages:data['data']['pageInfo']['pages'],//总页数
-                total:data['data']['pageInfo']['total'],//总记录数
-                callback:function(currentPage){
-                    getArticleManagement(currentPage);
-                }
-            });
+                //分页
+                $("#articleManagementPagination").paging({
+                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                    pages:data['data']['pageInfo']['pages'],//总页数
+                    total:data['data']['pageInfo']['total'],//总记录数
+                    callback:function(currentPage){
+                        getArticleManagement(currentPage);
+                    }
+                });
+            }
         },
         error:function () {
             alert("获取文章信息失败");
@@ -603,20 +627,23 @@ function getArticleThumbsUp(currentPage) {
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
-            }
-            putInArticleThumbsUp(data['data']);
-            scrollTo(0,0);//回到顶部
+            } else if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得点赞失败")
+            } else {
+                putInArticleThumbsUp(data['data']);
+                scrollTo(0,0);//回到顶部
 
-            //分页
-            $(".thumbsUpPagination").paging({
-                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                pages:data['data']['pageInfo']['pages'],//总页数
-                total:data['data']['pageInfo']['total'],//总记录数
-                callback:function(currentPage){
-                    getArticleThumbsUp(currentPage);
-                }
-            });
+                //分页
+                $(".thumbsUpPagination").paging({
+                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                    pages:data['data']['pageInfo']['pages'],//总页数
+                    total:data['data']['pageInfo']['total'],//总记录数
+                    callback:function(currentPage){
+                        getArticleThumbsUp(currentPage);
+                    }
+                });
+            }
         },
         error:function () {
             alert("获取文章点赞信息失败");
@@ -632,55 +659,59 @@ function getArticleCategories() {
         data:{
         },
         success:function (data) {
-            var categoryContent = $('.categoryContent');
-            categoryContent.empty();
-            categoryContent.append($('<div class="contentTop">' +
-                '目前分类数：<span class="categoryNum">' + data['data']['result'].length + '</span>' +
-                '<div class="updateCategory">' +
-                '<a class="addCategory"><i class="am-icon-plus-square"></i> 添加分类</a> / ' +
-                '<a class="subCategory"><i class="am-icon-minus-square"></i> 删除分类</a>' +
-                '</div>'));
-            var categories = $('<div class="categories"></div>');
-            $.each(data['data']['result'], function (index, obj) {
-                categories.append($('<span id="p' + obj['id'] + '" class="category">' + obj['categoryName'] + '</span>'));
-            })
-            categoryContent.append(categories);
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得分类失败")
+            } else {
+                var categoryContent = $('.categoryContent');
+                categoryContent.empty();
+                categoryContent.append($('<div class="contentTop">' +
+                    '目前分类数：<span class="categoryNum">' + data['data']['result'].length + '</span>' +
+                    '<div class="updateCategory">' +
+                    '<a class="addCategory"><i class="am-icon-plus-square"></i> 添加分类</a> / ' +
+                    '<a class="subCategory"><i class="am-icon-minus-square"></i> 删除分类</a>' +
+                    '</div>'));
+                var categories = $('<div class="categories"></div>');
+                $.each(data['data']['result'], function (index, obj) {
+                    categories.append($('<span id="p' + obj['id'] + '" class="category">' + obj['categoryName'] + '</span>'));
+                })
+                categoryContent.append(categories);
 
-            // 添加分类
-            $('.addCategory').click(function () {
-                $('#addCategory').modal({
-                    relatedTarget: this,
-                    onConfirm: function(e) {
-                        var categoryName = e.data;
-                        categoryName = $.trim(categoryName);
-                        if(categoryName == ""){
-                            dangerNotice("分类名不能为空！");
-                        }else {
-                            updateCategory(categoryName, 1);
+                // 添加分类
+                $('.addCategory').click(function () {
+                    $('#addCategory').modal({
+                        relatedTarget: this,
+                        onConfirm: function(e) {
+                            var categoryName = e.data;
+                            categoryName = $.trim(categoryName);
+                            if(categoryName == ""){
+                                dangerNotice("分类名不能为空！");
+                            }else {
+                                updateCategory(categoryName, 1);
+                            }
+                        },
+                        onCancel: function(e) {
                         }
-                    },
-                    onCancel: function(e) {
-                    }
-                });
-            })
+                    });
+                })
 
-            // 删除分类
-            $('.subCategory').click(function () {
-                $('#subCategory').modal({
-                    relatedTarget: this,
-                    onConfirm: function(e) {
-                        var categoryName = e.data;
-                        categoryName = $.trim(categoryName);
-                        if(categoryName == ""){
-                            dangerNotice("分类名不能为空！");
-                        }else {
-                            updateCategory(categoryName, 2);
+                // 删除分类
+                $('.subCategory').click(function () {
+                    $('#subCategory').modal({
+                        relatedTarget: this,
+                        onConfirm: function(e) {
+                            var categoryName = e.data;
+                            categoryName = $.trim(categoryName);
+                            if(categoryName == ""){
+                                dangerNotice("分类名不能为空！");
+                            }else {
+                                updateCategory(categoryName, 2);
+                            }
+                        },
+                        onCancel: function(e) {
                         }
-                    },
-                    onCancel: function(e) {
-                    }
-                });
-            })
+                    });
+                })
+            }
         },
         error:function () {
 
@@ -704,7 +735,9 @@ function updateCategory(categoryName, type) {
                 $('.categories').append($('<span id="p' + data['data'] + '" class="category">' + categoryName + '</span>'));
                 $('.categoryNum').html(++categoryNum);
                 successNotice(data['message']);
-            }else if (data['status'] == 402 || data['status'] == 404 || data['status'] == 405){
+            } else if(data['status'] == 103){
+                dangerNotice(data['message'] + " 更新分类失败")
+            } else if (data['status'] == 402 || data['status'] == 404 || data['status'] == 405){
                dangerNotice(data['message']);
             } else if (data['status'] == 403){
                 var allCategories = $('.category');
@@ -731,6 +764,10 @@ $('.superAdminList .privateWord').click(function () {
         data:{
         },
         success:function (data) {
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得悄悄话失败")
+                return;
+            }
             if(data['data']['result'].length == 0){
                 $('.privateWord').append($('<div>无悄悄话</div>'));
             } else {
@@ -767,47 +804,51 @@ $('.superAdminList .friendLink').click(function () {
         data:{
         },
         success:function (data) {
-            var friendLinkContent = $('.friendLinkContent');
-            friendLinkContent.empty();
-            friendLinkContent.append($('<div class="contentTop">' +
-                '目前友链数：' +
-                '<span class="friendLinkNum">' + data['data'].length + '</span>' +
-                '<div class="updateFriendLink">' +
-                '<a class="addFriendLink"><i class="am-icon-plus-square"></i> 添加友链</a>' +
-                '</div>' +
-                '</div>'));
-            var table = $('<table class="am-table am-table-bd am-table-striped admin-content-table  am-animation-slide-right"></table>');
-            table.append($('<thead>' +
-                '<tr>' +
-                '<th>博主</th><th>博客地址</th><th>操作</th>' +
-                '</tr>' +
-                '</thead>'));
-            var friendLinkManagementTable = $('<tbody class="friendLinkManagementTable"></tbody>');
-            for(var i in data['data']){
-                var friendLink = $('<tr id="p' + data['data'][i]['id'] + '">' +
-                    '<td class="blogger">' + data['data'][i]['blogger'] + '</td>' +
-                    '<td class="url">' + data['data'][i]['url'] + '</td>' +
-                    '<td>' +
-                    '<div class="am-dropdown" data-am-dropdown="">' +
-                    '<button class="friendLinkManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>' +
-                    '<button class="friendLinkDeleteBtn articleDelete am-btn am-btn-danger">删除</button>' +
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得友链失败")
+            } else {
+                var friendLinkContent = $('.friendLinkContent');
+                friendLinkContent.empty();
+                friendLinkContent.append($('<div class="contentTop">' +
+                    '目前友链数：' +
+                    '<span class="friendLinkNum">' + data['data'].length + '</span>' +
+                    '<div class="updateFriendLink">' +
+                    '<a class="addFriendLink"><i class="am-icon-plus-square"></i> 添加友链</a>' +
                     '</div>' +
-                    '</td>' +
-                    '</tr>');
-                friendLinkManagementTable.append(friendLink);
+                    '</div>'));
+                var table = $('<table class="am-table am-table-bd am-table-striped admin-content-table  am-animation-slide-right"></table>');
+                table.append($('<thead>' +
+                    '<tr>' +
+                    '<th>博主</th><th>博客地址</th><th>操作</th>' +
+                    '</tr>' +
+                    '</thead>'));
+                var friendLinkManagementTable = $('<tbody class="friendLinkManagementTable"></tbody>');
+                for(var i in data['data']){
+                    var friendLink = $('<tr id="p' + data['data'][i]['id'] + '">' +
+                        '<td class="blogger">' + data['data'][i]['blogger'] + '</td>' +
+                        '<td class="url">' + data['data'][i]['url'] + '</td>' +
+                        '<td>' +
+                        '<div class="am-dropdown" data-am-dropdown="">' +
+                        '<button class="friendLinkManagementBtn articleEditor am-btn am-btn-secondary">编辑</button>' +
+                        '<button class="friendLinkDeleteBtn articleDelete am-btn am-btn-danger">删除</button>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr>');
+                    friendLinkManagementTable.append(friendLink);
+                }
+                table.append(friendLinkManagementTable);
+                friendLinkContent.append(table);
+
+                //添加友链
+                $('.addFriendLink').click(function () {
+                    friendLinkId = "";
+                    $('#addFriendLink').modal('open');
+                    $('#blogger').val("");
+                    $('#url').val("");
+                });
+
+                updateFriendLinkEditAndDelBtn();
             }
-            table.append(friendLinkManagementTable);
-            friendLinkContent.append(table);
-
-            //添加友链
-            $('.addFriendLink').click(function () {
-                friendLinkId = "";
-                $('#addFriendLink').modal('open');
-                $('#blogger').val("");
-                $('#url').val("");
-            });
-
-            updateFriendLinkEditAndDelBtn();
         },
         error:function () {
         }
@@ -822,6 +863,10 @@ $('.superAdminList .rewardManagement').click(function () {
         data:{
         },
         success:function (data) {
+            if (data['status'] == 103){
+                dangerNotice(data['message'] + " 获得募捐记录失败");
+                return;
+            }
             var rewardContent = $('.rewardContent');
             rewardContent.empty();
             rewardContent.append($('<div class="contentTop">募捐总金额：' +
@@ -862,7 +907,7 @@ $('.superAdminList .rewardManagement').click(function () {
             table.append(thead);
             table.append(rewardTable);
             rewardContent.append(table);
-            $('.rewardNum').html(rewardMoney);
+            $('.rewardNum').html(rewardMoney.toFixed(2));
 
             //删除募捐记录
             updateRewardDelBtn();

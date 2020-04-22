@@ -1,18 +1,18 @@
 package com.zhy.controller;
 
+import com.zhy.constant.CodeType;
 import com.zhy.service.ArticleService;
 import com.zhy.service.CategoryService;
 import com.zhy.utils.DataMap;
 import com.zhy.utils.JsonResult;
 import com.zhy.utils.StringUtil;
 import com.zhy.utils.TransCodingUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author: zhangocean
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * Describe: 分类
  */
 @RestController
+@Slf4j
 public class CategoriesControl {
 
     @Autowired
@@ -33,8 +34,13 @@ public class CategoriesControl {
      */
     @GetMapping(value = "/findCategoriesNameAndArticleNum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String findCategoriesNameAndArticleNum(){
-        DataMap data = categoryService.findCategoriesNameAndArticleNum();
-        return JsonResult.build(data).toJSON();
+        try {
+            DataMap data = categoryService.findCategoriesNameAndArticleNum();
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Find categories name and article num exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -43,14 +49,18 @@ public class CategoriesControl {
      */
     @GetMapping(value = "/getCategoryArticle", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getCategoryArticle(@RequestParam("category") String category,
-                                         HttpServletRequest request){
-        if(!category.equals(StringUtil.BLANK)){
-            category = TransCodingUtil.unicodeToString(category);
+                                     @RequestParam("rows") int rows,
+                                     @RequestParam("pageNum") int pageNum){
+        try {
+            if(!category.equals(StringUtil.BLANK)){
+                category = TransCodingUtil.unicodeToString(category);
+            }
+            DataMap data = articleService.findArticleByCategory(category, rows, pageNum);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Get category [{}] article exception", category, e);
         }
-        int rows = Integer.parseInt(request.getParameter("rows"));
-        int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-        DataMap data = articleService.findArticleByCategory(category, rows, pageNum);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
 

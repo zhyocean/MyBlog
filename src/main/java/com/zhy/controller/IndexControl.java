@@ -52,7 +52,7 @@ public class IndexControl {
      */
     @GetMapping(value = "/getVisitorNumByPageName", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getVisitorNumByPageName(HttpServletRequest request,
-                                          @RequestParam("pageName") String pageName){
+                                   @RequestParam("pageName") String pageName){
         try {
             int index = pageName.indexOf("/");
             if(index == -1){
@@ -72,8 +72,8 @@ public class IndexControl {
      * @param pageNum 当前页
      */
     @PostMapping(value = "/myArticles", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String myArticles(@RequestParam("rows") String rows,
-                             @RequestParam("pageNum") String pageNum){
+    public String myArticles(@RequestParam("rows") int rows,
+                                @RequestParam("pageNum") int pageNum){
         try {
             DataMap data = articleService.findAllArticles(rows, pageNum);
             return JsonResult.build(data).toJSON();
@@ -87,20 +87,32 @@ public class IndexControl {
      * 获得最新评论
      */
     @GetMapping(value = "/newComment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String newComment(@RequestParam("rows") String rows,
-                             @RequestParam("pageNum") String pageNum){
-        DataMap data = commentService.findFiveNewComment(Integer.parseInt(rows),Integer.parseInt(pageNum));
-        return JsonResult.build(data).toJSON();
+    public String newComment(@RequestParam("rows") int rows,
+                                @RequestParam("pageNum") int pageNum){
+        try {
+            DataMap data = commentService.findFiveNewComment(rows, pageNum);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Get new comment exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
+
     }
 
     /**
      * 获得最新留言
      */
     @GetMapping(value = "/newLeaveWord", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String newLeaveWord(@RequestParam("rows") String rows,
-                               @RequestParam("pageNum") String pageNum){
-        DataMap data = leaveMessageService.findFiveNewComment(Integer.parseInt(rows),Integer.parseInt(pageNum));
-        return JsonResult.build(data).toJSON();
+    public String newLeaveWord(@RequestParam("rows") int rows,
+                                   @RequestParam("pageNum") int pageNum){
+        try {
+            DataMap data = leaveMessageService.findFiveNewComment(rows, pageNum);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Get new leaveword exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
+
     }
 
     /**
@@ -108,8 +120,13 @@ public class IndexControl {
      */
     @GetMapping(value = "/findTagsCloud", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String findTagsCloud(){
-        DataMap data = tagService.findTagsCloud();
-        return JsonResult.build(data).toJSON();
+        try {
+            DataMap data = tagService.findTagsCloud();
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Get tags cloud exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -117,11 +134,17 @@ public class IndexControl {
      */
     @GetMapping(value = "/findArchivesCategoriesTagsNum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String findArchivesCategoriesTagsNum(){
-        Map<String, Integer> dataMap = new HashMap<>(4);
-        dataMap.put("tagsNum", tagService.countTagsNum());
-        dataMap.put("categoriesNum", categoryService.countCategoriesNum());
-        dataMap.put("archivesNum", articleService.countArticle());
-        return JsonResult.success().data(dataMap).toJSON();
+        try {
+            Map<String, Integer> dataMap = new HashMap<>(4);
+            dataMap.put("tagsNum", tagService.countTagsNum());
+            dataMap.put("categoriesNum", categoryService.countCategoriesNum());
+            dataMap.put("archivesNum", articleService.countArticle());
+            return JsonResult.success().data(dataMap).toJSON();
+        } catch (Exception e){
+            log.error("Get archives categories and tags num exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
+
     }
 
     /**
@@ -129,12 +152,18 @@ public class IndexControl {
      */
     @GetMapping(value = "/getSiteInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getSiteInfo(){
-        Map<String, Integer> dataMap = new HashMap<>(4);
-        dataMap.put("articleNum", articleService.countArticle());
-        dataMap.put("tagsNum", tagService.countTagsNum());
-        dataMap.put("leaveWordNum", leaveMessageService.countLeaveMessageNum());
-        dataMap.put("commentNum", commentService.commentNum());
-        return JsonResult.success().data(dataMap).toJSON();
+        try {
+            Map<String, Integer> dataMap = new HashMap<>(4);
+            dataMap.put("articleNum", articleService.countArticle());
+            dataMap.put("tagsNum", tagService.countTagsNum());
+            dataMap.put("leaveWordNum", leaveMessageService.countLeaveMessageNum());
+            dataMap.put("commentNum", commentService.commentNum());
+            return JsonResult.success().data(dataMap).toJSON();
+        } catch (Exception e){
+            log.error("Get web site info exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
+
     }
 
     /**
@@ -145,8 +174,14 @@ public class IndexControl {
     public String submitFeedback(FeedBack feedBack,
                                  @AuthenticationPrincipal Principal principal){
         String username = principal.getName();
-        feedBack.setPersonId(userService.findIdByUsername(username));
-        feedBackService.submitFeedback(feedBack);
-        return JsonResult.success().toJSON();
+        try {
+            feedBack.setPersonId(userService.findIdByUsername(username));
+            feedBackService.submitFeedback(feedBack);
+            return JsonResult.success().toJSON();
+        } catch (Exception e){
+            log.error("[{}] submit feedback [{}] exception", username, feedBack, e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
+
     }
 }

@@ -133,6 +133,8 @@
                             $.get("/toLogin",function(data,status,xhr){
                                 window.location.replace("/login");
                             });
+                        } else if(data['status'] == 103){
+                            alert(data['message'] + " 发表失败");
                         } else {
                             alert("发布成功");
                             $("#picture").replaceWith('<input id="picture" name="picture" type="file" multiple="multiple" onchange="readAsDataURL()" accept=".gif,.jpg,.jpeg,.png"><a class="am-icon-heart am-icon-sm"> 图片</a>');
@@ -160,6 +162,10 @@
                 pageNum:currentPage
             },
             success: function (data) {
+                if (data['status'] == 103){
+                    alert(data['message'] + " 获得内容失败");
+                    return;
+                }
                 putInAllTodayInfo(data['data']['result'], data['data']['pageInfo']);
 
                 $('#moreSaysButton').click(function () {

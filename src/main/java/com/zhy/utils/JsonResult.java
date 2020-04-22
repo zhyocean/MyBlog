@@ -54,6 +54,7 @@ public class JsonResult {
         JsonData jsonData = new JsonResult().new JsonData(3);
         if(value instanceof CodeType){
             jsonData.put(key, ((CodeType) value).getCode());
+            jsonData.put(DEFAULT_MESSAGE_KEY, ((CodeType) value).getMessage());
         } else {
             jsonData.put(key, value);
         }

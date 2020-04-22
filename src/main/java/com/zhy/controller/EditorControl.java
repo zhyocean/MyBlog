@@ -54,59 +54,63 @@ public class EditorControl {
                                      Article article,
                                      @RequestParam("articleGrade") String articleGrade,
                                      HttpServletRequest request){
+        try {
+            if(principal == null){
+                request.getSession().setAttribute("article", article);
+                request.getSession().setAttribute("articleGrade", articleGrade);
+                request.getSession().setAttribute("articleTags", request.getParameterValues("articleTagsValue"));
+                return JsonResult.fail(CodeType.USER_NOT_LOGIN).toJSON();
+            }
+            String username = principal.getName();
 
-        if(principal == null){
-            request.getSession().setAttribute("article", article);
-            request.getSession().setAttribute("articleGrade", articleGrade);
-            request.getSession().setAttribute("articleTags", request.getParameterValues("articleTagsValue"));
-            return JsonResult.fail(CodeType.USER_NOT_LOGIN).toJSON();
-        }
-        String username = principal.getName();
+            String phone = userService.findPhoneByUsername(username);
+            if(!userService.isSuperAdmin(phone)){
+                return JsonResult.fail(CodeType.PUBLISH_ARTICLE_NO_PERMISSION).toJSON();
+            }
 
-        String phone = userService.findPhoneByUsername(username);
-        if(!userService.isSuperAdmin(phone)){
-            return JsonResult.fail(CodeType.PUBLISH_ARTICLE_NO_PERMISSION).toJSON();
-        }
+            //获得文章html代码并生成摘要
+            BuildArticleTabloidUtil buildArticleTabloidUtil = new BuildArticleTabloidUtil();
+            String articleHtmlContent = buildArticleTabloidUtil.buildArticleTabloid(request.getParameter("articleHtmlContent"));
+            article.setArticleTabloid(articleHtmlContent + "...");
 
-        //获得文章html代码并生成摘要
-        BuildArticleTabloidUtil buildArticleTabloidUtil = new BuildArticleTabloidUtil();
-        String articleHtmlContent = buildArticleTabloidUtil.buildArticleTabloid(request.getParameter("articleHtmlContent"));
-        article.setArticleTabloid(articleHtmlContent + "...");
+            String[] articleTags = request.getParameterValues("articleTagsValue");
+            String[] tags = new String[articleTags.length+1];
+            for(int i=0;i<articleTags.length;i++){
+                //去掉可能出现的换行符
+                articleTags[i] = articleTags[i].replaceAll("<br>", StringUtil.BLANK).replaceAll("&nbsp;",StringUtil.BLANK).replaceAll("\\s+",StringUtil.BLANK).trim();
+                tags[i] = articleTags[i];
+            }
+            tags[articleTags.length] = article.getArticleType();
+            //添加标签
+            tagService.addTags(tags, Integer.parseInt(articleGrade));
+            TimeUtil timeUtil = new TimeUtil();
+            String id = request.getParameter("id");
+            //修改文章
+            if(!StringUtil.BLANK.equals(id) && id != null){
+                String updateDate = timeUtil.getFormatDateForThree();
+                article.setArticleTags(StringAndArray.arrayToString(tags));
+                article.setUpdateDate(updateDate);
+                article.setId(Integer.parseInt(id));
+                article.setAuthor(username);
+                DataMap data = articleService.updateArticleById(article);
+                return JsonResult.build(data).toJSON();
+            }
 
-        String[] articleTags = request.getParameterValues("articleTagsValue");
-        String[] tags = new String[articleTags.length+1];
-        for(int i=0;i<articleTags.length;i++){
-            //去掉可能出现的换行符
-            articleTags[i] = articleTags[i].replaceAll("<br>", StringUtil.BLANK).replaceAll("&nbsp;", StringUtil.BLANK).replaceAll("\\s+", StringUtil.BLANK).trim();
-            tags[i] = articleTags[i];
-        }
-        tags[articleTags.length] = article.getArticleType();
-        //添加标签
-        tagService.addTags(tags, Integer.parseInt(articleGrade));
-        TimeUtil timeUtil = new TimeUtil();
-        String id = request.getParameter("id");
-        //修改文章
-        if(!StringUtil.BLANK.equals(id) && id != null){
-            String updateDate = timeUtil.getFormatDateForThree();
-            article.setArticleTags(StringAndArray.arrayToString(tags));
-            article.setUpdateDate(updateDate);
-            article.setId(Integer.parseInt(id));
+            String nowDate = timeUtil.getFormatDateForThree();
+            long articleId = timeUtil.getLongTime();
+
+            article.setArticleId(articleId);
             article.setAuthor(username);
-            DataMap data = articleService.updateArticleById(article);
+            article.setArticleTags(StringAndArray.arrayToString(tags));
+            article.setPublishDate(nowDate);
+            article.setUpdateDate(nowDate);
+
+            DataMap data = articleService.insertArticle(article);
             return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Publish article [{}] exception", article.getArticleTitle(), e);
         }
-
-        String nowDate = timeUtil.getFormatDateForThree();
-        long articleId = timeUtil.getLongTime();
-
-        article.setArticleId(articleId);
-        article.setAuthor(username);
-        article.setArticleTags(StringAndArray.arrayToString(tags));
-        article.setPublishDate(nowDate);
-        article.setUpdateDate(nowDate);
-
-        DataMap data = articleService.insertArticle(article);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -118,12 +122,17 @@ public class EditorControl {
     @PermissionCheck(value = "ROLE_USER")
     public String canYouWrite(@AuthenticationPrincipal Principal principal){
 
-        String username = principal.getName();
-        String phone = userService.findPhoneByUsername(username);
-        if(userService.isSuperAdmin(phone)){
-            return JsonResult.success().toJSON();
+        try {
+            String username = principal.getName();
+            String phone = userService.findPhoneByUsername(username);
+            if(userService.isSuperAdmin(phone)){
+                return JsonResult.success().toJSON();
+            }
+            return JsonResult.fail().toJSON();
+        } catch (Exception e){
+            log.error("Can you write exception", e);
         }
-        return JsonResult.fail().toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -132,8 +141,13 @@ public class EditorControl {
      */
     @GetMapping(value = "/findCategoriesName", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String findCategoriesName(){
-        DataMap data = categoryService.findCategoriesName();
-        return JsonResult.build(data).toJSON();
+        try {
+            DataMap data = categoryService.findCategoriesName();
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Find category name exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -142,30 +156,35 @@ public class EditorControl {
     @GetMapping(value = "/getDraftArticle", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PermissionCheck(value = "ROLE_USER")
     public String getDraftArticle(HttpServletRequest request){
-        String id = (String) request.getSession().getAttribute("id");
+        try {
+            String id = (String) request.getSession().getAttribute("id");
 
-        //判断是否为修改文章
-        if(id != null){
-            request.getSession().removeAttribute("id");
-            Article article = articleService.findArticleById(Integer.parseInt(id));
-            int lastItem = article.getArticleTags().lastIndexOf(',');
-            String[] articleTags = StringAndArray.stringToArray(article.getArticleTags().substring(0, lastItem));
-            DataMap data = articleService.getDraftArticle(article, articleTags, tagService.getTagsSizeByTagName(articleTags[0]));
-            return JsonResult.build(data).toJSON();
-        }
-        //判断是否为写文章登录超时
-        if(request.getSession().getAttribute("article") != null){
-            Article article = (Article) request.getSession().getAttribute("article");
-            String[] articleTags = (String[]) request.getSession().getAttribute("articleTags");
-            String articleGrade = (String) request.getSession().getAttribute("articleGrade");
-            DataMap data =articleService.getDraftArticle(article, articleTags, Integer.parseInt(articleGrade));
+            //判断是否为修改文章
+            if(id != null){
+                request.getSession().removeAttribute("id");
+                Article article = articleService.findArticleById(Integer.parseInt(id));
+                int lastItem = article.getArticleTags().lastIndexOf(',');
+                String[] articleTags = StringAndArray.stringToArray(article.getArticleTags().substring(0, lastItem));
+                DataMap data = articleService.getDraftArticle(article, articleTags, tagService.getTagsSizeByTagName(articleTags[0]));
+                return JsonResult.build(data).toJSON();
+            }
+            //判断是否为写文章登录超时
+            if(request.getSession().getAttribute("article") != null){
+                Article article = (Article) request.getSession().getAttribute("article");
+                String[] articleTags = (String[]) request.getSession().getAttribute("articleTags");
+                String articleGrade = (String) request.getSession().getAttribute("articleGrade");
+                DataMap data =articleService.getDraftArticle(article, articleTags, Integer.parseInt(articleGrade));
 
-            request.getSession().removeAttribute("article");
-            request.getSession().removeAttribute("articleTags");
-            request.getSession().removeAttribute("articleGrade");
-            return JsonResult.build(data).toJSON();
+                request.getSession().removeAttribute("article");
+                request.getSession().removeAttribute("articleTags");
+                request.getSession().removeAttribute("articleGrade");
+                return JsonResult.build(data).toJSON();
+            }
+            return JsonResult.fail().toJSON();
+        } catch (Exception e){
+            log.error("Get draft article exception", e);
         }
-        return JsonResult.fail().toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -173,7 +192,7 @@ public class EditorControl {
      */
     @RequestMapping("/uploadImage")
     public Map<String,Object> uploadImage(HttpServletRequest request, HttpServletResponse response,
-                                          @RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
+                             @RequestParam(value = "editormd-image-file", required = false) MultipartFile file){
         Map<String,Object> resultMap = new HashMap<String,Object>();
         try {
             request.setCharacterEncoding( "utf-8" );

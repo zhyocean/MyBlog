@@ -222,6 +222,8 @@
                             $.get("/toLogin",function(data,status,xhr){
                                 window.location.replace("/login");
                             });
+                        } else if (data['status'] == 103){
+                            dangerNotice(data['message'] + " 发表评论失败")
                         } else if (data['status'] == 801){
                             alert("内容不能为空！");
                         } else {
@@ -299,6 +301,8 @@
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
+                    } else if(data['status'] == 103){
+                        dangerNotice(data['message'] + " 点赞失败")
                     } else if(data['status'] == 802){
                     } else {
                         $this.find('span').html(data['data']);
@@ -334,7 +338,9 @@
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
-            }else{
+            } else if (data['status'] == 103){
+                dangerNotice(data['message'] + " 获得留言失败");
+            } else{
                 putInLeaveMessage(data['data']);
             }
         },
@@ -368,7 +374,9 @@
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
-                    }else{
+                    } else if (data['status'] == 103){
+                        dangerNotice(data['message'] + " 发表留言失败");
+                    } else{
                         putInLeaveMessage(data['data']);
                     }
                 },

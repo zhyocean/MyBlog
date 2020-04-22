@@ -13,6 +13,10 @@ function getRewardInfo() {
         data:{
         },
         success:function (data) {
+            if (data['status'] == 103){
+                dangerNotice(data['message'] + " 获得募捐记录失败");
+                return;
+            }
             var rewardTable = $('#rewardTable');
             rewardTable.empty();
             if (data['data'].length > 0 && data['status'] == 0){

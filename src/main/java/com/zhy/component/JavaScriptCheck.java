@@ -12,6 +12,11 @@ public class JavaScriptCheck {
         comment = textCheck(comment, "script");
         comment = textCheck(comment, "iframe");
 
+        comment = textCheck(comment, "button");
+        comment = textCheck(comment, "a");
+
+        comment = textCheck(comment, "img");
+
         return comment;
     }
 
@@ -30,11 +35,11 @@ public class JavaScriptCheck {
             newStr += comment.substring(0, begin);
             newStr += "[removed]" + comment.substring(theEnd+1,end) + "[removed]";
 
-            comment = comment.substring(end+9);
+            comment = comment.substring(end+3+sign.length());
 
             begin = comment.indexOf(signFir);
             end = comment.indexOf(signSec);
         }
-        return newStr;
+        return newStr+comment;
     }
 }

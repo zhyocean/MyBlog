@@ -25,13 +25,7 @@ public class RewardServiceImpl implements RewardService {
 
     @Override
     public DataMap save(Reward reward) {
-        try {
-            rewardMapper.save(reward);
-        } catch (Exception e){
-            e.printStackTrace();
-            log.error("add reward exception", e);
-            return DataMap.fail(CodeType.ADD_REWARD_EXCEPTION);
-        }
+        rewardMapper.save(reward);
         return DataMap.success(CodeType.ADD_REWARD_SUCCESS)
                 .setData(reward.getId());
     }
@@ -44,12 +38,7 @@ public class RewardServiceImpl implements RewardService {
 
     @Override
     public DataMap deleteReward(int id) {
-        try {
-            rewardMapper.deleteRewardById(id);
-        } catch (Exception e){
-            log.error("delete reward exception", e);
-            return DataMap.fail(CodeType.DELETE_REWARD_EXCEPTION);
-        }
+        rewardMapper.deleteRewardById(id);
         return DataMap.success(CodeType.DELETE_REWARD_SUCCESS);
     }
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2019-12-02 18:56:16
+Date: 2019-05-23 14:28:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -137,23 +137,6 @@ INSERT INTO `comment_record` VALUES ('2', '0', '1533196734', '1', '1', '2018-08-
 INSERT INTO `comment_record` VALUES ('3', '2', '1533196734', '1', '1', '2018-08-03 00:15', '0', '一切正常，哈哈哈', '0');
 
 -- ----------------------------
--- Table structure for daily_speech
--- ----------------------------
-DROP TABLE IF EXISTS `daily_speech`;
-CREATE TABLE `daily_speech` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` text NOT NULL,
-  `mood` varchar(20) NOT NULL,
-  `picsUrl` text,
-  `publishDate` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of daily_speech
--- ----------------------------
-
--- ----------------------------
 -- Table structure for feedback
 -- ----------------------------
 DROP TABLE IF EXISTS `feedback`;
@@ -258,45 +241,6 @@ CREATE TABLE `privateword` (
 INSERT INTO `privateword` VALUES ('8', '悄悄话测试', '1', '0', null, '2018-09-19 14:13:32');
 
 -- ----------------------------
--- Table structure for reward
--- ----------------------------
-DROP TABLE IF EXISTS `reward`;
-CREATE TABLE `reward` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fundRaiser` varchar(30) NOT NULL,
-  `fundRaisingSources` varchar(50) NOT NULL,
-  `fundraisingPlace` varchar(50) NOT NULL,
-  `rewardMoney` float NOT NULL,
-  `remarks` varchar(100) DEFAULT NULL,
-  `rewardDate` datetime NOT NULL,
-  `rewardUrl` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of reward
--- ----------------------------
-INSERT INTO `reward` VALUES ('1', '海**依', '公众号赞赏', '《搜狐焦点·拯救先心儿》', '20', '无', '2019-07-04 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-15/1563121018.jpeg');
-INSERT INTO `reward` VALUES ('2', '依**贝', '公众号赞赏', '《困境儿童关怀》', '20', '无', '2019-07-04 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-15/1563121088.jpeg');
-INSERT INTO `reward` VALUES ('3', '涛多多', '公众号赞赏', '《寻四百万份光明之爱》', '50', '无', '2019-07-05 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-15/1563121089.jpg');
-INSERT INTO `reward` VALUES ('4', '华仔150***5531', '公众号赞赏', '《搜狐焦点·拯救先心儿》', '1', '无', '2019-07-05 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-15/1563121351.jpeg');
-INSERT INTO `reward` VALUES ('5', '邓*燕', '公众号赞赏', '《搜狐焦点·拯救先心儿》', '5', '无', '2019-07-06 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-15/1563121423.jpeg');
-INSERT INTO `reward` VALUES ('6', '梦', '公众号赞赏', '《重症孤儿救助》', '20', '无', '2019-07-07 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-15/1563121481.jpeg');
-INSERT INTO `reward` VALUES ('7', '帅到被人砍', '微信收款码', '《先心儿童的“心”生》', '10', '昵称:帅到被人砍', '2019-07-15 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-15/1563204301.jpeg');
-INSERT INTO `reward` VALUES ('8', '曹*玉', '微信收款码', '《花季少女勇斗病魔》', '20', '无', '2019-07-15 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-15/1563204303.jpg');
-INSERT INTO `reward` VALUES ('9', '海**依', '微信收款码', '《七彩假期·情暖童心》', '10', '无', '2019-07-16 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-16/1563233973.jpeg');
-INSERT INTO `reward` VALUES ('10', '卫朝美152***062', '微信收款码', '《贫困孤儿助养》', '20', '可以加入你的募捐团队吗？做这些事是每个人的梦想呢！虽然不多，积少成多嘛', '2019-07-16 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-16/1563234105.jpeg');
-INSERT INTO `reward` VALUES ('11', '*王', '微信收款码', '《让口罩天使医路有家》', '10', '无', '2019-07-16 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-07-16/1563234206.jpeg');
-INSERT INTO `reward` VALUES ('12', '张张张张先森', '工资捐赠', '《搜狐焦点·拯救先心儿》', '100', '只希望在未来我们自己有难时会被这个世界温柔以待', '2019-08-05 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-08-05/1565013073.png');
-INSERT INTO `reward` VALUES ('13', '张张张张先森', '工资捐赠', '《大病紧急救助计划》', '100', '其实这个世界还是挺温暖的', '2019-09-05 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-09-05/1567697682.png');
-INSERT INTO `reward` VALUES ('14', 'Mr_V', '微信收款码', '《抗战老兵关怀计划》', '20', '希望你能一直坚持自己的梦想', '2019-09-25 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-09-25/1569377202.png');
-INSERT INTO `reward` VALUES ('15', '乐意.', '公众号赞赏', '《点亮战地女孩上学梦》', '20', '无', '2019-11-05 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-11-06/1573023447.png');
-INSERT INTO `reward` VALUES ('16', '醉翁之意', '公众号赞赏', '《重症孤儿救助》', '5', '无', '2019-11-05 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-11-06/1573023509.png');
-INSERT INTO `reward` VALUES ('17', '海**依', '公众号赞赏', '《白血病儿童康复计划》', '20', '无', '2019-11-05 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-11-06/1573023579.png');
-INSERT INTO `reward` VALUES ('18', '依**贝', '公众号赞赏', '《助贫困老人安放余生》', '10', '无', '2019-11-05 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-11-06/1573023651.png');
-INSERT INTO `reward` VALUES ('19', '沉默是金*', '公众号赞赏', '《我们想要怒放的生命》', '2', '无', '2019-11-05 00:00:00', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/rewardRecord/2019-11-06/1573023698.png');
-
--- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -354,7 +298,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '19940790216', '张海洋', 'a3caed36f0fe5a01e5f144db8927235e', 'male', '张海洋', '1997-07-05', '1125694337@qq.com', '', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/张海洋/1575283189.png', '2019-12-02 18:31:15');
+INSERT INTO `user` VALUES ('1', '19940790216', '张海洋', 'a3caed36f0fe5a01e5f144db8927235e', 'male', '张海洋', '1997-07-05', '1125694337@qq.com', '', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/张海洋/1536759681.jpeg', '2019-05-23 14:24:39');
 
 -- ----------------------------
 -- Table structure for user_role
@@ -369,7 +313,6 @@ CREATE TABLE `user_role` (
 -- Records of user_role
 -- ----------------------------
 INSERT INTO `user_role` VALUES ('1', '1');
-INSERT INTO `user_role` VALUES ('1', '2');
 INSERT INTO `user_role` VALUES ('1', '3');
 
 -- ----------------------------

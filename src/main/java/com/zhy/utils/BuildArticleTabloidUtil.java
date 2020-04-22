@@ -12,7 +12,7 @@ public class BuildArticleTabloidUtil {
         String regex = "\\s+";
         String str = htmlArticleComment.trim();
         //去掉所有空格
-        String articleTabloid = str.replaceAll(regex, StringUtil.BLANK);
+        String articleTabloid = str.replaceAll(regex,StringUtil.BLANK);
 
         int beginIndex = articleTabloid.indexOf("<");
         int endIndex = articleTabloid.indexOf(">");

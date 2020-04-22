@@ -3,7 +3,6 @@ package com.zhy.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhy.component.JavaScriptCheck;
-import com.zhy.constant.CodeType;
 import com.zhy.constant.SiteOwner;
 import com.zhy.mapper.LeaveMessageMapper;
 import com.zhy.model.LeaveMessage;
@@ -214,21 +213,14 @@ public class LeaveMessageServiceImpl implements LeaveMessageService {
     }
 
     @Override
-    public DataMap readOneLeaveMessageRecord(int id) {
-        try {
-            leaveMessageMapper.readOneLeaveMessageRecord(id);
-            return DataMap.success();
-        } catch (Exception e){
-            e.printStackTrace();
-            return DataMap.fail(CodeType.READ_MESSAGE_FAIL);
-        }
+    public void readOneLeaveMessageRecord(int id) {
+        leaveMessageMapper.readOneLeaveMessageRecord(id);
     }
 
     @Override
-    public DataMap readAllLeaveMessage(String username) {
+    public void readAllLeaveMessage(String username) {
         int respondentId = userService.findIdByUsername(username);
         leaveMessageMapper.readLeaveMessageRecordByRespondentId(respondentId);
-        return DataMap.success();
     }
 
     /**
