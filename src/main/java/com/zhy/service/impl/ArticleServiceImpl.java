@@ -50,42 +50,36 @@ public class ArticleServiceImpl implements ArticleService {
     public DataMap insertArticle(Article article) {
         Map<String, Object> dataMap = new HashMap<>(4);
 
-        try {
-            if(StringUtil.BLANK.equals(article.getOriginalAuthor())){
-                article.setOriginalAuthor(article.getAuthor());
-            }
-            if(StringUtil.BLANK.equals(article.getArticleUrl())){
-                //保存文章的url
-                String url = SiteOwner.SITE_OWNER_URL + "/article/" + article.getArticleId();
-                article.setArticleUrl(url);
-            }
-            Article endArticleId = articleMapper.findEndArticleId();
-            //设置文章的上一篇文章id
-            if(endArticleId != null){
-                article.setLastArticleId(endArticleId.getArticleId());
-            }
-            articleMapper.save(article);
-            //判断发表文章的归档日期是否存在，不存在则插入归档日期
-            TimeUtil timeUtil = new TimeUtil();
-            String archiveName = timeUtil.timeWhippletreeToYear(article.getPublishDate().substring(0, 7));
-            archiveService.addArchiveName(archiveName);
-            //新文章加入访客量
-            visitorService.insertVisitorArticlePage("article/" + article.getArticleId());
-            //设置上一篇文章的下一篇文章id
-            if(endArticleId != null){
-                articleService.updateArticleLastOrNextId("nextArticleId", article.getArticleId(), endArticleId.getArticleId());
-            }
-
-            dataMap.put("articleTitle",article.getArticleTitle());
-            dataMap.put("updateDate",article.getUpdateDate());
-            dataMap.put("author",article.getOriginalAuthor());
-            //本博客中的URL
-            dataMap.put("articleUrl","/article/" + article.getArticleId());
-            return DataMap.success().setData(dataMap);
-        } catch (Exception e){
-            log.error("publish article [{}] exception", article.getArticleTitle(), e);
-            return DataMap.fail(CodeType.PUBLISH_ARTICLE_EXCEPTION);
+        if(StringUtil.BLANK.equals(article.getOriginalAuthor())){
+            article.setOriginalAuthor(article.getAuthor());
         }
+        if(StringUtil.BLANK.equals(article.getArticleUrl())){
+            //保存文章的url
+            String url = SiteOwner.SITE_OWNER_URL + "/article/" + article.getArticleId();
+            article.setArticleUrl(url);
+        }
+        Article endArticleId = articleMapper.findEndArticleId();
+        //设置文章的上一篇文章id
+        if(endArticleId != null){
+            article.setLastArticleId(endArticleId.getArticleId());
+        }
+        articleMapper.save(article);
+        //判断发表文章的归档日期是否存在，不存在则插入归档日期
+        TimeUtil timeUtil = new TimeUtil();
+        String archiveName = timeUtil.timeWhippletreeToYear(article.getPublishDate().substring(0, 7));
+        archiveService.addArchiveName(archiveName);
+        //新文章加入访客量
+        visitorService.insertVisitorArticlePage("article/" + article.getArticleId());
+        //设置上一篇文章的下一篇文章id
+        if(endArticleId != null){
+            articleService.updateArticleLastOrNextId("nextArticleId", article.getArticleId(), endArticleId.getArticleId());
+        }
+
+        dataMap.put("articleTitle",article.getArticleTitle());
+        dataMap.put("updateDate",article.getUpdateDate());
+        dataMap.put("author",article.getOriginalAuthor());
+        dataMap.put("articleUrl","/article/" + article.getArticleId());
+        return DataMap.success().setData(dataMap);
     }
 
     @Override
@@ -169,11 +163,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public DataMap findAllArticles(String rows, String pageNo) {
-        int pageNum = Integer.parseInt(pageNo);
-        int pageSize = Integer.parseInt(rows);
+    public DataMap findAllArticles(int rows, int pageNum) {
 
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum,rows);
         List<Article> articles = articleMapper.findAllArticles();
         PageInfo<Article> pageInfo = new PageInfo<>(articles);
         List<Map<String, Object>> newArticles = new ArrayList<>();
@@ -182,7 +174,7 @@ public class ArticleServiceImpl implements ArticleService {
         for(Article article : articles){
             map = new HashMap<>();
             map.put("thisArticleUrl", "/article/" + article.getArticleId());
-            map.put("articleTags",StringAndArray.stringToArray(article.getArticleTags()));
+            map.put("articleTags", StringAndArray.stringToArray(article.getArticleTags()));
             map.put("articleTitle", article.getArticleTitle());
             map.put("articleType", article.getArticleType());
             map.put("publishDate", article.getPublishDate());
@@ -418,7 +410,7 @@ public class ArticleServiceImpl implements ArticleService {
             commentLikesRecordService.deleteCommentLikesRecordByArticleId(deleteArticle.getArticleId());
             articleLikesRecordService.deleteArticleLikesRecordByArticleId(deleteArticle.getArticleId());
         }catch (Exception e){
-            log.error("delete article exception,article id is [{}]", id, e);
+            log.error("Delete article exception,article id is [{}]", id, e);
             return DataMap.fail(CodeType.DELETE_ARTICLE_FAIL);
         }
         return DataMap.success();

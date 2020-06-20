@@ -1,5 +1,6 @@
 package com.zhy.controller;
 
+import com.zhy.constant.CodeType;
 import com.zhy.service.ArchiveService;
 import com.zhy.service.ArticleService;
 import com.zhy.utils.DataMap;
@@ -10,8 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author: zhangocean
@@ -33,9 +32,13 @@ public class ArchivesControl {
      */
     @GetMapping(value = "/findArchiveNameAndArticleNum", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String findArchiveNameAndArticleNum(){
-        DataMap data = archiveService.findArchiveNameAndArticleNum();
-        return JsonResult.build(data).toJSON();
-
+        try {
+            DataMap data = archiveService.findArchiveNameAndArticleNum();
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Find archive name and article num exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
 
@@ -44,10 +47,14 @@ public class ArchivesControl {
      */
     @GetMapping(value = "/getArchiveArticle", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getArchiveArticle(@RequestParam("archive") String archive,
-                                        HttpServletRequest request){
-        int rows = Integer.parseInt(request.getParameter("rows"));
-        int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-        DataMap data = articleService.findArticleByArchive(archive, rows, pageNum);
-        return JsonResult.build(data).toJSON();
+                                        @RequestParam("rows") int rows,
+                                        @RequestParam("pageNum") int pageNum){
+        try {
+            DataMap data = articleService.findArticleByArchive(archive, rows, pageNum);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Get archive article [{}] exception", archive, e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 }

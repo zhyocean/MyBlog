@@ -75,20 +75,23 @@
                 pageNum:currentPage
             },
             success:function (data) {
-                putInTagArticleInfo(data['data']);
-                scrollTo(0,0);//回到顶部
+                if(data['status'] == 103){
+                    dangerNotice(data['message'] + " 获得分类文章失败")
+                } else {
+                    putInTagArticleInfo(data['data']);
+                    scrollTo(0,0);//回到顶部
 
-                //分页
-                $("#pagination").paging({
-                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                    pages:data['data']['pageInfo']['pages'],//总页数
-                    total:data['data']['pageInfo']['total'],//总记录数
-                    callback:function(currentPage){
-                        ajaxFirst(currentPage, category1);
-                    }
-                });
-
+                    //分页
+                    $("#pagination").paging({
+                        rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                        pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                        pages:data['data']['pageInfo']['pages'],//总页数
+                        total:data['data']['pageInfo']['total'],//总记录数
+                        callback:function(currentPage){
+                            ajaxFirst(currentPage, category1);
+                        }
+                    });
+                }
             },
             error:function () {
                 alert("获取分类文章失败");
@@ -104,23 +107,27 @@
         data:{
         },
         success:function (data) {
-            var categories = $('.categories');
-            categories.empty();
-            categories.append($('<div class="categories-title">' +
-                '<h3 style="font-size: 20px">Categories</h3>' +
-                '</div>'));
-            var categoriesComment = $('<div class="categories-comment am-animation-slide-top"></div>');
-            $.each(data['data']['result'], function (index, obj) {
-                categoriesComment.append($('<div class="category">' +
-                    '<span><a class="categoryName">' + obj['categoryName'] + '</a><span class="categoryNum">(' + obj['categoryArticleNum'] + ')</span></span>' +
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得分类信息失败")
+            } else {
+                var categories = $('.categories');
+                categories.empty();
+                categories.append($('<div class="categories-title">' +
+                    '<h3 style="font-size: 20px">Categories</h3>' +
                     '</div>'));
-            });
-            categories.append(categoriesComment);
-            $('.categoryName').click(function () {
-                var $this = $(this);
-                var categoryName = $this.html();
-                ajaxFirst(1,categoryName);
-            })
+                var categoriesComment = $('<div class="categories-comment am-animation-slide-top"></div>');
+                $.each(data['data']['result'], function (index, obj) {
+                    categoriesComment.append($('<div class="category">' +
+                        '<span><a class="categoryName">' + obj['categoryName'] + '</a><span class="categoryNum">(' + obj['categoryArticleNum'] + ')</span></span>' +
+                        '</div>'));
+                });
+                categories.append(categoriesComment);
+                $('.categoryName').click(function () {
+                    var $this = $(this);
+                    var categoryName = $this.html();
+                    ajaxFirst(1,categoryName);
+                })
+            }
         },
         error:function () {
             alert("获取分类信息失败");

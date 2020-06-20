@@ -6,11 +6,12 @@ import com.zhy.model.Tag;
 import com.zhy.service.TagService;
 import com.zhy.utils.DataMap;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: zhangocean
@@ -36,10 +37,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public DataMap findTagsCloud() {
         List<Tag> tags = tagMapper.findTagsCloud();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",JSONArray.fromObject(tags));
-        jsonObject.put("tagsNum",tags.size());
-        return DataMap.success(CodeType.FIND_TAGS_CLOUD).setData(jsonObject);
+        Map<String, Object> dataMap = new HashMap<>(2);
+        dataMap.put("result",JSONArray.fromObject(tags));
+        dataMap.put("tagsNum",tags.size());
+        return DataMap.success(CodeType.FIND_TAGS_CLOUD).setData(dataMap);
     }
 
     @Override

@@ -37,10 +37,16 @@
         var phone_len = phone.val().length;
         var phone_value = phone.val();
         var pattren1 = /^1[345789]\d{9}$/;
+
+        var isPhone = checkPhone(phone_value);
+        if(!isPhone){
+            alert("手机号输入有误");
+            return false;
+        }
+        console.log(isPhone);
         if(password_len !== 0 && phone_len !== 0 && pattren1.test(phone_value)){
             return true;
-        }
-        else {
+        } else {
             if(phone_len === 0){
                 phone_null.show();
             }
@@ -243,8 +249,10 @@
                 success:function (data) {
                     if(data['status'] == 902){
                         auth_code_error.show();
-                    }else if (data['status'] == 508){
+                    }else if (data['status'] == 506){
                         $('.phoneNotExitSpan').show();
+                    }else if (data['status'] == 103){
+                        alert(data['message'] + " 密码修改失败")
                     }else if(data['status'] == 901){
                         alert("手机号不正确，请重新输入");
                     }else {
@@ -258,6 +266,13 @@
             })
         }
     });
+
+    function checkPhone(phone){
+        if(!(/^1[3456789]\d{9}$/.test(phone))){
+            return false;
+        }
+        return true;
+    }
 
     //关闭模态框时清空其中的值
     var change_password_cancel_btn = $("#change_password_cancel_btn");

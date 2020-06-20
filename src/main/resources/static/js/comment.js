@@ -24,7 +24,9 @@
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
-                    }else{
+                    } else if (data['status'] == 103){
+                        dangerNotice(data['message'] + " 发表评论失败")
+                    } else{
                         putInComment(data['data']);
                     }
                 },

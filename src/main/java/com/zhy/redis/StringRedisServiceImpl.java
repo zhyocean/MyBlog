@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * Describe: String类型redis操作
  */
 @Service
-public class StringRedisServiceImpl implements RedisService{
+public class StringRedisServiceImpl implements RedisService {
 
     @Resource
     private RedisTemplate<String,Object> redisTemplate;

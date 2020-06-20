@@ -4,11 +4,12 @@ import com.zhy.model.UserReadNews;
 import com.zhy.redis.HashRedisServiceImpl;
 import com.zhy.redis.StringRedisServiceImpl;
 import com.zhy.utils.DataMap;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author: zhangocean
@@ -29,20 +30,20 @@ public class RedisService {
      * 获得redis中用户的未读消息
      */
     public DataMap getUserNews(String username) {
-        JSONObject jsonObject = new JSONObject();
+        Map<String, Object> dataMap = new HashMap<>(2);
 
         int userId = userService.findIdByUsername(username);
         LinkedHashMap map = (LinkedHashMap) hashRedisServiceImpl.getAllFieldAndValue(String.valueOf(userId));
         if(map.size() == 0){
-            jsonObject.put("result", 0);
+            dataMap.put("result", 0);
         } else {
             int allNewNum = (int) map.get("allNewsNum");
             int commentNum = (int) map.get("commentNum");
             int leaveMessageNum = (int) map.get("leaveMessageNum");
             UserReadNews news = new UserReadNews(allNewNum, commentNum, leaveMessageNum);
-            jsonObject.put("result", news);
+            dataMap.put("result", news);
         }
-        return DataMap.success().setData(jsonObject);
+        return DataMap.success().setData(dataMap);
     }
 
     /**

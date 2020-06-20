@@ -16,4 +16,5 @@ public class StringUtil {
      */
     public static final String ARTICLE_THUMBS_UP = "articleThumbsUp";
 
+    public static final String VISITOR = "visitor";
 }

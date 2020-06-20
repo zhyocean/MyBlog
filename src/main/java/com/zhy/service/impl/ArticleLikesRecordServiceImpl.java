@@ -2,7 +2,6 @@ package com.zhy.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhy.constant.CodeType;
 import com.zhy.mapper.ArticleLikesMapper;
 import com.zhy.model.ArticleLikesRecord;
 import com.zhy.redis.StringRedisServiceImpl;
@@ -90,31 +89,20 @@ public class ArticleLikesRecordServiceImpl implements ArticleLikesRecordService 
 
     @Override
     public DataMap readThisThumbsUp(int id) {
-        try {
-            articleLikesMapper.readThisThumbsUp(id);
-            stringRedisService.stringIncrement(StringUtil.ARTICLE_THUMBS_UP,-1);
-            int articleThumbsUp = (int) stringRedisService.get(StringUtil.ARTICLE_THUMBS_UP);
-            if(articleThumbsUp == 0){
-                stringRedisService.remove(StringUtil.ARTICLE_THUMBS_UP);
-            }
-            return DataMap.success();
-        } catch (Exception e){
-            log.error("read article thumbs up info exception", e);
-            return DataMap.fail(CodeType.READ_ARTICLE_THUMBS_UP_FAIL);
+        articleLikesMapper.readThisThumbsUp(id);
+        stringRedisService.stringIncrement(StringUtil.ARTICLE_THUMBS_UP,-1);
+        int articleThumbsUp = (int) stringRedisService.get(StringUtil.ARTICLE_THUMBS_UP);
+        if(articleThumbsUp == 0){
+            stringRedisService.remove(StringUtil.ARTICLE_THUMBS_UP);
         }
+        return DataMap.success();
     }
 
     @Override
     public DataMap readAllThumbsUp() {
-        try {
-            articleLikesMapper.readAllThumbsUp();
-            stringRedisService.remove(StringUtil.ARTICLE_THUMBS_UP);
-            return DataMap.success();
-        }catch (Exception e){
-            log.error("read all article thumbs up info exception", e);
-            return DataMap.fail(CodeType.READ_ARTICLE_THUMBS_UP_FAIL);
-        }
-
+        articleLikesMapper.readAllThumbsUp();
+        stringRedisService.remove(StringUtil.ARTICLE_THUMBS_UP);
+        return DataMap.success();
     }
 
 }

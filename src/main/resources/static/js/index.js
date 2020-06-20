@@ -1,6 +1,6 @@
 
     //网站最后更新时间（版本更新需更改）
-    var siteLastUpdateTime = '2019年12月02日19点';
+    var siteLastUpdateTime = '2020年4月22日19点';
 
     //网站开始时间
     var siteBeginRunningTime = '2018-07-25 20:00:00';
@@ -214,7 +214,7 @@
         },
         success: function (data) {
             if(data['status'] == 103){
-                dangerNotice("服务器异常，获得文章信息失败");
+                dangerNotice(data['message'] + " 获得文章信息失败");
             } else {
                 //放入数据
                 putInArticle(data['data']);
@@ -250,20 +250,23 @@
             pageNum:currentPage
         },
         success: function (data) {
-            putInNewComment(data['data']);
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得最新评论失败")
+            } else {
+                putInNewComment(data['data']);
 
-            //分页
-            $(".newCommentPagination").paging({
-                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                pages:data['data']['pageInfo']['pages'],//总页数
-                total:data['data']['pageInfo']['total'],//总记录数
-                flag:0,
-                callback:function(currentPage){
-                    newCommentAjax(currentPage);
-                }
-            });
-
+                //分页
+                $(".newCommentPagination").paging({
+                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                    pages:data['data']['pageInfo']['pages'],//总页数
+                    total:data['data']['pageInfo']['total'],//总记录数
+                    flag:0,
+                    callback:function(currentPage){
+                        newCommentAjax(currentPage);
+                    }
+                });
+            }
         },
         error: function () {
         }
@@ -280,20 +283,23 @@
                 pageNum:currentPage
             },
             success: function (data) {
-                putInNewLeaveWord(data['data']);
+                if(data['status'] == 103){
+                    dangerNotice(data['message'] + " 获得最新留言失败")
+                } else {
+                    putInNewLeaveWord(data['data']);
 
-                //分页
-                $(".newLeaveWordPagination").paging({
-                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                    pages:data['data']['pageInfo']['pages'],//总页数
-                    total:data['data']['pageInfo']['total'],//总记录数
-                    flag:0,
-                    callback:function(currentPage){
-                        newLeaveWordAjax(currentPage);
-                    }
-                });
-
+                    //分页
+                    $(".newLeaveWordPagination").paging({
+                        rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                        pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                        pages:data['data']['pageInfo']['pages'],//总页数
+                        total:data['data']['pageInfo']['total'],//总记录数
+                        flag:0,
+                        callback:function(currentPage){
+                            newLeaveWordAjax(currentPage);
+                        }
+                    });
+                }
             },
             error: function () {
             }
@@ -319,7 +325,9 @@
         data: {
         },
         success: function (data) {
-            if(data['data']['result'].length == 0){
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得标签云失败")
+            } else if(data['data']['result'].length == 0){
                 var tagCloud = $('.tag-cloud');
                 tagCloud.empty();
                 tagCloud.append($('<h3 class="widget-title">标签云</h3>'));
@@ -343,33 +351,36 @@
         data: {
         },
         success: function (data) {
-           var siteInfo = $('.site-info');
-            siteInfo.empty();
-            siteInfo.append('<h5 class="site-title">' +
-                '<i class="am-icon-info site-icon"></i>' +
-                '<strong style="margin-left: 15px">网站信息</strong>' +
-                '</h5>');
-            var siteDefault = $('<ul class="site-default"></ul>');
-            siteDefault.append('<li>' +
-                '<i class="am-icon-file site-default-icon"></i><span class="site-default-word">文章总数</span>：' + data['data']['articleNum'] + ' 篇' +
-                '</li>');
-            siteDefault.append('<li>' +
-                '<i class="am-icon-tags site-default-icon"></i><span class="site-default-word">标签总数</span>：' + data['data']['tagsNum'] + ' 个' +
-                '</li>');
-            siteDefault.append('<li>' +
-                '<i class="am-icon-comments-o site-default-icon"></i><span class="site-default-word">留言总数</span>：' + data['data']['leaveWordNum'] + ' 条' +
-                '</li>');
-            siteDefault.append('<li>' +
-                '<i class="am-icon-commenting-o site-default-icon"></i><span class="site-default-word">评论总数</span>：' + data['data']['commentNum'] + ' 条' +
-                '</li>');
-            siteDefault.append('<li>' +
-                '<i class="am-icon-pencil-square site-default-icon"></i><span class="site-default-word">网站最后更新</span>：<span class="siteUpdateTime">' + siteLastUpdateTime + '</span>' +
-                '</li>');
-            siteDefault.append('<li>' +
-                '<i class="am-icon-calendar site-default-icon"></i><span class="site-default-word">网站运行天数</span>：<span class="siteRunningTime"> </span>' +
-                '</li>');
-            siteInfo.append(siteDefault);
-
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得网站信息失败")
+            } else {
+                var siteInfo = $('.site-info');
+                siteInfo.empty();
+                siteInfo.append('<h5 class="site-title">' +
+                    '<i class="am-icon-info site-icon"></i>' +
+                    '<strong style="margin-left: 15px">网站信息</strong>' +
+                    '</h5>');
+                var siteDefault = $('<ul class="site-default"></ul>');
+                siteDefault.append('<li>' +
+                    '<i class="am-icon-file site-default-icon"></i><span class="site-default-word">文章总数</span>：' + data['data']['articleNum'] + ' 篇' +
+                    '</li>');
+                siteDefault.append('<li>' +
+                    '<i class="am-icon-tags site-default-icon"></i><span class="site-default-word">标签总数</span>：' + data['data']['tagsNum'] + ' 个' +
+                    '</li>');
+                siteDefault.append('<li>' +
+                    '<i class="am-icon-comments-o site-default-icon"></i><span class="site-default-word">留言总数</span>：' + data['data']['leaveWordNum'] + ' 条' +
+                    '</li>');
+                siteDefault.append('<li>' +
+                    '<i class="am-icon-commenting-o site-default-icon"></i><span class="site-default-word">评论总数</span>：' + data['data']['commentNum'] + ' 条' +
+                    '</li>');
+                siteDefault.append('<li>' +
+                    '<i class="am-icon-pencil-square site-default-icon"></i><span class="site-default-word">网站最后更新</span>：<span class="siteUpdateTime">' + siteLastUpdateTime + '</span>' +
+                    '</li>');
+                siteDefault.append('<li>' +
+                    '<i class="am-icon-calendar site-default-icon"></i><span class="site-default-word">网站运行天数</span>：<span class="siteRunningTime"> </span>' +
+                    '</li>');
+                siteInfo.append(siteDefault);
+            }
         },
         error: function () {
         }

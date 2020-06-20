@@ -2,7 +2,6 @@ package com.zhy.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhy.constant.CodeType;
 import com.zhy.mapper.CommentMapper;
 import com.zhy.model.Comment;
 import com.zhy.model.UserReadNews;
@@ -85,7 +84,7 @@ public class CommentServiceImpl implements CommentService {
             commentJsonObject.put("replies",replyJsonArray);
             commentJsonObject.put("avatarImgUrl",userService.getHeadPortraitUrlByUserId(comment.getAnswererId()));
 
-            if(username == null){
+            if(username.equals(StringUtil.BLANK)){
                 commentJsonObject.put("isLiked",0);
             } else {
                 if(commentLikesRecordService.isLiked(articleId, comment.getId(), username)){
@@ -204,21 +203,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public DataMap readOneCommentRecord(int id) {
-        try {
-            commentMapper.readCommentRecordById(id);
-            return DataMap.success();
-        } catch (Exception e){
-            e.printStackTrace();
-            return DataMap.fail(CodeType.READ_MESSAGE_FAIL);
-        }
+    public void readOneCommentRecord(int id) {
+        commentMapper.readCommentRecordById(id);
     }
 
     @Override
-    public DataMap readAllComment(String username) {
+    public void readAllComment(String username) {
         int respondentId = userService.findIdByUsername(username);
         commentMapper.readCommentRecordByRespondentId(respondentId);
-        return DataMap.success();
     }
 
     /**

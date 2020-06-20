@@ -231,11 +231,13 @@
                         phone_error.css("display","block");
                     } else if(data['status'] == 505){
                         username_warn.css("display","block");
-                    } else if(data['status'] == 509){
+                    } else if(data['status'] == 507){
                         username_warn1.css("display","block");
                     } else if(data['status'] == 901){
                         phone_warn1.css("display","block");
                         phone_error.css("display","block");
+                    } else if (data['status'] == 103){
+                        dangerNotice(data['message'] + " 注册失败")
                     } else {
                         putIn();
                     }

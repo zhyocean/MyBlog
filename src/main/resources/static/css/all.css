@@ -26,7 +26,7 @@
     }
     .dangerNoticeAlert{
         display: none;
-        position: absolute;
+        position: fixed;
         top:8%;
         left:40%;
         border: 1px solid #bb4a3c;
@@ -68,7 +68,7 @@
     }
     .dangerNoticeAlert{
         display: none;
-        position: absolute;
+        position: fixed;
         top:8%;
         left:30%;
         border: 1px solid #bb4a3c;

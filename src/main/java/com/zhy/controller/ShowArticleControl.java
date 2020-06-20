@@ -11,6 +11,7 @@ import com.zhy.utils.DataMap;
 import com.zhy.utils.JsonResult;
 import com.zhy.utils.StringUtil;
 import com.zhy.utils.TimeUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,6 +28,7 @@ import java.security.Principal;
  * Describe: 文章显示页面
  */
 @RestController
+@Slf4j
 public class ShowArticleControl {
 
     @Autowired
@@ -46,11 +48,17 @@ public class ShowArticleControl {
     public String getArticleById(@RequestParam("articleId") String articleId,
                                                                     @AuthenticationPrincipal Principal principal){
         String username = null;
-        if(principal != null){
-            username = principal.getName();
+        try {
+            if(principal != null){
+                username = principal.getName();
+            }
+            DataMap data = articleService.getArticleByArticleId(Long.parseLong(articleId),username);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("[{}] get article [{}] exception", username, articleId, e);
         }
-        DataMap data = articleService.getArticleByArticleId(Long.parseLong(articleId),username);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
+
     }
 
 
@@ -64,19 +72,24 @@ public class ShowArticleControl {
     @PermissionCheck(value = "ROLE_USER")
     public String addArticleLike(@RequestParam("articleId") String articleId,
                                      @AuthenticationPrincipal Principal principal){
-
         String username = principal.getName();
-        if(articleLikesRecordService.isLiked(Long.parseLong(articleId), username)){
-            return JsonResult.fail(CodeType.ARTICLE_HAS_THUMBS_UP).toJSON();
+        try {
+            if(articleLikesRecordService.isLiked(Long.parseLong(articleId), username)){
+                return JsonResult.fail(CodeType.ARTICLE_HAS_THUMBS_UP).toJSON();
+            }
+
+            DataMap data = articleService.updateLikeByArticleId(Long.parseLong(articleId));
+
+            ArticleLikesRecord articleLikesRecord = new ArticleLikesRecord(Long.parseLong(articleId), userService.findIdByUsername(username), new TimeUtil().getFormatDateForFive());
+            articleLikesRecordService.insertArticleLikesRecord(articleLikesRecord);
+            redisService.readThumbsUpRecordOnRedis(StringUtil.ARTICLE_THUMBS_UP, 1);
+
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("[{}] like article [{}] exception", username, articleId, e);
         }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
 
-        DataMap data = articleService.updateLikeByArticleId(Long.parseLong(articleId));
-
-        ArticleLikesRecord articleLikesRecord = new ArticleLikesRecord(Long.parseLong(articleId), userService.findIdByUsername(username), new TimeUtil().getFormatDateForFive());
-        articleLikesRecordService.insertArticleLikesRecord(articleLikesRecord);
-        redisService.readThumbsUpRecordOnRedis(StringUtil.ARTICLE_THUMBS_UP, 1);
-
-        return JsonResult.build(data).toJSON();
     }
 
 }

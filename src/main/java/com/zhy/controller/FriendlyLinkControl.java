@@ -1,8 +1,10 @@
 package com.zhy.controller;
 
+import com.zhy.constant.CodeType;
 import com.zhy.service.FriendLinkService;
 import com.zhy.utils.DataMap;
 import com.zhy.utils.JsonResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Describe: 友链页面
  */
 @RestController
+@Slf4j
 public class FriendlyLinkControl {
 
     @Autowired
@@ -24,8 +27,13 @@ public class FriendlyLinkControl {
      */
     @PostMapping(value = "/getFriendLinkInfo", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getFriendLink(){
-        DataMap data = friendLinkService.getFriendLink();
-        return JsonResult.build(data).toJSON();
+        try {
+            DataMap data = friendLinkService.getFriendLink();
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Get friend links exception", e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
 }

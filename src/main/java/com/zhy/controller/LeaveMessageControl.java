@@ -12,6 +12,7 @@ import com.zhy.utils.DataMap;
 import com.zhy.utils.JsonResult;
 import com.zhy.utils.StringUtil;
 import com.zhy.utils.TimeUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,6 +29,7 @@ import java.security.Principal;
  * Describe:
  */
 @RestController
+@Slf4j
 public class LeaveMessageControl {
 
     @Autowired
@@ -49,12 +51,15 @@ public class LeaveMessageControl {
     public String publishLeaveMessage(@RequestParam("leaveMessageContent") String leaveMessageContent,
                                           @RequestParam("pageName") String pageName,
                                           @AuthenticationPrincipal Principal principal){
-
         String answerer = principal.getName();
-        leaveMessageService.publishLeaveMessage(leaveMessageContent,pageName, answerer);
-        DataMap data = leaveMessageService.findAllLeaveMessage(pageName, 0, answerer);
-        return JsonResult.build(data).toJSON();
-
+        try {
+            leaveMessageService.publishLeaveMessage(leaveMessageContent,pageName, answerer);
+            DataMap data = leaveMessageService.findAllLeaveMessage(pageName, 0, answerer);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("[{}] publish leaveword [{}] on pageName [{}] exception", answerer, leaveMessageContent, pageName, e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -66,11 +71,16 @@ public class LeaveMessageControl {
     public String getPageLeaveMessage(@RequestParam("pageName") String pageName,
                                           @AuthenticationPrincipal Principal principal){
         String username = null;
-        if(principal != null){
-            username = principal.getName();
+        try {
+            if(principal != null){
+                username = principal.getName();
+            }
+            DataMap data = leaveMessageService.findAllLeaveMessage(pageName, 0, username);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("[{}] get page [{}] leavemessage exception", username, pageName, e);
         }
-        DataMap data = leaveMessageService.findAllLeaveMessage(pageName, 0, username);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -80,28 +90,33 @@ public class LeaveMessageControl {
     @PostMapping(value = "/publishLeaveMessageReply", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PermissionCheck(value = "ROLE_USER")
     public String publishLeaveMessageReply(LeaveMessage leaveMessage,
-                                               @RequestParam("parentId") String parentId,
-                                               @RequestParam("respondent") String respondent,
-                                               @AuthenticationPrincipal Principal principal){
+                                           @RequestParam("parentId") String parentId,
+                                           @RequestParam("respondent") String respondent,
+                                           @AuthenticationPrincipal Principal principal){
         String username = principal.getName();
-        leaveMessage.setAnswererId(userService.findIdByUsername(username));
-        leaveMessage.setPId(Integer.parseInt(parentId.substring(1)));
-        leaveMessage.setLeaveMessageContent(JavaScriptCheck.javaScriptCheck(leaveMessage.getLeaveMessageContent()));
-        String commentContent = leaveMessage.getLeaveMessageContent();
-        if('@' == commentContent.charAt(0)){
-            leaveMessage.setLeaveMessageContent(commentContent.substring(respondent.length() + 1).trim());
-        } else {
-            leaveMessage.setLeaveMessageContent(commentContent.trim());
+        try {
+            leaveMessage.setAnswererId(userService.findIdByUsername(username));
+            leaveMessage.setPId(Integer.parseInt(parentId.substring(1)));
+            leaveMessage.setLeaveMessageContent(JavaScriptCheck.javaScriptCheck(leaveMessage.getLeaveMessageContent()));
+            String commentContent = leaveMessage.getLeaveMessageContent();
+            if('@' == commentContent.charAt(0)){
+                leaveMessage.setLeaveMessageContent(commentContent.substring(respondent.length() + 1).trim());
+            } else {
+                leaveMessage.setLeaveMessageContent(commentContent.trim());
+            }
+
+            if(StringUtil.BLANK.equals(leaveMessage.getLeaveMessageContent())){
+                return JsonResult.fail(CodeType.COMMENT_BLANK).toJSON();
+            }
+
+            leaveMessageService.publishLeaveMessageReply(leaveMessage, respondent);
+
+            DataMap data = leaveMessageService.leaveMessageNewReply(leaveMessage, username, respondent);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("[{}] publish leaveMessage reply [{}] exception", username, leaveMessage, e);
         }
-
-        if(StringUtil.BLANK.equals(leaveMessage.getLeaveMessageContent())){
-            return JsonResult.fail(CodeType.COMMENT_BLANK).toJSON();
-        }
-
-        leaveMessageService.publishLeaveMessageReply(leaveMessage, respondent);
-
-        DataMap data = leaveMessageService.leaveMessageNewReply(leaveMessage, username, respondent);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -113,18 +128,22 @@ public class LeaveMessageControl {
     public String addLeaveMessageLike(@RequestParam("pageName") String pageName,
                                    @RequestParam("respondentId") String respondentId,
                                    @AuthenticationPrincipal Principal principal){
-
         String username = principal.getName();
-        TimeUtil timeUtil = new TimeUtil();
-        int userId = userService.findIdByUsername(username);
-        LeaveMessageLikesRecord leaveMessageLikesRecord = new LeaveMessageLikesRecord(pageName, Integer.parseInt(respondentId.substring(1)), userId, timeUtil.getFormatDateForFive());
+        try {
+            TimeUtil timeUtil = new TimeUtil();
+            int userId = userService.findIdByUsername(username);
+            LeaveMessageLikesRecord leaveMessageLikesRecord = new LeaveMessageLikesRecord(pageName, Integer.parseInt(respondentId.substring(1)), userId, timeUtil.getFormatDateForFive());
 
-        if(leaveMessageLikesRecordService.isLiked(leaveMessageLikesRecord.getPageName(), leaveMessageLikesRecord.getPId(), userId)){
-            return JsonResult.fail(CodeType.MESSAGE_HAS_THUMBS_UP).toJSON();
+            if(leaveMessageLikesRecordService.isLiked(leaveMessageLikesRecord.getPageName(), leaveMessageLikesRecord.getPId(), userId)){
+                return JsonResult.fail(CodeType.MESSAGE_HAS_THUMBS_UP).toJSON();
+            }
+            DataMap data = leaveMessageService.updateLikeByPageNameAndId(pageName, leaveMessageLikesRecord.getPId());
+            leaveMessageLikesRecordService.insertLeaveMessageLikesRecord(leaveMessageLikesRecord);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("[{}] like page [{}] leaveMessage [{}] exception", username, pageName, respondentId, e);
         }
-        DataMap data = leaveMessageService.updateLikeByPageNameAndId(pageName, leaveMessageLikesRecord.getPId());
-        leaveMessageLikesRecordService.insertLeaveMessageLikesRecord(leaveMessageLikesRecord);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
 }

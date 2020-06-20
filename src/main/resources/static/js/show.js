@@ -364,6 +364,8 @@
                             $.get("/toLogin",function(data,status,xhr){
                                 window.location.replace("/login");
                             });
+                        } else if (data['status'] == 103){
+                            dangerNotice(data['message'] + " 发表评论失败")
                         } else if (data['status'] == 801){
                             alert("内容不能为空！");
                         } else {
@@ -439,6 +441,8 @@
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
+                    } else if (data['status'] == 103){
+                        dangerNotice(data['message'] + " 点赞失败")
                     } else if(data['status'] == 802){
                         //已经点过赞了，啥都不干
                     } else {
@@ -483,6 +487,27 @@
         success:function (data) {
             if(data['status'] == 0){
                 putInArticle(data['data']);
+
+                //通过文章id和原作者请求评论信息
+                $.ajax({
+                    type:'post',
+                    url:'/getAllComment',
+                    dataType:'json',
+                    data:{
+                        articleId : articleId,
+                    },
+                    success:function (data) {
+                        if(data['status'] == 103){
+                            dangerNotice(data['message'] + " 获得评论信息失败");
+                        } else {
+                            putInComment(data['data']);
+                        }
+                    },
+                    error:function () {
+                    }
+                });
+            } else if (data['status'] == 103){
+                dangerNotice(data['message'] + " 获得文章失败");
             } else {
                 $('.content').html('');
                 var error = $('<div class="article"><div class="zhy-article-top"><div class="error">' +
@@ -498,21 +523,6 @@
         },
         error:function () {
 
-        }
-    });
-
-    //通过文章id和原作者请求评论信息
-    $.ajax({
-        type:'post',
-        url:'/getAllComment',
-        dataType:'json',
-        data:{
-            articleId : articleId,
-        },
-        success:function (data) {
-           putInComment(data['data']);
-        },
-        error:function () {
         }
     });
 
@@ -579,7 +589,9 @@
                     $.get("/toLogin",function(data,status,xhr){
                         window.location.replace("/login");
                     });
-                } else if(data['status'] == 203){
+                } else if(data['status'] == 103){
+                    dangerNotice(data['message'] + " 点赞失败");
+                } else if(data['status'] == 202){
                     //文章已经点过赞了，啥都不干
                 } else {
                     $('.likesNum').find('span').html(data['data']);

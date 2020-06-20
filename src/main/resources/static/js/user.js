@@ -30,13 +30,11 @@ function imgChange(e) {
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
+                    } else if(data['status'] == 103){
+                        dangerNotice(data['message'] + " 更改头像失败");
                     } else {
-                        if(data['status'] == 0){
-                            $('#headPortrait').attr("src",data['data']);
-                            successNotice("更改头像成功");
-                        } else {
-                            dangerNotice("更改头像失败")
-                        }
+                        $('#headPortrait').attr("src",data['data']);
+                        successNotice("更改头像成功");
                     }
 
                 },
@@ -61,6 +59,8 @@ function getUserPersonalInfo() {
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
+            } else if (data['status'] == 103){
+                dangerNotice(data['message'] + " 获得个人信息失败")
             } else {
                 $('#username').attr("value",data['data']['username']);
                 var personalPhone = data['data']['phone'];
@@ -122,23 +122,23 @@ savePersonalDateBtn.click(function () {
                     $.get("/toLogin",function(data,status,xhr){
                         window.location.replace("/login");
                     });
+                } else if (data['status'] == 103){
+                    dangerNotice(data['message'] + " 保存信息失败");
+                } else if(data['status'] == 503){
+                    successNotice("更改成功,重新登录后生效");
+                    setTimeout(function () {
+                        location.reload();
+                    },3000);
+                } else if (data['status'] == 501){
+                    dangerNotice("更改失败，昵称太长啦");
+                } else if (data['status'] == 502){
+                    dangerNotice("更改失败，昵称不能为空");
+                } else if (data['status'] == 504){
+                    successNotice("更改个人信息成功");
+                } else if (data['status'] == 505){
+                    dangerNotice("该昵称已被占用");
                 } else {
-                    if(data['status'] == 503){
-                        successNotice("更改成功,重新登录后生效");
-                        setTimeout(function () {
-                            location.reload();
-                        },3000);
-                    } else if (data['status'] == 501){
-                        dangerNotice("更改失败，昵称太长啦");
-                    } else if (data['status'] == 502){
-                        dangerNotice("更改失败，昵称不能为空");
-                    } else if (data['status'] == 504){
-                        successNotice("更改个人信息成功");
-                    } else if (data['status'] == 505){
-                        dangerNotice("该昵称已被占用");
-                    } else {
-                        dangerNotice("更改个人信息失败");
-                    }
+                    dangerNotice("更改个人信息失败");
                 }
             },
             error:function () {
@@ -251,8 +251,10 @@ $('#changePasswordBtn').click(function () {
                 success:function (data) {
                     if(data['status'] == 902){
                         dangerNotice("验证码不正确")
-                    }else if (data['status'] == 508){
+                    }else if (data['status'] == 506){
                         dangerNotice("手机号不存在")
+                    }else if (data['status'] == 103){
+                        dangerNotice(data['message'] + " 密码修改失败")
                     }else if(data['status'] == 901){
                         dangerNotice("手机号不正确");
                     } else {
@@ -339,32 +341,32 @@ function putInCommentInfo(date) {
                     msgType:1
                 },
                 success:function (data) {
+                    //去掉未读红点
+                    parent.find($('.msgReadSign')).removeClass('msgReadSign');
+                    //未读消息减1
+                    $('.msgIsReadNum').html(--num);
+
+                    // 去掉左侧栏未读消息
+                    if(num == 0){
+                        $('.commentNotReadNum').remove();
+                    } else {
+                        $('.commentNotReadNum').html(num);
+                    }
+
+                    // 去掉导航栏下拉框未读消息
+                    var newsNum = $('.newsNum').html();
+                    --newsNum;
+                    if(newsNum == 0){
+                        $('.newsNum').remove();
+                    } else {
+                        $('.newsNum').html(newsNum);
+                    }
                 },
                 error:function () {
                 }
-            })
-            //去掉未读红点
-            parent.find($('.msgReadSign')).removeClass('msgReadSign');
-            //未读消息减1
-            $('.msgIsReadNum').html(--num);
-
-            // 去掉左侧栏未读消息
-            if(num == 0){
-                $('.commentNotReadNum').remove();
-            } else {
-                $('.commentNotReadNum').html(num);
-            }
-
-            // 去掉导航栏下拉框未读消息
-            var newsNum = $('.newsNum').html();
-            --newsNum;
-            if(newsNum == 0){
-                $('.newsNum').remove();
-            } else {
-                $('.newsNum').html(newsNum);
-            }
+            });
         }
-    })
+    });
 
     //全部标记为已读
     $('.msgIsRead').click(function () {
@@ -382,6 +384,8 @@ function putInCommentInfo(date) {
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
+                    } else if(data['status'] == 103){
+                        dangerNotice(data['message'] + " 已读信息失败");
                     } else {
                         $('.msgIsReadNum').html(0);
                         $('.msgContent').find($('.msgReadSign')).removeClass('msgReadSign');
@@ -459,32 +463,32 @@ function putInLeaveWordInfo(data) {
                     msgType:2
                 },
                 success:function (data) {
+                    //去掉未读红点
+                    parent.find($('.msgReadSign')).removeClass('msgReadSign');
+                    //未读消息减1
+                    $('.msgIsReadNum').html(--num);
+
+                    // 去掉左侧栏未读消息
+                    if(num == 0){
+                        $('.leaveMessageNotReadNum').remove();
+                    } else {
+                        $('.leaveMessageNotReadNum').html(num);
+                    }
+
+                    // 去掉导航栏下拉框未读消息
+                    var newsNum = $('.newsNum').html();
+                    --newsNum;
+                    if(newsNum == 0){
+                        $('.newsNum').remove();
+                    } else {
+                        $('.newsNum').html(newsNum);
+                    }
                 },
                 error:function () {
                 }
-            })
-            //去掉未读红点
-            parent.find($('.msgReadSign')).removeClass('msgReadSign');
-            //未读消息减1
-            $('.msgIsReadNum').html(--num);
-
-            // 去掉左侧栏未读消息
-            if(num == 0){
-                $('.leaveMessageNotReadNum').remove();
-            } else {
-                $('.leaveMessageNotReadNum').html(num);
-            }
-
-            // 去掉导航栏下拉框未读消息
-            var newsNum = $('.newsNum').html();
-            --newsNum;
-            if(newsNum == 0){
-                $('.newsNum').remove();
-            } else {
-                $('.newsNum').html(newsNum);
-            }
+            });
         }
-    })
+    });
 
     //全部标记为已读
     $('.msgIsRead').click(function () {
@@ -502,6 +506,8 @@ function putInLeaveWordInfo(data) {
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
+                    } else if(data['status'] == 103){
+                        dangerNotice(data['message'] + " 已读信息失败");
                     } else {
                         $('.msgIsReadNum').html(0);
                         $('.msgContent').find($('.msgReadSign')).removeClass('msgReadSign');
@@ -585,20 +591,23 @@ function getUserComment(currentPage) {
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
-            }
-            putInCommentInfo(data['data']);
-            scrollTo(0,0);//回到顶部
+            } else if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得评论信息失败");
+            } else {
+                putInCommentInfo(data['data']);
+                scrollTo(0,0);//回到顶部
 
-            //分页
-            $("#commentPagination").paging({
-                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                pages:data['data']['pageInfo']['pages'],//总页数
-                total:data['data']['pageInfo']['total'],//总记录数
-                callback:function(currentPage){
-                    getUserComment(currentPage);
-                }
-            });
+                //分页
+                $("#commentPagination").paging({
+                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                    pages:data['data']['pageInfo']['pages'],//总页数
+                    total:data['data']['pageInfo']['total'],//总记录数
+                    callback:function(currentPage){
+                        getUserComment(currentPage);
+                    }
+                });
+            }
         },
         error:function () {
             alert("获取评论信息失败");
@@ -620,20 +629,23 @@ function getUserLeaveWord(currentPage) {
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
-            }
-            putInLeaveWordInfo(data['data']);
-            scrollTo(0,0);//回到顶部
+            } else if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得留言信息失败");
+            } else {
+                putInLeaveWordInfo(data['data']);
+                scrollTo(0,0);//回到顶部
 
-            //分页
-            $(".leaveWordPagePagination").paging({
-                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                pages:data['data']['pageInfo']['pages'],//总页数
-                total:data['data']['pageInfo']['total'],//总记录数
-                callback:function(currentPage){
-                    getUserLeaveWord(currentPage);
-                }
-            });
+                //分页
+                $(".leaveWordPagePagination").paging({
+                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                    pages:data['data']['pageInfo']['pages'],//总页数
+                    total:data['data']['pageInfo']['total'],//总记录数
+                    callback:function(currentPage){
+                        getUserLeaveWord(currentPage);
+                    }
+                });
+            }
         },
         error:function () {
             alert("获取留言信息失败");
@@ -655,19 +667,22 @@ function getPrivateWordByPublisher(currentPage) {
                 $.get("/toLogin",function(data,status,xhr){
                     window.location.replace("/login");
                 });
-            }
-            putInPrivateWord(data['data']);
+            } else if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得悄悄话失败");
+            } else {
+                putInPrivateWord(data['data']);
 
-            //分页
-            $("#privateWordPagination").paging({
-                rows:data['data']['pageInfo']['pageSize'],//每页显示条数
-                pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
-                pages:data['data']['pageInfo']['pages'],//总页数
-                total:data['data']['pageInfo']['total'],//总记录数
-                callback:function(currentPage){
-                    getPrivateWordByPublisher(currentPage);
-                }
-            });
+                //分页
+                $("#privateWordPagination").paging({
+                    rows:data['data']['pageInfo']['pageSize'],//每页显示条数
+                    pageNum:data['data']['pageInfo']['pageNum'],//当前所在页码
+                    pages:data['data']['pageInfo']['pages'],//总页数
+                    total:data['data']['pageInfo']['total'],//总记录数
+                    callback:function(currentPage){
+                        getPrivateWordByPublisher(currentPage);
+                    }
+                });
+            }
         },
         error:function () {
             alert("获取悄悄话失败");
@@ -703,10 +718,10 @@ $('.userSayBtn').click(function () {
                     $.get("/toLogin",function(data,status,xhr){
                         window.location.replace("/login");
                     });
+                } else if(data['status'] == 103){
+                    dangerNotice(data['message'] + " 发表悄悄话失败");
                 } else {
-                    if(data['status'] == 0){
-                        successNotice("发布悄悄话成功");
-                    }
+                    successNotice("发布悄悄话成功");
                     $('#userSay').val("");
                     getPrivateWordByPublisher(1);
                 }

@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: zhangocean
@@ -130,12 +132,10 @@ public class PrivateWordServiceImpl implements PrivateWordService {
 
     @Override
     public DataMap replyPrivateWord(String replyContent, String username, int id) {
-        JSONObject returnJson = new JSONObject();
+        Map<String, Object> dataMap = new HashMap<>(4);
         privateWordMapper.replyPrivateWord(replyContent, userService.findIdByUsername(username), id);
-        JSONObject replyJson = new JSONObject();
-        replyJson.put("replyContent",replyContent);
-        replyJson.put("replyId",id);
-        returnJson.put("result",replyJson);
-        return DataMap.success().setData(returnJson);
+        dataMap.put("replyContent",replyContent);
+        dataMap.put("replyId",id);
+        return DataMap.success().setData(dataMap);
     }
 }

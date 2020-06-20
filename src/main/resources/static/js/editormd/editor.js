@@ -63,6 +63,9 @@
                 },
                 dataType:"json",
                 success:function (data) {
+                    if (data['status'] == 103){
+                        return;
+                    }
                     var selectCategories = $('#select-categories');
                     selectCategories.empty();
                     selectCategories.append($('<option class="categoriesOption" value="choose">请选择</option>'));
@@ -115,6 +118,9 @@
         },
         dataType:"json",
         success:function (data) {
+            if (data['status'] == 103){
+                return;
+            }
             if(data['status'] != 0){
                 var noticeBoxWrite = $('<div class="notice-box-write">' +
                     '<div class="am-alert am-alert-danger">' +
@@ -139,6 +145,9 @@
         },
         dataType:"json",
         success:function (data) {
+            if (data['status'] == 103){
+                return;
+            }
             if(data['status'] == 0){
                 $('#zhy-editor-title').val(data['data']['articleTitle']);
                 $('#my-editormd-markdown-doc').html(data['data']['articleContent']);
@@ -269,10 +278,10 @@
                         $.get("/toLogin",function(data,status,xhr){
                             window.location.replace("/login");
                         });
-                    } else if(data['status'] == 205) {
+                    } else if(data['status'] == 103) {
+                        alert(data['message'] + " 发表文章失败")
+                    } else if(data['status'] == 204) {
                         alert("发布失败了，都叫你不要发布了，不听嘛")
-                    } else if(data['status'] == 206) {
-                        alert("服务器异常")
                     } else {
                         $('#my-alert').modal('close');
                         window.removeEventListener('beforeunload',fnClose);

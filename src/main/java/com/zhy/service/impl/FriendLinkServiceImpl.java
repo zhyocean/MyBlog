@@ -26,17 +26,12 @@ public class FriendLinkServiceImpl implements FriendLinkService {
     @Override
     public DataMap addFriendLink(FriendLink friendLink) {
         int id = friendLinkMapper.findIsExistByBlogger(friendLink.getBlogger());
-        try {
-            if(id == 0){
-                friendLinkMapper.save(friendLink);
-                return DataMap.success(CodeType.ADD_FRIEND_LINK_SUCCESS)
-                        .setData(friendLink.getId());
-            } else {
-                return DataMap.fail(CodeType.FRIEND_LINK_EXIST);
-            }
-        } catch (Exception e){
-            log.error("add friend link exception", e);
-            return DataMap.fail(CodeType.ADD_FRIEND_LINK_EXCEPTION);
+        if(id == 0){
+            friendLinkMapper.save(friendLink);
+            return DataMap.success(CodeType.ADD_FRIEND_LINK_SUCCESS)
+                    .setData(friendLink.getId());
+        } else {
+            return DataMap.fail(CodeType.FRIEND_LINK_EXIST);
         }
     }
 
@@ -48,24 +43,14 @@ public class FriendLinkServiceImpl implements FriendLinkService {
 
     @Override
     public DataMap updateFriendLink(FriendLink friendLink, int id) {
-        try {
-            friendLinkMapper.updateFriendLink(friendLink, id);
-            return DataMap.success(CodeType.UPDATE_FRIEND_LINK_SUCCESS);
-        } catch (Exception e){
-            log.error("update friend link exception", e);
-            return DataMap.fail(CodeType.UPDATE_FRIEND_LINK_EXCEPTION);
-        }
+        friendLinkMapper.updateFriendLink(friendLink, id);
+        return DataMap.success(CodeType.UPDATE_FRIEND_LINK_SUCCESS);
     }
 
     @Override
     public DataMap deleteFriendLink(int id) {
-        try {
-            friendLinkMapper.deleteFriendLinkById(id);
-            return DataMap.success(CodeType.DELETE_FRIEND_LINK_SUCCESS);
-        } catch (Exception e){
-            log.error("delete friend link exception", e);
-            return DataMap.fail(CodeType.DELETE_FRIEND_LINK_EXCEPTION);
-        }
+        friendLinkMapper.deleteFriendLinkById(id);
+        return DataMap.success(CodeType.DELETE_FRIEND_LINK_SUCCESS);
     }
 
     @Override

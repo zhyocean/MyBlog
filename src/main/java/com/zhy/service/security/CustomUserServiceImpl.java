@@ -21,7 +21,7 @@ import java.util.List;
  * Describe: 用户登录处理
  */
 @Service
-public class CustomUserServiceImpl implements UserDetailsService {
+public class CustomUserServiceImpl implements UserDetailsService{
 
     @Autowired
     UserService userService;

@@ -14,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author: zhangocean
@@ -50,13 +49,12 @@ public class GetPhoneCodeControl {
     private static final String SIGN_NAME = "张海洋ocean";
 
     @PostMapping(value = "/getCode", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String getAuthCode(HttpServletRequest request){
+    public String getAuthCode(@RequestParam("phone") String phone,
+                              @RequestParam("sign") String sign){
 
-        String phone = request.getParameter("phone");
-        String sign = request.getParameter("sign");
         String trueMsgCode = PhoneRandomBuilder.randomBuilder();
 
-//        在redis中保存手机号验证码并设置过期时间
+       //在redis中保存手机号验证码并设置过期时间
         stringRedisService.set(phone, trueMsgCode);
         stringRedisService.expire(phone, 300);
 
@@ -80,7 +78,7 @@ public class GetPhoneCodeControl {
         return JsonResult.success().toJSON();
     }
 
-    public void sendSmsResponse(String phoneNumber, String code, String msgCode) throws ClientException {
+    private void sendSmsResponse(String phoneNumber, String code, String msgCode) throws ClientException {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");

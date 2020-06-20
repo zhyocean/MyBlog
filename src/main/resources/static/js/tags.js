@@ -97,6 +97,8 @@
             success:function (data) {
                 if(data['status'] == 301){
                     putInAllTags(data['data']);
+                } else if(data['status'] == 103){
+                    dangerNotice(data['message'] + " 获得标签失败");
                 } else if(data['status'] == 302) {
                     putInTagArticleInfo(data['data']);
                     scrollTo(0,0);//回到顶部

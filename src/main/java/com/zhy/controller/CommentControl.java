@@ -13,6 +13,7 @@ import com.zhy.utils.DataMap;
 import com.zhy.utils.JsonResult;
 import com.zhy.utils.StringUtil;
 import com.zhy.utils.TimeUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,6 +30,7 @@ import java.security.Principal;
  * Describe: 评论和回复
  */
 @RestController
+@Slf4j
 public class CommentControl {
 
     @Autowired
@@ -47,12 +49,17 @@ public class CommentControl {
     public String getAllComment(@RequestParam("articleId") Long articleId,
                                    @AuthenticationPrincipal Principal principal){
 
-        String username = null;
-        if(principal != null){
-            username = principal.getName();
+        String username = StringUtil.BLANK;
+        try {
+            if(principal != null){
+                username = principal.getName();
+            }
+            DataMap data = commentService.findCommentByArticleId(articleId,username);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("Username [{}] get article [{}] all comment exception", username, articleId, e);
         }
-        DataMap data = commentService.findCommentByArticleId(articleId,username);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -62,19 +69,25 @@ public class CommentControl {
     @PostMapping(value = "/publishComment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PermissionCheck(value = "ROLE_USER")
     public String publishComment(Comment comment,
-                                    @AuthenticationPrincipal Principal principal){
+                                 @AuthenticationPrincipal Principal principal){
+
         String publisher = principal.getName();
-        TimeUtil timeUtil = new TimeUtil();
-        comment.setCommentDate(timeUtil.getFormatDateForFive());
-        int userId = userService.findIdByUsername(publisher);
-        comment.setAnswererId(userId);
-        comment.setRespondentId(userService.findIdByUsername(SiteOwner.SITE_OWNER));
-        comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
+        try {
+            TimeUtil timeUtil = new TimeUtil();
+            comment.setCommentDate(timeUtil.getFormatDateForFive());
+            int userId = userService.findIdByUsername(publisher);
+            comment.setAnswererId(userId);
+            comment.setRespondentId(userService.findIdByUsername(SiteOwner.SITE_OWNER));
+            comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
 
-        commentService.insertComment(comment);
+            commentService.insertComment(comment);
 
-        DataMap data = commentService.findCommentByArticleId(comment.getArticleId(),publisher);
-        return JsonResult.build(data).toJSON();
+            DataMap data = commentService.findCommentByArticleId(comment.getArticleId(),publisher);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("[{}] publish comment [{}] exception", publisher, comment, e);
+        }
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -84,34 +97,40 @@ public class CommentControl {
     @PostMapping(value = "/publishReply", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PermissionCheck(value = "ROLE_USER")
     public String publishReply(Comment comment,
-                                  @RequestParam("parentId") String parentId,
-                                  @RequestParam("respondent") String respondent,
-                                  @AuthenticationPrincipal Principal principal){
+                               @RequestParam("parentId") String parentId,
+                               @RequestParam("respondent") String respondent,
+                               @AuthenticationPrincipal Principal principal){
 
         String username = principal.getName();
 
-        comment.setPId(Long.parseLong(parentId.substring(1)));
-        comment.setAnswererId(userService.findIdByUsername(username));
-        comment.setRespondentId(userService.findIdByUsername(respondent));
-        TimeUtil timeUtil = new TimeUtil();
-        comment.setCommentDate(timeUtil.getFormatDateForFive());
-        String commentContent = comment.getCommentContent();
-        //去掉评论中的@who
-        if('@' == commentContent.charAt(0)){
-            comment.setCommentContent(commentContent.substring(respondent.length() + 1).trim());
-        } else {
-            comment.setCommentContent(commentContent.trim());
+        try {
+            comment.setPId(Long.parseLong(parentId.substring(1)));
+            comment.setAnswererId(userService.findIdByUsername(username));
+            comment.setRespondentId(userService.findIdByUsername(respondent));
+            TimeUtil timeUtil = new TimeUtil();
+            comment.setCommentDate(timeUtil.getFormatDateForFive());
+            String commentContent = comment.getCommentContent();
+
+            //去掉评论中的@who
+            if('@' == commentContent.charAt(0)){
+                comment.setCommentContent(commentContent.substring(respondent.length() + 1).trim());
+            } else {
+                comment.setCommentContent(commentContent.trim());
+            }
+            //判断用户输入内容是否为空字符串
+            if(StringUtil.BLANK.equals(comment.getCommentContent())){
+                return JsonResult.fail(CodeType.COMMENT_BLANK).toJSON();
+            } else {
+                //防止xss攻击
+                comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
+                commentService.insertComment(comment);
+            }
+            DataMap data = commentService.replyReplyReturn(comment, username, respondent);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("[{}] publish reply [{}] exception", username, comment, e);
         }
-        //判断用户输入内容是否为空字符串
-        if(StringUtil.BLANK.equals(comment.getCommentContent())){
-            return JsonResult.fail(CodeType.COMMENT_BLANK).toJSON();
-        } else {
-            //防止xss攻击
-            comment.setCommentContent(JavaScriptCheck.javaScriptCheck(comment.getCommentContent()));
-            commentService.insertComment(comment);
-        }
-        DataMap data = commentService.replyReplyReturn(comment, username, respondent);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
     /**
@@ -137,16 +156,20 @@ public class CommentControl {
                               @AuthenticationPrincipal Principal principal){
 
         String username = principal.getName();
-
-        TimeUtil timeUtil = new TimeUtil();
-        CommentLikesRecord commentLikesRecord = new CommentLikesRecord(Long.parseLong(articleId),
-                Integer.parseInt(respondentId.substring(1)),userService.findIdByUsername(username),timeUtil.getFormatDateForFive());
-        if(commentLikesRecordService.isLiked(commentLikesRecord.getArticleId(), commentLikesRecord.getPId(), username)){
-            return JsonResult.fail(CodeType.MESSAGE_HAS_THUMBS_UP).toJSON();
+        try {
+            TimeUtil timeUtil = new TimeUtil();
+            CommentLikesRecord commentLikesRecord = new CommentLikesRecord(Long.parseLong(articleId),
+                    Integer.parseInt(respondentId.substring(1)),userService.findIdByUsername(username),timeUtil.getFormatDateForFive());
+            if(commentLikesRecordService.isLiked(commentLikesRecord.getArticleId(), commentLikesRecord.getPId(), username)){
+                return JsonResult.fail(CodeType.MESSAGE_HAS_THUMBS_UP).toJSON();
+            }
+            DataMap data = commentService.updateLikeByArticleIdAndId(commentLikesRecord.getArticleId(),commentLikesRecord.getPId());
+            commentLikesRecordService.insertCommentLikesRecord(commentLikesRecord);
+            return JsonResult.build(data).toJSON();
+        } catch (Exception e){
+            log.error("[{}] like article [{}] comment [{}] exception", username, articleId, respondentId, e);
         }
-        DataMap data = commentService.updateLikeByArticleIdAndId(commentLikesRecord.getArticleId(),commentLikesRecord.getPId());
-        commentLikesRecordService.insertCommentLikesRecord(commentLikesRecord);
-        return JsonResult.build(data).toJSON();
+        return JsonResult.fail(CodeType.SERVER_EXCEPTION).toJSON();
     }
 
 }

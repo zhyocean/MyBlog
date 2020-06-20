@@ -67,11 +67,11 @@ public interface LeaveMessageService {
      * 已读一条留言
      * @param id 评论id
      */
-    DataMap readOneLeaveMessageRecord(int id);
+    void readOneLeaveMessageRecord(int id);
 
     /**
      * 全部标记为已读
      */
-    DataMap readAllLeaveMessage(String username);
+    void readAllLeaveMessage(String username);
 
 }

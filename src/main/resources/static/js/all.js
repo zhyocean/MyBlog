@@ -131,9 +131,13 @@ $('#sidebar_toggle').click(function () {
         data:{
         },
         success:function (data) {
-            $('.archivesNum').html(data['data']['archivesNum']);
-            $('.categoriesNum').html(data['data']['categoriesNum']);
-            $('.tagsNum').html(data['data']['tagsNum']);
+            if(data['status'] == 103){
+                dangerNotice(data['message'] + " 获得右侧栏信息失败")
+            } else {
+                $('.archivesNum').html(data['data']['archivesNum']);
+                $('.categoriesNum').html(data['data']['categoriesNum']);
+                $('.tagsNum').html(data['data']['tagsNum']);
+            }
         },
         error:function () {
         }
@@ -151,6 +155,9 @@ $.ajax({
     success:function (data) {
         var thisPageName = window.location.pathname + window.location.search;
         var news = $('.news');
+        if(data['status'] == 103){
+            return;
+        }
         if(data['status'] != 101 && data['data']['result'] != 0){
             news.append($('<span class="newsNum am-badge am-badge-danger am-round">' + data['data']['result']['allNewsNum'] + '</span>'));
             if(thisPageName === "/user"){
@@ -193,7 +200,10 @@ $('.feedbackFormBtn').click(function () {
                     $.get("/toLogin",function(data,status,xhr){
                         window.location.replace("/login");
                     });
-                } else {
+                } else if (data['status'] == 103){
+                    dangerNotice(data['message'] + " 反馈失败")
+                }
+                else {
                     successNotice("反馈成功，我会尽快解决的！");
                     $('.feedback').css("display","none");
                 }

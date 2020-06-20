@@ -337,7 +337,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '19940790216', '张海洋', 'a3caed36f0fe5a01e5f144db8927235e', 'male', '张海洋', '1997-07-05', '1125694337@qq.com', '', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/张海洋/1536759681.jpeg', '2020-06-20 10:29:54');
+INSERT INTO `user` VALUES ('1', '19940790216', '张海洋', 'a3caed36f0fe5a01e5f144db8927235e', 'male', '张海洋', '1997-07-05', '1125694337@qq.com', '', 'https://zhy-myblog.oss-cn-shenzhen.aliyuncs.com/public/user/avatar/张海洋/1575283189.png', '2019-12-02 18:31:15');
 
 -- ----------------------------
 -- Table structure for user_role
